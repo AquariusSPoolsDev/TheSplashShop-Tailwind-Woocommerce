@@ -120,6 +120,7 @@ if ( ! function_exists( 'shopchop_setup' ) ) :
 		// CUSTOM: Add support for WooCommerce
 		add_theme_support( 'woocommerce' );
 
+		// CUSTOM: Add support for WC product gallery
 		add_theme_support( 'wc-product-gallery-zoom' );
 		add_theme_support( 'wc-product-gallery-lightbox' );
 		add_theme_support( 'wc-product-gallery-slider' );
