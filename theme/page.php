@@ -15,7 +15,7 @@ get_header();
 ?>
 <p>page.php (Main WordPress)</p>
 
-	<section id="primary">
+	<section id="primary" class="page-main-template">
 		<main id="main">
 
 			<?php

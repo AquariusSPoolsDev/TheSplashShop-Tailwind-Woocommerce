@@ -34,3 +34,125 @@
 #comments {
 	@apply mx-auto;
 }
+
+/**
+ * ShopChop Page/Post Main wrapper content
+ *
+ * This container is for the whole page. It affects the page content, excluding header and footer.
+ */
+.shopchop-main-content-wrapper {
+	@apply py-12;
+}
+
+/**
+ * ShopChop Single Product Styling
+ */
+.shopchop-wrapper.shopchop-woocommerce {
+	@apply container mx-auto px-6 md:px-10 lg:px-16;
+
+	.woocommerce-breadcrumb {
+		@apply mb-6;
+	}
+
+	.product.type-product {
+		@apply flex flex-wrap gap-6 lg:gap-8 relative;
+	}
+
+	.woocommerce-product-gallery {
+		@apply relative w-full lg:w-[calc(35%-2rem)];
+	}
+
+	.onsale,
+	.woocommerce-product-gallery__trigger {
+		@apply absolute z-1;
+	}
+
+	.onsale {
+		@apply left-4 top-4;
+	}
+
+	.woocommerce-product-gallery__trigger {
+		@apply right-4 top-4;
+	}
+
+	.summary.entry-summary {
+		@apply grow w-full lg:w-[calc(65%-2rem)];
+
+		.product_title {
+			@apply text-3xl md:text-5xl font-semibold tracking-tight mb-4;
+		}
+
+		.woocommerce-product-details__short-description {
+			@apply hidden;
+		}
+
+		.price {
+			@apply font-bold text-2xl md:text-3xl text-primary-400 mb-2.5;
+		}
+
+		.discount-price {
+			@apply inline-flex items-center flex-wrap gap-3;
+
+			.regular {
+				@apply text-grey-300 text-sm;
+			}
+			.discount {
+				@apply px-2.5 py-1 rounded-4xl font-normal text-grey-100 bg-primary-400 text-base;
+			}
+			.sale {}
+		}
+	}
+
+	.woocommerce-tabs {
+		@apply w-full border border-grey-200 rounded-xl overflow-hidden;
+
+		.tabs.wc-tabs {
+			@apply flex gap-10 flex-wrap border-b border-b-grey-200 px-4;
+		}
+
+		.tabs.wc-tabs li {
+			@apply relative font-bold uppercase;
+		}
+
+		.tabs.wc-tabs li a {
+			@apply inline-block py-4 text-grey-300 transition-all;
+		}
+
+		/* ACTIVE TAB */
+		.tabs.wc-tabs li.active a {
+			@apply text-secondary-400;
+		}
+
+		.tabs.wc-tabs li.active a::after {
+			content: "";
+			@apply absolute left-0 right-0 bottom-0 h-1 bg-primary;
+		}
+
+		/* HOVER (inactive only) */
+		.tabs.wc-tabs li:not(.active) a:hover {
+			@apply text-secondary-300;
+		}
+
+		.tabs.wc-tabs li:not(.active) a:hover::after {
+			content: "";
+			@apply absolute left-0 right-0 bottom-0 h-1 bg-secondary-300;
+		}
+
+		.woocommerce-Tabs-panel {
+			@apply p-4 pt-6;
+		}
+
+	}
+}
+
+/**
+ * ShopChop Page Elements
+ */
+
+.woocommerce-message {
+	@apply mb-4 p-4 flex flex-wrap bg-success-100 border-l-4 border-l-success-400 text-success-400 rounded-r-xl focus-visible:ring-0;
+
+	.button.wc-forward {
+		@apply ml-auto;
+	}
+}

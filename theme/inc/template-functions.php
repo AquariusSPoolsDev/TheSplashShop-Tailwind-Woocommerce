@@ -214,7 +214,7 @@ function shopchop_html5_comment( $comment, $args, $depth ) {
 // Removes WooCommerce stylings, leave us blank file to be edited.
 add_filter( 'woocommerce_enqueue_styles', '__return_false' );
 
-
+// Remove WooCommerce wrappers, add custom wrappers
 remove_action( 'woocommerce_before_main_content', 'woocommerce_output_content_wrapper', 10 );
 remove_action( 'woocommerce_after_main_content', 'woocommerce_output_content_wrapper_end', 10 );
 
@@ -231,4 +231,50 @@ function shopchop_wc_wrapper_end() {
     ?>
     </main> <!-- #main wrapper close -->
 	<?php 
+}
+
+/**
+ * CUSTOM: Display discounted price and its percentage
+ */
+add_filter( 'woocommerce_get_price_html', 'shopchop_price_display', 10, 2 );
+
+function shopchop_price_display( $price, $product ) {
+
+    // ---------- NORMAL PRICE ----------
+    if ( ! $product->is_on_sale() ) {
+
+        $regular_price = (float) $product->get_regular_price();
+
+        if ( ! $regular_price ) {
+            return $price;
+        }
+
+        return sprintf(
+            '<span class="price-normal">
+                <span class="regular">%s</span>
+            </span>',
+            wc_price( $regular_price )
+        );
+    }
+
+    // ---------- DISCOUNTED PRICE ----------
+    $regular_price = (float) $product->get_regular_price();
+    $sale_price    = (float) $product->get_sale_price();
+
+    if ( ! $regular_price || ! $sale_price ) {
+        return $price;
+    }
+
+    $discount = round( ( ( $regular_price - $sale_price ) / $regular_price ) * 100 );
+
+    return sprintf(
+        '<span class="discount-price">
+            <del class="regular">%s</del>
+            <span class="discount">-%d%%</span>
+            <span class="sale">%s</span>
+        </span>',
+        wc_price( $regular_price ),
+        $discount,
+        wc_price( $sale_price )
+    );
 }

@@ -7,5 +7,9 @@
  * file and is applied both to the front end and in the block editor.
  */
 body {
-	@apply bg-background text-foreground font-sans;
+	@apply bg-background text-foreground font-body;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	@apply font-headings;
 }

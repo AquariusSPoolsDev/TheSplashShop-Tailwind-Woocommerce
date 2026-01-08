@@ -28,4 +28,4 @@
 
 	<?php get_template_part( 'template-parts/layout/header', 'content' ); ?>
 
-	<div id="content">
+	<div id="content" class="shopchop-main-content-wrapper">

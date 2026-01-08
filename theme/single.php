@@ -10,7 +10,7 @@
 get_header();
 ?>
 <p>single.php (Main WordPress)</p>
-	<section id="primary">
+	<section id="primary" class="single-main-template">
 		<main id="main">
 
 			<?php

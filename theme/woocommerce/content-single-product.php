@@ -31,7 +31,6 @@ if ( post_password_required() ) {
 	return;
 }
 ?>
-<p>content-single-product.php</p>
 
 <div id="product-<?php the_ID(); ?>" <?php wc_product_class( '', $product ); ?>>
 

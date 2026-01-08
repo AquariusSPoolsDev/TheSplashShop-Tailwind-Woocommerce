@@ -17,13 +17,34 @@
 	 * If you are using the classic editor, you should use hardcoded color
 	 * values instead of the `var()` functions below.
      */
-	--color-background: var(--wp--preset--color--background);
-	--color-foreground: var(--wp--preset--color--foreground);
-	--color-primary: var(--wp--preset--color--primary);
-	--color-secondary: var(--wp--preset--color--secondary);
-	--color-tertiary: var(--wp--preset--color--tertiary);
+
+	--color-primary-100: #E0F7FE;
+	--color-primary-200: #72DFF9;
+	--color-primary-300: #02BAE9;
+	--color-primary-400: #007DA1;
+	--color-secondary-100: #F1F5F9;
+	--color-secondary-200: #94A3B8;
+	--color-secondary-300: #1E293B;
+	--color-secondary-400: #0F172A;
+	--color-grey-100: #F8FAFC;
+	--color-grey-200: #CBD5E1;
+	--color-grey-300: #64748B;
+	--color-grey-400: #334155;
+	--color-success-100: #DCFCE7;
+	--color-success-400: #14532D;
+	--color-error-100: #FEE2E2;
+	--color-error-400: #B91C1C;
+
+	--color-background: var(--color-grey-100);
+	--color-foreground: var(--color-secondary-400);
+	--color-primary: var(--color-primary-300);
+	--color-secondary: var(--color-secondary-300);
+	--color-tertiary: var(--color-grey-300);
+	
+	/*
 	--container-content: var(--wp--style--global--content-size);
-	--container-wide: var(--wp--style--global--wide-size);
+	--container-wide: var(--wp--style--global--wide-size); 
+	*/
 
 	/**
 	 * These are the default `font-family` theme variables included with
@@ -36,9 +57,8 @@
 	 * https://github.com/tailwindlabs/tailwindcss/blob/main/packages/tailwindcss/theme.css
 	 * https://tailwindcss.com/docs/theme#default-theme-variable-reference
 	 */
-	--font-sans:
-		ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
-		"Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+	--font-headings: "Rethink Sans", sans-serif, ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+	--font-body: "Geist", sans-serif, ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 	--font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
 	--font-mono:
 		ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,

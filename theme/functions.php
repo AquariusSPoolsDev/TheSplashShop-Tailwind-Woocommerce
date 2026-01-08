@@ -38,7 +38,7 @@ if ( ! defined( 'SHOPCHOP_TYPOGRAPHY_CLASSES' ) ) {
 	 */
 	define(
 		'SHOPCHOP_TYPOGRAPHY_CLASSES',
-		'prose prose-neutral max-w-none prose-a:text-primary'
+		'prose prose-shopchop max-w-none prose-a:text-primary'
 	);
 }
 
@@ -154,6 +154,8 @@ add_action( 'widgets_init', 'shopchop_widgets_init' );
  */
 function shopchop_scripts() {
 	wp_enqueue_style( 'shopchop-style', get_stylesheet_uri(), array(), SHOPCHOP_VERSION );
+	wp_enqueue_style( 'shopchop-fonts-heading', 'https://fonts.googleapis.com/css2?family=Rethink+Sans:wght@400..800&display=swap', array(), SHOPCHOP_VERSION );
+	wp_enqueue_style( 'shopchop-fonts-body', 'https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap', array(), SHOPCHOP_VERSION );
 	wp_enqueue_script( 'shopchop-script', get_template_directory_uri() . '/js/script.min.js', array(), SHOPCHOP_VERSION, true );
 
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {

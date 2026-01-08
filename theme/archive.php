@@ -11,7 +11,7 @@ get_header();
 ?>
 <p>archive.php (Main WordPress)</p>
 
-	<section id="primary">
+	<section id="primary" class="archive-main-template">
 		<main id="main">
 
 		<?php if ( have_posts() ) : ?>

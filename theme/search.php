@@ -10,7 +10,7 @@
 get_header();
 ?>
 
-	<section id="primary">
+	<section id="primary" class="search-main-template">
 		<main id="main">
 
 		<?php if ( have_posts() ) : ?>

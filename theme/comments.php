@@ -19,7 +19,7 @@ if ( post_password_required() ) {
 }
 ?>
 
-<div id="comments">
+<div id="comments" class="comments-main-template">
 
 	<?php
 	if ( have_comments() ) :

@@ -10,7 +10,7 @@
 get_header();
 ?>
 
-	<section id="primary">
+	<section id="primary" class="error-404-main-template">
 		<main id="main">
 
 			<div>

@@ -16,7 +16,7 @@ get_header();
 ?>
 <p>index.php (Main WordPress)</p>
 
-	<section id="primary">
+	<section id="primary" class="index-main-template">
 		<main id="main">
 
 		<?php
