@@ -204,3 +204,31 @@ function shopchop_html5_comment( $comment, $args, $depth ) {
 		</article><!-- .comment-body -->
 	<?php
 }
+
+/**
+ * 
+ * CUSTOM: Use own main container to replace default WooCommerce wrapper
+ * 
+ */
+
+// Removes WooCommerce stylings, leave us blank file to be edited.
+add_filter( 'woocommerce_enqueue_styles', '__return_false' );
+
+
+remove_action( 'woocommerce_before_main_content', 'woocommerce_output_content_wrapper', 10 );
+remove_action( 'woocommerce_after_main_content', 'woocommerce_output_content_wrapper_end', 10 );
+
+add_action( 'woocommerce_before_main_content', 'shopchop_wc_wrapper_start' );
+add_action( 'woocommerce_after_main_content', 'shopchop_wc_wrapper_end' );
+
+function shopchop_wc_wrapper_start() {
+	?>
+    <main id="primary" class="shopchop-wrapper shopchop-woocommerce" role="primary">
+	<?php 
+}
+
+function shopchop_wc_wrapper_end() {
+    ?>
+    </main> <!-- #main wrapper close -->
+	<?php 
+}

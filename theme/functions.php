@@ -128,6 +128,7 @@ if ( ! function_exists( 'shopchop_setup' ) ) :
 endif;
 add_action( 'after_setup_theme', 'shopchop_setup' );
 
+
 /**
  * Register widget area.
  *

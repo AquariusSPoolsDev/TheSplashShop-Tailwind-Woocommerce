@@ -9,6 +9,7 @@
 
 get_header();
 ?>
+<p>archive.php (Main WordPress)</p>
 
 	<section id="primary">
 		<main id="main">

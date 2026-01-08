@@ -9,7 +9,7 @@
 
 get_header();
 ?>
-
+<p>single.php (Main WordPress)</p>
 	<section id="primary">
 		<main id="main">
 

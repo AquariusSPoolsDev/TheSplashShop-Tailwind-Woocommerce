@@ -13,6 +13,7 @@
 
 get_header();
 ?>
+<p>page.php (Main WordPress)</p>
 
 	<section id="primary">
 		<main id="main">
