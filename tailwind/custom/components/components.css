@@ -75,8 +75,10 @@
 		@apply right-4 top-4;
 	}
 
+	
+
 	.summary.entry-summary {
-		@apply grow w-full lg:w-[calc(65%-2rem)];
+		@apply grow w-full lg:w-[calc(65%-2rem)] lg:pl-16;
 
 		.product_title {
 			@apply text-3xl md:text-5xl font-semibold tracking-tight mb-4;

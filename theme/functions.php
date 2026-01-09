@@ -121,9 +121,9 @@ if ( ! function_exists( 'shopchop_setup' ) ) :
 		add_theme_support( 'woocommerce' );
 
 		// CUSTOM: Add support for WC product gallery
-		add_theme_support( 'wc-product-gallery-zoom' );
-		add_theme_support( 'wc-product-gallery-lightbox' );
-		add_theme_support( 'wc-product-gallery-slider' );
+		// add_theme_support( 'wc-product-gallery-zoom' );
+		// add_theme_support( 'wc-product-gallery-lightbox' );
+		// add_theme_support( 'wc-product-gallery-slider' );
 	}
 endif;
 add_action( 'after_setup_theme', 'shopchop_setup' );
@@ -156,7 +156,11 @@ function shopchop_scripts() {
 	wp_enqueue_style( 'shopchop-style', get_stylesheet_uri(), array(), SHOPCHOP_VERSION );
 	wp_enqueue_style( 'shopchop-fonts-heading', 'https://fonts.googleapis.com/css2?family=Rethink+Sans:wght@400..800&display=swap', array(), SHOPCHOP_VERSION );
 	wp_enqueue_style( 'shopchop-fonts-body', 'https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap', array(), SHOPCHOP_VERSION );
+	wp_enqueue_style( 'shopchop-swiper', 'https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css', array(), SHOPCHOP_VERSION );
+	wp_enqueue_style( 'shopchop-glightbox', 'https://cdn.jsdelivr.net/npm/glightbox@3.2.0/dist/css/glightbox.min.css', array(), SHOPCHOP_VERSION );
 	wp_enqueue_script( 'shopchop-script', get_template_directory_uri() . '/js/script.min.js', array(), SHOPCHOP_VERSION, true );
+	wp_enqueue_script( 'shopchop-swiper', 'https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js', array(), SHOPCHOP_VERSION, true );
+	wp_enqueue_script( 'shopchop-glightbox', 'https://cdn.jsdelivr.net/npm/glightbox@3.2.0/dist/js/glightbox.min.js', array(), SHOPCHOP_VERSION, true );
 
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );

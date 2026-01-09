@@ -20,8 +20,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 ?>
 
-<p>single-product/photoswipe.php</p>
-
 <div id="photoswipe-fullscreen-dialog" class="pswp" tabindex="-1" role="dialog" aria-modal="true" aria-hidden="true" aria-label="<?php esc_attr_e( 'Full screen image', 'woocommerce' ); ?>">
 	<div class="pswp__bg"></div>
 	<div class="pswp__scroll-wrap">

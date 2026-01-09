@@ -278,3 +278,5 @@ function shopchop_price_display( $price, $product ) {
         wc_price( $sale_price )
     );
 }
+
+
