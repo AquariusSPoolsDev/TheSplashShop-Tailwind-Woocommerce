@@ -34,7 +34,6 @@ if ( $related_products ) :
 	}
 	?>
 
-<p>single-product/related.php</p>
 	<section class="related products">
 
 		<?php

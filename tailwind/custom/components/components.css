@@ -50,6 +50,19 @@
 .shopchop-wrapper.shopchop-woocommerce {
 	@apply container mx-auto px-6 md:px-10 lg:px-16;
 
+	/* Products Grid and Card */
+	ul.products.columns-4 {
+		@apply grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6;
+
+		li.product {
+			@apply w-full flex flex-col gap-4 border border-grey-200 rounded-xl overflow-hidden;
+
+			img {
+				@apply aspect-square object-cover w-full transition-all overflow-hidden hover:scale-115 active:scale-115 focus:scale-115;
+			}
+		}
+	}
+
 	.woocommerce-breadcrumb {
 		@apply mb-6;
 	}
@@ -64,18 +77,46 @@
 
 	.onsale,
 	.woocommerce-product-gallery__trigger {
-		@apply absolute z-1;
+		@apply absolute z-2;
 	}
 
 	.onsale {
-		@apply left-4 top-4;
+		@apply left-2.5 top-2.5 z-2 uppercase font-semibold text-background bg-primary-400 rounded-full px-4 py-1.5 shadow-sm;
 	}
 
 	.woocommerce-product-gallery__trigger {
-		@apply right-4 top-4;
+		@apply right-2.5 top-2.5 w-8 h-8 flex justify-center items-center bg-background rounded-lg shadow-sm;
 	}
 
-	
+    .woocommerce-product-gallery {
+        @apply flex flex-col gap-4 relative;
+
+		.flex-viewport {
+			@apply rounded-lg overflow-hidden;
+		}
+    }
+
+    .woocommerce-product-gallery__wrapper {
+		.woocommerce-product-gallery__image img {
+			@apply aspect-square object-cover;
+		}
+    }
+
+    .flex-control-nav.flex-control-thumbs {
+        @apply flex flex-row flex-nowrap gap-2 overflow-hidden overflow-x-auto snap-x snap-mandatory w-full scroll-smooth pb-3;
+
+		li {
+			@apply shrink-0 w-[calc((100%-(5*0.5rem))/6)];
+		}
+
+		img {
+			@apply w-full rounded-md border-2 border-transparent transition-all cursor-pointer opacity-60 grayscale-50;
+
+			&.flex-active {
+				@apply border-primary opacity-100 grayscale-0;
+			}
+		}
+    }
 
 	.summary.entry-summary {
 		@apply grow w-full lg:w-[calc(65%-2rem)] lg:pl-16;
@@ -89,7 +130,7 @@
 		}
 
 		.price {
-			@apply font-bold text-2xl md:text-3xl text-primary-400 mb-2.5;
+			@apply font-bold text-2xl md:text-3xl text-primary-400 border-b border-b-grey-200/75 mb-5 pb-5;
 		}
 
 		.discount-price {
@@ -103,47 +144,78 @@
 			}
 			.sale {}
 		}
+
+		.product_meta {
+			@apply border-t border-t-grey-200/75 mt-5 pt-5 flex flex-col gap-1;
+
+			a {
+				@apply underline font-medium transition-all hover:text-primary-400 active:text-primary-400 focus:text-primary-400;
+			}
+		}
 	}
 
 	.woocommerce-tabs {
 		@apply w-full border border-grey-200 rounded-xl overflow-hidden;
 
 		.tabs.wc-tabs {
-			@apply flex gap-10 flex-wrap border-b border-b-grey-200 px-4;
+			@apply flex gap-10 flex-nowrap border-b border-b-grey-200 px-4 overflow-hidden overflow-x-auto snap-x snap-mandatory;
 		}
 
 		.tabs.wc-tabs li {
 			@apply relative font-bold uppercase;
-		}
 
-		.tabs.wc-tabs li a {
-			@apply inline-block py-4 text-grey-300 transition-all;
-		}
+			a {
+				@apply inline-block py-4 text-grey-300 transition-all;
+			}
 
-		/* ACTIVE TAB */
-		.tabs.wc-tabs li.active a {
-			@apply text-secondary-400;
-		}
+			&.active a {
+				@apply text-secondary-400;
 
-		.tabs.wc-tabs li.active a::after {
-			content: "";
-			@apply absolute left-0 right-0 bottom-0 h-1 bg-primary;
-		}
+				&::after {
+					@apply content-[""] absolute left-0 right-0 bottom-0 h-1 bg-primary;
+				}
+			}
 
-		/* HOVER (inactive only) */
-		.tabs.wc-tabs li:not(.active) a:hover {
-			@apply text-secondary-300;
-		}
+			&:not(.active) a:hover {
+				@apply text-secondary-300;
 
-		.tabs.wc-tabs li:not(.active) a:hover::after {
-			content: "";
-			@apply absolute left-0 right-0 bottom-0 h-1 bg-secondary-300;
+				&::after {
+					@apply absolute left-0 right-0 bottom-0 h-1 bg-secondary-300;
+				}
+			}
 		}
 
 		.woocommerce-Tabs-panel {
-			@apply p-4 pt-6;
+			@apply p-4 md:p-6 pt-6 leading-relaxed;
+
+			h2 {
+				@apply mb-4 text-2xl font-semibold;
+			}
 		}
 
+	}
+
+	.woocommerce-product-attributes {
+		@apply w-full;
+
+		tbody {
+			@apply border-t text-left border-t-grey-200/75;
+
+			tr {
+				@apply border-b border-b-grey-200/75;
+			}
+
+			th,
+			td {
+				@apply px-5 py-2;
+			}
+		}
+	}
+
+	.related.products {
+		h2 {
+			@apply mb-8 text-3xl lg:text-4xl font-bold;
+		}
 	}
 }
 

@@ -23,7 +23,6 @@ if ( ! $product_attributes ) {
 	return;
 }
 ?>
-<p>single-product/product-attributes.php</p>
 <table class="woocommerce-product-attributes shop_attributes" aria-label="<?php esc_attr_e( 'Product Details', 'woocommerce' ); ?>">
 	<?php foreach ( $product_attributes as $product_attribute_key => $product_attribute ) : ?>
 		<tr class="woocommerce-product-attributes-item woocommerce-product-attributes-item--<?php echo esc_attr( $product_attribute_key ); ?>">
