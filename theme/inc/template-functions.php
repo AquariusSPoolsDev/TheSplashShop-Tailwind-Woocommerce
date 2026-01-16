@@ -205,6 +205,10 @@ function shopchop_html5_comment( $comment, $args, $depth ) {
 	<?php
 }
 
+// Hide Admin Bar
+add_filter('show_admin_bar', '__return_false');
+
+
 /**
  * 
  * CUSTOM: Use own main container to replace default WooCommerce wrapper
@@ -280,3 +284,101 @@ function shopchop_price_display( $price, $product ) {
 }
 
 
+/**
+ * Add custom wrappers to WooCommerce loop items
+ */
+
+// --- 1. Remove Default Structure ---
+remove_action( 'woocommerce_before_shop_loop_item', 'woocommerce_template_loop_product_link_open', 10 );
+remove_action( 'woocommerce_after_shop_loop_item', 'woocommerce_template_loop_product_link_close', 5 );
+
+// --- 2. Open Main Link with 'group' class & Image Wrapper ---
+add_action( 'woocommerce_before_shop_loop_item', function() {
+    global $product;
+    
+    $classes = 'woocommerce-LoopProduct-link woocommerce-loop-product__link group';
+    
+    echo '<a href="' . esc_url( get_permalink( $product->get_id() ) ) . '" class="' . esc_attr( $classes ) . '">';
+}, 5 );
+
+add_action( 'woocommerce_before_shop_loop_item_title', function() {
+    echo '<div class="product-image-wrapper">';
+}, 5 );
+
+// --- 3. Close Image Wrapper & Open Details Wrapper ---
+add_action( 'woocommerce_before_shop_loop_item_title', function() {
+    echo '</div>'; // Close .product-image-wrapper
+    echo '<div class="product-details-wrapper">';
+}, 15 );
+
+// --- 4. Close Details Wrapper & Main Link ---
+add_action( 'woocommerce_after_shop_loop_item', function() {
+    echo '</div>'; // Close .product-details-wrapper
+    echo '</a>'; // Close main link
+}, 5 );
+
+// Wrap cart buttons in a container
+add_action( 'woocommerce_after_shop_loop_item', function() {
+    echo '<div class="product-actions">';
+}, 9 );
+
+add_action( 'woocommerce_after_shop_loop_item', function() {
+    echo '</div>'; // Close .product-actions
+}, 11 );
+
+
+add_action( 'wp_footer', 'ajax_auto_update_cart_script' );
+function ajax_auto_update_cart_script() {
+    if ( is_cart() ) {
+        ?>
+        <script type="text/javascript">
+            jQuery( function( $ ) {
+                let timeout;
+                $( document.body ).on( 'updated_cart_totals', function() {
+                    attachQtyListener();
+                });
+
+                function attachQtyListener() {
+                    $( 'div.woocommerce' ).on( 'change', 'input.qty', function() {
+                        if ( timeout !== undefined ) {
+                            clearTimeout( timeout );
+                        }
+                        timeout = setTimeout( function() {
+                            $( '[name="update_cart"]' ).trigger( 'click' );
+                        }, 500 );
+                    });
+                }
+
+                attachQtyListener();
+            });
+        </script>
+        <?php
+    }
+}
+
+
+// Disable Select2 for WooCommerce country/state fields
+add_filter( 'woocommerce_enqueue_styles', 'disable_woo_select2', 99 );
+function disable_woo_select2( $enqueue_styles ) {
+    wp_dequeue_script( 'select2' );
+    wp_deregister_script( 'select2' );
+    wp_dequeue_style( 'select2' );
+    wp_deregister_style( 'select2' );
+    return $enqueue_styles;
+}
+
+/**
+ * Wrap the Result Count and Ordering dropdown into a custom div
+ */
+
+// 1. Open the div BEFORE the result count (Priority 15)
+add_action( 'woocommerce_before_shop_loop', 'opening_wrapper_before_listing', 15 );
+function opening_wrapper_before_listing() {
+    echo '<div class="shop-utility-wrapper">';
+}
+
+// 2. Close the div AFTER the ordering form (Priority 35)
+add_action( 'woocommerce_before_shop_loop', 'closing_wrapper_before_listing', 35 );
+function closing_wrapper_before_listing() {
+    echo '</div>';
+}

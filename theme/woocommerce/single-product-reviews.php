@@ -19,27 +19,52 @@ defined( 'ABSPATH' ) || exit;
 
 global $product;
 
+$counts = $product->get_rating_counts();
+$total_count = $product->get_review_count();
+$average = $product->get_average_rating();
+
 if ( ! comments_open() ) {
 	return;
 }
 
 ?>
-<p>single-product-reviews.php</p>
-
 <div id="reviews" class="woocommerce-Reviews">
 	<div id="comments">
 		<h2 class="woocommerce-Reviews-title">
-			<?php
-			$count = $product->get_review_count();
-			if ( $count && wc_review_ratings_enabled() ) {
-				/* translators: 1: reviews count 2: product name */
-				$reviews_title = sprintf( esc_html( _n( '%1$s review for %2$s', '%1$s reviews for %2$s', $count, 'woocommerce' ) ), esc_html( $count ), '<span>' . get_the_title() . '</span>' );
-				echo apply_filters( 'woocommerce_reviews_title', $reviews_title, $count, $product ); // WPCS: XSS ok.
-			} else {
-				esc_html_e( 'Reviews', 'woocommerce' );
-			}
+			<?php esc_html_e( 'Reviews', 'woocommerce' );
+			// $count = $product->get_review_count();
+			// if ( $count && wc_review_ratings_enabled() ) {
+			// 	/* translators: 1: reviews count 2: product name */
+			// 	$reviews_title = sprintf( esc_html( _n( '%1$s review for %2$s', '%1$s reviews for %2$s', $count, 'woocommerce' ) ), esc_html( $count ), '<span>' . get_the_title() . '</span>' );
+			// 	echo apply_filters( 'woocommerce_reviews_title', $reviews_title, $count, $product ); // WPCS: XSS ok.
+			// } else {
+			// 	esc_html_e( 'Reviews', 'woocommerce' );
+			// }
 			?>
 		</h2>
+
+		<div class="review-summary-container">
+			<div class="summary-score-box">
+				<span class="big-score"><?php echo number_format($average, 1); ?></span>
+				<span class="score-out-of">/ 5</span>
+				<p class="total-reviews-label"><?php echo $total_count; ?> reviews total</p>
+			</div>
+
+			<div class="summary-bars-box">
+				<?php foreach ( range( 5, 1 ) as $level ) : 
+					$qty = isset( $counts[$level] ) ? $counts[$level] : 0;
+					$percent = ( $total_count > 0 ) ? ( $qty / $total_count ) * 100 : 0;
+				?>
+					<div class="bar-row" title="<?php echo $qty; ?> reviews with <?php echo $level; ?>.0 stars">
+						<span class="star-label"><?php echo $level; ?>.0</span>
+						<div class="bar-track">
+							<div class="bar-fill" style="width: <?php echo $percent; ?>%;"></div>
+						</div>
+						<span class="count-label"><?php echo $qty; ?></span>
+					</div>
+				<?php endforeach; ?>
+			</div>
+		</div>
 
 		<?php if ( have_comments() ) : ?>
 			<ol class="commentlist">

@@ -36,14 +36,14 @@ if ( $total <= 1 ) {
 			array( // WPCS: XSS ok.
 				'base'      => $base,
 				'format'    => $format,
-				'add_args'  => false,
+				'add_args'  => true,
 				'current'   => max( 1, $current ),
 				'total'     => $total,
-				'prev_text' => is_rtl() ? '&rarr;' : '&larr;',
-				'next_text' => is_rtl() ? '&larr;' : '&rarr;',
+				'prev_text' => '&lsaquo;',
+				'next_text' => '&rsaquo;',
 				'type'      => 'list',
-				'end_size'  => 3,
-				'mid_size'  => 3,
+				'end_size'  => 0,
+				'mid_size'  => 0,
 			)
 		)
 	);
