@@ -21,7 +21,7 @@
 	.button.wc-forward,
 	a.restore-item,
 	a {
-		@apply ml-auto h-auto no-underline bg-secondary hover:bg-secondary-400 active:bg-secondary-400 focus:bg-secondary-400 text-background normal-case text-base px-5 py-2 rounded-lg;
+		@apply ms-auto h-auto bg-secondary hover:bg-secondary-400 active:bg-secondary-400 focus:bg-secondary-400 text-background normal-case text-base px-5 py-2 rounded-lg;
 	}
 }
 
@@ -663,7 +663,7 @@ label { @apply font-semibold; }
 									@apply grow mb-1;
 
 									.cart-product-title {
-										@apply text-lg font-semibold no-underline text-foreground;
+										@apply text-lg font-semibold text-foreground;
 									}
 
 									.cart-item-variations {
@@ -675,7 +675,7 @@ label { @apply font-semibold; }
 									@apply w-8 h-8 text-center;
 
 									a {
-										@apply no-underline text-3xl font-bold text-error-400 transition-all hover:text-error-400/75 active:text-error-400/75 focus:text-error-400/75;
+										@apply text-3xl font-bold text-error-400 transition-all hover:text-error-400/75 active:text-error-400/75 focus:text-error-400/75;
 									}
 								}
 
@@ -766,7 +766,7 @@ label { @apply font-semibold; }
 		} 
 
 		.checkout-button.button {
-			@apply text-background hover:text-background active:text-background focus:text-background flex items-center justify-center text-center text-xl no-underline rounded-xl;
+			@apply text-background hover:text-background active:text-background focus:text-background flex items-center justify-center text-center text-xl rounded-xl;
 		}
 	}
 }
@@ -775,7 +775,195 @@ label { @apply font-semibold; }
 	@apply py-8;
 
 	.button {
-		@apply text-background hover:text-background no-underline h-14 px-3 flex justify-center items-center;
+		@apply text-background hover:text-background h-14 px-3 flex justify-center items-center;
 	}
 }
 /* WooCommerce Checkout */
+
+
+/* WooCommmerce My Account - ShopChop Wrapper */
+.shopchop-myaccount-wrapper {
+	@apply grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6 lg:gap-12;
+
+	.woocommerce-MyAccount-navigation {
+		ul {
+			@apply p-0 m-0 max-md:p-2 max-md:flex max-md:gap-2 max-md:overflow-x-auto max-md:border-2 max-md:border-grey-200 max-md:rounded-xl max-md:snap-x max-md:scroll-smooth md:block;
+		}
+
+		li {
+			@apply list-none p-0 m-0 max-md:snap-start;
+		}
+
+		a {
+			@apply max-md:w-max max-md:px-6.5 py-3 w-full block text-grey-300 transition-all hover:text-foreground active:text-foreground focus:text-foreground;
+		}
+
+		.is-active a {
+			@apply max-md:shadow-sm max-md:rounded-xl text-foreground;
+		}
+	}
+
+	.woocommerce-MyAccount-content {
+		@apply md:col-span-2 lg:col-span-3;
+
+		/* Card Stylings for My Account, may be used almost all */
+		.user-hero-card,
+		.user-action-order,
+		.user-action-billing,
+		.user-action-account-edit,
+		.woocommerce-Address {
+			@apply p-4 lg:p-6 border-2 border-grey-200 rounded-xl;
+		}
+
+		h2, h3, p, img { @apply m-0; }
+
+		h2 {
+			@apply text-xl lg:text-2xl mb-4;
+		}
+
+		hr { @apply my-8 lg:my-12 border-grey-200; }
+
+		form p {
+			@apply flex flex-col mb-6;
+		}
+		form input, form select {
+			@apply max-w-full;
+		}
+
+		/* My Account Dashboard */
+		.dashboard-user {
+			@apply mb-8;
+
+			.user-hero-card {
+				@apply flex flex-wrap gap-4 lg:gap-8;
+				
+				.user-icon {
+					@apply shrink-0 w-16 h-16 lg:w-24 lg:h-24;
+
+					img {
+						@apply rounded-full;
+					}
+				} 
+
+				.user-details {
+					@apply grow;
+
+					h2 {
+						@apply text-xl lg:text-2xl;
+					}
+
+					hr {
+						@apply border-grey-200 my-1.5 lg:my-4;
+					}
+
+					p {
+						@apply text-grey-300 text-sm;
+					}
+				}
+
+				.user-links {
+					@apply flex flex-row gap-4 lg:gap-3 lg:flex-col text-center items-center;
+
+					.user-logout {
+						@apply h-auto px-8 lg:px-10 py-2 normal-case transition-all bg-transparent border-2 text-secondary-400 border-secondary-400 hover:bg-secondary-100 active:bg-secondary-100 focus:bg-secondary-100 text-base;
+					}
+
+					.admin-access {
+						@apply text-primary-400 underline! text-sm transition-all hover:no-underline! active:no-underline! focus:no-underline!;
+					}
+				}
+			}
+		}
+
+		.dashboard-user-actions {
+			@apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 mt-8;
+
+			h3 {
+				@apply text-xl font-bold mb-1;
+			}
+
+			p {
+				@apply text-grey-300 text-sm;
+			}
+
+			.action-icon {
+				@apply w-20 h-20 rounded-full bg-primary-100 shrink-0 flex items-center justify-center;
+
+				svg {
+					@apply w-10 h-10 text-primary-400;
+				}
+			}
+
+			.user-action-order,
+			.user-action-billing,
+			.user-action-account-edit {
+				@apply flex items-center gap-4 transition-all hover:bg-secondary-100/50 active:bg-secondary-100/50 focus:bg-secondary-100/50 hover:border-secondary active:border-secondary focus:border-secondary;
+			}
+		}
+		/* My Account Dashboard */
+
+		/* My Account - Address */
+		.woocommerce-Address {
+			@apply mt-6;
+
+			.woocommerce-Address-title {
+				@apply flex flex-wrap gap-2;
+
+				h2 {@apply mb-0; }
+
+				.edit {
+					@apply rounded-xl px-3 py-1 text-sm transition-all bg-transparent border-2 text-secondary-400 border-secondary-400 hover:bg-secondary-100 active:bg-secondary-100 focus:bg-secondary-100 ms-auto;
+				}
+			}
+
+			address {
+				@apply mt-4 not-italic;
+			}
+		}
+		/* My Account - Address */
+
+		/* My Account - Edit Address */
+		.woocommerce-address-fields__field-wrapper {
+			@apply flex flex-wrap gap-x-6;
+
+			.form-row {
+				@apply w-full md:w-[calc(50%-0.75rem)] nth-[1]:w-full nth-[2]:w-full;
+			}
+		}
+
+		.woocommerce-address-fields>p:last-child {
+			@apply max-w-max;
+
+			button {
+				@apply text-base normal-case px-4;
+			}			
+		}
+		/* My Account - Edit Address */
+
+		/* My Account - Account Details */
+		.woocommerce-EditAccountForm.edit-account {
+			@apply flex flex-wrap gap-x-6;
+
+			.woocommerce-form-row {
+				@apply w-full md:w-[calc(50%-0.75rem)];
+
+				&.form-row-first {
+					@apply w-full;
+				}
+			}
+
+			fieldset {
+				@apply w-full; 
+
+				legend {
+					@apply text-xl lg:text-2xl font-bold mb-4;
+				}
+			}
+
+			>p>button[type=submit] {
+				@apply text-base normal-case px-4;
+			}	
+		}
+		/* My Account - Account Details */
+	}
+}

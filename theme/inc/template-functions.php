@@ -413,3 +413,46 @@ function pill_button_variation_swatches($html, $args) {
 // 2. Ensure all variation data is available to JS (Increase AJAX threshold)
 add_filter( 'woocommerce_ajax_variation_threshold', function() { return 100; } );
 
+// Form Fields Change
+add_filter( 'woocommerce_default_address_fields' , 'shopchop_override_address_fields' );
+
+function shopchop_override_address_fields( $address_fields ) {
+    unset($address_fields['last_name']);
+    unset($address_fields['address_2']);
+
+    $address_fields['first_name']['label'] = __('Name', 'woocommerce');
+    $address_fields['first_name']['placeholder'] = __('Name', 'woocommerce');
+
+    $address_fields['country']['label']   = __('Country', 'woocommerce');
+    $address_fields['address_1']['label'] = __('Address', 'woocommerce');
+    $address_fields['city']['label']      = __('City', 'woocommerce');
+    $address_fields['state']['label']     = __('State', 'woocommerce');
+    $address_fields['postcode']['label']  = __('Postcode', 'woocommerce');
+
+	$address_fields['first_name']['autocomplete'] = 'name';
+
+    return $address_fields;
+}
+
+add_filter( 'woocommerce_save_account_details_required_fields', 'remove_account_details_last_name', 10, 1 );
+
+function remove_account_details_last_name( $fields ) {
+    unset( $fields['account_last_name'] );
+    return $fields;
+}
+
+
+// Address Reorder Form Field
+// Use this to re-order the fields in your functions.php
+add_filter( 'woocommerce_default_address_fields', 'shopchop_reorder_fields' );
+
+function shopchop_reorder_fields( $fields ) {
+    $fields['first_name']['priority'] = 10;
+    $fields['address_1']['priority']  = 20;
+    $fields['postcode']['priority']   = 30; // Moved up
+    $fields['city']['priority']       = 40;
+    $fields['state']['priority']      = 50;
+    $fields['country']['priority']     = 60;
+    
+    return $fields;
+}

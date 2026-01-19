@@ -242,3 +242,17 @@ jQuery(document).ready(function($) {
         }
     });
 });
+
+
+// My Account Scroll Behabviour
+document.addEventListener("DOMContentLoaded", function() {
+    const activeLink = document.querySelector('.is-active');
+    if (activeLink) {
+        // This will scroll the horizontal menu to the active item automatically
+        activeLink.scrollIntoView({
+            behavior: 'smooth',
+            block: 'nearest',
+            inline: 'center'
+        });
+    }
+});
