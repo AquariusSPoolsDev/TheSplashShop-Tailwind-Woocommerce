@@ -63,6 +63,26 @@ label { @apply font-semibold; }
 /* HIDE SIDEBAR ID IN BODY TAG */
 #sidebar { @apply hidden!; }
 
+/* Input Number Quantity with Buttons */
+.quantity-nav {
+	@apply inline-flex h-14 items-center border-2 border-grey-200 rounded-lg overflow-hidden;
+
+	.quantity {
+		input::-webkit-outer-spin-button,
+		input::-webkit-inner-spin-button {
+			@apply hidden m-0;
+		}
+
+		input.qty {
+			@apply w-15 border-none! rounded-none! text-center font-bold p-0;
+		}
+	}
+
+	.qty-btn {
+		@apply w-13 h-full border-0 cursor-pointer font-semibold text-2xl text-grey-300 flex items-center justify-center transition-all hover:bg-secondary-100 hover:text-secondary active:bg-secondary-100 active:text-secondary focus:bg-secondary-100 focus:text-secondary;
+	}
+}
+
 /**
  * Post title styles
  *
@@ -153,7 +173,7 @@ label { @apply font-semibold; }
 						@apply text-base md:text-xl text-primary-400 w-full;
 
 						.discount-price .regular {
-							@apply text-grey-300 text-sm md:text-base font-medium;
+							@apply text-grey-300 text-sm md:text-base font-normal;
 						}
 
 						.discount-price .discount {
@@ -300,7 +320,7 @@ label { @apply font-semibold; }
 			@apply hidden!;
 		}
 
-		.price {
+		.price.single-product-price {
 			@apply font-bold text-2xl md:text-3xl text-primary-400 border-b border-b-grey-200 mb-5 pb-5 w-full;
 		}
 
@@ -308,7 +328,7 @@ label { @apply font-semibold; }
 			@apply inline-flex items-center flex-wrap gap-3;
 
 			.regular {
-				@apply text-grey-300 text-sm;
+				@apply text-grey-300 text-sm font-normal;
 			}
 			.discount {
 				@apply px-2.5 py-1 rounded-4xl font-normal text-grey-100 bg-primary-400 text-base;
@@ -319,19 +339,15 @@ label { @apply font-semibold; }
 		form.cart {
 			@apply flex flex-wrap gap-3 w-full;
 
-			input {
-				@apply w-20;
-			}
-
 			.button {
-				@apply px-6;
+				@apply px-8;
 			}
 
 			&.variations_form {
 				@apply flex-col;
 
 				.woocommerce-variation-add-to-cart {
-					@apply flex gap-3;
+					@apply flex flex-wrap gap-3;
 				}
 
 				.woocommerce-variation-description {
@@ -340,6 +356,45 @@ label { @apply font-semibold; }
 
 				.woocommerce-variation-price {
 					@apply hidden;
+				}
+
+				table tr,
+				table th,
+				table td {
+					@apply flex flex-wrap;
+				}
+
+				table tr,
+				table th {
+					@apply flex-col content-start;
+				}
+
+				table tr {
+					@apply mb-4 gap-2;
+				}
+
+				table td {
+					@apply items-center gap-5;
+				}
+		
+				.pill-swatches-container {
+					@apply flex flex-wrap gap-2.5;
+
+					.pill-swatch {
+						@apply cursor-pointer rounded-full font-medium px-6.5 py-2 border-2 border-grey-200 text-secondary bg-white transition-all hover:bg-secondary-100 active:bg-secondary-100 focus:bg-secondary-100;
+
+						&.active {
+							@apply bg-secondary-400 border-secondary-400 text-white;
+						}
+
+						&.disabled { 
+							@apply bg-grey-200 text-grey-300 border-grey-200 cursor-not-allowed;
+						}
+					}
+				}
+
+				.reset_variations {
+					@apply text-lg font-medium text-tertiary transition-all hover:text-secondary;
 				}
 			}
 		}
@@ -539,7 +594,7 @@ label { @apply font-semibold; }
 
 /* WooCommerce Cart */
 .classic-cart {
-	@apply flex flex-wrap gap-4 lg:gap-20 lg:gap-y-0;
+	@apply flex flex-wrap lg:gap-20;
 
 	p, ul, li {
 		@apply m-0 p-0 list-none;
@@ -552,11 +607,11 @@ label { @apply font-semibold; }
 	}
 
 	.woocommerce-cart-form {
-		@apply lg:w-[calc(60%-2.5rem)];
+		@apply lg:w-[calc(60%-2.5rem)] mb-4 lg:mb-0;
 	}
 
 	.cart-collaterals {
-		@apply lg:w-[calc(40%-2.5rem)];
+		@apply lg:w-[calc(40%-2.5rem)] mt-4 lg:mt-0;
 	}
 
 	button[name="update_cart"] {
@@ -573,22 +628,100 @@ label { @apply font-semibold; }
 		@apply text-sm md:text-base;
 	}
 
-	.woocommerce-cart-form table.shop_table {
-		thead {
-			@apply hidden!;
+	.woocommerce-cart-form {
+		.cart-table-wrapper {
+			@apply p-4 md:p-6 border bg-white border-grey-200 rounded-lg overflow-hidden mb-8;
+
+			table { 
+				@apply my-0; 
+
+				tbody {
+					@apply flex flex-wrap flex-col;
+
+					tr {
+						@apply flex gap-3 lg:gap-6 border-b-grey-200 first:pt-0 last:pb-0 py-4;
+
+						td {
+							@apply p-0;
+
+							&.cart-image-wrapper {
+								@apply h-24 w-24 lg:h-40 lg:w-40 basis-24 lg:basis-40 aspect-square;
+
+								.product-thumbnail {
+									@apply rounded-xl overflow-hidden;
+								}
+
+								img {
+									@apply m-0 h-24 w-24 lg:h-40 lg:w-40;
+								}
+							}
+
+							&.cart-product-wrapper {
+								@apply flex flex-wrap content-start gap-1 w-full;
+
+								.product-name {
+									@apply grow mb-1;
+
+									.cart-product-title {
+										@apply text-lg font-semibold no-underline text-foreground;
+									}
+
+									.cart-item-variations {
+										@apply text-grey-300 text-sm font-normal;
+									}
+								}
+
+								.product-remove {
+									@apply w-8 h-8 text-center;
+
+									a {
+										@apply no-underline text-3xl font-bold text-error-400 transition-all hover:text-error-400/75 active:text-error-400/75 focus:text-error-400/75;
+									}
+								}
+
+								.product-quantity {
+									@apply w-full my-0.5;
+
+									.quantity-nav {
+										@apply h-8 lg:h-10;
+
+										.qty-btn {
+											@apply w-8 lg:w-10 text-lg lg:text-xl;
+										}
+
+										.quantity .input.qty {
+											@apply h-8 text-base;
+										}
+									}
+								}
+
+								.product-price {
+									@apply w-full text-grey-300 text-xs font-medium mb-1;
+								}
+
+								.product-subtotal {
+									@apply w-full text-primary-400 text-lg font-bold;
+								}
+							}
+						}
+					}
+				}
+			}
 		}
 
-		.coupon {
-			@apply flex flex-wrap gap-3 justify-end;
+		.cart-coupon-wrapper {
+			.coupon {
+				@apply flex gap-3 justify-end;
 
-			.coupon-error-notice {
-				@apply w-full text-end italic text-error-400;
+				.coupon-error-notice {
+					@apply w-full text-end italic text-error-400;
+				}
 			}
 		}
 	}
 
 	.cart-collaterals .cart_totals {
-		@apply p-4 md:p-6 border border-grey-200 rounded-lg overflow-hidden;
+		@apply p-4 md:p-6 border bg-white border-grey-200 rounded-lg overflow-hidden;
 
 		h2 {
 			@apply mt-0 mb-4 text-2xl;

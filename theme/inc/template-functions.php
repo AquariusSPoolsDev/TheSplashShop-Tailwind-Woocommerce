@@ -382,3 +382,34 @@ add_action( 'woocommerce_before_shop_loop', 'closing_wrapper_before_listing', 35
 function closing_wrapper_before_listing() {
     echo '</div>';
 }
+
+/**
+ * Variation Radio Button
+ */
+
+// 1. Convert dropdowns to pills
+add_filter('woocommerce_dropdown_variation_attribute_options_html', 'pill_button_variation_swatches', 10, 2);
+function pill_button_variation_swatches($html, $args) {
+    $options = $args['options'];
+    $product = $args['product'];
+    $attribute = $args['attribute'];
+    $selected = $args['selected'];
+
+    if (empty($options) || !$product) return $html;
+
+    $container = '<div class="pill-swatches-container" data-attribute_name="attribute_' . esc_attr(sanitize_title($attribute)) . '">';
+    foreach ($options as $option) {
+        $active_class = ($selected === $option) ? 'active' : '';
+        $container .= sprintf(
+            '<button type="button" class="pill-swatch %s" data-value="%s">%s</button>',
+            $active_class, esc_attr($option), esc_html($option)
+        );
+    }
+    $container .= '</div>';
+
+    return '<div style="display:none;">' . $html . '</div>' . $container;
+}
+
+// 2. Ensure all variation data is available to JS (Increase AJAX threshold)
+add_filter( 'woocommerce_ajax_variation_threshold', function() { return 100; } );
+

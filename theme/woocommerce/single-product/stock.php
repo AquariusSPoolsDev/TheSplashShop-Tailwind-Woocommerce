@@ -20,5 +20,4 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 ?>
-<p>single-product/stock.php</p>
-<p class="stock <?php echo esc_attr( $class ); ?>"><?php echo wp_kses_post( $availability ); ?></p>
+<p class="stock mb-6 text-xl text-error-400 font-semibold <?php echo esc_attr( $class ); ?>"><?php echo wp_kses_post( $availability ); ?></p>

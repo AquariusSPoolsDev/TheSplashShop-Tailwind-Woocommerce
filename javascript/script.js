@@ -156,3 +156,89 @@ jQuery(function($) {
         $('.variations_form').data('price_hold', $mainPrice.html());
     });
 });
+
+
+// variation radio button
+jQuery(document).ready(function($) {
+    var $form = $('.variations_form');
+    
+    $(document).on('click', '.pill-swatch', function(e) {
+        e.preventDefault();
+        var $btn = $(this);
+        if ($btn.hasClass('disabled')) return;
+
+        var val = $btn.data('value');
+        var $container = $btn.closest('.pill-swatches-container');
+        
+        // Update the real (hidden) select
+        $container.prev('div').find('select').val(val).trigger('change');
+        
+        $btn.addClass('active').siblings().removeClass('active');
+        updatePillAvailability();
+    });
+
+    function updatePillAvailability() {
+        var allVariations = $form.data('product_variations');
+        var selectedData = {};
+
+        // Get currently selected attributes
+        $form.find('.pill-swatches-container').each(function() {
+            var attr = $(this).data('attribute_name');
+            var val = $(this).find('.pill-swatch.active').data('value');
+            if (val) selectedData[attr] = val;
+        });
+
+        // Loop through all pills to check if they should be enabled
+        $form.find('.pill-swatch').each(function() {
+            var $pill = $(this);
+            var pillAttr = $pill.closest('.pill-swatches-container').data('attribute_name');
+            var pillVal = $pill.data('value');
+            
+            // Create a test "selection" including this pill
+            var testSelection = $.extend({}, selectedData);
+            testSelection[pillAttr] = pillVal;
+
+            // Check if ANY variation matches this potential selection
+            var isPossible = allVariations.some(function(variation) {
+                var match = true;
+                for (var attr in testSelection) {
+                    // Check if variation matches selected attribute (or is "any")
+                    if (variation.attributes[attr] && variation.attributes[attr] !== "" && variation.attributes[attr] !== testSelection[attr]) {
+                        match = false;
+                    }
+                }
+                return match && variation.is_purchasable;
+            });
+
+            $pill.toggleClass('disabled', !isPossible);
+
+        });
+    }
+
+    $form.on('reset_data', function() {
+        $('.pill-swatch').removeClass('active disabled out-of-stock');
+    });
+});
+
+
+// Quantity Button
+jQuery(document).ready(function($) {
+    $(document).on('click', '.qty-btn', function() {
+        var $button = $(this);
+        var $input = $button.closest('.quantity-nav').find('input.qty');
+        var currentVal = parseFloat($input.val());
+        var max = parseFloat($input.attr('max'));
+        var min = parseFloat($input.attr('min'));
+        var step = parseFloat($input.attr('step'));
+
+        if ($button.hasClass('plus')) {
+            if (!max || currentVal < max) {
+                $input.val(currentVal + step).trigger('change');
+            }
+        } else {
+            if (currentVal > min) {
+                $input.val(currentVal - step).trigger('change');
+            }
+        }
+    });
+});
