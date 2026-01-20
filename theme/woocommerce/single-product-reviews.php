@@ -67,26 +67,28 @@ if ( ! comments_open() ) {
 		</div>
 
 		<?php if ( have_comments() ) : ?>
-			<ol class="commentlist">
-				<?php wp_list_comments( apply_filters( 'woocommerce_product_review_list_args', array( 'callback' => 'woocommerce_comments' ) ) ); ?>
-			</ol>
+			<div id="reviews-dynamic">
+				<ol class="commentlist">
+					<?php wp_list_comments( apply_filters( 'woocommerce_product_review_list_args', array( 'callback' => 'woocommerce_comments' ) ) ); ?>
+				</ol>
 
-			<?php
-			if ( get_comment_pages_count() > 1 && get_option( 'page_comments' ) ) :
-				echo '<nav class="woocommerce-pagination">';
-				paginate_comments_links(
-					apply_filters(
-						'woocommerce_comment_pagination_args',
-						array(
-							'prev_text' => is_rtl() ? '&rarr;' : '&larr;',
-							'next_text' => is_rtl() ? '&larr;' : '&rarr;',
-							'type'      => 'list',
+				<?php
+				if ( get_comment_pages_count() > 1 && get_option( 'page_comments' ) ) :
+					echo '<nav class="woocommerce-pagination">';
+					paginate_comments_links(
+						apply_filters(
+							'woocommerce_comment_pagination_args',
+							array(
+								'prev_text' => is_rtl() ? '&rarr;' : '&larr;',
+								'next_text' => is_rtl() ? '&larr;' : '&rarr;',
+								'type'      => 'list',
+							)
 						)
-					)
-				);
-				echo '</nav>';
-			endif;
-			?>
+					);
+					echo '</nav>';
+				endif;
+				?>
+			</div>
 		<?php else : ?>
 			<p class="woocommerce-noreviews"><?php esc_html_e( 'There are no reviews yet.', 'woocommerce' ); ?></p>
 		<?php endif; ?>

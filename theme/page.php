@@ -1,4 +1,5 @@
 <?php
+
 /**
  * The template for displaying all pages
  *
@@ -13,29 +14,34 @@
 
 get_header();
 ?>
-<p>page.php (Main WordPress)</p>
 
-	<section id="primary" class="page-main-template">
-		<main id="main">
+<section id="primary" class="page-main-template">
+	<main id="main">
 
-			<?php
-			/* Start the Loop */
-			while ( have_posts() ) :
-				the_post();
+		<?php
+		/* Start the Loop */
+		while (have_posts()) :
+			the_post();
 
-				get_template_part( 'template-parts/content/content', 'page' );
+			if (is_account_page()) {
+				// WooCommerce My Account
+				get_template_part('template-parts/woocommerce/content', 'account');
+			} else {
+				// Default page content
+				get_template_part('template-parts/content/content', 'page');
+			}
 
-				// If comments are open, or we have at least one comment, load
-				// the comment template.
-				if ( comments_open() || get_comments_number() ) {
-					comments_template();
-				}
+			// If comments are open, or we have at least one comment, load
+			// the comment template.
+			if (comments_open() || get_comments_number()) {
+				comments_template();
+			}
 
-			endwhile; // End of the loop.
-			?>
+		endwhile; // End of the loop.
+		?>
 
-		</main><!-- #main -->
-	</section><!-- #primary -->
+	</main><!-- #main -->
+</section><!-- #primary -->
 
 <?php
 get_footer();

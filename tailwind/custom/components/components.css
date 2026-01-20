@@ -15,14 +15,27 @@
  */
 
 .woocommerce-message,
-.woocommerce-info {
-	@apply mb-4 p-4 flex flex-wrap items-center bg-success-100 border-l-4 border-l-success-400 text-success-400 rounded-r-xl focus-visible:ring-0;
+.woocommerce-info,
+.woocommerce-error {
+	@apply mb-4 p-4 flex flex-wrap items-center border-l-4 rounded-r-xl focus-visible:ring-0;
 
 	.button.wc-forward,
 	a.restore-item,
 	a {
-		@apply ms-auto h-auto bg-secondary hover:bg-secondary-400 active:bg-secondary-400 focus:bg-secondary-400 text-background normal-case text-base px-5 py-2 rounded-lg;
+		@apply ms-auto h-auto bg-secondary hover:bg-secondary-400 active:bg-secondary-400 focus:bg-secondary-400 text-background! normal-case text-base px-5 py-2 rounded-lg;
 	}
+}
+
+.woocommerce-message {
+	@apply text-success-400 border-l-success-400 bg-success-100;
+}
+
+.woocommerce-info {
+	@apply text-teal-800 border-l-teal-800 bg-teal-100;
+}
+
+.woocommerce-error {
+	@apply text-error-400 border-l-error-400 bg-error-100;
 }
 
 .button,
@@ -251,7 +264,11 @@ label { @apply font-semibold; }
 	}
 
 	.woocommerce-breadcrumb {
-		@apply mb-6;
+		@apply inline-flex flex-wrap items-center w-max p-3 border border-grey-200 rounded-xl mb-6;
+
+		a {
+			@apply transition-all hover:text-primary-400 active:text-primary-400 focus:text-primary-400;
+		}
 	}
 
 	.product.type-product {
@@ -412,14 +429,14 @@ label { @apply font-semibold; }
 		@apply w-full border border-grey-200 rounded-xl overflow-hidden bg-white;
 
 		.tabs.wc-tabs {
-			@apply flex gap-10 flex-nowrap border-b border-b-grey-200 px-4 overflow-hidden overflow-x-auto snap-x snap-mandatory;
+			@apply flex gap-10 flex-nowrap border-b border-b-grey-200 px-4 md:px-6 overflow-hidden overflow-x-auto snap-x snap-mandatory;
 		}
 
 		.tabs.wc-tabs li {
 			@apply relative font-bold uppercase;
 
 			a {
-				@apply inline-block py-4 text-grey-300 transition-all;
+				@apply w-max inline-block py-4 text-grey-300 transition-all;
 			}
 
 			&.active a {
@@ -486,6 +503,66 @@ label { @apply font-semibold; }
 .woocommerce-Reviews {
 	.review-summary-container {
 		@apply flex flex-wrap flex-col lg:flex-row items-center gap-6 lg:gap-0 pb-10 mb-10 border-b border-b-grey-200;
+	}
+
+	/* Review Container (Official review list) */
+	ol.commentlist {
+		li.review {
+			@apply mb-4 pb-4 lg:mb-6 lg:pb-6 border-b border-b-grey-200 last:border-none last:mb-0 last:pb-0;
+
+			.comment_container {
+				@apply inline-flex gap-3 lg:gap-6;
+
+				img {
+					@apply shrink-0 w-12 h-12 lg:w-16 lg:h-16;
+				}
+
+				.shopchop-rating-wrapper {
+					@apply flex items-center gap-3 py-2;
+
+					.shopchop-stars {
+						@apply flex gap-0.5;
+
+						.shopchop-star {
+							@apply text-base stroke-none;
+
+							&.is-filled {
+								@apply fill-primary-400;
+							}
+
+							&.is-empty {
+								@apply fill-secondary-200/50;
+							}
+						}
+					}
+
+					.shopchop-rating-number {
+						@apply text-xs font-medium bg-secondary-100 border border-grey-200 rounded-full px-2.5 py-1;
+					}
+				}
+
+				.woocommerce-review__author {
+					@apply text-base;
+				}
+
+				.shopchop-review-date {
+					@apply text-grey-300 text-xs mt-2;
+				}
+
+				.woocommerce-review__verified,
+				.woocommerce-review__awaiting-approval {
+					@apply text-sm;
+				}
+
+				.woocommerce-review__verified {
+					@apply text-grey-300;
+				}
+
+				.woocommerce-review__awaiting-approval {
+					@apply text-error-400;
+				}
+			}
+		}
 	}
 
 	.summary-score-box {
@@ -711,7 +788,7 @@ label { @apply font-semibold; }
 
 		.cart-coupon-wrapper {
 			.coupon {
-				@apply flex gap-3 justify-end;
+				@apply flex flex-wrap gap-3 justify-end;
 
 				.coupon-error-notice {
 					@apply w-full text-end italic text-error-400;
@@ -782,7 +859,7 @@ label { @apply font-semibold; }
 
 
 /* WooCommmerce My Account - ShopChop Wrapper */
-.shopchop-myaccount-wrapper {
+.shopchop-my-account .shopchop-myaccount-wrapper {
 	@apply grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6 lg:gap-12;
 
 	.woocommerce-MyAccount-navigation {
@@ -811,8 +888,14 @@ label { @apply font-semibold; }
 		.user-action-order,
 		.user-action-billing,
 		.user-action-account-edit,
-		.woocommerce-Address {
-			@apply p-4 lg:p-6 border-2 border-grey-200 rounded-xl;
+		.woocommerce-Address,
+		.woocommerce-orders-table.account-orders-table>tbody>tr,
+		.account-order-details {
+			@apply p-4 lg:p-6 border border-grey-200 rounded-xl;
+		}
+
+		h1 {
+			@apply font-bold text-3xl md:text-4xl lg:text-5xl mb-4 md:mb-6;
 		}
 
 		h2, h3, p, img { @apply m-0; }
@@ -835,10 +918,10 @@ label { @apply font-semibold; }
 			@apply mb-8;
 
 			.user-hero-card {
-				@apply flex flex-wrap gap-4 lg:gap-8;
+				@apply flex flex-wrap justify-between gap-4 lg:gap-8;
 				
 				.user-icon {
-					@apply shrink-0 w-16 h-16 lg:w-24 lg:h-24;
+					@apply shrink-0 w-16 h-16 me-4 lg:me-8 lg:w-24 lg:h-24;
 
 					img {
 						@apply rounded-full;
@@ -846,14 +929,14 @@ label { @apply font-semibold; }
 				} 
 
 				.user-details {
-					@apply grow;
+					@apply w-full;
 
 					h2 {
 						@apply text-xl lg:text-2xl;
 					}
 
 					hr {
-						@apply border-grey-200 my-1.5 lg:my-4;
+						@apply border-grey-200 my-6 lg:my-4;
 					}
 
 					p {
@@ -912,7 +995,7 @@ label { @apply font-semibold; }
 				h2 {@apply mb-0; }
 
 				.edit {
-					@apply rounded-xl px-3 py-1 text-sm transition-all bg-transparent border-2 text-secondary-400 border-secondary-400 hover:bg-secondary-100 active:bg-secondary-100 focus:bg-secondary-100 ms-auto;
+					@apply rounded-lg px-3 py-1 text-sm transition-all bg-transparent border-2 text-secondary-400 border-secondary-400 hover:bg-secondary-100 active:bg-secondary-100 focus:bg-secondary-100 ms-auto;
 				}
 			}
 
@@ -965,5 +1048,132 @@ label { @apply font-semibold; }
 			}	
 		}
 		/* My Account - Account Details */
+
+
+		/* My Account - View Many Orders */
+		.woocommerce-orders-table.account-orders-table {
+			@apply w-full;
+
+			tbody {
+				@apply flex flex-wrap gap-4 lg:gap-6;
+
+				tr {
+					@apply w-full flex flex-col;
+
+					td {
+						@apply flex flex-wrap;
+					}
+
+					.order-number-status {
+						@apply justify-between items-center md:text-lg mb-4 lg:mb-6;
+
+						.status-badge {
+							@apply text-primary-400;
+						}
+					}
+
+					.order-product-details {
+						@apply py-4 border-y flex-col border-y-grey-200;
+
+						.product-info-wrapper {
+							@apply flex gap-4;
+
+							img {
+								@apply rounded-lg w-20 h-20 lg:w-28 lg:h-28;
+							}
+
+							.product-meta-detail {
+								@apply flex flex-col justify-between;
+
+								.name {
+									@apply text-sm md:text-base line-clamp-1;
+								}
+
+								.variation-meta {
+									@apply text-xs md:text-sm text-grey-300;
+								}
+
+								.price {
+									@apply text-base md:text-lg mt-auto text-primary-400;
+								}
+							}
+						}
+						
+						.more-items {
+							@apply text-center text-sm md:text-base mt-4;
+						}
+					}
+
+					.order-date-actions {
+						@apply justify-between items-center mt-4 lg:mt-6;
+
+						time {
+							@apply text-xs md:text-sm text-grey-300;
+						}
+
+						.order-actions-wrapper a {
+							@apply block h-max rounded-lg px-3 py-0.5 md:px-5 md:py-1 text-sm md:text-base normal-case;
+						}
+					}
+				}
+			}
+		}
+		/* My Account - View Many Orders */
+
+		/* My Account - Order Detail */
+		.account-order-details {
+			@apply flex flex-wrap flex-col;
+
+			h2 {
+				@apply text-xl lg:text-2xl font-semibold;
+			}
+
+			.account-order-detail-status {
+
+			}
+
+			.order-updates-wrapper,
+			.woocommerce-order-details,
+			.woocommerce-customer-details {
+				@apply pt-4 lg:pt-6 mt-4 lg:mt-6 border-t border-grey-200;
+			}
+
+			.order-updates-wrapper {
+				.woocommerce-OrderUpdate.note {
+					@apply mt-4 relative;
+
+					&:first-child .woocommerce-OrderUpdate-inner.comment_container {
+						@apply relative;
+
+						&::after {
+							@apply content-[''] absolute bg-error-400 w-4.5 h-4.5 -top-2 -right-2 border-2 border-white rounded-full;
+						}
+					}
+
+					.woocommerce-OrderUpdate-inner.comment_container {
+						@apply bg-teal-50 border border-teal-500 rounded-xl rounded-bl-none py-2.5 px-4 w-max;
+
+						.woocommerce-OrderUpdate-meta {
+							@apply text-xs text-grey-400;
+						}
+					}
+				}
+			}
+
+			.woocommerce-order-details {
+
+			}
+
+			.woocommerce-customer-details {
+				.woocommerce-columns {
+					@apply grid grid-cols-1 lg:grid-cols-2 gap-x-6;
+				}
+
+				address {
+					@apply not-italic;
+				}
+			}
+		}
+		/* My Account - Order Detail */
 	}
 }

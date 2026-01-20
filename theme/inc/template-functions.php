@@ -456,3 +456,93 @@ function shopchop_reorder_fields( $fields ) {
     
     return $fields;
 }
+
+
+// Reviews Rating Modify
+remove_action( 'woocommerce_review_before_comment_meta', 'woocommerce_review_display_rating', 10 );
+
+add_action( 'woocommerce_review_before_comment_meta', 'shopchop_custom_review_rating', 10 );
+function shopchop_custom_review_rating() {
+    global $comment;
+	$rating = intval( get_comment_meta( $comment->comment_ID, 'rating', true ) );
+
+	if ( $rating && wc_review_ratings_enabled() ) : ?>
+		<div class="shopchop-rating-wrapper">
+			<div class="shopchop-stars" role="img" aria-label="Rated <?php echo $rating; ?> out of 5">
+				<?php for ( $i = 1; $i <= 5; $i++ ) : 
+					$class = ( $i <= $rating ) ? 'is-filled' : 'is-empty';
+				?>
+					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="shopchop-star <?php echo $class; ?>">
+						<path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"/>
+					</svg>
+				<?php endfor; ?>
+			</div>
+			
+			<span class="shopchop-rating-number"><?php echo number_format($rating, 1); ?> / 5</span>
+		</div>
+	<?php endif; 
+}
+
+// Review Meta Modification
+remove_action( 'woocommerce_review_meta', 'woocommerce_review_display_meta', 10 );
+
+add_action( 'woocommerce_review_meta', 'shopchop_hooked_review_meta', 10 );
+function shopchop_hooked_review_meta( $comment ) {
+    $verified = wc_review_is_from_verified_owner( $comment->comment_ID );
+    
+    // If awaiting approval, show the message on top next to name
+    if ( '0' === $comment->comment_approved ) {
+        echo '<strong class="woocommerce-review__author">' . get_comment_author() . '</strong><br>';
+        echo '<em class="woocommerce-review__awaiting-approval">Your review is awaiting approval</em>';
+    } else {
+        echo '<strong class="woocommerce-review__author">' . get_comment_author() . '</strong> ';
+        if ( 'yes' === get_option( 'woocommerce_review_rating_verification_label' ) && $verified ) {
+            echo '<em class="woocommerce-review__verified verified">(verified owner)</em>';
+        }
+    }
+}
+
+// Add review date at bottom
+add_action( 'woocommerce_review_after_comment_text', 'shopchop_hooked_review_date', 20 );
+function shopchop_hooked_review_date( $comment ) { ?>
+	<time class="shopchop-review-date">
+		<?php echo esc_html( get_comment_date( wc_date_format() ) ); ?>
+	</time>
+    <?php
+}
+
+// ShopChop Order Number Custom. To be replace from default.
+add_filter( 'woocommerce_order_number', 'shopchop_professional_order_format', 1, 2 );
+
+function shopchop_professional_order_format( $order_id, $order ) {
+    $prefix = 'TSS'; 
+
+    $date_created = $order->get_date_created();
+    $formatted_date = $date_created ? $date_created->date( 'ymd' ) : date( 'ymd' );
+
+    $padded_id = str_pad( $order_id, 5, '0', STR_PAD_LEFT );
+
+    return $prefix . '-' . $formatted_date . '-' . $padded_id;
+}
+
+// ShopChop My Account Title Custom Layout
+add_action( 'woocommerce_account_content', 'shopchop_account_content_title', 1 );
+
+function shopchop_account_content_title() {
+    global $wp;
+
+    // Check which endpoint we are on to show the correct title
+    if ( is_wc_endpoint_url( 'orders' ) ) {
+        echo '<h1 class="account-content-title">Orders</h1>';
+	} elseif ( is_wc_endpoint_url( 'downloads' ) ) {
+        echo '<h1 class="account-content-title">Downloads</h1>';
+    } elseif ( is_wc_endpoint_url( 'view-order' ) ) {
+        echo '<h1 class="account-content-title">Order Details</h1>';
+    } elseif ( is_wc_endpoint_url( 'edit-address' ) ) {
+        echo '<h1 class="account-content-title">Addresses</h1>';
+    } elseif ( is_wc_endpoint_url( 'edit-account' ) ) {
+        echo '<h1 class="account-content-title">Account Details</h1>';
+    } else {
+        echo '<h1 class="account-content-title">Dashboard</h1>';
+    }
+}

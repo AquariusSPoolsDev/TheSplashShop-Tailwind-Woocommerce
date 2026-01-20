@@ -69,31 +69,30 @@ jQuery(document).ready(function ($) {
 
 
 // WC Comments AJAX
-jQuery(function($) {
-    $(document).on('click', '#reviews .woocommerce-pagination a', function(e) {
+jQuery(function ($) {
+    $(document).on('click', '#reviews .woocommerce-pagination a', function (e) {
         e.preventDefault();
 
         const $container = $('#reviews');
-        const $commentList = $('#comments');
+        const $dynamic = $('#reviews-dynamic');
         const url = $(this).attr('href');
 
-        $commentList.css('opacity', '0.5');
-        
-        $commentList.load(url + ' #comments > *', function(response, status, xhr) {
-            if (status === "error") {
-                return;
-            }
+        $dynamic.addClass('is-loading');
 
-            $commentList.css('opacity', '1');
+        $dynamic.load(url + ' #reviews-dynamic > *', function (response, status) {
+            if (status !== 'success') return;
+
+            $dynamic.removeClass('is-loading');
 
             $('html, body').animate({
                 scrollTop: $container.offset().top - 100
             }, 300);
-            
+
             $(document.body).trigger('init_reviews');
         });
     });
 });
+
 
 // Product Page AJAX
 jQuery(function($) {

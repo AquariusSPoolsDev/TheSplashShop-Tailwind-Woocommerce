@@ -20,7 +20,7 @@ defined( 'ABSPATH' ) || exit;
 global $comment;
 $verified = wc_review_is_from_verified_owner( $comment->comment_ID );
 ?>
-<p>single-product/review-meta.php</p>
+
 <?php
 if ( '0' === $comment->comment_approved ) { ?>
 

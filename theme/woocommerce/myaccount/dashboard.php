@@ -26,23 +26,25 @@ if (! defined('ABSPATH')) {
 
 <div class="dashboard-user">
 	<div class="user-hero-card">
-		<div class="user-icon">
-			<?php
-			$current_user = wp_get_current_user();
-			echo get_avatar($current_user->ID, 96);
-			?>
-		</div>
-		<div class="user-details">
-			<h2>
+		<div class="flex flex-grow">
+			<div class="user-icon">
 				<?php
-				printf(
-					esc_html__('%s', 'woocommerce'),
-					esc_html($current_user->display_name)
-				);
+				$current_user = wp_get_current_user();
+				echo get_avatar($current_user->ID, 96);
 				?>
-			</h2>
-			<hr>
-			<p><strong>Points: </strong><span><?php echo '999'; ?></span> points.</p>
+			</div>
+			<div class="user-details">
+				<h2>
+					<?php
+					printf(
+						esc_html__('%s', 'woocommerce'),
+						esc_html($current_user->display_name)
+					);
+					?>
+				</h2>
+				<hr>
+				<p class="bg-teal-100 text-teal-800! border-l-2 border-teal-800 p-2 rounded-r-lg">Unlock exclusive rewards with your points. Stay tuned!</p>
+			</div>
 		</div>
 
 		<div class="user-links">

@@ -21,7 +21,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 get_header( 'shop' ); ?>
 
-<p>single-product.php</p>
 
 	<?php
 		/**

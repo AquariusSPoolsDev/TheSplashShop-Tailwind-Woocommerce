@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Review Comments Template
  *
@@ -17,11 +18,10 @@
  * @version 2.6.0
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
+if (! defined('ABSPATH')) {
 	exit; // Exit if accessed directly
 }
 ?>
-<p>single-product/review.php</p>
 <li <?php comment_class(); ?> id="li-comment-<?php comment_ID(); ?>">
 
 	<div id="comment-<?php comment_ID(); ?>" class="comment_container">
@@ -32,36 +32,41 @@ if ( ! defined( 'ABSPATH' ) ) {
 		 *
 		 * @hooked woocommerce_review_display_gravatar - 10
 		 */
-		do_action( 'woocommerce_review_before', $comment );
+		do_action('woocommerce_review_before', $comment);
 		?>
 
 		<div class="comment-text">
 
 			<?php
 			/**
-			 * The woocommerce_review_before_comment_meta hook.
-			 *
-			 * @hooked woocommerce_review_display_rating - 10
+			 * 1. NAME (and potentially Date)
+			 * Hook: woocommerce_review_meta
 			 */
-			do_action( 'woocommerce_review_before_comment_meta', $comment );
+			do_action('woocommerce_review_meta', $comment);
+			?>
 
+			<?php
 			/**
-			 * The woocommerce_review_meta hook.
-			 *
-			 * @hooked woocommerce_review_display_meta - 10
+			 * 2. STAR RATING (Visual Stars)
+			 * Hook: woocommerce_review_before_comment_meta
 			 */
-			do_action( 'woocommerce_review_meta', $comment );
+			do_action('woocommerce_review_before_comment_meta', $comment);
+			?>
 
-			do_action( 'woocommerce_review_before_comment_text', $comment );
-
+			<?php
 			/**
-			 * The woocommerce_review_comment_text hook
-			 *
-			 * @hooked woocommerce_review_display_comment_text - 10
+			 * 3. REVIEW TEXT
+			 * Hook: woocommerce_review_comment_text
 			 */
-			do_action( 'woocommerce_review_comment_text', $comment );
+			do_action('woocommerce_review_comment_text', $comment);
+			?>
 
-			do_action( 'woocommerce_review_after_comment_text', $comment );
+			<?php
+			/**
+			 * EXTRA HOOKS (Keep these for plugin compatibility)
+			 */
+			do_action('woocommerce_review_before_comment_text', $comment);
+			do_action('woocommerce_review_after_comment_text', $comment);
 			?>
 
 		</div>
