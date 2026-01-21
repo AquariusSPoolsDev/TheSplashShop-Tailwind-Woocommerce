@@ -26,6 +26,9 @@ get_header();
 			if (is_account_page()) {
 				// WooCommerce My Account
 				get_template_part('template-parts/woocommerce/content', 'account');
+			} elseif (is_checkout()) {
+				// Both Checkout Page and Order Received (Thank You) Page
+				get_template_part('template-parts/woocommerce/content', 'simple');
 			} else {
 				// Default page content
 				get_template_part('template-parts/content/content', 'page');

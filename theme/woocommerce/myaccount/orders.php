@@ -39,8 +39,8 @@ do_action('woocommerce_before_account_orders', $has_orders); ?>
 			<?php
 			foreach ($customer_orders->orders as $customer_order) {
 				$order      = wc_get_order($customer_order);
-				$item_count = $order->get_item_count() - $order->get_item_count_refunded();
 				$items      = $order->get_items();
+				$unique_item_count = count($items);
 			?>
 				<tr class="woocommerce-orders-table__row order-status-<?php echo esc_attr($order->get_status()); ?>">
 
@@ -60,29 +60,40 @@ do_action('woocommerce_before_account_orders', $has_orders); ?>
 						foreach ($items as $item) {
 							if ($i < $display_limit) {
 								$product = $item->get_product();
+								$quantity = $item->get_quantity();
+
 								echo '<div class="product-info-wrapper">';
 								echo $product ? $product->get_image(array(96, 96)) : '';
 								echo '<div class="product-meta-detail">';
 
-								$base_name = $product->get_name();
-								if ($product->is_type('variation')) {
+								// Get Clean Base Name
+								$base_name = $product ? $product->get_name() : $item->get_name();
+								if ($product && $product->is_type('variation')) {
 									$parent_product = wc_get_product($product->get_parent_id());
 									$base_name = $parent_product->get_name();
 								}
 								echo '<span class="name">' . esc_html($base_name) . '</span>';
 
+								// Display Variations
 								if ($product && $product->is_type('variation')) {
 									$variation_list = wc_get_formatted_variation($product->get_variation_attributes(), true);
 									echo '<span class="variation-meta">' . esc_html($variation_list) . '</span>';
 								}
+								
+								if ($quantity > 1) {
+									echo ' <small class="qty-multiplier">× ' . esc_html($quantity) . '</small>';
+								}
 
+								// Display Price + Quantity Multiplier
 								echo '<span class="price">' . $order->get_formatted_line_subtotal($item) . '</span>';
+
 								echo '</div></div>';
 							}
 							$i++;
 						}
-						if ($item_count > $display_limit) {
-							echo '<p class="more-items">+' . ($item_count - $display_limit) . ' more items</p>';
+
+						if ($unique_item_count > $display_limit) {
+							echo '<p class="more-items">+' . ($unique_item_count - $display_limit) . ' more items</p>';
 						}
 						?>
 					</td>

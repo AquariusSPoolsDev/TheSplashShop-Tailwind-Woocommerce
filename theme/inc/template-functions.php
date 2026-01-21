@@ -214,11 +214,8 @@ add_filter('show_admin_bar', '__return_false');
  * CUSTOM: Use own main container to replace default WooCommerce wrapper
  * 
  */
-
-// Removes WooCommerce stylings, leave us blank file to be edited.
 add_filter( 'woocommerce_enqueue_styles', '__return_false' );
 
-// Remove WooCommerce wrappers, add custom wrappers
 remove_action( 'woocommerce_before_main_content', 'woocommerce_output_content_wrapper', 10 );
 remove_action( 'woocommerce_after_main_content', 'woocommerce_output_content_wrapper_end', 10 );
 
@@ -237,8 +234,10 @@ function shopchop_wc_wrapper_end() {
 	<?php 
 }
 
+
+
 /**
- * CUSTOM: Display discounted price and its percentage
+ * ShopChop Modify Price Display
  */
 add_filter( 'woocommerce_get_price_html', 'shopchop_price_display', 10, 2 );
 
@@ -284,15 +283,13 @@ function shopchop_price_display( $price, $product ) {
 }
 
 
-/**
- * Add custom wrappers to WooCommerce loop items
- */
 
-// --- 1. Remove Default Structure ---
+/**
+ * ShopChop Product Listing Loop Add wrappers
+ */
 remove_action( 'woocommerce_before_shop_loop_item', 'woocommerce_template_loop_product_link_open', 10 );
 remove_action( 'woocommerce_after_shop_loop_item', 'woocommerce_template_loop_product_link_close', 5 );
 
-// --- 2. Open Main Link with 'group' class & Image Wrapper ---
 add_action( 'woocommerce_before_shop_loop_item', function() {
     global $product;
     
@@ -305,19 +302,16 @@ add_action( 'woocommerce_before_shop_loop_item_title', function() {
     echo '<div class="product-image-wrapper">';
 }, 5 );
 
-// --- 3. Close Image Wrapper & Open Details Wrapper ---
 add_action( 'woocommerce_before_shop_loop_item_title', function() {
     echo '</div>'; // Close .product-image-wrapper
     echo '<div class="product-details-wrapper">';
 }, 15 );
 
-// --- 4. Close Details Wrapper & Main Link ---
 add_action( 'woocommerce_after_shop_loop_item', function() {
     echo '</div>'; // Close .product-details-wrapper
     echo '</a>'; // Close main link
 }, 5 );
 
-// Wrap cart buttons in a container
 add_action( 'woocommerce_after_shop_loop_item', function() {
     echo '<div class="product-actions">';
 }, 9 );
@@ -327,37 +321,10 @@ add_action( 'woocommerce_after_shop_loop_item', function() {
 }, 11 );
 
 
-add_action( 'wp_footer', 'ajax_auto_update_cart_script' );
-function ajax_auto_update_cart_script() {
-    if ( is_cart() ) {
-        ?>
-        <script type="text/javascript">
-            jQuery( function( $ ) {
-                let timeout;
-                $( document.body ).on( 'updated_cart_totals', function() {
-                    attachQtyListener();
-                });
 
-                function attachQtyListener() {
-                    $( 'div.woocommerce' ).on( 'change', 'input.qty', function() {
-                        if ( timeout !== undefined ) {
-                            clearTimeout( timeout );
-                        }
-                        timeout = setTimeout( function() {
-                            $( '[name="update_cart"]' ).trigger( 'click' );
-                        }, 500 );
-                    });
-                }
-
-                attachQtyListener();
-            });
-        </script>
-        <?php
-    }
-}
-
-
-// Disable Select2 for WooCommerce country/state fields
+/**
+ * ShopChop Disable Select2 selector
+ */
 add_filter( 'woocommerce_enqueue_styles', 'disable_woo_select2', 99 );
 function disable_woo_select2( $enqueue_styles ) {
     wp_dequeue_script( 'select2' );
@@ -367,29 +334,28 @@ function disable_woo_select2( $enqueue_styles ) {
     return $enqueue_styles;
 }
 
-/**
- * Wrap the Result Count and Ordering dropdown into a custom div
- */
 
-// 1. Open the div BEFORE the result count (Priority 15)
-add_action( 'woocommerce_before_shop_loop', 'opening_wrapper_before_listing', 15 );
-function opening_wrapper_before_listing() {
+
+/**
+ * ShopChop Wrap Result Count and Ordering dropdown into a custom div
+ */
+add_action( 'woocommerce_before_shop_loop', 'shopchop_before_listing_start', 15 );
+function shopchop_before_listing_start() {
     echo '<div class="shop-utility-wrapper">';
 }
 
-// 2. Close the div AFTER the ordering form (Priority 35)
-add_action( 'woocommerce_before_shop_loop', 'closing_wrapper_before_listing', 35 );
-function closing_wrapper_before_listing() {
+add_action( 'woocommerce_before_shop_loop', 'shopchop_before_listing_end', 35 );
+function shopchop_before_listing_end() {
     echo '</div>';
 }
 
-/**
- * Variation Radio Button
- */
 
-// 1. Convert dropdowns to pills
-add_filter('woocommerce_dropdown_variation_attribute_options_html', 'pill_button_variation_swatches', 10, 2);
-function pill_button_variation_swatches($html, $args) {
+
+/**
+ * ShopChop Variation Swatches to Radio button
+ */
+add_filter('woocommerce_dropdown_variation_attribute_options_html', 'shopchop_variation_swatch_pill', 10, 2);
+function shopchop_variation_swatch_pill($html, $args) {
     $options = $args['options'];
     $product = $args['product'];
     $attribute = $args['attribute'];
@@ -410,10 +376,13 @@ function pill_button_variation_swatches($html, $args) {
     return '<div style="display:none;">' . $html . '</div>' . $container;
 }
 
-// 2. Ensure all variation data is available to JS (Increase AJAX threshold)
 add_filter( 'woocommerce_ajax_variation_threshold', function() { return 100; } );
 
-// Form Fields Change
+
+
+/**
+ * ShopChop Override Address Fields
+ */
 add_filter( 'woocommerce_default_address_fields' , 'shopchop_override_address_fields' );
 
 function shopchop_override_address_fields( $address_fields ) {
@@ -422,28 +391,33 @@ function shopchop_override_address_fields( $address_fields ) {
 
     $address_fields['first_name']['label'] = __('Name', 'woocommerce');
     $address_fields['first_name']['placeholder'] = __('Name', 'woocommerce');
-
     $address_fields['country']['label']   = __('Country', 'woocommerce');
     $address_fields['address_1']['label'] = __('Address', 'woocommerce');
     $address_fields['city']['label']      = __('City', 'woocommerce');
     $address_fields['state']['label']     = __('State', 'woocommerce');
     $address_fields['postcode']['label']  = __('Postcode', 'woocommerce');
-
 	$address_fields['first_name']['autocomplete'] = 'name';
 
     return $address_fields;
 }
 
-add_filter( 'woocommerce_save_account_details_required_fields', 'remove_account_details_last_name', 10, 1 );
 
-function remove_account_details_last_name( $fields ) {
+
+/**
+ * ShopChop Remove Last Name Field
+ */
+add_filter( 'woocommerce_save_account_details_required_fields', 'shopchop_remove_last_name_field', 10, 1 );
+
+function shopchop_remove_last_name_field( $fields ) {
     unset( $fields['account_last_name'] );
     return $fields;
 }
 
 
-// Address Reorder Form Field
-// Use this to re-order the fields in your functions.php
+
+/**
+ * ShopChop Reorder Form Fields
+ */
 add_filter( 'woocommerce_default_address_fields', 'shopchop_reorder_fields' );
 
 function shopchop_reorder_fields( $fields ) {
@@ -458,7 +432,10 @@ function shopchop_reorder_fields( $fields ) {
 }
 
 
-// Reviews Rating Modify
+
+/**
+ * ShopChop Remove and Modify Rating Display
+ */
 remove_action( 'woocommerce_review_before_comment_meta', 'woocommerce_review_display_rating', 10 );
 
 add_action( 'woocommerce_review_before_comment_meta', 'shopchop_custom_review_rating', 10 );
@@ -483,7 +460,11 @@ function shopchop_custom_review_rating() {
 	<?php endif; 
 }
 
-// Review Meta Modification
+
+
+/**
+ * ShopChop Remove and Modify meta display notification
+ */
 remove_action( 'woocommerce_review_meta', 'woocommerce_review_display_meta', 10 );
 
 add_action( 'woocommerce_review_meta', 'shopchop_hooked_review_meta', 10 );
@@ -502,7 +483,11 @@ function shopchop_hooked_review_meta( $comment ) {
     }
 }
 
-// Add review date at bottom
+
+
+/**
+ * ShopChop Move Hook Review Date at bottom
+ */
 add_action( 'woocommerce_review_after_comment_text', 'shopchop_hooked_review_date', 20 );
 function shopchop_hooked_review_date( $comment ) { ?>
 	<time class="shopchop-review-date">
@@ -511,7 +496,11 @@ function shopchop_hooked_review_date( $comment ) { ?>
     <?php
 }
 
-// ShopChop Order Number Custom. To be replace from default.
+
+
+/**
+ * ShopChop Order Number Custom. To be replace from default.
+ */
 add_filter( 'woocommerce_order_number', 'shopchop_professional_order_format', 1, 2 );
 
 function shopchop_professional_order_format( $order_id, $order ) {
@@ -525,7 +514,11 @@ function shopchop_professional_order_format( $order_id, $order ) {
     return $prefix . '-' . $formatted_date . '-' . $padded_id;
 }
 
-// ShopChop My Account Title Custom Layout
+
+
+/**
+ * ShopChop My Account Title Custom Layout
+ */
 add_action( 'woocommerce_account_content', 'shopchop_account_content_title', 1 );
 
 function shopchop_account_content_title() {
@@ -546,3 +539,83 @@ function shopchop_account_content_title() {
         echo '<h1 class="account-content-title">Dashboard</h1>';
     }
 }
+
+
+
+/**
+ * Automatically add a customer note when an order is cancelled.
+ */
+add_action( 'woocommerce_order_status_cancelled', 'shopchop_auto_cancelled_note', 10, 2 );
+function shopchop_auto_cancelled_note( $order_id, $order ) {
+    // Define your automatic message
+    $message = __( 'This order was cancelled automatically due to a payment timeout or system cancellation.', 'woocommerce' );
+
+    // Add the note and set it as a "customer note" (true) so it shows on the front-end
+    $order->add_order_note( $message, true );
+}
+
+
+
+/**
+ * Automatically add a customer note when an order is Completed.
+ */
+add_action( 'woocommerce_order_status_completed', 'shopchop_auto_completed_note', 10, 2 );
+function shopchop_auto_completed_note( $order_id, $order ) {
+    // Professional message for the timeline
+    $message = __( 'Your order is ready! It has been dispatched to the courier for delivery.', 'woocommerce' );
+
+    // 'true' makes it a Customer Note visible on the front-end timeline
+    $order->add_order_note( $message, true );
+}
+
+
+
+/**
+ * ShopChop Wrap the auth pages into a wrapper
+ */
+function shopchop_auth_wrapper_start() {
+    echo '<div class="wc-auth-wrapper">';
+}
+
+function shopchop_auth_wrapper_end() {
+    echo '</div>';
+}
+
+add_action( 'woocommerce_before_customer_login_form', 'shopchop_auth_wrapper_start', 1 );
+add_action( 'woocommerce_after_customer_login_form', 'shopchop_auth_wrapper_end' );
+
+add_action( 'woocommerce_before_lost_password_form', 'shopchop_auth_wrapper_start', 1 );
+add_action( 'woocommerce_after_lost_password_form', 'shopchop_auth_wrapper_end' );
+
+add_action( 'woocommerce_before_reset_password_form', 'shopchop_auth_wrapper_start', 1 );
+add_action( 'woocommerce_after_reset_password_form', 'shopchop_auth_wrapper_end' );
+
+
+/**
+ * ShopChop Safe redirect to Login page if user typing 'login' or 'register' in the URL
+ */
+add_action( 'template_redirect', function () {
+
+    if ( is_user_logged_in() ) {
+        return;
+    }
+
+    $path = trim( parse_url( $_SERVER['REQUEST_URI'], PHP_URL_PATH ), '/' );
+
+    // /login or /register
+    if ( in_array( $path, [ 'login', 'register' ], true ) ) {
+        wp_safe_redirect( wc_get_page_permalink( 'myaccount' ) );
+        exit;
+    }
+});
+
+
+
+/**
+ * ShopChop remove and move Store Notice inside header tag.
+ * Need to call again in the header part.
+ */
+remove_action( 'wp_footer', 'woocommerce_demo_store', 10 );
+remove_action( 'wp_body_open', 'woocommerce_demo_store', 10 );
+
+add_action( 'shopchop_demo_store_wrapper', 'woocommerce_demo_store', 10 );

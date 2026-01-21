@@ -255,3 +255,26 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 });
+
+
+
+// Update Cart based on timeout
+jQuery( function( $ ) {
+let timeout;
+$( document.body ).on( 'updated_cart_totals', function() {
+    attachQtyListener();
+});
+
+function attachQtyListener() {
+    $( 'div.woocommerce' ).on( 'change', 'input.qty', function() {
+        if ( timeout !== undefined ) {
+            clearTimeout( timeout );
+        }
+        timeout = setTimeout( function() {
+            $( '[name="update_cart"]' ).trigger( 'click' );
+        }, 500 );
+    });
+}
+
+attachQtyListener();
+});
