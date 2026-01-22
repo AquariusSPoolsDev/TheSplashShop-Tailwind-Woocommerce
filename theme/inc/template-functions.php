@@ -390,13 +390,20 @@ function shopchop_override_address_fields( $address_fields ) {
     unset($address_fields['address_2']);
 
     $address_fields['first_name']['label'] = __('Name', 'woocommerce');
-    $address_fields['first_name']['placeholder'] = __('Name', 'woocommerce');
     $address_fields['country']['label']   = __('Country', 'woocommerce');
     $address_fields['address_1']['label'] = __('Address', 'woocommerce');
     $address_fields['city']['label']      = __('City', 'woocommerce');
     $address_fields['state']['label']     = __('State', 'woocommerce');
     $address_fields['postcode']['label']  = __('Postcode', 'woocommerce');
+
 	$address_fields['first_name']['autocomplete'] = 'name';
+
+	$address_fields['first_name']['placeholder'] = __('Name', 'woocommerce');
+	$address_fields['address_1']['placeholder'] = __('3, Jalan Pembangunan, Taman Perumahan', 'woocommerce');
+	$address_fields['city']['placeholder'] = __('Johor Bahru', 'woocommerce');
+	$address_fields['postcode']['placeholder'] = __('80000', 'woocommerce');
+	$address_fields['phone']['placeholder'] = __('+60123456789', 'woocommerce');
+	$address_fields['email']['placeholder'] = __('mail@example.com', 'woocommerce');
 
     return $address_fields;
 }
@@ -619,3 +626,12 @@ remove_action( 'wp_footer', 'woocommerce_demo_store', 10 );
 remove_action( 'wp_body_open', 'woocommerce_demo_store', 10 );
 
 add_action( 'shopchop_demo_store_wrapper', 'woocommerce_demo_store', 10 );
+
+
+
+/**
+ * ShopChop Remove and move the checkout payment menthods into new div
+ */
+remove_action( 'woocommerce_checkout_order_review', 'woocommerce_checkout_payment', 20 );
+
+add_action( 'shopchop_checkout_payment', 'woocommerce_checkout_payment', 20 );

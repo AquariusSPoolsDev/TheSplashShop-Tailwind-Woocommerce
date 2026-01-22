@@ -169,7 +169,9 @@ if ( ! comments_open() ) {
 			</div>
 		</div>
 	<?php else : ?>
-		<p class="woocommerce-verification-required"><?php esc_html_e( 'Only logged in customers who have purchased this product may leave a review.', 'woocommerce' ); ?></p>
+		<div class="log-in-comment-wrapper">
+			<p class="woocommerce-verification-required"><?php esc_html_e( 'To ensure authentic feedback, only customers who have purchased this product can leave a review.', 'woocommerce' ); ?></p>
+		</div>
 	<?php endif; ?>
 
 	<div class="clear"></div>

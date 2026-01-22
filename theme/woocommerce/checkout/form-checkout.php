@@ -51,18 +51,16 @@ if (! defined('ABSPATH')) {
 
 		<?php endif; ?>
 
-		<?php do_action('woocommerce_checkout_before_order_review_heading'); ?>
-
-		<h3 id="order_review_heading"><?php esc_html_e('Your order', 'woocommerce'); ?></h3>
-
-		<?php do_action('woocommerce_checkout_before_order_review'); ?>
-
 		<div id="order_review" class="woocommerce-checkout-review-order">
-			<?php do_action('woocommerce_checkout_order_review'); ?>
+			<h3 id="order_review_heading"><?php esc_html_e('Your order', 'woocommerce'); ?></h3>
+			<div class="order-review-table-wrapper">
+				<?php do_action('woocommerce_checkout_order_review'); ?>
+			</div>
 		</div>
 
-		<?php do_action('woocommerce_checkout_after_order_review'); ?>
-
+		<div id="checkout_payment" class="shopchop-checkout-payment">
+			<?php do_action('shopchop_checkout_payment'); ?>
+		</div>
 	</form>
 
 	<?php do_action('woocommerce_after_checkout_form', $checkout); ?>

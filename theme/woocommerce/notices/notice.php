@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Show messages
  *
@@ -15,18 +16,21 @@
  * @version 10.4.0
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
+if (! defined('ABSPATH')) {
 	exit;
 }
 
-if ( ! $notices ) {
+if (! $notices) {
 	return;
 }
 
 ?>
 
-<?php foreach ( $notices as $notice ) : ?>
-	<div class="woocommerce-info"<?php echo wc_get_notice_data_attr( $notice ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?> role="status">
-		<?php echo wc_kses_notice( $notice['notice'] ); ?>
+<?php foreach ($notices as $notice) : ?>
+	<div class="woocommerce-info" <?php echo wc_get_notice_data_attr($notice); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?> role="status">
+		<div class="wc-info-icon"></div>
+		<div class="wc-info-inner">
+			<?php echo wc_kses_notice($notice['notice']); ?>
+		</div>
 	</div>
 <?php endforeach; ?>

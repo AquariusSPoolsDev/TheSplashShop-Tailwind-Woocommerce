@@ -95,8 +95,8 @@ jQuery(function ($) {
 
 
 // Product Page AJAX
-jQuery(function($) {
-    $(document).on('click', '.woocommerce-pagination a', function(e) {
+jQuery(function ($) {
+    $(document).on('click', '.woocommerce-pagination a', function (e) {
         // Only run if we are on a shop/product list page
         if ($('.products').length === 0) return;
 
@@ -110,7 +110,7 @@ jQuery(function($) {
 
         // Load the new content
         // This fetches the target page and replaces everything inside #primary
-        $container.load(url + ' #primary > *', function(response, status, xhr) {
+        $container.load(url + ' #primary > *', function (response, status, xhr) {
             if (status === "error") return;
 
             $container.css('opacity', '1');
@@ -127,8 +127,8 @@ jQuery(function($) {
 });
 
 // Variable price update at the price
-jQuery(function($) {
-    $('.variations_form').on('show_variation', function(event, variation) {
+jQuery(function ($) {
+    $('.variations_form').on('show_variation', function (event, variation) {
         // 1. Find your main price container
         // Based on your previous code, it's likely inside .product-details-wrapper or similar
         const $mainPrice = $('.summary .price');
@@ -140,17 +140,17 @@ jQuery(function($) {
     });
 
     // Optional: Reset to the original price range if selection is cleared
-    $('.variations_form').on('reset_data', function() {
+    $('.variations_form').on('reset_data', function () {
         const $mainPrice = $('.summary .price');
         const originalPrice = $('.variations_form').data('price_hold');
-        
+
         if (originalPrice) {
             $mainPrice.html(originalPrice);
         }
     });
 
     // Store the original price on page load so we can revert to it
-    $(document).ready(function() {
+    $(document).ready(function () {
         const $mainPrice = $('.summary .price');
         $('.variations_form').data('price_hold', $mainPrice.html());
     });
@@ -158,20 +158,20 @@ jQuery(function($) {
 
 
 // variation radio button
-jQuery(document).ready(function($) {
+jQuery(document).ready(function ($) {
     var $form = $('.variations_form');
-    
-    $(document).on('click', '.pill-swatch', function(e) {
+
+    $(document).on('click', '.pill-swatch', function (e) {
         e.preventDefault();
         var $btn = $(this);
         if ($btn.hasClass('disabled')) return;
 
         var val = $btn.data('value');
         var $container = $btn.closest('.pill-swatches-container');
-        
+
         // Update the real (hidden) select
         $container.prev('div').find('select').val(val).trigger('change');
-        
+
         $btn.addClass('active').siblings().removeClass('active');
         updatePillAvailability();
     });
@@ -181,24 +181,24 @@ jQuery(document).ready(function($) {
         var selectedData = {};
 
         // Get currently selected attributes
-        $form.find('.pill-swatches-container').each(function() {
+        $form.find('.pill-swatches-container').each(function () {
             var attr = $(this).data('attribute_name');
             var val = $(this).find('.pill-swatch.active').data('value');
             if (val) selectedData[attr] = val;
         });
 
         // Loop through all pills to check if they should be enabled
-        $form.find('.pill-swatch').each(function() {
+        $form.find('.pill-swatch').each(function () {
             var $pill = $(this);
             var pillAttr = $pill.closest('.pill-swatches-container').data('attribute_name');
             var pillVal = $pill.data('value');
-            
+
             // Create a test "selection" including this pill
             var testSelection = $.extend({}, selectedData);
             testSelection[pillAttr] = pillVal;
 
             // Check if ANY variation matches this potential selection
-            var isPossible = allVariations.some(function(variation) {
+            var isPossible = allVariations.some(function (variation) {
                 var match = true;
                 for (var attr in testSelection) {
                     // Check if variation matches selected attribute (or is "any")
@@ -214,15 +214,15 @@ jQuery(document).ready(function($) {
         });
     }
 
-    $form.on('reset_data', function() {
+    $form.on('reset_data', function () {
         $('.pill-swatch').removeClass('active disabled out-of-stock');
     });
 });
 
 
 // Quantity Button
-jQuery(document).ready(function($) {
-    $(document).on('click', '.qty-btn', function() {
+jQuery(document).ready(function ($) {
+    $(document).on('click', '.qty-btn', function () {
         var $button = $(this);
         var $input = $button.closest('.quantity-nav').find('input.qty');
         var currentVal = parseFloat($input.val());
@@ -244,7 +244,7 @@ jQuery(document).ready(function($) {
 
 
 // My Account Scroll Behabviour
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     const activeLink = document.querySelector('.is-active');
     if (activeLink) {
         // This will scroll the horizontal menu to the active item automatically
@@ -259,22 +259,56 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 // Update Cart based on timeout
-jQuery( function( $ ) {
-let timeout;
-$( document.body ).on( 'updated_cart_totals', function() {
+jQuery(function ($) {
+    let timeout;
+    $(document.body).on('updated_cart_totals', function () {
+        attachQtyListener();
+    });
+
+    function attachQtyListener() {
+        $('div.woocommerce').on('change', 'input.qty', function () {
+            if (timeout !== undefined) {
+                clearTimeout(timeout);
+            }
+            timeout = setTimeout(function () {
+                $('[name="update_cart"]').trigger('click');
+            }, 500);
+        });
+    }
+
     attachQtyListener();
 });
 
-function attachQtyListener() {
-    $( 'div.woocommerce' ).on( 'change', 'input.qty', function() {
-        if ( timeout !== undefined ) {
-            clearTimeout( timeout );
-        }
-        timeout = setTimeout( function() {
-            $( '[name="update_cart"]' ).trigger( 'click' );
-        }, 500 );
-    });
-}
 
-attachQtyListener();
+
+// Add class for the peyment methods.
+jQuery(function ($) {
+    'use strict';
+
+    var updatePaymentSelection = function() {
+        var $paymentMethods = $('.wc_payment_method');
+        $paymentMethods.removeClass('is-selected');
+
+        var $checkedRadio = $('input[name="payment_method"]:checked');
+        if ($checkedRadio.length) {
+            $checkedRadio.closest('.wc_payment_method').addClass('is-selected');
+        }
+    };
+
+    // NEW: Card Click Logic
+    $(document.body).on('click', '.wc_payment_method', function (e) {
+        // Prevent trigger if clicking directly on the radio or an interactive element (like an input or link)
+        if ($(e.target).is('input, label, a, button, select, textarea')) {
+            return;
+        }
+
+        var $radio = $(this).find('input[name="payment_method"]');
+        if (!$radio.is(':checked')) {
+            $radio.prop('checked', true).trigger('change');
+        }
+    });
+
+    $(document).ready(updatePaymentSelection);
+    $(document.body).on('change', 'input[name="payment_method"]', updatePaymentSelection);
+    $(document.body).on('updated_checkout', updatePaymentSelection);
 });
