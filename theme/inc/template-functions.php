@@ -325,14 +325,20 @@ add_action( 'woocommerce_after_shop_loop_item', function() {
 /**
  * ShopChop Disable Select2 selector
  */
-add_filter( 'woocommerce_enqueue_styles', 'disable_woo_select2', 99 );
-function disable_woo_select2( $enqueue_styles ) {
-    wp_dequeue_script( 'select2' );
-    wp_deregister_script( 'select2' );
-    wp_dequeue_style( 'select2' );
-    wp_deregister_style( 'select2' );
-    return $enqueue_styles;
-}
+// add_filter( 'woocommerce_enqueue_styles', 'disable_woo_select2', 9999 );
+// function disable_woo_select2( $enqueue_styles ) {
+//     wp_dequeue_script( 'select2' );
+//     wp_deregister_script( 'select2' );
+    
+//     // 2. Remove the Select2 CSS
+//     wp_dequeue_style( 'select2' );
+//     wp_deregister_style( 'select2' );
+
+//     // 3. IMPORTANT: Remove the WC scripts that force Select2 onto address fields
+//     wp_dequeue_script( 'wc-country-select' );
+//     wp_dequeue_script( 'wc-address-i18n' );
+//     return $enqueue_styles;
+// }
 
 
 

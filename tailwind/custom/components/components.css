@@ -1071,6 +1071,16 @@ label { @apply font-semibold; }
 					@apply text-sm mt-0.5 text-error-400;
 				}
 			}
+
+			h3#ship-to-different-address,
+			.form-row.create-account {
+				@apply my-8;
+
+				.woocommerce-form__label {
+					@apply inline-flex items-center cursor-pointer;
+				}
+
+			}
 		}
 
 		#order_review {
