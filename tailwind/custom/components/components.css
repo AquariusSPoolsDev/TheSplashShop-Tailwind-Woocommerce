@@ -1036,6 +1036,27 @@ label { @apply font-semibold; }
 		.button {
 			@apply px-5 normal-case text-base;
 		}
+
+		.form-fields {
+			@apply flex flex-col gap-4 lg:flex-row grow;
+
+			.form-row {
+				@apply first:grow-0;
+			}
+		}
+		.form-verify {
+			@apply shrink-0 w-full lg:w-64;
+
+			.form-row { @apply flex flex-col gap-3; }
+
+			.button {@apply h-10 px-8; }
+
+			.lost_password {
+				@apply text-center mt-2;
+				
+				a {@apply underline! text-primary-400;}
+			}
+		}
 	}
 
 	form.woocommerce-checkout {
@@ -1143,6 +1164,10 @@ label { @apply font-semibold; }
 						label { @apply text-primary-400; }
 					}
 
+					&:not(.is-selected) {
+						@apply opacity-50;
+					}
+
 					input {
 						@apply cursor-pointer hidden!;
 					}
@@ -1190,6 +1215,13 @@ label { @apply font-semibold; }
 	.button {
 		@apply text-background hover:text-background h-14 px-3 flex justify-center items-center;
 	}
+}
+
+
+
+/* WooComerce Login & Register */
+.shopchop-my-account .wc-auth-wrapper {
+	@apply max-w-3xl mx-auto;
 }
 
 

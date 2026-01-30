@@ -23,15 +23,14 @@ do_action( 'woocommerce_before_customer_login_form' ); ?>
 
 <?php if ( 'yes' === get_option( 'woocommerce_enable_myaccount_registration' ) ) : ?>
 
-<div class="u-columns col2-set" id="customer_login">
-
-	<div class="u-column1 col-1">
+<div class="wc-cols-set" id="customer_login">
 
 <?php endif; ?>
-
+	<div class="wc-col-login">
+		
 		<h2><?php esc_html_e( 'Login', 'woocommerce' ); ?></h2>
 
-		<form class="woocommerce-form woocommerce-form-login login" method="post" novalidate>
+		<form class="woocommerce-form woocommerce-form-login login wc-myaccount-form-login" method="post" novalidate>
 
 			<?php do_action( 'woocommerce_login_form_start' ); ?>
 
@@ -61,11 +60,11 @@ do_action( 'woocommerce_before_customer_login_form' ); ?>
 
 		</form>
 
-<?php if ( 'yes' === get_option( 'woocommerce_enable_myaccount_registration' ) ) : ?>
-
 	</div>
 
-	<div class="u-column2 col-2">
+<?php if ( 'yes' === get_option( 'woocommerce_enable_myaccount_registration' ) ) : ?>
+
+	<div class="wc-col-register">
 
 		<h2><?php esc_html_e( 'Register', 'woocommerce' ); ?></h2>
 

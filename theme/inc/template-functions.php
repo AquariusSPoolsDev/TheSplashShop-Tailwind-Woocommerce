@@ -325,20 +325,19 @@ add_action( 'woocommerce_after_shop_loop_item', function() {
 /**
  * ShopChop Disable Select2 selector
  */
-// add_filter( 'woocommerce_enqueue_styles', 'disable_woo_select2', 9999 );
-// function disable_woo_select2( $enqueue_styles ) {
-//     wp_dequeue_script( 'select2' );
-//     wp_deregister_script( 'select2' );
-    
-//     // 2. Remove the Select2 CSS
-//     wp_dequeue_style( 'select2' );
-//     wp_deregister_style( 'select2' );
+add_filter( 'woocommerce_enqueue_styles', 'disable_woo_select2', 9999 );
+function disable_woo_select2( $enqueue_styles ) {
+	wp_dequeue_style('select2');
+	wp_deregister_style('select2');
 
-//     // 3. IMPORTANT: Remove the WC scripts that force Select2 onto address fields
-//     wp_dequeue_script( 'wc-country-select' );
-//     wp_dequeue_script( 'wc-address-i18n' );
-//     return $enqueue_styles;
-// }
+	wp_dequeue_script('selectWoo');
+	wp_deregister_script('selectWoo');
+	
+	// Dequeue and deregister the country select script (optional)
+	// wp_dequeue_script('wc-country-select');
+	// wp_deregister_script('wc-country-select');
+    return $enqueue_styles;
+}
 
 
 
@@ -641,3 +640,16 @@ add_action( 'shopchop_demo_store_wrapper', 'woocommerce_demo_store', 10 );
 remove_action( 'woocommerce_checkout_order_review', 'woocommerce_checkout_payment', 20 );
 
 add_action( 'shopchop_checkout_payment', 'woocommerce_checkout_payment', 20 );
+
+
+
+/**
+ * ShopChop Change Error Text to general use text
+ */
+add_filter( 'authenticate', 'remove_login_errors', 20, 3 );
+function remove_login_errors( $user, $username, $password ) {
+    if ( empty( $username ) || empty( $password ) || is_wp_error( $user ) ) {
+        return new WP_Error( 'authentication_failed', __( '<strong>Error</strong>: Invalid username or password. Please try again.' ) );
+    }
+    return $user;
+}
