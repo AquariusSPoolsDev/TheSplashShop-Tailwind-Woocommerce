@@ -1,7 +1,7 @@
-ShopChop
+The Splash Shop V2.0 Tailwind WooCommerce Theme
 ========
 
-ShopChop theme using Tailwind and Underscores. Use for WooCommerce custom.
+The Splash Shop V2.0 WooCommerce theme using Tailwind and Underscores.
 
 ## Quickstart
 
