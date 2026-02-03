@@ -14,10 +14,12 @@
 
     <header class="entry-header">
         <?php
-        if (! is_front_page()) {
-            the_title('<h1 class="entry-title">', '</h1>');
-        } else {
-            the_title('<h2 class="entry-title">', '</h2>');
+        if (! is_wc_endpoint_url('order-received')) {
+            if (! is_front_page()) {
+                the_title('<h1 class="entry-title">', '</h1>');
+            } else {
+                the_title('<h2 class="entry-title">', '</h2>');
+            }
         }
         ?>
     </header><!-- .entry-header -->

@@ -194,6 +194,39 @@ label { @apply font-semibold; }
 
 
 /**
+ * ShopChop Error 404 Container
+ */
+.error-404-wrapper {
+	@apply text-center py-16;
+
+	.error-404-big {
+		@apply text-9xl font-extrabold text-primary-400 mb-2;
+	}
+
+	.error-404-heading {
+		@apply text-3xl lg:text-4xl font-medium text-primary-400 mb-5;
+	}
+
+	.error-404-buttons {
+		@apply flex flex-col lg:flex-row justify-center flex-wrap gap-4;
+
+		.button {
+			@apply flex items-center justify-center px-6;
+
+			&.btn-menu {
+				@apply text-background;
+			}
+
+			&.btn-secondary {
+				@apply bg-transparent text-secondary border-2 border-secondary hover:bg-secondary-100 active:bg-secondary-100 focus:bg-secondary-100;
+			}
+		}
+	}
+}
+
+
+
+/**
  * ShopChop Header and Footer Normals and Minimals
  *
  * This divided by 2 classes, namely minimal and normal
@@ -1208,6 +1241,153 @@ label { @apply font-semibold; }
 
 
 
+/* ShopChop Pay to Order Page. If the order is refunded/canceled */
+.order-pay-form {
+	@apply w-full lg:w-[60%];
+
+	table.shop_table {
+		@apply w-full block mb-8 p-4 bg-white border border-grey-200 rounded-lg text-sm md:text-base;
+
+		tbody {
+			@apply flex flex-col flex-wrap gap-y-3;
+
+			tr {
+				@apply flex gap-x-3 justify-between items-end;
+
+				td.product-name {
+					@apply flex gap-x-4 items-start;
+				}
+
+
+
+				img {
+					@apply w-16 h-16 md:w-20 md:h-20
+				}
+
+				.shopchop-item-qty,
+				.variation-meta {
+					@apply text-xs md:text-sm text-grey-300;
+				}
+			}
+		}
+
+		tfoot {
+			@apply flex flex-col gap-1.5 pt-4 mt-4 border-t border-t-grey-200;
+
+			tr {
+				@apply flex gap-4 justify-between;
+
+				&.order-total {
+					@apply text-xl mt-2;
+				}
+			}
+
+			td.product-total {
+				@apply flex gap-x-1.5 items-baseline;
+
+				ins { @apply font-bold; }
+			}
+		}
+	}
+
+	.wc_payment_methods {
+		@apply flex flex-col gap-4 mb-8;
+
+		.wc_payment_method {
+			@apply p-4 lg:p-6 border-2 border-grey-200 rounded-lg flex items-center gap-4 cursor-pointer transition-all;
+
+			&.is-selected {
+				@apply border-primary-300 ring-primary-100 ring-4;
+
+				label {
+					@apply text-primary-400;
+				}
+			}
+
+			&:not(.is-selected) {
+				@apply opacity-50;
+			}
+
+			input {
+				@apply cursor-pointer hidden!;
+			}
+
+			span {
+				@apply grow;
+
+				label {
+					@apply cursor-pointer block w-full;
+				}
+			}
+
+			hr {
+				@apply my-1.5 text-grey-200;
+			}
+
+			.payment_box {
+				@apply block! text-sm text-grey-300;
+			}
+
+			img {
+				@apply w-24 shrink-0;
+			}
+		}
+	}
+
+	.woocommerce-privacy-policy-text {
+		@apply mb-8;
+
+		a {
+			@apply underline ;
+		}
+	}
+
+	button {
+		@apply px-10;
+	}
+}
+
+
+
+/* ShopChop WooCommerce Order Recieved Page. This displays the logic after checkout. */
+.woocommerce-order.wc-order-thank-you-page {
+	@apply max-w-3xl mx-auto p-4 lg:p-6 border border-grey-200 rounded-lg;
+
+	.woocommerce-order-received-title {
+		@apply text-3xl lg:text-4xl font-bold mb-2 text-primary-400
+	}
+
+	.woocommerce-order-overview {
+		@apply flex flex-col gap-y-1.5 lg:flex-row lg:justify-between lg:text-center py-4 my-4 border-y border-y-grey-200;
+
+		li {
+			@apply flex justify-between gap-x-4 lg:flex-col lg:gap-y-0.5;
+		}
+	}
+
+	.woocommerce-customer-details {
+		@apply mt-4 pt-4 border-t border-t-grey-200;
+		
+		.woocommerce-columns {
+			@apply grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6;
+
+			.woocommerce-column {
+				@apply col-span-full md:col-span-1;
+			}
+		}
+
+		h2.woocommerce-column__title {
+			@apply font-semibold text-2xl mb-4;
+		}
+
+		address {
+			@apply not-italic m-0;
+		}
+	}
+}
+
+
+
 /* Return to Shop Button - if there's no product */
 .return-to-shop {
 	@apply py-8;
@@ -1288,10 +1468,13 @@ label { @apply font-semibold; }
 		.status-badge {
 			@apply block rounded-xl font-medium text-base px-3.5 py-2;
 
+			&.status-pending	{ @apply bg-amber-100 text-amber-800; }
 			&.status-processing { @apply bg-primary-100 text-primary-400; }
 			&.status-completed  { @apply bg-emerald-100 text-emerald-800; }
 			&.status-on-hold    { @apply bg-amber-100 text-amber-800; }
 			&.status-cancelled  { @apply bg-grey-200/50 text-grey-400; }
+			&.status-refunded   { @apply bg-slate-100 text-slate-800; }
+			&.status-failed	 	{ @apply bg-error-100 text-error-400; }
 		}
 
 		/* My Account Dashboard */
@@ -1489,11 +1672,23 @@ label { @apply font-semibold; }
 							@apply text-xs md:text-sm text-grey-300;
 						}
 
-						.order-actions-wrapper a {
-							@apply block h-max rounded-lg px-3 py-0.5 md:px-5 md:py-1 text-sm md:text-base normal-case;
+						.order-actions-wrapper {
+							@apply flex flex-wrap gap-3;
+							
+							a {
+								@apply block h-max rounded-lg px-3 py-0.5 md:px-5 md:py-1 text-sm md:text-base normal-case;
+							}
 						}
 					}
 				}
+			}
+		}
+
+		.woocommerce-pagination {
+			@apply mt-8 flex justify-center;
+
+			a.button {
+				@apply px-6 inline-flex items-center normal-case text-base border-secondary border-2 bg-transparent text-secondary hover:bg-secondary-100 cursor-pointer;
 			}
 		}
 		/* My Account - View Many Orders */
@@ -1602,6 +1797,10 @@ label { @apply font-semibold; }
 
 				tfoot {
 					@apply pt-4 mt-4 gap-1.5 border-t border-t-grey-200;
+
+					td {
+						@apply flex gap-x-1.5 items-baseline;
+					}
 				}
 
 				.order-again{

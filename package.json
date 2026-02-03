@@ -50,5 +50,8 @@
 		"prettier": "^3.6.2",
 		"prettier-plugin-tailwindcss": "^0.7.0",
 		"tailwindcss": "^4.1.14"
+	},
+	"dependencies": {
+		"@lottiefiles/dotlottie-web": "^0.61.0"
 	}
 }
