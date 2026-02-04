@@ -646,10 +646,35 @@ add_action( 'shopchop_checkout_payment', 'woocommerce_checkout_payment', 20 );
 /**
  * ShopChop Change Error Text to general use text
  */
-add_filter( 'authenticate', 'remove_login_errors', 20, 3 );
-function remove_login_errors( $user, $username, $password ) {
+add_filter( 'authenticate', 'shopchop_remove_login_errors', 20, 3 );
+function shopchop_remove_login_errors( $user, $username, $password ) {
     if ( empty( $username ) || empty( $password ) || is_wp_error( $user ) ) {
         return new WP_Error( 'authentication_failed', __( '<strong>Error</strong>: Invalid username or password. Please try again.' ) );
     }
     return $user;
+}
+
+
+
+add_action( 'woocommerce_thankyou', 'shopchop_add_next_steps', 10 );
+  
+function shopchop_add_next_steps( $order_id ) {
+    // 1. Get the Order Object from the ID
+    $order = wc_get_order( $order_id );
+
+    // 2. Safety check: Exit if the order doesn't exist
+    if ( ! $order ) {
+        return;
+    }
+
+    ?>
+   <section class="wc-next-steps-order">
+	<h2 class="wc-next-steps-title">What to do Next?</h2>
+	<ul class="list-disc ml-5 space-y-1">
+        <li><strong>Order Confirmation:</strong> You'll receive an email notification as soon as your order is processed and ready for shipment.</li>
+        <li><strong>Track Your Package:</strong> Once dispatched, a tracking number will be sent to you to monitor your delivery status.</li>
+        <li><strong>Need Assistance?</strong> Contact us through <a href="https://wa.me/" class="underline! font-bold text-primary-400" target="_blank" rel="noreferrer">WhatsApp</a> or email us at <a href="mailto:" class="underline! font-bold text-primary-400" rel="noreferrer">email@mail.com</a> with your Order ID: <strong><?php echo $order->get_order_number(); ?></strong></li>
+    </ul>
+   </section>
+   <?php
 }

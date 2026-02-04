@@ -24,7 +24,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<h2 class="woocommerce-order-downloads__title"><?php esc_html_e( 'Downloads', 'woocommerce' ); ?></h2>
 	<?php endif; ?>
 
-	<table class="woocommerce-table woocommerce-table--order-downloads shop_table shop_table_responsive order_details">
+	<table class="flex w-full woocommerce-table woocommerce-table--order-downloads shop_table shop_table_responsive order_details">
+		<?php /*
 		<thead>
 			<tr>
 				<?php foreach ( wc_get_account_downloads_columns() as $column_id => $column_name ) : ?>
@@ -33,41 +34,50 @@ if ( ! defined( 'ABSPATH' ) ) {
 			</tr>
 		</thead>
 
-		<?php foreach ( $downloads as $download ) : ?>
-			<tr>
-				<?php foreach ( wc_get_account_downloads_columns() as $column_id => $column_name ) : ?>
-					<td class="<?php echo esc_attr( $column_id ); ?>" data-title="<?php echo esc_attr( $column_name ); ?>">
-						<?php
-						if ( has_action( 'woocommerce_account_downloads_column_' . $column_id ) ) {
-							do_action( 'woocommerce_account_downloads_column_' . $column_id, $download );
-						} else {
-							switch ( $column_id ) {
-								case 'download-product':
+		*/ ?>
+		<tbody class="flex flex-col w-full flex-wrap gap-4 lg:gap-6">
+			<?php foreach ( $downloads as $download ) : ?>
+				<tr class="border border-grey-200 p-4 rounded-xl">
+					<td class="w-full flex gap-3" data-title="download-row">
+						<div class="download-file-product-image wc-product-img shrink-0">
+							<?php 
+							if ( wc_get_product( $download['product_id'] ) ) {
+								echo wc_get_product( $download['product_id'] )->get_image( array( 72, 72 ) ); 
+							}
+							?>
+						</div>
+						<div class="download-file-meta wc-file-meta grow lg:relative">
+							<div class="wc-product-name">
+								<?php 
 									if ( $download['product_url'] ) {
 										echo '<a href="' . esc_url( $download['product_url'] ) . '">' . esc_html( $download['product_name'] ) . '</a>';
 									} else {
 										echo esc_html( $download['product_name'] );
 									}
-									break;
-								case 'download-file':
-									echo '<a href="' . esc_url( $download['download_url'] ) . '" class="woocommerce-MyAccount-downloads-file button alt">' . esc_html( $download['download_name'] ) . '</a>';
-									break;
-								case 'download-remaining':
-									echo is_numeric( $download['downloads_remaining'] ) ? esc_html( $download['downloads_remaining'] ) : esc_html__( '&infin;', 'woocommerce' );
-									break;
-								case 'download-expires':
-									if ( ! empty( $download['access_expires'] ) ) {
-										echo '<time datetime="' . esc_attr( date( 'Y-m-d', strtotime( $download['access_expires'] ) ) ) . '" title="' . esc_attr( strtotime( $download['access_expires'] ) ) . '">' . esc_html( date_i18n( get_option( 'date_format' ), strtotime( $download['access_expires'] ) ) ) . '</time>';
-									} else {
-										esc_html_e( 'Never', 'woocommerce' );
-									}
-									break;
-							}
-						}
-						?>
+								?>
+							</div>
+
+							<div class="wc-product-download-remain">
+								<strong>Downloads Remaining: </strong>
+								<?php echo is_numeric( $download['downloads_remaining'] ) ? esc_html( $download['downloads_remaining'] ) : esc_html__( '&infin;', 'woocommerce' ); ?>
+							</div>
+
+							<div class="wc-product-download-expire">
+								<strong>Expires: </strong>
+								<?php 
+								if ( ! empty( $download['access_expires'] ) ) {
+								echo '<time datetime="' . esc_attr( date( 'Y-m-d', strtotime( $download['access_expires'] ) ) ) . '" title="' . esc_attr( strtotime( $download['access_expires'] ) ) . '">' . esc_html( date_i18n( get_option( 'date_format' ), strtotime( $download['access_expires'] ) ) ) . '</time>';
+							} else {
+								esc_html_e( 'Never', 'woocommerce' );
+							} ?>
+							</div>
+							<div class="wc-product-download-btn text-end lg:absolute lg:right-0 lg:bottom-0">
+								<?php echo '<a href="' . esc_url( $download['download_url'] ) . '" class="woocommerce-MyAccount-downloads-file button alt px-2.5 py-1 inline-flex items-center normal-case! text-base! border-secondary border-2 bg-transparent! text-secondary! hover:bg-secondary-100! cursor-pointer h-max!">' . esc_html( $download['download_name'] ) . '</a>'; ?>
+							</div>
+						</div>
 					</td>
-				<?php endforeach; ?>
-			</tr>
-		<?php endforeach; ?>
+				</tr>
+			<?php endforeach; ?>
+		</tbody>
 	</table>
 </section>

@@ -268,7 +268,7 @@ label { @apply font-semibold; }
 }
 
 .shopchop-footer-normal {
-
+	@apply bg-secondary text-background;
 }
 
 
@@ -1350,42 +1350,190 @@ label { @apply font-semibold; }
 
 
 /* ShopChop WooCommerce Order Recieved Page. This displays the logic after checkout. */
-.woocommerce-order.wc-order-thank-you-page {
-	@apply max-w-3xl mx-auto p-4 lg:p-6 border border-grey-200 rounded-lg;
+.wc-order-thank-you-page {
+	@apply max-w-3xl mx-auto;
 
-	.woocommerce-order-received-title {
-		@apply text-3xl lg:text-4xl font-bold mb-2 text-primary-400
-	}
+	.woocommerce-order {
+		@apply mb-8 p-4 lg:p-6 border border-grey-200 rounded-lg text-sm md:text-base;
 
-	.woocommerce-order-overview {
-		@apply flex flex-col gap-y-1.5 lg:flex-row lg:justify-between lg:text-center py-4 my-4 border-y border-y-grey-200;
-
-		li {
-			@apply flex justify-between gap-x-4 lg:flex-col lg:gap-y-0.5;
-		}
-	}
-
-	.woocommerce-customer-details {
-		@apply mt-4 pt-4 border-t border-t-grey-200;
-		
-		.woocommerce-columns {
-			@apply grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6;
-
-			.woocommerce-column {
-				@apply col-span-full md:col-span-1;
-			}
+		.woocommerce-order-received-title {
+			@apply text-3xl lg:text-4xl font-bold mb-2 text-primary-400
 		}
 
-		h2.woocommerce-column__title {
+		h2 {
 			@apply font-semibold text-2xl mb-4;
 		}
 
-		address {
-			@apply not-italic m-0;
+		.woocommerce-order-overview {
+			@apply flex flex-col gap-y-1.5 lg:flex-row lg:justify-between lg:text-center;
+
+			li {
+				@apply flex justify-between gap-x-4 lg:flex-col;
+			}
+		}
+
+		.woocommerce-thankyou-order-failed-actions {
+			@apply mt-3;
+
+			a.button {
+				@apply px-2.5 py-1 inline-flex items-center normal-case! text-sm! md:text-base! font-medium border-secondary border-2 bg-transparent! text-secondary! hover:bg-secondary-100! cursor-pointer h-max!;
+			}
+		}
+
+		.woocommerce-order-overview,
+		.woocommerce-order-downloads,
+		.woocommerce-order-details,
+		.woocommerce-customer-details {
+			@apply mt-6 pt-6 lg:mt-8 lg:pt-8 border-t border-t-grey-200;
+		}
+
+		.woocommerce-order-details {
+			table.shop_table {
+				@apply w-full;
+
+				thead {
+					@apply hidden!;
+				}
+
+				tbody {
+					@apply flex flex-col flex-wrap gap-y-3;
+
+					tr {
+						@apply flex gap-x-3 justify-between items-end;
+
+						td.product-name {
+							@apply flex gap-x-4 items-start;
+
+							.shopchop-item-image {
+								@apply shrink-0;
+							}
+
+							.shopchop-item-content {
+								.item-title {
+									@apply text-primary-400 font-medium text-base md:text-lg line-clamp-1;
+								}
+
+								.variation-meta,
+								.shopchop-item-qty {
+									@apply block text-sm md:text-base text-grey-300 mt-1;
+								}
+							}
+						}
+
+						img {
+							@apply w-16 h-16 md:w-20 md:h-20 rounded-lg;
+						}
+
+						.shopchop-item-qty,
+						.variation-meta {
+							@apply text-xs md:text-sm text-grey-300;
+						}
+					}
+				}
+
+				tfoot {
+					@apply flex flex-col gap-1.5 pt-4 mt-4 border-t border-t-grey-200;
+
+					tr {
+						@apply flex gap-4 justify-between;
+
+						&.order-total {
+							@apply text-xl mt-2;
+						}
+					}
+
+					td {
+						@apply flex gap-x-1 items-baseline text-end;
+
+						a.button {
+							@apply px-2.5 py-1 inline-flex items-center normal-case! text-sm! md:text-base! font-medium border-secondary border-2 bg-transparent! text-secondary! hover:bg-secondary-100! cursor-pointer h-max!;
+
+							&.cancel {
+								@apply border-error-400! text-error-400! hover:bg-error-100!;
+							}
+						}
+					}
+				}
+			}
+		}
+
+		.woocommerce-customer-details {
+			.woocommerce-columns {
+				@apply grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6;
+
+				.woocommerce-column {
+					@apply col-span-full md:col-span-1;
+				}
+			}
+
+			address {
+				@apply not-italic m-0;
+			}
+		}
+
+		.wc-next-steps-order {
+			@apply mt-6 pt-6 lg:mt-8 lg:pt-8 border-t border-t-grey-200;
+		}
+	}
+
+	.wc-thank-you-button-actions {
+		@apply flex justify-center md:justify-between gap-4 flex-wrap;
+
+		a.button {
+			@apply text-base normal-case h-10 px-5 bg-transparent border-2 flex items-center;
+
+			&.print-reciept {
+				@apply border-primary text-primary-400 hover:bg-primary-100 active:bg-primary-100 focus:bg-primary-100;
+			}
+
+			&.continue-shopping {
+				@apply border-secondary text-secondary hover:bg-secondary-100 active:bg-secondary-100 focus:bg-secondary-100;
+			}
 		}
 	}
 }
 
+@media print {
+    .wc-next-steps-order,
+    .wc-thank-you-button-actions { 
+        display: none !important;
+    }
+
+	#masthead,
+	#colophon,
+	#masthead>.container,
+	#colophon>.container,
+	body,
+	.shopchop-main-content-wrapper,
+	.wc-order-thank-you-page,
+    .woocommerce-order {
+		background-color: white ;
+		padding: 0;
+		margin: 0;
+		max-width: 100%;
+	}
+
+	.woocommerce-order {
+        padding: 0.5cm !important;
+    }
+
+    /* Ensure table borders and details are visible */
+    .shop_table {
+        border-collapse: collapse !important;
+        width: 100% !important;
+    }
+
+    /* Keep the address columns side-by-side if they fit */
+    .woocommerce-columns {
+        display: flex !important;
+        flex-direction: row !important;
+        gap: 20px !important;
+    }
+
+    .woocommerce-column {
+        flex: 1 !important;
+    }
+}
 
 
 /* Return to Shop Button - if there's no product */
@@ -1466,7 +1614,7 @@ label { @apply font-semibold; }
 		}
 
 		.status-badge {
-			@apply block rounded-xl font-medium text-base px-3.5 py-2;
+			@apply block rounded-full font-medium text-base px-3.5 py-2;
 
 			&.status-pending	{ @apply bg-amber-100 text-amber-800; }
 			&.status-processing { @apply bg-primary-100 text-primary-400; }
@@ -1718,6 +1866,7 @@ label { @apply font-semibold; }
 			}
 
 			.order-updates-wrapper,
+			.woocommerce-order-downloads,
 			.woocommerce-order-details,
 			.woocommerce-customer-details {
 				@apply pt-4 lg:pt-6 mt-4 lg:mt-6 border-t border-grey-200;
@@ -1800,6 +1949,14 @@ label { @apply font-semibold; }
 
 					td {
 						@apply flex gap-x-1.5 items-baseline;
+
+						a.button {
+							@apply px-2.5 py-1 inline-flex items-center normal-case! text-sm! md:text-base! font-medium border-secondary border-2 bg-transparent! text-secondary! hover:bg-secondary-100! cursor-pointer h-max!;
+
+							&.cancel {
+								@apply border-error-400! text-error-400! hover:bg-error-100!;
+							}
+						}
 					}
 				}
 

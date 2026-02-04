@@ -38,7 +38,7 @@ defined('ABSPATH') || exit;
 			// Logic to append the email if available
 			// We check if $order exists and has a billing email
 			if ($order && $order->get_billing_email()) : ?>
-				<strong class="block mt-1 text-indigo-600 italic">
+				<strong class="block">
 					<?php echo esc_html($order->get_billing_email()); ?>
 				</strong>
 			<?php endif; ?>

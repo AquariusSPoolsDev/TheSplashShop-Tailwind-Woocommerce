@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Template part for displaying the footer content
  *
@@ -15,51 +16,41 @@ $is_minimal_page = is_checkout() ||
 ?>
 
 <footer id="colophon" class=" <?php echo is_checkout() ? 'shopchop-footer-minimal' : 'shopchop-footer-normal'; ?>">
-<?php if ($is_minimal_page) : ?>
+	<?php if ($is_minimal_page) : ?>
+		<div class="text-center text-sm container mx-auto px-6 md:px-10 lg:px-16 pt-4 p-8">
+			&copy; <?php echo date("Y"); ?> <a class="underline! transition-all hover:no-underline! active:no-underline! focus:no-underline! text-primary-400 font-semibold" href="<?php echo esc_url(home_url('/')); ?>" rel="home"><?php bloginfo('name'); ?></a>. All Rights Reserved.<br>
+			Website developed by <a class="underline! transition-all hover:no-underline! active:no-underline! focus:no-underline! text-primary-400 font-semibold" href="#">ChopChop</a>.
+		</div>
+	<?php else : ?>
+		<div class=" container mx-auto px-6 md:px-10 lg:px-16 pt-4 p-8">
+			<div class="">
+				<?php if (is_active_sidebar('sidebar-1')) : ?>
+					<aside role="complementary" aria-label="<?php esc_attr_e('Footer', 'shopchop'); ?>">
+						<?php dynamic_sidebar('sidebar-1'); ?>
+					</aside>
+				<?php endif; ?>
 
-<?php else : ?>
+				<?php if (has_nav_menu('menu-2')) : ?>
+					<nav aria-label="<?php esc_attr_e('Footer Menu', 'shopchop'); ?>">
+						<?php
+						wp_nav_menu(
+							array(
+								'theme_location' => 'menu-2',
+								'menu_class'     => 'footer-menu',
+								'depth'          => 1,
+							)
+						);
+						?>
+					</nav>
+				<?php endif; ?>
+			</div>
+			<div class="border-t border-t-grey-200">
 
-<?php endif; ?>
-
-
-	<?php if ( is_active_sidebar( 'sidebar-1' ) ) : ?>
-		<aside role="complementary" aria-label="<?php esc_attr_e( 'Footer', 'shopchop' ); ?>">
-			<?php dynamic_sidebar( 'sidebar-1' ); ?>
-		</aside>
+			</div>
+		</div>
 	<?php endif; ?>
 
-	<?php if ( has_nav_menu( 'menu-2' ) ) : ?>
-		<nav aria-label="<?php esc_attr_e( 'Footer Menu', 'shopchop' ); ?>">
-			<?php
-			wp_nav_menu(
-				array(
-					'theme_location' => 'menu-2',
-					'menu_class'     => 'footer-menu',
-					'depth'          => 1,
-				)
-			);
-			?>
-		</nav>
-	<?php endif; ?>
 
-	<div>
-		&copy;
-		<?php echo date("Y"); ?>
-		<?php
-		$shopchop_blog_info = get_bloginfo( 'name' );
-		if ( ! empty( $shopchop_blog_info ) ) :
-			?>
-			<a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a>,
-			<?php
-		endif;
 
-		/* translators: 1: WordPress link, 2: WordPress. */
-		printf(
-			'<a href="%1$s">proudly powered by %2$s</a>.',
-			esc_url( __( 'https://wordpress.org/', 'shopchop' ) ),
-			'WordPress'
-		);
-		?>
-	</div>
 
 </footer><!-- #colophon -->
