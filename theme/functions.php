@@ -81,7 +81,12 @@ if ( ! function_exists( 'shopchop_setup' ) ) :
 		register_nav_menus(
 			array(
 				'menu-1' => __( 'Primary', 'shopchop' ),
-				'menu-2' => __( 'Footer Menu', 'shopchop' ),
+				// 'menu-2' => __( 'Footer Menu', 'shopchop' ),
+				'main-menu' => __( 'Main Header Menu', 'shopchop' ),
+				'sec-menu' => __( 'Secondary Header Menu', 'shopchop' ),
+				'footer-1-menu' => __( 'Footer 1 Menu', 'shopchop' ),
+				'footer-2-menu' => __( 'Footer 2 Menu', 'shopchop' ),
+				'footer-3-menu' => __( 'Footer 3 Menu', 'shopchop' ),
 			)
 		);
 
@@ -101,6 +106,9 @@ if ( ! function_exists( 'shopchop_setup' ) ) :
 				'script',
 			)
 		);
+
+		// Custom Logo
+		add_theme_support( 'custom-logo' );
 
 		// Add theme support for selective refresh for widgets.
 		add_theme_support( 'customize-selective-refresh-widgets' );
@@ -135,15 +143,64 @@ add_action( 'after_setup_theme', 'shopchop_setup' );
  * @link https://developer.wordpress.org/themes/functionality/sidebars/#registering-a-sidebar
  */
 function shopchop_widgets_init() {
+	// register_sidebar(
+	// 	array(
+	// 		'name'          => __( 'Footer', 'shopchop' ),
+	// 		'id'            => 'sidebar-1',
+	// 		'description'   => __( 'Add widgets here to appear in your footer.', 'shopchop' ),
+	// 		'before_widget' => '<section id="%1$s" class="widget %2$s">',
+	// 		'after_widget'  => '</section>',
+	// 		'before_title'  => '<h2 class="widget-title">',
+	// 		'after_title'   => '</h2>',
+	// 	)
+	// );
+
+	// Footer Contents
 	register_sidebar(
 		array(
-			'name'          => __( 'Footer', 'shopchop' ),
-			'id'            => 'sidebar-1',
+			'name'          => __( 'Footer Content 0', 'shopchop' ),
+			'id'            => 'footer-content-0',
 			'description'   => __( 'Add widgets here to appear in your footer.', 'shopchop' ),
-			'before_widget' => '<section id="%1$s" class="widget %2$s">',
-			'after_widget'  => '</section>',
-			'before_title'  => '<h2 class="widget-title">',
-			'after_title'   => '</h2>',
+			'before_widget' => '<div id="%1$s" class="widget %2$s">',
+			'after_widget'  => '</div>',
+			'before_title'  => '<h5 class="widget-title">',
+			'after_title'   => '</h5>',
+		)
+	);
+
+	register_sidebar(
+		array(
+			'name'          => __( 'Footer Content 1', 'shopchop' ),
+			'id'            => 'footer-content-1',
+			'description'   => __( 'Add widgets here to appear in your footer.', 'shopchop' ),
+			'before_widget' => '<div id="%1$s" class="widget %2$s">',
+			'after_widget'  => '</div>',
+			'before_title'  => '<h5 class="widget-title">',
+			'after_title'   => '</h5>',
+		)
+	);
+
+	register_sidebar(
+		array(
+			'name'          => __( 'Footer Content 2', 'shopchop' ),
+			'id'            => 'footer-content-2',
+			'description'   => __( 'Add widgets here to appear in your footer.', 'shopchop' ),
+			'before_widget' => '<div id="%1$s" class="widget %2$s">',
+			'after_widget'  => '</div>',
+			'before_title'  => '<h5 class="widget-title">',
+			'after_title'   => '</h5>',
+		)
+	);
+
+	register_sidebar(
+		array(
+			'name'          => __( 'Footer Content 3', 'shopchop' ),
+			'id'            => 'footer-content-3',
+			'description'   => __( 'Add widgets here to appear in your footer.', 'shopchop' ),
+			'before_widget' => '<div id="%1$s" class="widget %2$s">',
+			'after_widget'  => '</div>',
+			'before_title'  => '<h5 class="widget-title">',
+			'after_title'   => '</h5>',
 		)
 	);
 }

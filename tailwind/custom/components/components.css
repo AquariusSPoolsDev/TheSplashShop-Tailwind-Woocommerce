@@ -243,7 +243,9 @@ label { @apply font-semibold; }
 }
 
 .shopchop-header-minimal {
-	
+	.header-minimal-content {
+		@apply flex justify-between items-center;		
+	}
 }
 
 .shopchop-header-normal {
@@ -255,6 +257,10 @@ label { @apply font-semibold; }
 		.woocommerce-store-notice__dismiss-link {
 			@apply font-normal underline! ms-3 transition-all hover:no-underline!;
 		}
+	}
+
+	.search-bar-row {
+		
 	}
 }
 
@@ -268,7 +274,35 @@ label { @apply font-semibold; }
 }
 
 .shopchop-footer-normal {
-	@apply bg-secondary text-background;
+	@apply bg-secondary text-grey-200;
+
+	.footer-brand {
+		p {
+			@apply text-2xl font-light mb-4;
+		}
+	}
+
+	.wp-block-social-link {
+		@apply bg-primary-300 text-background transition-all rounded-sm transform-none! hover:bg-primary-400 active:bg-primary-400 focus:bg-primary-400;
+	}
+
+	h5 {
+		@apply text-background text-2xl font-semibold mb-4;
+	}
+
+	ul.menu {
+		@apply flex flex-wrap gap-4 flex-col;
+	}
+
+	a {
+		@apply underline! underline-offset-4 transition-all hover:no-underline! active:no-underline! focus:no-underline!;
+	}
+
+	.legal-copyright {
+		ul.menu {
+			@apply flex-row justify-center lg:justify-start;
+		}
+	}
 }
 
 
@@ -449,7 +483,7 @@ label { @apply font-semibold; }
 	}
 
 	.woocommerce-breadcrumb {
-		@apply inline-flex flex-wrap items-center w-max p-3 border border-grey-200 rounded-xl mb-6;
+		@apply inline-flex flex-wrap items-center p-3 border border-grey-200 rounded-xl mb-6;
 
 		a {
 			@apply transition-all hover:text-primary-400 active:text-primary-400 focus:text-primary-400;
@@ -1984,5 +2018,42 @@ label { @apply font-semibold; }
 			}
 		}
 		/* My Account - Order Detail */
+	}
+}
+
+
+
+/* ShopChop YITH Wishlist Button. Make this as secondary button.
+ * Steps to immpleent this: 
+ * 1. Download the plugin and activate it.
+ * 2. on YITH wishlist settings, go to "Add to Wishlist" tab, set Position of "Add to wishlist" on product page to shortcode.
+ *    Do Not select the other options!
+ */
+.yith-add-to-wishlist-button-block {
+	@apply my-0;
+	
+	.yith-wcwl-add-to-wishlist-button {
+		@apply h-14 px-6 font-semibold border-2 border-secondary text-secondary rounded-lg hover:bg-secondary-100;
+	}
+}
+
+
+
+/* WISHLIST PAGE */
+.yith-wcwl-form {
+	.wishlist-title-container {
+		@apply hidden!
+	}
+
+	.wishlist_table {
+		@apply my-0 p-0;
+		
+		&.shopchop-mobile-view {
+
+		}
+
+		&.shopchop-desktop-view {
+
+		}
 	}
 }

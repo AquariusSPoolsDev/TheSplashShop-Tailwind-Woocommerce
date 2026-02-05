@@ -35,4 +35,6 @@ global $product;
 	<input type="hidden" name="add-to-cart" value="<?php echo absint( $product->get_id() ); ?>" />
 	<input type="hidden" name="product_id" value="<?php echo absint( $product->get_id() ); ?>" />
 	<input type="hidden" name="variation_id" class="variation_id" value="0" />
+
+	<?php echo do_shortcode('[yith_wcwl_add_to_wishlist]'); ?>
 </div>
