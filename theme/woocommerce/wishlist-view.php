@@ -228,7 +228,7 @@ if (! defined('YITH_WCWL')) {
 
 				if ($product && $product->exists()) :
 		?>
-					<tr id="yith-wcwl-row-<?php echo esc_attr($item->get_product_id()); ?>" data-row-id="<?php echo esc_attr($item->get_product_id()); ?>">
+					<tr class="wishlist-normal-full" id="yith-wcwl-row-<?php echo esc_attr($item->get_product_id()); ?>" data-row-id="<?php echo esc_attr($item->get_product_id()); ?>">
 						<?php if ($show_cb) : ?>
 							<td class="product-checkbox">
 								<input type="checkbox" value="yes" name="items[<?php echo esc_attr($item->get_product_id()); ?>][cb]" />
@@ -639,7 +639,7 @@ if (! defined('YITH_WCWL')) {
 			endforeach;
 		else :
 			?>
-			<tr>
+			<tr class="wishlist-normal-empty">
 				<?php
 				/**
 				 * APPLY_FILTERS: yith_wcwl_no_product_to_remove_message
@@ -652,7 +652,15 @@ if (! defined('YITH_WCWL')) {
 				 * @return string
 				 */
 				?>
-				<td colspan="<?php echo esc_attr($column_count); ?>" class="wishlist-empty"><?php echo esc_html(apply_filters('yith_wcwl_no_product_to_remove_message', __('No products added to the wishlist', 'yith-woocommerce-wishlist'), $wishlist)); ?></td>
+				<td colspan="<?php echo esc_attr($column_count); ?>" class="wishlist-empty">
+					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-bubbles-icon lucide-bubbles">
+						<path d="M7.001 15.085A1.5 1.5 0 0 1 9 16.5" />
+						<circle cx="18.5" cy="8.5" r="3.5" />
+						<circle cx="7.5" cy="16.5" r="5.5" />
+						<circle cx="7.5" cy="4.5" r="2.5" />
+					</svg>
+					<?php echo esc_html(apply_filters('yith_wcwl_no_product_to_remove_message', __('No products added to the wishlist', 'yith-woocommerce-wishlist'), $wishlist)); ?>
+				</td>
 			</tr>
 		<?php
 		endif;

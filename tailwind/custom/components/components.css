@@ -1575,6 +1575,7 @@ label { @apply font-semibold; }
 }
 
 
+
 /* Return to Shop Button - if there's no product */
 .return-to-shop {
 	@apply py-8;
@@ -2047,95 +2048,102 @@ label { @apply font-semibold; }
 /* WISHLIST PAGE */
 .yith-wcwl-form {
 	.wishlist-title-container {
-		@apply hidden!
+		@apply hidden!;
 	}
 
 	.wishlist_table {
 		@apply my-0 p-0;
-		
-		&.shopchop-mobile-view {
 
-		}
+		&.shopchop-mobile-view {}
 
 		&.shopchop-desktop-view {
 			tbody.wishlist-items-wrapper {
 				@apply flex flex-col gap-4;
 
 				tr {
-					@apply flex gap-4 p-6 bg-white border border-grey-200 rounded-lg w-full text-base;
+					&.wishlist-normal-full {
+						@apply flex gap-4 p-6 bg-white border border-grey-200 rounded-lg w-full text-base;
 
-					td {
-						@apply p-0 text-foreground;
+						td {
+							@apply p-0 text-foreground;
 
-						&.product-thumbnail,
-						&.product-add-to-cart {
-							@apply shrink-0;
-						}
+							&.product-thumbnail,
+							&.product-add-to-cart {
+								@apply shrink-0;
+							}
 
-						&.product-thumbnail {
-							@apply w-24;
-						}
+							&.product-thumbnail {
+								@apply w-24;
+							}
 
-						&.product-meta {
-							@apply grow text-start;
+							&.product-meta {
+								@apply grow text-start;
 
-							.product-name {
-								a {
-									@apply text-xl font-semibold text-primary-400;
+								.product-name {
+									a {
+										@apply text-xl font-semibold text-primary-400;
+									}
+								}
+
+								.product-price {
+									@apply mb-2;
+
+									.discount-price {
+										@apply inline-flex items-center flex-wrap gap-2;
+
+										.regular {
+											@apply text-grey-300 text-sm font-light;
+										}
+
+										.discount {
+											@apply px-2 py-0.5 rounded-4xl text-sm font-normal text-grey-100 bg-primary-400;
+										}
+
+										.sale {}
+									}
+								}
+
+								.product-stock-status {
+									span {
+										@apply inline-block px-2.5 py-0.5 rounded-full text-sm font-medium;
+
+										&.wishlist-in-stock {
+											@apply bg-success-100 text-success-400
+										}
+
+										&.wishlist-out-of-stock {
+											@apply bg-error-100 text-error-400
+										}
+									}
 								}
 							}
 
-							.product-price {
-								@apply mb-2;
+							&.product-add-to-cart {
+								@apply flex flex-col;
 
-								.discount-price {
-									@apply inline-flex items-center flex-wrap gap-2;
-
-									.regular {
-										@apply text-grey-300 text-sm font-light;
-									}
-
-									.discount {
-										@apply px-2 py-0.5 rounded-4xl text-sm font-normal text-grey-100 bg-primary-400;
-									}
-
-									.sale {}
+								.dateadded {
+									@apply text-sm text-grey-300 mb-2;
 								}
-							}
 
-							.product-stock-status {
-								span {
-									@apply inline-block px-2.5 py-0.5 rounded-full text-sm font-medium;
-
-									&.wishlist-in-stock {
-										@apply bg-success-100 text-success-400
-									}
-
-									&.wishlist-out-of-stock {
-										@apply bg-error-100 text-error-400
-									}
+								a.add_to_cart {
+									@apply inline-flex! px-4 py-1 text-primary-400 border-2 border-primary-400 bg-transparent transition-all rounded-lg! hover:bg-primary-100 focus:bg-primary-100 active:bg-primary-100;
 								}
-							}
-						}
-						
-						&.product-add-to-cart {
-							@apply flex flex-col;
-							.dateadded {
-								@apply text-sm text-grey-300 mb-2;
-							}
 
-							a.add_to_cart {
-								@apply inline-flex! px-4 py-1 text-primary-400 border-2 border-primary-400 bg-transparent transition-all rounded-lg! hover:bg-primary-100 focus:bg-primary-100 active:bg-primary-100;
-							}
-
-							a.remove_from_wishlist {
-								@apply inline-flex! text-error-400 underline! text-sm underline-offset-4 transition-all hover:no-underline! active:no-underline! focus:no-underline!;
+								a.remove_from_wishlist {
+									@apply inline-flex! text-error-400 underline! text-sm underline-offset-4 transition-all hover:no-underline! active:no-underline! focus:no-underline!;
+								}
 							}
 						}
 					}
+
+					&.wishlist-normal-empty {
+
+					}
 				}
 
-				img { @apply m-0 w-24 h-24 max-w-24 rounded-lg; }
+				img {
+					@apply m-0 w-24 h-24 max-w-24 rounded-lg;
+				}
 			}
 		}
 	}
