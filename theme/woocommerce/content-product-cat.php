@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 ?>
-<p>content-product-cat.php</p>
+
 
 <li <?php wc_product_cat_class( '', $category ); ?>>
 	<?php

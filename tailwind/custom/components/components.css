@@ -71,7 +71,7 @@ a.button.wc-backward {
 	@apply flex-col items-start ms-8;
 
 	ul.wc-error-reasoning {
-		@apply list-disc;
+		@apply list-disc my-0;
 
 		li {
 			@apply my-0;
@@ -380,7 +380,7 @@ label { @apply font-semibold; }
 
 			.woocommerce-LoopProduct-link {
 				.product-image-wrapper {
-					@apply overflow-hidden;
+					@apply overflow-hidden relative;
 
 					img {
 						@apply aspect-square object-cover w-full transition-all overflow-hidden group-hover:scale-115 group-active:scale-115 group-focus:scale-115;
@@ -388,7 +388,9 @@ label { @apply font-semibold; }
 					
 					.onsale {
 						@apply text-sm px-3 py-1;
-					}			
+					}
+					
+
 				}
 
 				.product-details-wrapper  {
@@ -504,12 +506,17 @@ label { @apply font-semibold; }
 	}
 
 	.onsale,
+	.out-of-stock-badge,
 	.woocommerce-product-gallery__trigger {
 		@apply absolute z-2;
 	}
 
 	.onsale {
 		@apply left-2.5 top-2.5 z-2 uppercase font-semibold text-background bg-primary-400 rounded-full px-4 py-1.5 shadow-sm;
+	}
+
+	.out-of-stock-badge {
+		@apply top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-grey-400/80 text-background font-semibold text-sm lg:text-lg rounded-full w-20 h-20 lg:w-24 lg:h-24 flex items-center text-center justify-center shadow-sm;
 	}
 
 	.woocommerce-product-gallery__trigger {
@@ -1577,11 +1584,15 @@ label { @apply font-semibold; }
 
 
 /* Return to Shop Button - if there's no product */
-.return-to-shop {
-	@apply py-8;
+.wc-cart-item-empty {
+	@apply my-12;
 
-	.button {
-		@apply text-background hover:text-background h-14 px-3 flex justify-center items-center;
+	.return-to-shop {
+		@apply text-center;
+
+		.button {
+			@apply text-background hover:text-background h-14 px-4 inline-flex justify-center items-center;
+		}
 	}
 }
 
@@ -2054,7 +2065,99 @@ label { @apply font-semibold; }
 	.wishlist_table {
 		@apply my-0 p-0;
 
-		&.shopchop-mobile-view {}
+		&.shopchop-mobile-view {
+			.wishlist-empty {
+				@apply my-36 flex gap-3 flex-col items-center text-foreground text-base bg-transparent!;
+			}
+			
+			li {
+				@apply flex flex-col gap-4 p-4 my-4 bg-white border border-grey-200 rounded-lg w-full text-sm;
+
+				.item-wrapper {
+					@apply mb-0 flex w-full;
+
+					.product-thumbnail {
+						@apply max-w-18 me-4 shrink-0;
+						
+						img {
+							@apply my-0 w-18 h-18 rounded-lg;
+						}
+					}
+
+					.item-details {
+						@apply w-auto;
+
+						.product-name h3 {
+							@apply my-0;
+
+							a {
+								@apply text-lg font-semibold text-primary-400 line-clamp-1;
+							}
+						}
+
+						.product-price {
+							@apply mb-1;
+
+							.discount-price {
+								@apply inline-flex items-center flex-wrap gap-2;
+
+								.regular {
+									@apply text-grey-300 text-xs font-light;
+								}
+
+								.discount {
+									@apply px-2 py-0.5 rounded-4xl text-xs font-normal text-grey-100 bg-primary-400;
+								}
+
+								.sale {}
+							}
+						}
+
+						.product-stock-status {
+							span {
+								@apply inline-block px-2.5 py-0.5 rounded-full text-sm font-medium;
+
+								&.wishlist-in-stock {
+									@apply bg-success-100 text-success-400
+								}
+
+								&.wishlist-out-of-stock {
+									@apply bg-error-100 text-error-400
+								}
+							}
+						}
+					}
+				}
+
+				.additional-info-wrapper {
+					@apply border-t border-t-grey-200 pt-4 flex flex-wrap gap-3 justify-between;
+
+					.product-add-to-wishlist {
+						@apply text-grey-300 italic text-xs;
+					}
+
+					.wcwl-action-buttons {
+						@apply flex gap-2;
+
+						.product-add-to-cart {
+							@apply mb-0;
+						}
+
+						a {
+							@apply inline-flex! px-3 py-1 border-2 font-normal bg-transparent transition-all rounded-lg! mb-0!;
+
+							&.add_to_cart {
+								@apply text-primary-400 border-primary-400 hover:bg-primary-100 focus:bg-primary-100 active:bg-primary-100;
+							}
+
+							&.remove_from_wishlist {
+								@apply text-error-400 border-error-400 hover:bg-error-100 focus:bg-error-100 active:bg-error-100;
+							}
+						}
+					}
+				}
+			}
+		} 
 
 		&.shopchop-desktop-view {
 			tbody.wishlist-items-wrapper {
@@ -2081,7 +2184,7 @@ label { @apply font-semibold; }
 
 								.product-name {
 									a {
-										@apply text-xl font-semibold text-primary-400;
+										@apply text-xl font-semibold text-primary-400 line-clamp-1;
 									}
 								}
 
@@ -2096,7 +2199,7 @@ label { @apply font-semibold; }
 										}
 
 										.discount {
-											@apply px-2 py-0.5 rounded-4xl text-sm font-normal text-grey-100 bg-primary-400;
+											@apply px-2 py-0.5 rounded-4xl text-xs font-normal text-grey-100 bg-primary-400;
 										}
 
 										.sale {}
@@ -2137,7 +2240,9 @@ label { @apply font-semibold; }
 					}
 
 					&.wishlist-normal-empty {
-
+						.wishlist-empty {
+							@apply my-36 flex gap-3 flex-col items-center text-foreground text-xl bg-transparent!;
+						}
 					}
 				}
 

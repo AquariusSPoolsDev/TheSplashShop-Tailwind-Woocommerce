@@ -300,6 +300,12 @@ add_action( 'woocommerce_before_shop_loop_item', function() {
 
 add_action( 'woocommerce_before_shop_loop_item_title', function() {
     echo '<div class="product-image-wrapper">';
+
+	global $product;
+
+    if ( ! $product->is_in_stock() ) {
+        echo '<span class="out-of-stock-badge">' . esc_html__( 'Out of Stock', 'woocommerce' ) . '</span>';
+    }
 }, 5 );
 
 add_action( 'woocommerce_before_shop_loop_item_title', function() {
@@ -656,6 +662,9 @@ function shopchop_remove_login_errors( $user, $username, $password ) {
 
 
 
+/**
+ * ShopChop Add Next Steps section on Thank You page
+ */
 add_action( 'woocommerce_thankyou', 'shopchop_add_next_steps', 10 );
   
 function shopchop_add_next_steps( $order_id ) {
@@ -678,3 +687,6 @@ function shopchop_add_next_steps( $order_id ) {
    </section>
    <?php
 }
+
+
+
