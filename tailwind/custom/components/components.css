@@ -365,6 +365,11 @@ label { @apply font-semibold; }
  * ShopChop Single Product Styling
  */
 .shopchop-wrapper.shopchop-woocommerce {
+
+	h2.shop-section-title {
+		@apply mb-8 text-3xl lg:text-4xl font-bold;
+	}
+
 	/* Products Grid and Card */
 	ul.products {
 		@apply grid grid-cols-2 gap-4 lg:gap-6 bg-white;
@@ -378,6 +383,30 @@ label { @apply font-semibold; }
 		li.product {
 			@apply w-full flex flex-col flex-nowrap gap-0 border border-grey-200 rounded-lg overflow-hidden;
 
+			/* Use for Category List */
+			&.product-category a {
+				@apply flex items-center gap-3;
+
+				.category-meta-image {
+					@apply overflow-hidden relative shrink-0;
+
+					img {
+						@apply w-16 h-16 lg:w-24 lg:h-24 aspect-square object-cover transition-all overflow-hidden group-hover:scale-115 group-active:scale-115 group-focus:scale-115
+					}
+				}
+
+				.category-meta-details {
+					h2.woocommerce-loop-category__title {
+						@apply text-lg md:text-xl line-clamp-2 leading-[1.1] font-semibold;
+					}
+
+					.cat-product-count {
+						@apply text-sm text-grey-300;
+					}
+				}
+			}
+
+			/* Use for Product List */
 			.woocommerce-LoopProduct-link {
 				.product-image-wrapper {
 					@apply overflow-hidden relative;
@@ -389,8 +418,6 @@ label { @apply font-semibold; }
 					.onsale {
 						@apply text-sm px-3 py-1;
 					}
-					
-
 				}
 
 				.product-details-wrapper  {
