@@ -223,6 +223,12 @@ function shopchop_scripts() {
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
 	}
+
+	// Localize script for AJAX search
+	wp_localize_script('shopchop-script', 'shopchopDynamicSearch', array(
+		'ajax_url' => admin_url('admin-ajax.php'),
+		'nonce' => wp_create_nonce('wc_ajax_search_nonce')
+	));
 }
 add_action( 'wp_enqueue_scripts', 'shopchop_scripts' );
 

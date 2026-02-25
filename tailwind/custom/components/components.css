@@ -265,6 +265,284 @@ label { @apply font-semibold; }
 	}
 
 	.search-bar-row {
+
+		.shopchop-search-wrapper {
+			@apply relative w-full max-w-xl mx-auto;
+
+			.shopchop-search-bar {
+				@apply bg-white;
+
+				#shopchop-search-input {
+					@apply relative max-w-full lg:pe-32;
+
+					 /* Remove bottom radius when results are active */
+					&.results-active {
+						@apply rounded-b-none;
+					}
+				}
+
+				#shopchop-cat-select {
+					@apply absolute p-0 pe-4 text-end w-max h-max right-4 top-1/2 -translate-y-1/2 border-0 ring-0;
+				}
+			}
+
+			.shopchop-search-results {
+				@apply absolute left-0 right-0 bg-white border-t-0 rounded-t-none rounded-b-lg border-2 border-grey-200 max-h-64 overflow-y-auto z-99;
+
+				.search-result-item {
+					@apply not-last:border-b border-grey-200;
+
+					a {
+						@apply flex gap-3 items-center p-2 transition-all hover:bg-secondary-100 active:bg-secondary-100 focus:bg-secondary-100;
+
+						.result-image {
+							@apply shrink-0 w-12 h-12;
+
+							img {
+								@apply max-w-12 max-h-12 object-cover aspect-square;
+							}
+						}
+						
+						.result-details {
+							@apply grow;
+
+							.result-title {
+								@apply font-medium text-base line-clamp-1;
+							}
+						}
+					}
+				}
+
+				.search-loading,
+				.search-error,
+				.no-results {
+					@apply text-center p-4 text-grey-300;
+				}
+			}
+		}
+
+		.shopchop-account-controls {
+			@apply hidden lg:flex lg:gap-6 lg:items-center lg:shrink-0;
+
+			.shopchop-wishlist-wrapper {
+				.shopchop-wishlist-btn {
+					@apply w-12 h-12 rounded-full border-grey-200 border-2 flex items-center justify-center transition-all hover:bg-secondary-100 active:bg-secondary-100 focus:bg-secondary-100;
+				}
+				.wishlist-icon {
+					@apply w-6 h-6 text-primary-400;
+				}
+			}
+
+			.shopchop-cart-wrapper {
+				@apply relative;
+
+				.shopchop-cart-trigger {
+					@apply flex items-center gap-3 cursor-pointer transition-all underline-offset-4 hover:text-primary-400 hover:underline focus:text-primary-400 focus:underline;
+
+					.cart-icon-wrapper {
+						@apply relative;
+
+						.cart-icon {
+							@apply w-6 h-6;
+						}
+
+						.cart-count-badge {
+							@apply transition-all absolute -top-2 -right-2 min-w-5 h-5 flex items-center justify-center bg-secondary text-background text-xs font-bold rounded-full px-1;
+						}
+					}
+
+					.cart-label {
+						@apply text-sm font-medium block;
+					}
+				}
+
+				.shopchop-cart-dropdown {
+					@apply absolute right-0 mt-2.5 w-72 bg-white rounded-lg shadow-sm border border-grey-200 z-50 max-h-80 overflow-y-auto;
+
+					.cart-dropdown-header {
+						@apply flex items-center justify-between p-2.5 border-b border-grey-200 text-foreground;
+
+						h3 {
+							@apply text-base font-semibold;
+						}
+
+						.cart-items-count {
+							@apply text-sm;
+
+							.count-number {
+								@apply font-bold;
+							}
+						}
+					}
+
+					.cart-dropdown-content {
+						@apply flex-1 overflow-y-auto text-sm;
+
+						.shopchop-mini-cart-list-wrapper,
+						.woocommerce-mini-cart__buttons {
+							@apply p-2.5;
+						}
+
+						.shopchop-mini-cart-list-wrapper {
+							ul.woocommerce-mini-cart {
+								@apply flex flex-col gap-4;
+
+								li.woocommerce-mini-cart-item {
+									@apply flex items-center gap-2;
+									
+									.mini-cart-item-link {
+										@apply flex gap-2 items-center w-full;
+
+										img {
+											@apply w-14 h-14 object-cover rounded shrink-0;
+										}
+
+										.mini-cart-item-details {
+											@apply w-full grow;
+										}
+
+										.mini-cart-item-name {
+											@apply font-bold text-base line-clamp-1;
+										}
+
+										.quantity {
+											@apply text-grey-400;
+										}
+
+										.price {
+											@apply text-end block;
+										}
+									}
+								}
+							}
+						}
+
+						.woocommerce-mini-cart__total {
+							@apply border-t border-t-grey-200 pt-2.5 mt-2.5 flex justify-between items-center;
+						}
+
+						.woocommerce-mini-cart__buttons {
+							@apply border-t border-t-grey-200 flex gap-3;
+
+							.button {
+								@apply h-max py-1 text-base text-center normal-case font-medium flex-1;
+
+								&:not(.checkout) {
+									@apply bg-transparent border text-secondary-400 border-secondary-400 hover:bg-secondary-100 active:bg-secondary-100 focus:bg-secondary-100;
+								}
+							}
+						}
+
+						.cart-loading,
+						.cart-error,
+						.woocommerce-mini-cart__empty-message {
+							@apply text-center py-12 text-grey-400 text-xs;
+						}
+					}
+				}
+			}
+
+			.shopchop-account-wrapper {
+				@apply relative;
+
+				.shopchop-account-trigger {
+					@apply flex gap-2 items-center cursor-pointer transition-all underline-offset-4 hover:text-primary-400 hover:underline focus:text-primary-400 focus:underline;
+
+					.user-icon {
+						@apply w-6 h-6;
+					}
+
+					.account-label {
+						@apply text-sm font-medium block;
+					}
+				}
+
+
+				.shopchop-account-dropdown {
+					@apply absolute right-0 mt-2.5 w-72 bg-white rounded-lg shadow-sm border border-grey-200 z-50;
+
+					.account-dropdown-content {
+						@apply p-0;
+
+						.loading-state,
+						.error-state {
+							@apply text-center py-8 text-grey-400;
+						}
+
+						.account-header {
+							@apply border-b border-grey-200 p-2.5;
+
+							.user-greeting {
+								@apply flex items-center gap-2.5 text-sm;
+
+								svg {
+									@apply text-primary-400 w-5 h-5;
+								}
+
+								strong {
+									@apply font-semibold;
+								}
+							}
+						}
+
+						.account-menu-items {
+							@apply flex flex-col w-full;
+
+							.account-menu-item {
+								@apply p-2.5 w-full text-sm text-grey-400 transition-all border-l-4 border-l-transparent hover:bg-primary-100 hover:text-primary-400 hover:border-primary-400 active:bg-primary-100 active:text-primary-400 active:border-primary-400 focus:bg-primary-100 focus:text-primary-400 focus:border-primary-400;
+							}
+						}
+
+						.account-menu-footer {
+							@apply border-t border-grey-200 px-2.5 py-1.5;
+
+							.logout-link {
+								@apply flex items-center gap-2 w-full p-1.5 text-sm text-error-400 rounded transition-all hover:bg-error-100;
+
+								svg {
+									@apply w-4 h-4;
+								}
+							}
+						}
+
+						.account-login-prompt {
+							@apply text-center p-6;
+
+							.login-icon {
+								@apply mx-auto mb-4 w-16 h-16 rounded-full bg-primary-100 flex items-center justify-center;
+
+								svg {
+									@apply text-primary-400 w-10 h-10;
+								}
+							}
+
+							h3 {
+								@apply text-lg font-semibold text-foreground mb-2;
+							}
+
+							p {
+								@apply text-sm text-grey-300 mb-4;
+							}
+
+							.login-button {
+								@apply block w-full px-6 py-2.5 bg-primary-300 text-white font-medium rounded-lg transition-all hover:bg-primary-400 active:bg-primary-400 focus:bg-primary-400;
+							}
+
+							.register-prompt {
+								@apply mt-4 text-sm text-grey-300;
+
+								a {
+									@apply text-primary-400 font-medium transition-all underline-offset-2 hover:underline!;
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	.menu-bar-row {
 		
 	}
 }

@@ -157,6 +157,36 @@ jQuery(function ($) {
 });
 
 
+
+// Enable/Disable Add to Cart button based on variation availability
+jQuery(function ($) {
+    var $form = $('.variations_form');
+
+    // Explicitly enable the button when a valid variation is found
+    $form.on('show_variation', function (event, variation) {
+        var $btn = $('.single_add_to_cart_button');
+
+        if (variation.is_purchasable && variation.is_in_stock) {
+            $btn
+                .removeAttr('disabled')
+                .removeClass('disabled wc-variation-is-unavailable');
+        } else {
+            $btn
+                .attr('disabled', 'disabled')
+                .addClass('disabled wc-variation-is-unavailable');
+        }
+    });
+
+    // Disable it again when the selection is cleared
+    $form.on('hide_variation reset_data', function () {
+        $('.single_add_to_cart_button')
+            .attr('disabled', 'disabled')
+            .removeClass('wc-variation-is-unavailable');
+    });
+});
+
+
+
 // variation radio button
 jQuery(document).ready(function ($) {
     var $form = $('.variations_form');
@@ -285,7 +315,7 @@ jQuery(function ($) {
 jQuery(function ($) {
     'use strict';
 
-    var updatePaymentSelection = function() {
+    var updatePaymentSelection = function () {
         var $paymentMethods = $('.wc_payment_method');
         $paymentMethods.removeClass('is-selected');
 
@@ -311,4 +341,396 @@ jQuery(function ($) {
     $(document).ready(updatePaymentSelection);
     $(document.body).on('change', 'input[name="payment_method"]', updatePaymentSelection);
     $(document.body).on('updated_checkout', updatePaymentSelection);
+});
+
+
+
+// AJAX Product Search Bar Functionality
+jQuery(document).ready(function ($) {
+    let searchTimeout;
+    const searchInput = $('#shopchop-search-input');
+    const categorySelect = $('#shopchop-cat-select');
+    const resultsContainer = $('.shopchop-search-results');
+
+    // Load categories on page load
+    loadCategories();
+
+    function loadCategories() {
+        $.ajax({
+            url: shopchopDynamicSearch.ajax_url,
+            type: 'POST',
+            data: {
+                action: 'wc_get_categories',
+                nonce: shopchopDynamicSearch.nonce
+            },
+            success: function (response) {
+                if (response.success && response.data.categories.length > 0) {
+                    response.data.categories.forEach(function (cat) {
+                        categorySelect.append(`<option value="${cat.slug}">${cat.name}</option>`);
+                    });
+                }
+            }
+        });
+    }
+
+    // Search on input with delay
+    searchInput.on('keyup', function () {
+        clearTimeout(searchTimeout);
+        const searchTerm = $(this).val().trim();
+
+        if (searchTerm.length === 0) {
+            resultsContainer.hide().html('');
+            $(this).removeClass('results-active');
+            resultsContainer.removeClass('results-active');
+            return;
+        }
+
+        // Delay search by 300ms after user stops typing
+        searchTimeout = setTimeout(function () {
+            performSearch(searchTerm);
+        }, 300);
+    });
+
+    // Search on category change
+    categorySelect.on('change', function () {
+        const searchTerm = searchInput.val().trim();
+        if (searchTerm.length > 0) {
+            performSearch(searchTerm);
+        }
+    });
+
+    function performSearch(searchTerm) {
+        const category = categorySelect.val();
+
+        $.ajax({
+            url: shopchopDynamicSearch.ajax_url,
+            type: 'POST',
+            data: {
+                action: 'wc_search_products',
+                search_term: searchTerm,
+                category: category,
+                nonce: shopchopDynamicSearch.nonce
+            },
+            beforeSend: function () {
+                resultsContainer.html('<div class="search-loading">Searching...</div>').show();
+                searchInput.addClass('results-active');
+                resultsContainer.addClass('results-active');
+            },
+            success: function (response) {
+                if (response.success) {
+                    displayResults(response.data.products);
+                }
+            },
+            error: function () {
+                resultsContainer.html('<div class="search-error">Error loading results</div>');
+            }
+        });
+    }
+
+    function displayResults(products) {
+        if (products.length === 0) {
+            resultsContainer.html('<div class="no-results">No results found</div>').show();
+            searchInput.addClass('results-active');
+            resultsContainer.addClass('results-active');
+            return;
+        }
+
+        let html = '';
+        products.forEach(function (product) {
+            const image = product.image ? `<img src="${product.image}" alt="${product.title}">` : '[IMAGE]';
+            html += `
+            <div class="search-result-item">
+                <a href="${product.url}">
+                    <div class="result-image">${image}</div>
+                    <div class="result-details">
+                        <span class="result-title">${product.title}</span>
+                    </div>
+                </a>
+            </div>
+        `;
+        });
+
+        resultsContainer.html(html).show();
+        searchInput.addClass('results-active');
+        resultsContainer.addClass('results-active');
+    }
+
+    // Hide results when clicking outside
+    $(document).on('click', function (e) {
+        if (!$(e.target).closest('.shopchop-search-wrapper').length) {
+            resultsContainer.hide();
+            searchInput.removeClass('results-active');
+            resultsContainer.removeClass('results-active');
+        }
+    });
+
+    // Show results when clicking on input if there are results
+    searchInput.on('focus', function () {
+        if ($(this).val().trim().length > 0 && resultsContainer.html().length > 0) {
+            resultsContainer.show();
+            searchInput.addClass('results-active');
+            resultsContainer.addClass('results-active');
+        }
+    });
+});
+
+
+
+// 
+jQuery(document).ready(function ($) {
+    const accountWrapper = $('.shopchop-account-wrapper');
+    const accountTrigger = $('.shopchop-account-trigger');
+    const accountDropdown = $('.shopchop-account-dropdown');
+    
+    let hoverTimeout;
+    let isHovering = false;
+
+    // Hover to show dropdown
+    accountWrapper.on('mouseenter', function () {
+        isHovering = true;
+        clearTimeout(hoverTimeout);
+        
+        // Delay showing dropdown by 200ms
+        hoverTimeout = setTimeout(function () {
+            if (isHovering) {
+                showDropdown();
+            }
+        }, 200);
+    });
+
+    // Hide dropdown when mouse leaves
+    accountWrapper.on('mouseleave', function () {
+        isHovering = false;
+        clearTimeout(hoverTimeout);
+        
+        // Delay hiding by 300ms to allow moving to dropdown
+        hoverTimeout = setTimeout(function () {
+            if (!isHovering) {
+                hideDropdown();
+            }
+        }, 300);
+    });
+
+    function showDropdown() {
+        accountDropdown.fadeIn(200);
+        accountTrigger.attr('aria-expanded', 'true');
+        accountWrapper.addClass('dropdown-active');
+    }
+
+    function hideDropdown() {
+        accountDropdown.fadeOut(200);
+        accountTrigger.attr('aria-expanded', 'false');
+        accountWrapper.removeClass('dropdown-active');
+    }
+
+    // Click outside to close
+    $(document).on('click', function (e) {
+        if (!$(e.target).closest('.shopchop-account-wrapper').length) {
+            hideDropdown();
+        }
+    });
+
+    // Keyboard navigation - ESC to close
+    $(document).on('keydown', function (e) {
+        if (e.key === 'Escape') {
+            hideDropdown();
+        }
+    });
+
+    // Click trigger to toggle (for touch devices)
+    accountTrigger.on('click', function (e) {
+        e.preventDefault();
+        if (accountDropdown.is(':visible')) {
+            hideDropdown();
+        } else {
+            showDropdown();
+        }
+    });
+});
+
+
+
+// 
+jQuery(document).ready(function ($) {
+    const cartWrapper = $('.shopchop-cart-wrapper');
+    const cartTrigger = $('.shopchop-cart-trigger');
+    const cartDropdown = $('.shopchop-cart-dropdown');
+    const cartContent = $('.cart-dropdown-content');
+    
+    let hoverTimeout;
+    let isLoaded = false;
+    let isHovering = false;
+
+    // Hover to show dropdown
+    cartWrapper.on('mouseenter', function () {
+        isHovering = true;
+        clearTimeout(hoverTimeout);
+        
+        hoverTimeout = setTimeout(function () {
+            if (isHovering) {
+                showCart();
+            }
+        }, 200);
+    });
+
+    // Hide dropdown when mouse leaves
+    cartWrapper.on('mouseleave', function () {
+        isHovering = false;
+        clearTimeout(hoverTimeout);
+        
+        hoverTimeout = setTimeout(function () {
+            if (!isHovering) {
+                hideCart();
+            }
+        }, 300);
+    });
+
+    function showCart() {
+        if (!isLoaded) {
+            loadMiniCart();
+        } else {
+            cartDropdown.fadeIn(200);
+            cartTrigger.attr('aria-expanded', 'true');
+            cartWrapper.addClass('dropdown-active');
+        }
+    }
+
+    function hideCart() {
+        cartDropdown.fadeOut(200);
+        cartTrigger.attr('aria-expanded', 'false');
+        cartWrapper.removeClass('dropdown-active');
+    }
+
+    function loadMiniCart() {
+        $.ajax({
+            url: shopchopDynamicSearch.ajax_url,
+            type: 'POST',
+            data: {
+                action: 'shopchop_get_mini_cart',
+                nonce: shopchopDynamicSearch.nonce
+            },
+            beforeSend: function () {
+                cartContent.html('<div class="cart-loading">Loading cart...</div>');
+                cartDropdown.fadeIn(200);
+                cartTrigger.attr('aria-expanded', 'true');
+                cartWrapper.addClass('dropdown-active');
+            },
+            success: function (response) {
+                if (response.success) {
+                    cartContent.html(response.data.cart_html);
+                    updateCartCount(response.data.cart_count);
+                    isLoaded = true;
+                    
+                    // Attach remove handlers after content loaded
+                    attachWooCommerceRemoveHandlers();
+                }
+            },
+            error: function () {
+                cartContent.html('<div class="cart-error">Error loading cart</div>');
+            }
+        });
+    }
+
+    function updateCartCount(count) {
+        $('.cart-count-badge').text(count >= 0 ? count : '');
+        $('.count-number').text(count);
+        
+        const itemsText = count === 1 ? 'item' : 'items';
+        $('.cart-items-count').html(`<span class="count-number">${count}</span> ${itemsText}`);
+    }
+
+    // Attach handlers to WooCommerce's remove buttons
+    function attachWooCommerceRemoveHandlers() {
+        // WooCommerce uses class 'remove' or 'remove_from_cart_button'
+        cartContent.find('.remove, .remove_from_cart_button').off('click').on('click', function (e) {
+            e.preventDefault();
+            
+            const $link = $(this);
+            const cartItemKey = $link.data('cart_item_key') || $link.attr('data-cart_item_key');
+            
+            if (cartItemKey) {
+                removeCartItem(cartItemKey, $link.closest('.woocommerce-mini-cart-item, .mini_cart_item'));
+            }
+        });
+    }
+
+    function removeCartItem(cartItemKey, cartItemElement) {
+        $.ajax({
+            url: shopchopDynamicSearch.ajax_url,
+            type: 'POST',
+            data: {
+                action: 'shopchop_remove_cart_item',
+                cart_item_key: cartItemKey,
+                nonce: shopchopDynamicSearch.nonce
+            },
+            beforeSend: function () {
+                cartItemElement.addClass('removing').css('opacity', '0.5');
+            },
+            success: function (response) {
+                if (response.success) {
+                    // Update cart content
+                    cartContent.html(response.data.cart_html);
+                    updateCartCount(response.data.cart_count);
+                    
+                    // Re-attach handlers
+                    attachWooCommerceRemoveHandlers();
+                    
+                    // Trigger WooCommerce cart update event
+                    $(document.body).trigger('wc_fragment_refresh');
+                    $(document.body).trigger('removed_from_cart');
+                }
+            },
+            error: function () {
+                cartItemElement.removeClass('removing').css('opacity', '1');
+                alert('Failed to remove item. Please try again.');
+            }
+        });
+    }
+
+    // Listen to WooCommerce add to cart events
+    $(document.body).on('added_to_cart', function () {
+        isLoaded = false;
+        
+        // Show cart dropdown briefly to indicate item was added
+        if (!cartDropdown.is(':visible')) {
+            showCart();
+            setTimeout(function() {
+                if (!isHovering) {
+                    hideCart();
+                }
+            }, 2000);
+        } else {
+            loadMiniCart();
+        }
+    });
+
+    // Listen to WooCommerce cart update events
+    $(document.body).on('wc_fragment_refresh updated_cart_totals', function () {
+        isLoaded = false;
+    });
+
+    // Click outside to close
+    $(document).on('click', function (e) {
+        if (!$(e.target).closest('.shopchop-cart-wrapper').length) {
+            hideCart();
+        }
+    });
+
+    // Keyboard navigation - ESC to close
+    $(document).on('keydown', function (e) {
+        if (e.key === 'Escape' && cartDropdown.is(':visible')) {
+            hideCart();
+        }
+    });
+
+    // Click trigger to toggle (for touch devices)
+    cartTrigger.on('click', function (e) {
+        e.preventDefault();
+        
+        if (cartDropdown.is(':visible')) {
+            hideCart();
+        } else {
+            showCart();
+        }
+    });
 });
