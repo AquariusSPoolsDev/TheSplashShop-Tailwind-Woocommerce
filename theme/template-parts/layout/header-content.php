@@ -10,13 +10,10 @@
 
 
 // Check for Checkout, Order Received, Login/Register, and Lost Password
-$is_minimal_page = is_checkout() ||
-	is_wc_endpoint_url('order-received') ||
-	(is_account_page() && !is_user_logged_in()) ||
-	is_lost_password_page(); // Handles the reset password screen
+$is_minimal_page = is_checkout() || is_wc_endpoint_url('order-received') || (is_account_page() && !is_user_logged_in()) || is_lost_password_page(); // Handles the reset password screen
 ?>
 
-<header id="masthead" class="<?php echo is_checkout() ? 'shopchop-header-minimal' : 'shopchop-header-normal'; ?>">
+<header id="masthead" class="<?php echo $is_minimal_page ? 'shopchop-header-minimal' : 'shopchop-header-normal'; ?>">
 	<?php if ($is_minimal_page) : ?>
 		<div class="container mx-auto px-6 md:px-10 lg:px-16 py-4">
 			<div class="header-minimal-content">
@@ -36,10 +33,10 @@ $is_minimal_page = is_checkout() ||
 							src="<?php echo esc_url($logo_src); ?>"
 							alt="<?php bloginfo('name'); ?>"
 							title="<?php bloginfo('name'); ?>"
-							class="h-16 w-auto">
+							class="h-16 w-auto shrink-0">
 					</a>
 				</div>
-				<div class="shopchop-tagline-desc">
+				<div class="shopchop-tagline-desc max-w-48">
 					<?php
 
 					$shopchop_description = get_bloginfo('description', 'display');
@@ -51,10 +48,16 @@ $is_minimal_page = is_checkout() ||
 			</div><!-- header-minimal-content end -->
 
 		<?php else : ?>
+			<!-- Demo Store Wrapper Row, Visible on larger screens and higher -->
 			<?php do_action('shopchop_demo_store_wrapper'); ?>
+			<?php $is_logged_in = is_user_logged_in(); ?>
+
+			<!-- Main Normal Content Wrapper -->
 			<div class="container mx-auto px-6 md:px-10 lg:px-16">
 				<div class="header-normal-content flex flex-col">
-					<div class="search-bar-row flex items-center w-full lg:gap-6 py-4 border-b border-b-grey-200">
+
+					<!-- Search Bar Row: Logo, Search Bar, Account Controls -->
+					<div class="search-bar-row flex flex-wrap items-center w-full lg:gap-6 py-4">
 						<div class="shopchop-logo-meta lg:shrink-0">
 							<?php
 							if (has_custom_logo()) {
@@ -71,22 +74,75 @@ $is_minimal_page = is_checkout() ||
 									src="<?php echo esc_url($logo_src); ?>"
 									alt="<?php bloginfo('name'); ?>"
 									title="<?php bloginfo('name'); ?>"
-									class="h-20 w-auto">
+									class="h-16 lg:h-20 w-auto shrink-0">
 							</a>
 						</div>
+						
+						<!-- Button. Visible for mobile screens. Hidden in larger screens. -->
+						<button id="mobile-menu-toggle" class="shopchop-menu-toggle" aria-expanded="false" aria-controls="mobile-panel">
+							<span class="toggle-open">
+								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16"/><path d="M4 12h16"/><path d="M4 19h16"/></svg>
+							</span>
+							<span class="toggle-close" style="display:none;">
+								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+							</span>
+						</button>
 
-						<div class="shopchop-search-wrapper">
-							<div class="shopchop-search-bar">
-								<input type="text" id="shopchop-search-input" placeholder="Search Here..." autocomplete="off">
-								<select id="shopchop-cat-select">
-									<option value="all">All Products</option>
-								</select>
+						<!-- Search Bar -->
+						<?php echo do_shortcode('[shopchop_search_bar context="desktop"]'); ?>
+
+						<!-- Account Controls & Main Menus -->
+						<div id="mobile-panel">
+							<?php echo do_shortcode('[shopchop_search_bar context="mobile"]'); ?>
+
+							<div class="mobile-account-control">
+								<a href="<?php echo esc_url(home_url('/wishlist')); ?>" class="control-item">
+									<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-package-icon lucide-package"><path d="M11 21.73a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73z"/><path d="M12 22V12"/><polyline points="3.29 7 12 12 20.71 7"/><path d="m7.5 4.27 9 5.15"/></svg>
+									Wishlist
+								</a>
+								<a href="<?php echo esc_url(home_url('/cart')); ?>" class="control-item">
+									<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-shopping-cart-icon lucide-shopping-cart"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>
+									Cart
+								</a>
+								<a href="<?php echo esc_url(wc_get_account_endpoint_url('dashboard')); ?>" class="control-item">
+									<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="user-icon">
+										<path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+										<circle cx="12" cy="7" r="4" />
+									</svg>
+									<span class="account-label">
+										<?php
+										if ($is_logged_in) {
+											$current_user = wp_get_current_user();
+											$user_name = $current_user->display_name;
+											echo 'My Account (' . esc_html($user_name) . ')';
+										} else {
+											echo 'Log In / Register';
+										}
+										?>
+									</span>
+								</a>
 							</div>
-							<div class="shopchop-search-results" style="display: none;"></div>
+
+							<div class="mobile-menu-control">
+								<nav id="site-navigation" aria-label="<?php esc_attr_e('Main Navigation', 'shopchop'); ?>">
+
+									<?php
+									wp_nav_menu(
+										array(
+											'theme_location' => 'menu-1',
+											'menu_id'        => 'main-header-menu-primary',
+											'items_wrap'     => '<ul id="%1$s" class="%2$s" aria-label="submenu">%3$s</ul>',
+										)
+									);
+									?>
+								</nav><!-- #site-navigation -->
+							</div>
 						</div>
 
+						<!-- Account Controls. Visible for lg screens -->
 						<div class="shopchop-account-controls">
 
+							<!-- Wishlist button - Display in heart shape -->
 							<div class="shopchop-wishlist-wrapper">
 								<a href="<?php echo esc_url(home_url('/wishlist')); ?>" class="shopchop-wishlist-btn" aria-label="Wishlist">
 									<svg class="wishlist-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -95,11 +151,12 @@ $is_minimal_page = is_checkout() ||
 								</a>
 							</div>
 
+							<!-- Mini Cart -->
 							<?php echo do_shortcode('[shopchop_mini_cart]'); ?>
 
-							<?php $is_logged_in = is_user_logged_in(); ?>
+							<!-- Account Control -->
 							<div class="shopchop-account-wrapper">
-								<button class="shopchop-account-trigger" aria-label="Account Menu" aria-expanded="false">
+								<a href="<?php echo esc_url(wc_get_account_endpoint_url('dashboard')); ?>" class="shopchop-account-trigger" aria-label="Account Menu" aria-expanded="false">
 									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="user-icon">
 										<path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
 										<circle cx="12" cy="7" r="4" />
@@ -115,7 +172,7 @@ $is_minimal_page = is_checkout() ||
 										}
 										?>
 									</span>
-								</button>
+								</a>
 
 								<div class="shopchop-account-dropdown" style="display: none;">
 									<div class="account-dropdown-content">
@@ -189,21 +246,24 @@ $is_minimal_page = is_checkout() ||
 							</div>
 						</div>
 					</div>
+
+					<!-- Menu Bar Row -->
 					<div class="menu-bar-row">
 						<nav id="site-navigation" aria-label="<?php esc_attr_e('Main Navigation', 'shopchop'); ?>">
-							<button class="sr-only" aria-controls="primary-menu" aria-expanded="false"><?php esc_html_e('Primary Menu', 'shopchop'); ?></button>
+							<button class="sr-only" aria-controls="main-header-menu-primary" aria-expanded="false"><?php esc_html_e('Primary Menu', 'shopchop'); ?></button>
 
 							<?php
 							wp_nav_menu(
 								array(
 									'theme_location' => 'menu-1',
-									'menu_id'        => 'primary-menu',
-									'items_wrap'     => '<ul id="%1$s" class="%2$s flex gap-3" aria-label="submenu">%3$s</ul>',
+									'menu_id'        => 'main-header-menu-primary',
+									'items_wrap'     => '<ul id="%1$s" class="%2$s" aria-label="submenu">%3$s</ul>',
 								)
 							);
 							?>
 						</nav><!-- #site-navigation -->
 					</div>
+
 				</div><!-- header-normal-content end -->
 			<?php endif; ?>
 			</div><!-- container end -->

@@ -15,11 +15,11 @@ $is_minimal_page = is_checkout() ||
 	is_lost_password_page(); // Handles the reset password screen
 ?>
 
-<footer id="colophon" class=" <?php echo is_checkout() ? 'shopchop-footer-minimal' : 'shopchop-footer-normal'; ?>">
+<footer id="colophon" class=" <?php echo $is_minimal_page ? 'shopchop-footer-minimal' : 'shopchop-footer-normal'; ?>">
 	<?php if ($is_minimal_page) : ?>
 		<div class="text-center text-sm container mx-auto px-6 md:px-10 lg:px-16 pt-4 pb-8">
 			&copy; <?php echo date("Y"); ?> <a class="underline! transition-all hover:no-underline! active:no-underline! focus:no-underline! text-primary-400 font-semibold" href="<?php echo esc_url(home_url('/')); ?>" rel="home"><?php bloginfo('name'); ?></a>. All Rights Reserved.<br>
-			Website developed by <a class="underline! transition-all hover:no-underline! active:no-underline! focus:no-underline! text-primary-400 font-semibold" href="#">ChopChop</a>.
+			Website developed by <a class="underline! transition-all hover:no-underline! active:no-underline! focus:no-underline! text-primary-400 font-semibold" href="#">Usoppii</a>.
 		</div>
 	<?php else : ?>
 		<div class="container mx-auto px-6 md:px-10 lg:px-16 py-12">
@@ -76,7 +76,7 @@ $is_minimal_page = is_checkout() ||
 					<?php endif; ?>
 					<div class="text-center lg:text-start text-sm mt-2">
 						&copy; <?php echo date("Y"); ?> <a class="font-semibold" href="<?php echo esc_url(home_url('/')); ?>" rel="home"><?php bloginfo('name'); ?></a>. All Rights Reserved.
-						Website developed by <a class="font-semibold" href="#">ChopChop</a>.
+						Website developed by <a class="font-semibold" href="#">Usoppii</a>.
 					</div>
 				</div>
 

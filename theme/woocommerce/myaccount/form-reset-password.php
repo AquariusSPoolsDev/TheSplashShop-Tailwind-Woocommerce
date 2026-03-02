@@ -19,10 +19,11 @@ defined( 'ABSPATH' ) || exit;
 
 do_action( 'woocommerce_before_reset_password_form' );
 ?>
+<h1 class="auth-password-heading"><?php esc_html_e( 'Reset Your Password', 'woocommerce' ); ?></h1>
 
 <form method="post" class="woocommerce-ResetPassword lost_reset_password">
 
-	<p><?php echo apply_filters( 'woocommerce_reset_password_message', esc_html__( 'Enter a new password below.', 'woocommerce' ) ); ?></p><?php // @codingStandardsIgnoreLine ?>
+	<p class="mb-4"><?php echo apply_filters( 'woocommerce_reset_password_message', esc_html__( 'Enter a new password below.', 'woocommerce' ) ); ?></p><?php // @codingStandardsIgnoreLine ?>
 
 	<p class="woocommerce-form-row woocommerce-form-row--first form-row form-row-first">
 		<label for="password_1"><?php esc_html_e( 'New password', 'woocommerce' ); ?>&nbsp;<span class="required" aria-hidden="true">*</span><span class="screen-reader-text"><?php esc_html_e( 'Required', 'woocommerce' ); ?></span></label>

@@ -348,8 +348,8 @@ jQuery(function ($) {
 // AJAX Product Search Bar Functionality
 jQuery(document).ready(function ($) {
     let searchTimeout;
-    const searchInput = $('#shopchop-search-input');
-    const categorySelect = $('#shopchop-cat-select');
+    const searchInput = $('.shopchop-search-input');
+    const categorySelect = $('.shopchop-cat-select');
     const resultsContainer = $('.shopchop-search-results');
 
     // Load categories on page load
@@ -734,3 +734,71 @@ jQuery(document).ready(function ($) {
         }
     });
 });
+
+
+
+// Function for displaying registr/login form by toggle
+(function () {
+    var allForms = document.querySelectorAll('.wc-toggle-form');
+    allForms.forEach(function (form) {
+        form.removeAttribute('style');
+    });
+
+    // Open login by default
+    var defaultOpen = document.getElementById('wc-login-form');
+    if (defaultOpen) {
+        defaultOpen.classList.add('is-open');
+        var defaultHeading = document.querySelector('[data-target="wc-login-form"]');
+        if (defaultHeading) defaultHeading.classList.add('is-open');
+    }
+
+    var headings = document.querySelectorAll('.wc-toggle-heading');
+
+    headings.forEach(function (heading) {
+        heading.addEventListener('click', function () {
+            var targetId = this.getAttribute('data-target');
+            var targetEl = document.getElementById(targetId);
+            var isOpen   = targetEl.classList.contains('is-open');
+
+            // Close ALL panels first
+            allForms.forEach(function (form) {
+                form.classList.remove('is-open');
+            });
+            headings.forEach(function (h) {
+                h.classList.remove('is-open');
+            });
+
+            // If it wasn't open, open it now (click on open = just closes it)
+            if (!isOpen) {
+                targetEl.classList.add('is-open');
+                heading.classList.add('is-open');
+            }
+        });
+    });
+}());
+
+
+
+// Function for displaying contents inside mobile menu
+(function () {
+    var toggle = document.getElementById('mobile-menu-toggle');
+    var panel  = document.getElementById('mobile-panel');
+    var iconOpen  = toggle.querySelector('.toggle-open');
+    var iconClose = toggle.querySelector('.toggle-close');
+
+    toggle.addEventListener('click', function () {
+        var isOpen = panel.classList.contains('is-open');
+
+        if (isOpen) {
+            panel.classList.remove('is-open');
+            iconOpen.style.display  = '';
+            iconClose.style.display = 'none';
+            toggle.setAttribute('aria-expanded', 'false');
+        } else {
+            panel.classList.add('is-open');
+            iconOpen.style.display  = 'none';
+            iconClose.style.display = '';
+            toggle.setAttribute('aria-expanded', 'true');
+        }
+    });
+}());

@@ -675,6 +675,8 @@ add_action('woocommerce_after_lost_password_form', 'shopchop_auth_wrapper_end');
 add_action('woocommerce_before_reset_password_form', 'shopchop_auth_wrapper_start', 1);
 add_action('woocommerce_after_reset_password_form', 'shopchop_auth_wrapper_end');
 
+add_action('woocommerce_before_lost_password_confirmation_message', 'shopchop_auth_wrapper_start', 1);
+add_action('woocommerce_after_lost_password_confirmation_message', 'shopchop_auth_wrapper_end');
 
 /**
  * ShopChop Safe redirect to Login page if user typing 'login' or 'register' in the URL
@@ -839,6 +841,35 @@ function shopchop_search_get_cat() {
 }
 add_action('wp_ajax_wc_get_categories', 'shopchop_search_get_cat');
 add_action('wp_ajax_nopriv_wc_get_categories', 'shopchop_search_get_cat');
+
+
+
+/**
+ * ShopChop Searchbar Shortcode
+ */
+function shopchop_search_bar_shortcode($atts) {
+    $atts = shortcode_atts(array(
+        'context' => 'default'   // default | mobile
+    ), $atts, 'shopchop_search_bar');
+
+    $input_id  = 'shopchop-search-input__' . esc_attr($atts['context']);
+    $select_id = 'shopchop-cat-select__'   . esc_attr($atts['context']);
+
+    ob_start(); ?>
+
+    <div class="shopchop-search-wrapper">
+        <div class="shopchop-search-bar">
+            <input type="text" class="shopchop-search-input" id="<?php echo $input_id; ?>" placeholder="Search Here..." autocomplete="off">
+            <select class="shopchop-cat-select" id="<?php echo $select_id; ?>">
+                <option value="all">All Products</option>
+            </select>
+        </div>
+        <div class="shopchop-search-results" style="display: none;"></div>
+    </div>
+
+    <?php return ob_get_clean();
+}
+add_shortcode('shopchop_search_bar', 'shopchop_search_bar_shortcode');
 
 
 
