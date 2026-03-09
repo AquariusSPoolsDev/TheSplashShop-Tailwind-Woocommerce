@@ -989,3 +989,166 @@ function shopchop_mini_cart_shortcode() {
     return ob_get_clean();
 }
 add_shortcode('shopchop_mini_cart', 'shopchop_mini_cart_shortcode');
+
+
+
+/**
+ * Add custom stock statuses to WooCommerce
+ */
+
+// Step 1: Register custom statuses + remove backorder
+function shopchop_custom_stock_status($statuses) {
+    unset($statuses['onbackorder']);
+
+    $statuses['pre_order']   = __('Pre-Order', 'shopchop');
+    $statuses['coming_soon'] = __('Coming Soon', 'shopchop');
+
+    return $statuses;
+}
+add_filter('woocommerce_product_stock_status_options', 'shopchop_custom_stock_status');
+
+
+// Step 2: Frontend stock text display
+function shopchop_custom_stock_status_display($html, $product) {
+    $status = $product->get_stock_status();
+
+    if ($status === 'pre_order') {
+        $html = '<p class="stock pre-order">' . __('Pre-Order', 'shopchop') . '</p>';
+    } elseif ($status === 'coming_soon') {
+        $html = '<p class="stock coming-soon">' . __('Coming Soon', 'shopchop') . '</p>';
+    }
+
+    return $html;
+}
+add_filter('woocommerce_get_stock_html', 'shopchop_custom_stock_status_display', 10, 2);
+
+
+// Step 3: Block purchase for coming_soon
+function shopchop_custom_status_purchasable($purchasable, $product) {
+    if ($product->get_stock_status() === 'coming_soon') {
+        return false;
+    }
+    return $purchasable;
+}
+add_filter('woocommerce_is_purchasable', 'shopchop_custom_status_purchasable', 10, 2);
+
+
+// Step 4: Replace Add to Cart button with Coming Soon text on single product page
+function shopchop_coming_soon_button() {
+    global $product;
+    if ($product->get_stock_status() === 'coming_soon') {
+        echo '<p class="stock coming-soon">' . __('Coming Soon', 'shopchop') . '</p>';
+    }
+}
+add_action('woocommerce_single_product_summary', 'shopchop_coming_soon_button', 31);
+
+// Also hide the default Add to Cart button on single product page
+function shopchop_hide_add_to_cart_coming_soon() {
+    global $product;
+    if ($product && $product->get_stock_status() === 'coming_soon') {
+        remove_action('woocommerce_single_product_summary', 'woocommerce_template_single_add_to_cart', 30);
+    }
+}
+add_action('woocommerce_single_product_summary', 'shopchop_hide_add_to_cart_coming_soon', 1);
+
+// Hide Add to Cart on shop/archive loop as well
+add_filter('woocommerce_loop_add_to_cart_link', function($html, $product) {
+    if ($product->get_stock_status() === 'coming_soon') {
+        return '<p class="stock coming-soon">' . __('Coming Soon', 'shopchop') . '</p>';
+    }
+    return $html;
+}, 10, 2);
+
+
+// Step 5: Show correct label in admin product list column
+function shopchop_admin_stock_status_label($status) {
+    $custom_statuses = array(
+        'pre_order'   => __('Pre-Order Item', 'shopchop'),
+        'coming_soon' => __('Coming Soon', 'shopchop'),
+    );
+
+    if (array_key_exists($status, $custom_statuses)) {
+        return $custom_statuses[$status];
+    }
+
+    return $status;
+}
+add_filter('woocommerce_admin_stock_html', function($html, $product) {
+    $status = $product->get_stock_status();
+
+    if ($status === 'pre_order') {
+        return '<mark class="pre-order">' . __('Pre-Order Item', 'shopchop') . '</mark>';
+    } elseif ($status === 'coming_soon') {
+        return '<mark class="coming-soon">' . __('Coming Soon', 'shopchop') . '</mark>';
+    }
+
+    return $html;
+}, 10, 2);
+
+// Step 6: Style the custom statuses in wp-admin
+function shopchop_admin_custom_status_styles() {
+    $screen = get_current_screen();
+    if ($screen && $screen->id === 'edit-product') { ?>
+        <style>
+            mark.instock     { background: #d1fae5 !important; color: #065f46 !important; padding: 2px 8px; border-radius: 4px; font-weight: 600 !important; }
+            mark.outofstock  { background: #ffe4e6 !important; color: #9f1239 !important; padding: 2px 8px; border-radius: 4px; font-weight: 600 !important; }
+            mark.pre-order   { background: #d1ecff; color: #0073aa; padding: 2px 8px; border-radius: 4px; font-weight: 600; }
+            mark.coming-soon { background: #fff3cd; color: #b45309; padding: 2px 8px; border-radius: 4px; font-weight: 600; }
+
+			.wp-list-table .column-thumb {
+				width: 80px !important;
+			}
+
+			.thumb.column-thumb .attachment-thumbnail{
+				max-width: 80px;
+				max-height: 80px;
+			}
+
+            .wp-list-table .column-name a.row-title {
+                display: -webkit-box;
+                -webkit-line-clamp: 1;    /* change to 2 for two lines */
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+                max-width: 300px;         /* adjust threshold as needed */
+            }
+
+            .wp-list-table .column-cogs_value,
+            .wp-list-table th#cost {
+                display: none;
+            }
+
+			.wp-list-table .column-is_in_stock,
+			.wp-list-table .column-price {
+				width: 20ch !important;
+			}
+
+            .wp-list-table .column-price .discount-price {
+                display: flex;
+                align-items: center;
+                gap: 4px;
+                flex-wrap: wrap;
+                white-space: nowrap;
+            }
+
+            .wp-list-table .column-price .discount-price del.regular {
+                color: #999;
+                font-size: 0.8rem;
+            }
+
+            .wp-list-table .column-price .discount-price .discount {
+                background: #ffe4e6;
+                color: #9f1239;
+                font-size: 0.7rem;
+                font-weight: 700;
+                padding: 1px 5px;
+                border-radius: 4px;
+            }
+
+            .wp-list-table .column-price .discount-price .sale {
+                font-weight: 700;
+                color: #065f46;
+            }
+        </style>
+    <?php }
+}
+add_action('admin_head', 'shopchop_admin_custom_status_styles');

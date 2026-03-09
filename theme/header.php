@@ -26,6 +26,14 @@
 <div id="page">
 	<a href="#content" class="sr-only"><?php esc_html_e( 'Skip to content', 'shopchop' ); ?></a>
 
-	<?php get_template_part( 'template-parts/layout/header', 'content' ); ?>
+	<?php
+	get_template_part( 'template-parts/layout/header', 'content' );
 
-	<div id="content" class="shopchop-main-content-wrapper">
+	$is_minimal_page = is_checkout() || is_wc_endpoint_url('order-received') || (is_account_page() && !is_user_logged_in()) || is_lost_password_page();
+	$is_homepage = is_front_page(); 
+	
+	$body_class = $is_minimal_page ? 'shopchop-body-minimal' : 'shopchop-body-normal';
+	$homepage_class = $is_homepage ? 'shopchop-homepage-wrapper' : '';
+	?>
+
+	<div id="content" class="shopchop-main-content-wrapper <?php echo $body_class; ?> <?php echo $homepage_class; ?>">

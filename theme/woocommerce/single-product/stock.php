@@ -20,6 +20,4 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 ?>
-<p class="stock mb-6 me-4 text-xl text-error-400 font-semibold <?php echo esc_attr( $class ); ?>"><?php echo wp_kses_post( $availability ); ?></p>
-
-<?php echo do_shortcode('[yith_wcwl_add_to_wishlist]'); ?>
+<p class="stock <?php echo esc_attr( $class ); ?>"><?php echo wp_kses_post( $availability ); ?></p>

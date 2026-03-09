@@ -140,6 +140,21 @@ defined('ABSPATH') || exit; ?>
 										);
 										?>
 									</div>
+									<div class="product-stock-status">
+										<?php
+											$stock_status = $_product->get_stock_status();
+											$stock_labels = array(
+												'instock'    => '<span class="cart-stock instock">'    . __('In Stock', 'shopchop')    . '</span>',
+												'outofstock' => '<span class="cart-stock outofstock">' . __('Out of Stock', 'shopchop') . '</span>',
+												'pre_order'  => '<span class="cart-stock pre-order">'  . __('Pre-Order', 'shopchop')   . '</span>',
+												'coming_soon'=> '<span class="cart-stock coming-soon">'.__('Coming Soon', 'shopchop')  . '</span>',
+											);
+
+											if (isset($stock_labels[$stock_status])) {
+												echo '<div class="cart-item-stock">' . $stock_labels[$stock_status] . '</div>';
+											}
+										?>
+									</div>
 									<div class="product-quantity">
 										<?php
 										if ($_product->is_sold_individually()) {

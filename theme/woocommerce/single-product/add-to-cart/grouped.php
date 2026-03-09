@@ -137,6 +137,9 @@ do_action( 'woocommerce_before_add_to_cart_form' ); ?>
 
 		<button type="submit" class="single_add_to_cart_button button alt<?php echo esc_attr( wc_wp_theme_get_element_class_name( 'button' ) ? ' ' . wc_wp_theme_get_element_class_name( 'button' ) : '' ); ?>"><?php echo esc_html( $product->single_add_to_cart_text() ); ?></button>
 
+		<!-- Wishlist Button for Grouped Product -->
+		<?php echo do_shortcode('[yith_wcwl_add_to_wishlist]'); ?>
+
 		<?php do_action( 'woocommerce_after_add_to_cart_button' ); ?>
 
 	<?php endif; ?>
