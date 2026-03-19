@@ -77,67 +77,42 @@ $is_minimal_page = is_checkout() || is_wc_endpoint_url('order-received') || (is_
 									class="h-16 lg:h-20 w-auto shrink-0">
 							</a>
 						</div>
-						
-						<!-- Button. Visible for mobile screens. Hidden in larger screens. -->
-						<button id="mobile-menu-toggle" class="shopchop-menu-toggle" aria-expanded="false" aria-controls="mobile-panel">
-							<span class="toggle-open">
-								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16"/><path d="M4 12h16"/><path d="M4 19h16"/></svg>
-							</span>
-							<span class="toggle-close" style="display:none;">
-								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
-							</span>
-						</button>
+
+						<!-- Mobile Menu Cluster Buttons -->
+						<div class="mobile-menu-btns">
+							<!-- Mobile Menu Search -->
+							<button id="mobile-search-toggle" class="shopchop-menu-item" aria-expanded="false" aria-controls="mobile-search">
+								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+									<path d="m21 21-4.34-4.34" />
+									<circle cx="11" cy="11" r="8" />
+								</svg>
+							</button>
+
+							<!-- Mobile Cart -->
+							<button id="mobile-cart-toggle" class="shopchop-menu-item" aria-expanded="false" aria-controls="mobile-mini-cart">
+								<?php echo do_shortcode('[shopchop_mobile_cart_icon_display]'); ?>
+							</button>
+
+							<!-- Mobile Menu Hamburger -->
+							<button id="mobile-menu-toggle" class="shopchop-menu-item" aria-expanded="false" aria-controls="mobile-panel">
+								<span class="toggle-open">
+									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+										<path d="M4 5h16" />
+										<path d="M4 12h16" />
+										<path d="M4 19h16" />
+									</svg>
+								</span>
+								<span class="toggle-close" style="display:none;">
+									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+										<path d="M18 6 6 18" />
+										<path d="m6 6 12 12" />
+									</svg>
+								</span>
+							</button>
+						</div>
 
 						<!-- Search Bar -->
 						<?php echo do_shortcode('[shopchop_search_bar context="desktop"]'); ?>
-
-						<!-- Account Controls & Main Menus -->
-						<div id="mobile-panel">
-							<?php echo do_shortcode('[shopchop_search_bar context="mobile"]'); ?>
-
-							<div class="mobile-account-control">
-								<a href="<?php echo esc_url(home_url('/wishlist')); ?>" class="control-item">
-									<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-package-icon lucide-package"><path d="M11 21.73a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73z"/><path d="M12 22V12"/><polyline points="3.29 7 12 12 20.71 7"/><path d="m7.5 4.27 9 5.15"/></svg>
-									Wishlist
-								</a>
-								<a href="<?php echo esc_url(home_url('/cart')); ?>" class="control-item">
-									<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-shopping-cart-icon lucide-shopping-cart"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>
-									Cart
-								</a>
-								<a href="<?php echo esc_url(wc_get_account_endpoint_url('dashboard')); ?>" class="control-item">
-									<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="user-icon">
-										<path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
-										<circle cx="12" cy="7" r="4" />
-									</svg>
-									<span class="account-label">
-										<?php
-										if ($is_logged_in) {
-											$current_user = wp_get_current_user();
-											$user_name = $current_user->display_name;
-											echo 'My Account (' . esc_html($user_name) . ')';
-										} else {
-											echo 'Log In / Register';
-										}
-										?>
-									</span>
-								</a>
-							</div>
-
-							<div class="mobile-menu-control">
-								<nav id="site-navigation" aria-label="<?php esc_attr_e('Main Navigation', 'shopchop'); ?>">
-
-									<?php
-									wp_nav_menu(
-										array(
-											'theme_location' => 'menu-1',
-											'menu_id'        => 'main-header-menu-primary',
-											'items_wrap'     => '<ul id="%1$s" class="%2$s" aria-label="submenu">%3$s</ul>',
-										)
-									);
-									?>
-								</nav><!-- #site-navigation -->
-							</div>
-						</div>
 
 						<!-- Account Controls. Visible for lg screens -->
 						<div class="shopchop-account-controls">
@@ -267,4 +242,92 @@ $is_minimal_page = is_checkout() || is_wc_endpoint_url('order-received') || (is_
 				</div><!-- header-normal-content end -->
 			<?php endif; ?>
 			</div><!-- container end -->
+
+<!-- Mobile Search Bar -->
+<div id="mobile-search">
+	<div class="mobile-search-header">
+		<h3 class="">Search Items</h3>
+		<button id="search-close">✕</button>
+	</div>
+	<div class="mobile-search-content">
+		<?php echo do_shortcode('[shopchop_search_bar context="mobile"]'); ?>
+	</div>
+</div>
+
+<!-- Mobile Cart Display -->
+<div id="mobile-mini-cart">
+	<?php echo do_shortcode('[shopchop_mobile_cart_details_display]'); ?>
+</div>
+
+<!-- Account Controls & Main Menus -->
+<div id="mobile-panel">
+	<div class="mobile-panel-header">
+		<h3 class="">Menu</h3>
+		<button id="menu-close">✕</button>
+	</div>
+
+	<div class="mobile-panel-content">
+		<div class="shopchop-account-info-mobile">
+			<?php
+			$current_user = wp_get_current_user();
+			?>
+			<a href="<?php echo esc_url(wc_get_account_endpoint_url('dashboard')); ?>" class="account-block-wrapper">
+				<div class="account-meta">
+					<?php if ( is_user_logged_in() ) { ?>
+						<div class="account-image">
+							<?php echo get_avatar( $current_user->ID, 40 ); ?>
+						</div>
+						<div class="account-details">
+							<h5 class="user-name"><?php echo esc_html( $current_user->display_name ) ?></h5>
+							<p class="user-actions">View My Account</p>
+						</div>
+					<?php } else { ?>
+						<div class="account-image">
+							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+						</div>
+						<div class="account-details">
+							<h5 class="user-name">Sign In or Register</h5>
+							<p class="user-actions">Access orders & account details</p>
+						</div>
+					<?php } ?>
+				</div>
+				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+			</a>
+		</div>
+		<div class="shopchop-menu-mobile">
+			<h5 class="menu-heading">Shop</h5>
+			<nav id="site-navigation" aria-label="<?php esc_attr_e('Main Navigation', 'shopchop'); ?>">
+
+				<?php
+				wp_nav_menu(
+					array(
+						'theme_location' => 'menu-1',
+						'menu_id'        => 'main-header-menu-primary',
+						'items_wrap'     => '<ul id="%1$s" class="%2$s" aria-label="submenu">%3$s</ul>',
+					)
+				);
+				?>
+			</nav><!-- #site-navigation -->
+		</div>
+		<div class="shopchop-account-actions-mobile">
+			<h5 class="account-heading">Account</h5>
+			<a href="" class="control-item"></a>
+		</div>
+		<div class="mobile-account-control">
+			<a href="<?php echo esc_url(home_url('/wishlist')); ?>" class="control-item">
+				<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-package-icon lucide-package">
+					<path d="M11 21.73a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73z" />
+					<path d="M12 22V12" />
+					<polyline points="3.29 7 12 12 20.71 7" />
+					<path d="m7.5 4.27 9 5.15" />
+				</svg>
+				Wishlist
+			</a>
+		</div>
+	</div>
+</div>
+
+<!-- Backdrop -->
+<div id="backdrop"></div>
+
 </header><!-- #masthead -->

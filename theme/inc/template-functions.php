@@ -763,59 +763,129 @@ function shopchop_add_next_steps($order_id)
 
 /**
  * ShopChop Search Bar with AJAX functionality
+ * Extended to search: title, content (description), excerpt (short description), and meta fields
  */
 function shopchop_search_products() {
     check_ajax_referer('wc_ajax_search_nonce', 'nonce');
-    
+
     $search_term = isset($_POST['search_term']) ? sanitize_text_field($_POST['search_term']) : '';
-    $category = isset($_POST['category']) ? sanitize_text_field($_POST['category']) : '';
-    
-    if (empty($search_term)) {
-        wp_send_json_success(array('products' => array()));
+    $category    = isset($_POST['category'])    ? sanitize_text_field($_POST['category'])    : '';
+
+    if ( empty( $search_term ) ) {
+        wp_send_json_success( array( 'products' => array() ) );
         return;
     }
-    
-    $args = array(
-        'post_type' => 'product',
-        'posts_per_page' => 10,
-        's' => $search_term,
-        'post_status' => 'publish'
-    );
-    
-    // Add category filter if selected
-    if (!empty($category) && $category !== 'all') {
-        $args['tax_query'] = array(
+
+    // ── Shared tax query ──────────────────────────────────────────────────────
+    $tax_query = array();
+    if ( ! empty( $category ) && $category !== 'all' ) {
+        $tax_query = array(
             array(
                 'taxonomy' => 'product_cat',
-                'field' => 'slug',
-                'terms' => $category
-            )
+                'field'    => 'slug',
+                'terms'    => $category,
+            ),
         );
     }
-    
-    $query = new WP_Query($args);
+
+    // ── Query 1: title + post_content (description) + post_excerpt (short desc)
+    // WordPress 's' already covers post_title and post_content.
+    // We add a posts_search filter once to also include post_excerpt.
+    $extend_excerpt = function ( $search, $wp_query ) use ( $search_term ) {
+        global $wpdb;
+        if ( ! $wp_query->is_search() || empty( $search_term ) ) {
+            return $search;
+        }
+        $like    = '%' . $wpdb->esc_like( $search_term ) . '%';
+        $search .= $wpdb->prepare(
+            " OR ({$wpdb->posts}.post_excerpt LIKE %s)",
+            $like
+        );
+        return $search;
+    };
+    add_filter( 'posts_search', $extend_excerpt, 10, 2 );
+
+    $content_query = new WP_Query( array(
+        'post_type'      => 'product',
+        'post_status'    => 'publish',
+        'posts_per_page' => 20,          // fetch more before dedup
+        'fields'         => 'ids',
+        's'              => $search_term,
+        'tax_query'      => $tax_query,
+    ) );
+
+    remove_filter( 'posts_search', $extend_excerpt, 10 );
+    $ids_content = $content_query->posts; // array of IDs
+
+    // ── Query 2: product meta fields ─────────────────────────────────────────
+    // Covers: SKU, custom text meta, short description stored as meta, etc.
+    // Extend $meta_keys with any project-specific meta keys you use.
+    $meta_keys = apply_filters( 'shopchop_search_meta_keys', array(
+        '_sku',                  // WooCommerce SKU
+        '_short_description',    // sometimes stored as meta by page builders
+        'short_description',
+    ) );
+
+    $meta_query_clauses = array( 'relation' => 'OR' );
+    foreach ( $meta_keys as $key ) {
+        $meta_query_clauses[] = array(
+            'key'     => $key,
+            'value'   => $search_term,
+            'compare' => 'LIKE',
+        );
+    }
+
+    $meta_query = new WP_Query( array(
+        'post_type'      => 'product',
+        'post_status'    => 'publish',
+        'posts_per_page' => 20,
+        'fields'         => 'ids',
+        'meta_query'     => $meta_query_clauses,
+        'tax_query'      => $tax_query,
+    ) );
+    $ids_meta = $meta_query->posts;
+
+    // ── Merge, deduplicate, cap at 10 ────────────────────────────────────────
+    $all_ids = array_slice( array_unique( array_merge( $ids_content, $ids_meta ) ), 0, 10 );
+
+    if ( empty( $all_ids ) ) {
+        wp_send_json_success( array( 'products' => array() ) );
+        return;
+    }
+
+    // ── Final query: fetch full product data for merged IDs ──────────────────
+    $final_query = new WP_Query( array(
+        'post_type'      => 'product',
+        'post_status'    => 'publish',
+        'posts_per_page' => count( $all_ids ),
+        'post__in'       => $all_ids,
+        'orderby'        => 'post__in',  // preserve relevance order
+    ) );
+
     $products = array();
-    
-    if ($query->have_posts()) {
-        while ($query->have_posts()) {
-            $query->the_post();
-            global $product;
-            
+
+    if ( $final_query->have_posts() ) {
+        while ( $final_query->have_posts() ) {
+            $final_query->the_post();
+            $product = wc_get_product( get_the_ID() );
+
+            if ( ! $product ) continue;
+
             $products[] = array(
-                'id' => get_the_ID(),
+                'id'    => get_the_ID(),
                 'title' => get_the_title(),
-                'url' => get_permalink(),
-                'image' => get_the_post_thumbnail_url(get_the_ID(), 'thumbnail'),
-                'price' => $product->get_price_html()
+                'url'   => get_permalink(),
+                'image' => get_the_post_thumbnail_url( get_the_ID(), 'thumbnail' ),
+                'price' => $product->get_price_html(),
             );
         }
         wp_reset_postdata();
     }
-    
-    wp_send_json_success(array('products' => $products));
+
+    wp_send_json_success( array( 'products' => $products ) );
 }
-add_action('wp_ajax_wc_search_products', 'shopchop_search_products');
-add_action('wp_ajax_nopriv_wc_search_products', 'shopchop_search_products');
+add_action( 'wp_ajax_wc_search_products',        'shopchop_search_products' );
+add_action( 'wp_ajax_nopriv_wc_search_products', 'shopchop_search_products' );
 
 // Get product categories for dropdown
 function shopchop_search_get_cat() {
@@ -941,10 +1011,7 @@ function shopchop_cart_fragments($fragments) {
     // Update cart items count text
     ob_start();
     ?>
-    <span class="cart-items-count">
-        <span class="count-number"><?php echo $cart_count; ?></span> 
-        <?php echo $cart_count === 1 ? 'item' : 'items'; ?>
-    </span>
+    <span class="cart-items-count"><span class="count-number"><?php echo $cart_count; ?></span> <?php echo $cart_count === 1 ? 'item' : 'items'; ?></span>
     <?php
     $fragments['.cart-items-count'] = ob_get_clean();
     
@@ -989,6 +1056,50 @@ function shopchop_mini_cart_shortcode() {
     return ob_get_clean();
 }
 add_shortcode('shopchop_mini_cart', 'shopchop_mini_cart_shortcode');
+
+
+
+/**
+ * ShopChop Mobile Cart Icon Display
+ */
+function shopchop_mobile_cart_icon() {
+	$cart_count = WC()->cart->get_cart_contents_count();
+    ob_start();
+    ?>
+	<div class="cart-icon-wrapper">
+		<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="cart-icon">
+			<circle cx="8" cy="21" r="1"/>
+			<circle cx="19" cy="21" r="1"/>
+			<path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/>
+		</svg>
+		<span class="cart-count-badge"><?php echo $cart_count >= 0 ? $cart_count : ''; ?></span>
+	</div>
+	<?php
+    return ob_get_clean();
+}
+add_shortcode('shopchop_mobile_cart_icon_display', 'shopchop_mobile_cart_icon');
+
+
+/**
+ * ShopChop Mobile Cart Details Display
+ */
+function shopchop_mobile_cart_details() {
+    $cart_count = WC()->cart->get_cart_contents_count();
+    
+    ob_start();
+    ?>
+	<div class="mobile-cart-header">
+		<h3>Cart <span>(<span class="cart-items-count"><span class="count-number"><?php echo $cart_count; ?></span> <?php echo $cart_count === 1 ? 'item' : 'items'; ?></span>)</span></h3>
+		<button id="cart-close">✕</button>
+	</div>
+	<div class="mobile-cart-content">
+		<!-- WooCommerce mini cart loaded here via AJAX -->
+		<div class="cart-loading">Loading cart...</div>
+	</div>
+    <?php
+    return ob_get_clean();
+}
+add_shortcode('shopchop_mobile_cart_details_display', 'shopchop_mobile_cart_details');
 
 
 
