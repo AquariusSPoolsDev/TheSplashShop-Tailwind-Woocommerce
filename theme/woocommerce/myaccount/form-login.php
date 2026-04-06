@@ -29,12 +29,12 @@ do_action( 'woocommerce_before_customer_login_form' ); ?>
 
 	<div class="wc-col-login">
 
-		<h2 class="wc-toggle-heading" data-target="wc-login-form" style="cursor:pointer;">
+		<h2 class="wc-toggle-heading is-open" data-target="wc-login-form" style="cursor:pointer;">
 			<?php esc_html_e( 'Login to', 'woocommerce' ); echo ' ' . get_bloginfo( 'name' ); ?>
 			<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="wc-toggle-indicator"><path d="m9 18 6-6-6-6"/></svg>
 		</h2>
 
-		<div id="wc-login-form" class="wc-toggle-form">
+		<div id="wc-login-form" class="wc-toggle-form is-open">
 			<form class="woocommerce-form woocommerce-form-login login wc-myaccount-form-login" method="post" novalidate>
 
 				<?php do_action( 'woocommerce_login_form_start' ); ?>
