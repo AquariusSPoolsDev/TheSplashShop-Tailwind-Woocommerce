@@ -1022,7 +1022,15 @@ label { @apply font-semibold; }
 				}
 
 				.products-button {
-					@apply h-max normal-case px-8 py-3 text-base;
+					@apply h-max normal-case px-8 py-3 text-base inline-flex items-center gap-2 transition-all duration-300;
+				}
+
+				.arrow-icon {
+					@apply transition-transform duration-300 ease-in-out translate-x-0;
+					transform: translateX(0);
+				}
+				.products-button:hover .arrow-icon {
+					@apply opacity-100 translate-x-1.5;
 				}
 			}
 
