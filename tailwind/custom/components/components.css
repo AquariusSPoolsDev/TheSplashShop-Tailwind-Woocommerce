@@ -270,7 +270,11 @@ label { @apply font-semibold; }
 
 	.search-bar-row {
 		.mobile-menu-btns {
-			@apply lg:hidden ml-auto flex gap-6;
+			@apply lg:hidden ml-auto flex gap-2;
+
+			.shopchop-menu-item {
+				@apply p-2 cursor-pointer;
+			}
 
 			#mobile-cart-toggle {
 				.cart-icon-wrapper {
@@ -589,6 +593,12 @@ label { @apply font-semibold; }
 		}
 	}
 
+	#cart-close,
+	#search-close,
+	#menu-close {
+		svg { @apply w-6 h-6 cursor-pointer;}
+	}
+
 	#mobile-search {
 		@apply lg:hidden fixed inset-0 bg-white flex flex-col overflow-hidden z-200 -translate-y-full transition-transform duration-350 ease-in-out;
 
@@ -802,7 +812,7 @@ label { @apply font-semibold; }
 
 				#main-header-menu-primary {
 					.menu-item {
-						@apply block border-b border-b-grey-100 last:border-b-grey-200;
+						@apply block border-b border-b-grey-200/50 last:border-b-grey-200;
 
 						a {
 							@apply block w-full p-4 transition-all hover:bg-primary-100/30 hover:text-primary-400 active:bg-primary-100/30 active:text-primary-400 focus:bg-primary-100/30 focus:text-primary-400;
@@ -815,14 +825,14 @@ label { @apply font-semibold; }
 				h5.account-heading {
 					@apply px-4 pt-4 pb-2 text-sm text-grey-300 uppercase;
 				}
-			}
-		}
 
-		.mobile-account-control {
-			@apply mt-4 pt-4 border-t-2 border-t-primary-300 flex flex-col gap-3;
-
-			.control-item {
-				@apply flex items-center gap-2 transition-all underline-offset-4 hover:underline! active:underline! focus:underline!;
+				a.control-item {
+					@apply flex border-b border-b-grey-200/50 last:border-b-grey-200 block w-full p-4 transition-all hover:bg-primary-100/30 hover:text-primary-400 active:bg-primary-100/30 active:text-primary-400 focus:bg-primary-100/30 focus:text-primary-400;
+					
+					&.logout {
+						@apply hover:bg-error-100 hover:text-error-400 active:bg-error-100 active:text-error-400 focus:bg-error-100 focus:text-error-400
+					}
+				}
 			}
 		}
 	}
@@ -2635,7 +2645,7 @@ label { @apply font-semibold; }
 			.user-action-order,
 			.user-action-billing,
 			.user-action-account-edit {
-				@apply flex flex-wrap items-center gap-4 transition-all hover:bg-secondary-100/50 active:bg-secondary-100/50 focus:bg-secondary-100/50 hover:border-secondary active:border-secondary focus:border-secondary;
+				@apply flex md:flex-wrap items-center gap-4 transition-all hover:bg-secondary-100/50 active:bg-secondary-100/50 focus:bg-secondary-100/50 hover:border-secondary active:border-secondary focus:border-secondary;
 			}
 		}
 		/* My Account Dashboard */

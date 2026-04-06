@@ -18,13 +18,13 @@
     'use strict';
 
     /* =========================================================================
-       Namespace
+        Namespace
     ========================================================================= */
     window.ShopChop = window.ShopChop || {};
 
 
     /* =========================================================================
-       Utils
+        Utils
     ========================================================================= */
     const Utils = {
 
@@ -55,7 +55,7 @@
 
 
     /* =========================================================================
-       CartAPI – shared AJAX helpers
+        CartAPI – shared AJAX helpers
     ========================================================================= */
     const CartAPI = {
 
@@ -96,15 +96,15 @@
 
 
     /* =========================================================================
-       createDropdown – factory
-       Shared hover / click / keyboard / outside-click logic used by both the
-       Account dropdown and the Cart dropdown.
+        createDropdown – factory
+        Shared hover / click / keyboard / outside-click logic used by both the
+        Account dropdown and the Cart dropdown.
 
-       @param {object} opts
-         .wrapper   {jQuery}    outermost element (hover target)
-         .trigger   {jQuery}    button that toggles the dropdown
-         .dropdown  {jQuery}    panel to show/hide
-         .onShow    {Function?} called before the panel fades in (optional)
+        @param {object} opts
+        .wrapper   {jQuery}    outermost element (hover target)
+        .trigger   {jQuery}    button that toggles the dropdown
+        .dropdown  {jQuery}    panel to show/hide
+        .onShow    {Function?} called before the panel fades in (optional)
     ========================================================================= */
     function createDropdown({ wrapper, trigger, dropdown, onShow }) {
         const DELAY_IN  = 200; // ms before opening on hover
@@ -161,13 +161,13 @@
 
 
     /* =========================================================================
-       createMiniCart – factory
-       Shared AJAX load + remove logic used by both the desktop dropdown cart
-       and the mobile drawer cart.
+        createMiniCart – factory
+        Shared AJAX load + remove logic used by both the desktop dropdown cart
+        and the mobile drawer cart.
 
-       @param {object} opts
-         .contentEl      {jQuery}    element that receives the cart HTML
-         .onCountUpdate  {Function}  called with (count) after every refresh
+        @param {object} opts
+        .contentEl      {jQuery}    element that receives the cart HTML
+        .onCountUpdate  {Function}  called with (count) after every refresh
     ========================================================================= */
     function createMiniCart({ contentEl, onCountUpdate }) {
         let isLoaded = false;
