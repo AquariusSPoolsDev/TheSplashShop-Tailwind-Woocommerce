@@ -799,7 +799,7 @@ function shopchop_add_next_steps( $order_id ) {
 				<strong>Need Assistance?</strong> Contact us through
 				<a href="https://wa.me/" class="underline! font-bold text-primary-400" target="_blank" rel="noreferrer">WhatsApp</a>
 				or email us at
-				<a href="mailto:" class="underline! font-bold text-primary-400" rel="noreferrer">email@mail.com</a>
+				<a href="mailto:<?php echo get_option( 'woocommerce_email_from_address' ); ?>" class="underline! font-bold text-primary-400" rel="noreferrer"><?php echo get_option( 'woocommerce_email_from_address' ); ?></a>
 				with your Order ID: <strong><?php echo $order->get_order_number(); ?></strong>
 			</li>
 		</ul>
@@ -1106,7 +1106,7 @@ function shopchop_mini_cart_shortcode() {
 
 	ob_start(); ?>
 	<div class="shopchop-cart-wrapper">
-		<button class="shopchop-cart-trigger" aria-label="Shopping Cart" aria-expanded="false">
+		<a href="<?php echo wc_get_cart_url(); ?>" class="shopchop-cart-trigger" aria-label="Shopping Cart" aria-expanded="false">
 			<div class="cart-icon-wrapper">
 				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="cart-icon">
 					<circle cx="8" cy="21" r="1"/>
@@ -1116,7 +1116,7 @@ function shopchop_mini_cart_shortcode() {
 				<span class="cart-count-badge"><?php echo $count >= 0 ? $count : ''; ?></span>
 			</div>
 			<span class="cart-label">Cart</span>
-		</button>
+		</a>
 
 		<div class="shopchop-cart-dropdown" style="display:none;">
 			<div class="cart-dropdown-header">

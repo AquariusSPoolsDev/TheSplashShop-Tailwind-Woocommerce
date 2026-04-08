@@ -32,7 +32,7 @@ $text             = get_option( 'woocommerce_email_text_color' );
 $footer_text      = get_option( 'woocommerce_email_footer_text_color' );
 $header_alignment = get_option( 'woocommerce_email_header_alignment', $email_improvements_enabled ? 'left' : false );
 $logo_image_width = get_option( 'woocommerce_email_header_image_width', '120' );
-$default_font     = 'Helvetica';
+$default_font     = 'Arial';
 $font_family      = $email_improvements_enabled ? get_option( 'woocommerce_email_font_family', $default_font ) : $default_font;
 
 /**
@@ -92,28 +92,43 @@ $text_lighter_40 = wc_hex_lighter( $text, 40 );
 // body{padding: 0;} ensures proper scale/positioning of the email in the iOS native email app.
 ?>
 body {
-	background-color: <?php echo esc_attr( $bg ); ?>;
+	<!-- background-color: <?php echo esc_attr( $bg ); ?>; -->
 	padding: 0;
+	margin: 0;
 	text-align: center;
 }
 
-#outer_wrapper {
-	background-color: <?php echo esc_attr( $bg ); ?>;
+.email-table-wide {
+	background-color: #F8FAFC;
+	border: 0;
 }
+
+.table-td-content {
+	padding: 32px 0;
+}
+
+#outer_wrapper {
+	<!-- background-color: <?php echo esc_attr( $bg ); ?>; -->
+}
+
 
 <?php if ( $email_improvements_enabled ) : ?>
 #inner_wrapper {
-	background-color: <?php echo esc_attr( $body ); ?>;
-	border-radius: 8px;
+	<!-- background-color: <?php echo esc_attr( $body ); ?>; -->
+	<!-- border-radius: 8px; -->
 }
 <?php endif; ?>
 
 #wrapper {
 	margin: 0 auto;
-	padding: <?php echo $email_improvements_enabled ? '24px 0' : '70px 0'; ?>;
+	<!-- padding: <?php echo $email_improvements_enabled ? '24px 0' : '70px 0'; ?>; -->
 	-webkit-text-size-adjust: none !important;
 	width: 100%;
-	max-width: 600px;
+	max-width: 598px;
+	background-color: #FFF;
+	border: 1px solid #CBD5E1;
+	border-radius: 8px;
+	overflow: hidden;
 }
 
 #template_container {
@@ -155,8 +170,12 @@ body {
 	margin-bottom: 32px;
 }
 
+.email-navbar-header-title {
+	padding: 32px 32px 16px;
+}
+
 #template_header_image {
-	padding: 32px 32px 0;
+	<!-- padding: 32px 32px 0; -->
 }
 
 #template_header_image p {
@@ -172,6 +191,12 @@ body {
 	color: <?php echo esc_attr( $link_color ); ?>;
 	font-family: <?php echo $safe_font_family; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>;
 	font-size: 18px;
+}
+
+.shop-tagline {
+	font-family: <?php echo $safe_font_family; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>;
+	font-size: 14px;
+	margin: 0;
 }
 
 .email-introduction {
@@ -208,20 +233,23 @@ body {
 
 #template_footer td {
 	padding: 0;
-	border-radius: <?php echo $email_improvements_enabled ? '0' : '6px'; ?>;
+	<!-- border-radius: <?php echo $email_improvements_enabled ? '0' : '6px'; ?>; -->
 }
 
 #template_footer #credit {
 	border: 0;
 	<?php if ( $email_improvements_enabled ) : ?>
-		border-top: 1px solid <?php echo esc_attr( $border_color ); ?>;
+		<!-- border-top: 1px solid <?php echo esc_attr( $border_color ); ?>; -->
+		border-top: 1px solid #CBD5E1;
 	<?php endif; ?>
-	color: <?php echo esc_attr( $footer_text ); ?>;
+	background-color: #FBFCFD;
+	<?php echo esc_attr( $footer_text ); ?>;
 	font-family: <?php echo $safe_font_family; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>;
 	font-size: 12px;
 	line-height: <?php echo $email_improvements_enabled ? '140%' : '150%'; ?>;
-	text-align: center;
-	padding: <?php echo $email_improvements_enabled ? '32px' : '24px 0'; ?>;
+	<!-- text-align: center; -->
+	<!-- padding: <?php echo $email_improvements_enabled ? '32px' : '24px 0'; ?>; -->
+	padding: 32px;
 }
 
 #template_footer #credit p {
@@ -260,7 +288,7 @@ body {
 }
 
 #body_content .email-order-details tbody tr:last-child td {
-	border-bottom: 1px solid <?php echo esc_attr( $border_color ); ?>;
+	<!-- border-bottom: 1px solid <?php echo esc_attr( $border_color ); ?>; -->
 	padding-bottom: 24px;
 }
 
@@ -297,12 +325,12 @@ body {
 
 #body_content .email-order-details .order-totals-last td,
 #body_content .email-order-details .order-totals-last th {
-	border-bottom: 1px solid <?php echo esc_attr( $border_color ); ?>;
+	<!-- border-bottom: 1px solid <?php echo esc_attr( $border_color ); ?>; -->
 	padding-bottom: 24px;
 }
 
 #body_content .email-order-details .order-customer-note td {
-	border-bottom: 1px solid <?php echo esc_attr( $border_color ); ?>;
+	<!-- border-bottom: 1px solid <?php echo esc_attr( $border_color ); ?>; -->
 	padding-bottom: 24px;
 	padding-top: 24px;
 }
@@ -386,12 +414,19 @@ body {
 }
 
 .link {
-	color: <?php echo esc_attr( $link_color ); ?>;
+	<!-- color: <?php echo esc_attr( $link_color ); ?>; -->
+	color: #007DA1;
 }
 
 #header_wrapper {
-	padding: <?php echo $email_improvements_enabled ? '20px 32px 0' : '36px 48px'; ?>;
+	<!-- padding: <?php echo $email_improvements_enabled ? '20px 32px 0' : '36px 48px'; ?>; -->
 	display: block;
+	padding: 32px;
+	background-color: #1E293B;
+}
+
+#header_wrapper h1 {
+	color: #FFF !important;
 }
 
 <?php if ( $header_alignment ) : ?>
@@ -400,9 +435,12 @@ body {
 }
 <?php endif; ?>
 
-#template_footer #credit,
-#template_footer #credit a {
+#template_footer #credit {
 	color: <?php echo esc_attr( $footer_text ); ?>;
+}
+
+#template_footer #credit a {
+	color: #2563c7;
 }
 
 h1 {
@@ -439,12 +477,13 @@ h3 {
 	font-size: 16px;
 	font-weight: bold;
 	line-height: <?php echo $email_improvements_enabled ? '160%' : '130%'; ?>;
-	margin: 16px 0 8px;
+	margin: 0;
 	text-align: <?php echo is_rtl() ? 'right' : 'left'; ?>;
 }
 
 a {
-	color: <?php echo esc_attr( $link_color ); ?>;
+	<!-- color: <?php echo esc_attr( $link_color ); ?>; -->
+	color: #007DA1;
 	font-weight: normal;
 	text-decoration: underline;
 }
@@ -459,7 +498,7 @@ img {
 	text-decoration: none;
 	text-transform: capitalize;
 	vertical-align: middle;
-	margin-<?php echo is_rtl() ? 'left' : 'right'; ?>: <?php echo $email_improvements_enabled ? '24px' : '10px'; ?>;
+	margin-<?php echo is_rtl() ? 'left' : 'right'; ?>: <?php echo $email_improvements_enabled ? '16px' : '10px'; ?>;
 	max-width: 100%;
 }
 
@@ -488,12 +527,12 @@ h2.email-order-detail-heading span {
  */
 @media screen and (max-width: 600px) {
 	<?php if ( $email_improvements_enabled ) : ?>
-		#template_header_image {
-			padding: 16px 10px 0 !important;
+		.email-navbar-header-title {
+			padding: 32px 16px 16px 16px !important;
 		}
 
 		#header_wrapper {
-			padding: 16px 10px 0 !important;
+			padding: 24px 16px !important;
 		}
 
 		#header_wrapper h1 {
@@ -501,7 +540,7 @@ h2.email-order-detail-heading span {
 		}
 
 		#body_content_inner_cell {
-			padding: 10px !important;
+			padding: 16px !important;
 		}
 
 		#body_content_inner {
@@ -523,6 +562,10 @@ h2.email-order-detail-heading span {
 
 		.email-additional-content {
 			padding-top: 16px !important;
+		}
+
+		#template_footer #credit {
+			padding: 24px 16px !important;
 		}
 	<?php else : ?>
 		#header_wrapper {

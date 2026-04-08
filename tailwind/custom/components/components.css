@@ -2037,7 +2037,7 @@ label { @apply font-semibold; }
 			@apply col-span-full md:col-span-1 lg:col-span-2;
 
 			.order-review-table-wrapper {
-				@apply border border-grey-200 rounded-lg overflow-hidden;
+				@apply border bg-white border-grey-200 rounded-lg overflow-hidden;
 
 				table.shop_table {
 					@apply w-full block p-4;
@@ -2085,7 +2085,7 @@ label { @apply font-semibold; }
 				@apply flex flex-col gap-4 mb-8;
 				
 				.wc_payment_method {
-					@apply p-4 lg:p-6 border-2 border-grey-200 rounded-lg flex items-center gap-4 cursor-pointer transition-all;
+					@apply p-4 lg:p-6 border-2 bg-white border-grey-200 rounded-lg flex items-center gap-4 cursor-pointer transition-all;
 
 					&.is-selected {
 						@apply border-primary-300 ring-primary-100 ring-4;
@@ -2190,7 +2190,7 @@ label { @apply font-semibold; }
 		@apply flex flex-col gap-4 mb-8;
 
 		.wc_payment_method {
-			@apply p-4 lg:p-6 border-2 border-grey-200 rounded-lg flex items-center gap-4 cursor-pointer transition-all;
+			@apply p-4 lg:p-6 border-2 bg-white border-grey-200 rounded-lg flex items-center gap-4 cursor-pointer transition-all;
 
 			&.is-selected {
 				@apply border-primary-300 ring-primary-100 ring-4;
@@ -2250,10 +2250,18 @@ label { @apply font-semibold; }
 	@apply max-w-3xl mx-auto;
 
 	.woocommerce-order {
-		@apply mb-8 p-4 lg:p-6 border border-grey-200 rounded-lg text-sm md:text-base;
+		@apply mb-8 p-4 lg:p-6 border bg-white border-grey-200 rounded-lg text-sm md:text-base;
+
+		.thank-you-title-wrapper {
+			@apply flex items-center justify-between gap-x-4;
+		}
 
 		.woocommerce-order-received-title {
 			@apply text-3xl lg:text-4xl font-bold mb-2 text-primary-400
+		}
+
+		.wc-order-icon {
+			@apply w-18 md:w-32 h-auto shrink-0;
 		}
 
 		h2 {
@@ -2292,7 +2300,7 @@ label { @apply font-semibold; }
 				}
 
 				tbody {
-					@apply flex flex-col flex-wrap gap-y-3;
+					@apply flex flex-col flex-wrap gap-y-4;
 
 					tr {
 						@apply flex gap-x-3 justify-between items-end;
@@ -2846,7 +2854,7 @@ label { @apply font-semibold; }
 					}
 
 					.woocommerce-OrderUpdate-inner.comment_container {
-						@apply bg-teal-50 border border-teal-500 rounded-xl rounded-bl-none py-2.5 px-4 w-max;
+						@apply bg-teal-50 border border-teal-500 rounded-xl rounded-bl-none py-2.5 px-4 max-w-full w-fit whitespace-normal text-pretty;
 
 						.woocommerce-OrderUpdate-meta {
 							@apply text-xs text-grey-400;
@@ -2951,7 +2959,7 @@ label { @apply font-semibold; }
 
 
 /* ShopChop YITH Wishlist Button. Make this as secondary button.
- * Steps to immpleent this: 
+ * Steps to implement this: 
  * 1. Download the plugin and activate it.
  * 2. on YITH wishlist settings, go to "Add to Wishlist" tab, set Position of "Add to wishlist" on product page to shortcode.
  *    Do Not select the other options!

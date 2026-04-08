@@ -32,17 +32,18 @@ $store_name                 = $store_name ?? get_bloginfo( 'name', 'display' );
 		<meta content="width=device-width, initial-scale=1.0" name="viewport">
 		<title><?php echo esc_html( $store_name ); ?></title>
 	</head>
-	<body <?php echo is_rtl() ? 'rightmargin' : 'leftmargin'; ?>="0" marginwidth="0" topmargin="0" marginheight="0" offset="0">
-		<table width="100%" id="outer_wrapper" role="presentation">
+	<body class="email-body-wide" <?php echo is_rtl() ? 'rightmargin' : 'leftmargin'; ?>="0" marginwidth="0" topmargin="0" marginheight="0" offset="0">
+		<table class="email-table-wide" width="100%" id="outer_wrapper" role="presentation">
 			<tr>
 				<td><!-- Deliberately empty to support consistent sizing and layout across multiple email clients. --></td>
-				<td width="600">
-					<div id="wrapper" dir="<?php echo is_rtl() ? 'rtl' : 'ltr'; ?>">
-						<table border="0" cellpadding="0" cellspacing="0" height="100%" width="100%" id="inner_wrapper" role="presentation">
+				<td class="table-td-content" width="600">
+					<div class="table-td-wrapper" id="wrapper" dir="<?php echo is_rtl() ? 'rtl' : 'ltr'; ?>">
+						<table class="email-content" border="0" cellpadding="0" cellspacing="0" height="100%" width="100%" id="inner_wrapper" role="presentation">
 							<tr>
 								<td align="center" valign="top">
 									<?php
 									$img = get_option( 'woocommerce_email_header_image' );
+									$tagline = get_bloginfo( 'description' );
 									/**
 									 * This filter is documented in templates/emails/email-styles.php
 									 *
@@ -55,9 +56,9 @@ $store_name                 = $store_name ?? get_bloginfo( 'name', 'display' );
 
 									if ( $email_improvements_enabled ) :
 										?>
-										<table border="0" cellpadding="0" cellspacing="0" width="100%" role="presentation">
+										<table class="email-navbar-header-title" border="0" cellpadding="0" cellspacing="0" width="100%" role="presentation">
 											<tr>
-												<td id="template_header_image">
+												<td align="left" valign="middle" id="template_header_image">
 													<?php
 													if ( $img ) {
 														echo '<p style="margin-top:0;"><img src="' . esc_url( $img ) . '" alt="' . esc_attr( $store_name ) . '" /></p>';
@@ -65,6 +66,9 @@ $store_name                 = $store_name ?? get_bloginfo( 'name', 'display' );
 														echo '<p class="email-logo-text">' . esc_html( $store_name ) . '</p>';
 													}
 													?>
+												</td>
+												<td align="right" valign="middle" id="shop_description">
+													<p class="shop-tagline"><?php echo esc_html( $tagline ); ?></p>
 												</td>
 											</tr>
 										</table>

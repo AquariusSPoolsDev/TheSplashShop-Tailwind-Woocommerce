@@ -69,6 +69,14 @@ $email = $email ?? null;
 																)
 															);
 															?>
+															<br>
+															Need help or support? <a href="mailto:<?php echo get_option( 'woocommerce_email_from_address' ); ?>"><?php echo get_option( 'woocommerce_email_from_address' ); ?></a>&nbsp;|&nbsp;<a href="http://">WhatsApp us</a><br><br>
+
+															<a href="<?php echo esc_url( get_privacy_policy_url() ); ?>">Privacy policy</a>
+															&nbsp;|&nbsp;
+															<a href="<?php echo esc_url( wc_get_page_permalink( 'refund_returns' ) ); ?>">Refund policy</a><br><br>
+
+															&copy; <?php echo date( 'Y' ); ?> <?php echo get_bloginfo( 'name' ); ?>. All rights reserved.
 														</td>
 													</tr>
 												</table>
