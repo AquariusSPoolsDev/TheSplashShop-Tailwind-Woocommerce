@@ -44,4 +44,8 @@ defined('ABSPATH') || exit;
 			<?php endif; ?>
 		</p>
 	</div>
+	<?php
+	$icon = get_stylesheet_directory_uri() . '/assets/images/order-recieved.png';
+	?>
+	<img class="wc-order-icon" src="<?php echo esc_url($icon); ?>" alt="Order Recieved">
 </div>

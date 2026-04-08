@@ -78,7 +78,8 @@ do_action( 'woocommerce_email_before_order_table', $order, $sent_to_admin, $plai
 	?>
 </h2>
 
-<div style="margin-bottom: <?php echo $email_improvements_enabled ? '24px' : '40px'; ?>;">
+<!-- <div style="margin-bottom: <?php echo $email_improvements_enabled ? '24px' : '40px'; ?>;"> -->
+<div>
 	<table class="td font-family <?php echo esc_attr( $order_table_class ); ?>" cellspacing="0" cellpadding="6" style="width: 100%;" border="1">
 		<thead>
 			<tr>
