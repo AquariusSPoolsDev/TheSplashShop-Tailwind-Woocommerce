@@ -340,7 +340,7 @@ function shopchop_category_title_custom( $category ) { ?>
 		</div><!-- .category-meta-image -->
 		<div class="category-meta-details">
 			<h2 class="woocommerce-loop-category__title"><?php echo esc_html( $category->name ); ?></h2>
-			<span class="cat-product-count"><?php echo esc_html( $category->count ); ?> products</span>
+			<span class="cat-product-count"><?php echo esc_html( sprintf( _n( '%d product', '%d products', $category->count, 'shopchop' ), $category->count ) ); ?></span>
 		</div><!-- .category-meta-details -->
 <?php }
 
@@ -370,7 +370,7 @@ add_action( 'woocommerce_before_shop_loop_item_title', function () {
 	echo '<div class="product-image-wrapper">';
 	global $product;
 	if ( ! $product->is_in_stock() ) {
-		echo '<span class="out-of-stock-badge">' . esc_html__( 'Out of Stock', 'woocommerce' ) . '</span>';
+		echo '<span class="out-of-stock-badge" aria-hidden="true">' . esc_html__( 'Out of Stock', 'woocommerce' ) . '</span>';
 	}
 }, 5 );
 
@@ -580,10 +580,10 @@ function shopchop_hooked_review_meta( $comment ) {
 	$verified = wc_review_is_from_verified_owner( $comment->comment_ID );
 
 	if ( '0' === $comment->comment_approved ) {
-		echo '<strong class="woocommerce-review__author">' . get_comment_author() . '</strong><br>';
+		echo '<strong class="woocommerce-review__author">' . esc_html( get_comment_author() ) . '</strong><br>';
 		echo '<em class="woocommerce-review__awaiting-approval">Your review is awaiting approval</em>';
 	} else {
-		echo '<strong class="woocommerce-review__author">' . get_comment_author() . '</strong> ';
+		echo '<strong class="woocommerce-review__author">' . esc_html( get_comment_author() ) . '</strong> ';
 		if ( 'yes' === get_option( 'woocommerce_review_rating_verification_label' ) && $verified ) {
 			echo '<em class="woocommerce-review__verified verified">(verified owner)</em>';
 		}
@@ -799,8 +799,8 @@ function shopchop_add_next_steps( $order_id ) {
 				<strong>Need Assistance?</strong> Contact us through
 				<a href="https://wa.me/" class="underline! font-bold text-primary-400" target="_blank" rel="noreferrer">WhatsApp</a>
 				or email us at
-				<a href="mailto:<?php echo get_option( 'woocommerce_email_from_address' ); ?>" class="underline! font-bold text-primary-400" rel="noreferrer"><?php echo get_option( 'woocommerce_email_from_address' ); ?></a>
-				with your Order ID: <strong><?php echo $order->get_order_number(); ?></strong>
+				<a href="mailto:<?php echo esc_attr( get_option( 'woocommerce_email_from_address' ) ); ?>" class="underline! font-bold text-primary-400" rel="noreferrer"><?php echo esc_html( get_option( 'woocommerce_email_from_address' ) ); ?></a>
+				with your Order ID: <strong><?php echo esc_html( $order->get_order_number() ); ?></strong>
 			</li>
 		</ul>
 	</section>
@@ -1144,7 +1144,7 @@ function shopchop_mobile_cart_icon() {
 	$count = WC()->cart->get_cart_contents_count();
 	ob_start(); ?>
 	<div class="cart-icon-wrapper">
-		<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="cart-icon">
+		<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="cart-icon" aria-hidden="true">
 			<circle cx="8" cy="21" r="1"/>
 			<circle cx="19" cy="21" r="1"/>
 			<path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/>
@@ -1173,8 +1173,8 @@ function shopchop_mobile_cart_details() {
 		<h3>Cart
 			<span>(<span class="cart-items-count"><span class="count-number"><?php echo $count; ?></span> <?php echo $word; ?></span>)</span>
 		</h3>
-		<button id="cart-close">
-			<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+		<button id="cart-close" aria-label="Close cart">
+			<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
 				<path d="M18 6 6 18"/><path d="m6 6 12 12"/>
 			</svg>
 		</button>

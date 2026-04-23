@@ -42,7 +42,7 @@ $is_minimal_page = is_checkout() || is_wc_endpoint_url('order-received') || (is_
 					$shopchop_description = get_bloginfo('description', 'display');
 					if ($shopchop_description || is_customize_preview()) :
 					?>
-						<p class="text-sm italic text-end"><?php echo $shopchop_description; ?></p>
+						<p class="text-sm italic text-end"><?php echo esc_html( $shopchop_description ); ?></p>
 					<?php endif; ?>
 				</div>
 			</div><!-- header-minimal-content end -->
@@ -81,29 +81,29 @@ $is_minimal_page = is_checkout() || is_wc_endpoint_url('order-received') || (is_
 						<!-- Mobile Menu Cluster Buttons -->
 						<div class="mobile-menu-btns">
 							<!-- Mobile Menu Search -->
-							<button id="mobile-search-toggle" class="shopchop-menu-item" aria-expanded="false" aria-controls="mobile-search">
-								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+							<button id="mobile-search-toggle" class="shopchop-menu-item" aria-expanded="false" aria-controls="mobile-search" aria-label="<?php esc_attr_e( 'Search', 'shopchop' ); ?>">
+								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
 									<path d="m21 21-4.34-4.34" />
 									<circle cx="11" cy="11" r="8" />
 								</svg>
 							</button>
 
 							<!-- Mobile Cart -->
-							<button id="mobile-cart-toggle" class="shopchop-menu-item" aria-expanded="false" aria-controls="mobile-mini-cart">
+							<button id="mobile-cart-toggle" class="shopchop-menu-item" aria-expanded="false" aria-controls="mobile-mini-cart" aria-label="<?php esc_attr_e( 'Cart', 'shopchop' ); ?>">
 								<?php echo do_shortcode('[shopchop_mobile_cart_icon_display]'); ?>
 							</button>
 
 							<!-- Mobile Menu Hamburger -->
-							<button id="mobile-menu-toggle" class="shopchop-menu-item" aria-expanded="false" aria-controls="mobile-panel">
+							<button id="mobile-menu-toggle" class="shopchop-menu-item" aria-expanded="false" aria-controls="mobile-panel" aria-label="<?php esc_attr_e( 'Menu', 'shopchop' ); ?>">
 								<span class="toggle-open">
-									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
 										<path d="M4 5h16" />
 										<path d="M4 12h16" />
 										<path d="M4 19h16" />
 									</svg>
 								</span>
 								<span class="toggle-close" style="display:none;">
-									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
 										<path d="M18 6 6 18" />
 										<path d="m6 6 12 12" />
 									</svg>
@@ -120,9 +120,10 @@ $is_minimal_page = is_checkout() || is_wc_endpoint_url('order-received') || (is_
 							<!-- Wishlist button - Display in heart shape -->
 							<div class="shopchop-wishlist-wrapper">
 								<a href="<?php echo esc_url(home_url('/wishlist')); ?>" class="shopchop-wishlist-btn" aria-label="Wishlist" title="Wishlist">
-									<svg class="wishlist-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+									<svg class="wishlist-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
 										<path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
 									</svg>
+									<span class="sr-only"><?php esc_html_e( 'Wishlist', 'shopchop' ); ?></span>
 								</a>
 							</div>
 
@@ -143,7 +144,7 @@ $is_minimal_page = is_checkout() || is_wc_endpoint_url('order-received') || (is_
 											$user_name = $current_user->display_name;
 											echo esc_html($user_name);
 										} else {
-											echo 'Log In / Register';
+											esc_html_e( 'Log In / Register', 'shopchop' );
 										}
 										?>
 									</span>
@@ -232,7 +233,7 @@ $is_minimal_page = is_checkout() || is_wc_endpoint_url('order-received') || (is_
 								array(
 									'theme_location' => 'menu-1',
 									'menu_id'        => 'main-header-menu-primary',
-									'items_wrap'     => '<ul id="%1$s" class="%2$s" aria-label="submenu">%3$s</ul>',
+									'items_wrap'     => '<ul id="%1$s" class="%2$s">%3$s</ul>',
 								)
 							);
 							?>
@@ -247,8 +248,8 @@ $is_minimal_page = is_checkout() || is_wc_endpoint_url('order-received') || (is_
 <div id="mobile-search">
 	<div class="mobile-search-header">
 		<h3 class=""><?php esc_html_e( 'Search Items', 'shopchop' ); ?></h3>
-		<button id="search-close">
-			<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+		<button id="search-close" aria-label="<?php esc_attr_e('Close search', 'shopchop'); ?>">
+			<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
 		</button>
 	</div>
 	<div class="mobile-search-content">
@@ -265,8 +266,8 @@ $is_minimal_page = is_checkout() || is_wc_endpoint_url('order-received') || (is_
 <div id="mobile-panel">
 	<div class="mobile-panel-header">
 		<h3 class=""><?php esc_html_e( 'Menu', 'shopchop' ); ?></h3>
-		<button id="menu-close">
-			<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+		<button id="menu-close" aria-label="<?php esc_attr_e('Close menu', 'shopchop'); ?>">
+			<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
 		</button>
 	</div>
 
@@ -300,18 +301,18 @@ $is_minimal_page = is_checkout() || is_wc_endpoint_url('order-received') || (is_
 		</div>
 		<div class="shopchop-menu-mobile">
 			<h5 class="menu-heading"><?php esc_html_e( 'Shop', 'shopchop' ); ?></h5>
-			<nav id="site-navigation" aria-label="<?php esc_attr_e('Main Navigation', 'shopchop'); ?>">
+			<nav id="site-navigation-mobile" aria-label="<?php esc_attr_e('Mobile Navigation', 'shopchop'); ?>">
 
 				<?php
 				wp_nav_menu(
 					array(
 						'theme_location' => 'menu-1',
-						'menu_id'        => 'main-header-menu-primary',
-						'items_wrap'     => '<ul id="%1$s" class="%2$s" aria-label="submenu">%3$s</ul>',
+						'menu_id'        => 'main-header-menu-mobile',
+						'items_wrap'     => '<ul id="%1$s" class="%2$s">%3$s</ul>',
 					)
 				);
 				?>
-			</nav><!-- #site-navigation -->
+			</nav><!-- #site-navigation-mobile -->
 		</div>
 		<?php if ( is_user_logged_in() ) { ?>
 		<div class="shopchop-account-actions-mobile">

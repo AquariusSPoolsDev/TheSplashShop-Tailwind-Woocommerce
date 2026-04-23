@@ -16,3 +16,7 @@ shopchop.zip
 
 # Ignore .DS_Store files from macOS:
 .DS_Store
+
+# Ignore local dev folders:
+/screenshots/
+/scripts/
