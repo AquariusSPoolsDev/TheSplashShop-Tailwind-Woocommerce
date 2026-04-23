@@ -30,38 +30,38 @@ global $product;
 
 	<?php if (wc_product_sku_enabled() && ($product->get_sku() || $product->is_type(ProductType::VARIABLE))) : ?>
 
-		<span class="sku_wrapper"><strong><?php esc_html_e('SKU:', 'woocommerce'); ?></strong> <span class="sku"><?php echo ($sku = $product->get_sku()) ? $sku : esc_html__('N/A', 'woocommerce'); ?></span></span>
+		<span class="sku_wrapper"><strong><?php esc_html_e('SKU:', 'woocommerce'); ?></strong> <span class="sku"><?php echo ( $sku = $product->get_sku() ) ? esc_html( $sku ) : esc_html__( 'N/A', 'woocommerce' ); ?></span></span>
 
 	<?php endif; ?>
 
 	<?php
-	echo wc_get_product_category_list(
+	echo wp_kses_post( wc_get_product_category_list(
 		$product->get_id(),
 		', ',
 		'<span class="posted_in"><strong>' .
 			_n(
 				'Category:',
 				'Categories:',
-				count($product->get_category_ids()),
+				count( $product->get_category_ids() ),
 				'woocommerce'
 			) .
 			'</strong> ',
 		'</span>'
-	);
+	) );
 
-	echo wc_get_product_tag_list(
+	echo wp_kses_post( wc_get_product_tag_list(
 		$product->get_id(),
 		', ',
 		'<span class="tagged_as"><strong>' .
 			_n(
 				'Tag:',
 				'Tags:',
-				count($product->get_tag_ids()),
+				count( $product->get_tag_ids() ),
 				'woocommerce'
 			) .
 			'</strong> ',
 		'</span>'
-	);
+	) );
 	?>
 
 

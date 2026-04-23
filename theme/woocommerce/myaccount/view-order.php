@@ -24,12 +24,12 @@ $notes = $order->get_customer_order_notes();
 <div class="account-order-details order-detail-status-<?php echo esc_attr($order->get_status()); ?>">
 	<div class="account-order-detail-status">
 		<div class="header-left">
-			<span class="order-id">Order #<?php echo $order->get_order_number(); ?></span>
-			<span class="order-date"><?php echo wc_format_datetime($order->get_date_created()); ?></span>
+			<span class="order-id">Order #<?php echo esc_html( $order->get_order_number() ); ?></span>
+			<span class="order-date"><?php echo esc_html( wc_format_datetime( $order->get_date_created() ) ); ?></span>
 		</div>
 		<div class="header-right">
 			<span class="status-badge status-<?php echo esc_attr($order->get_status()); ?>">
-				<?php echo wc_get_order_status_name($order->get_status()); ?>
+				<?php echo esc_html( wc_get_order_status_name( $order->get_status() ) ); ?>
 			</span>
 		</div>
 	</div>

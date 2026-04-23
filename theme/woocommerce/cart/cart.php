@@ -144,10 +144,10 @@ defined('ABSPATH') || exit; ?>
 										<?php
 											$stock_status = $_product->get_stock_status();
 											$stock_labels = array(
-												'instock'    => '<span class="cart-stock instock">'    . __('In Stock', 'shopchop')    . '</span>',
-												'outofstock' => '<span class="cart-stock outofstock">' . __('Out of Stock', 'shopchop') . '</span>',
-												'pre_order'  => '<span class="cart-stock pre-order">'  . __('Pre-Order', 'shopchop')   . '</span>',
-												'coming_soon'=> '<span class="cart-stock coming-soon">'.__('Coming Soon', 'shopchop')  . '</span>',
+												'instock'    => '<span class="cart-stock instock">'    . esc_html__( 'In Stock', 'shopchop' )    . '</span>',
+												'outofstock' => '<span class="cart-stock outofstock">' . esc_html__( 'Out of Stock', 'shopchop' ) . '</span>',
+												'pre_order'  => '<span class="cart-stock pre-order">'  . esc_html__( 'Pre-Order', 'shopchop' )   . '</span>',
+												'coming_soon'=> '<span class="cart-stock coming-soon">'. esc_html__( 'Coming Soon', 'shopchop' )  . '</span>',
 											);
 
 											if (isset($stock_labels[$stock_status])) {
@@ -183,7 +183,7 @@ defined('ABSPATH') || exit; ?>
 									<div class="product-price">
 										<?php
 										echo apply_filters('woocommerce_cart_item_price', WC()->cart->get_product_price($_product), $cart_item, $cart_item_key); // PHPCS: XSS ok.
-										?> each
+										echo ' ' . esc_html__( 'each', 'shopchop' ); ?>
 									</div>
 									<div class="product-subtotal">
 										<?php
