@@ -45,7 +45,7 @@ defined('ABSPATH') || exit;
 		</p>
 	</div>
 	<?php
-	$icon = get_stylesheet_directory_uri() . '/assets/images/order-recieved.png';
+	$icon = get_stylesheet_directory_uri() . '/assets/images/order-received.png';
 	?>
-	<img class="wc-order-icon" src="<?php echo esc_url($icon); ?>" alt="Order Recieved">
+	<img class="wc-order-icon" src="<?php echo esc_url($icon); ?>" alt="Order Received">
 </div>
