@@ -1451,7 +1451,7 @@ label { @apply font-semibold; }
 				}
 
 				.reset_variations {
-					@apply text-lg font-medium text-tertiary transition-all hover:text-secondary;
+					@apply text-lg font-medium text-error-400/50 transition-all hover:text-error-400 active:text-error-400 focus:text-error-400;
 				}
 			}
 		}
