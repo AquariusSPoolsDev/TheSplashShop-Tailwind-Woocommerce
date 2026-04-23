@@ -211,14 +211,20 @@ add_action( 'widgets_init', 'shopchop_widgets_init' );
  */
 function shopchop_scripts() {
 	wp_enqueue_style( 'shopchop-style', get_stylesheet_uri(), array(), SHOPCHOP_VERSION );
-	wp_enqueue_style( 'shopchop-fonts-heading', 'https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap', array(), SHOPCHOP_VERSION );
-	wp_enqueue_style( 'shopchop-fonts-body', 'https://fonts.googleapis.com/css2?family=Open+Sans:wght@300..800&display=swap', array(), SHOPCHOP_VERSION );
-	wp_enqueue_style( 'shopchop-swiper', 'https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css', array(), SHOPCHOP_VERSION );
-	wp_enqueue_style( 'shopchop-glightbox', 'https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css', array(), SHOPCHOP_VERSION );
+	wp_enqueue_style( 'shopchop-fonts-heading', 'https://fonts.bunny.net/css?family=poppins:100,200,300,400,500,600,700,800,900', array(), null );
+	wp_enqueue_style( 'shopchop-fonts-body', 'https://fonts.bunny.net/css?family=nunito-sans:200,300,400,500,600,700,800,900', array(), null );
 	wp_enqueue_script( 'shopchop-script', get_template_directory_uri() . '/js/script.min.js', array(), SHOPCHOP_VERSION, true );
-	wp_enqueue_script( 'shopchop-swiper', 'https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js', array(), SHOPCHOP_VERSION, true );
-	wp_enqueue_script( 'shopchop-glightbox', 'https://cdn.jsdelivr.net/gh/mcstudios/glightbox/dist/js/glightbox.min.js', array(), SHOPCHOP_VERSION, true );
-	wp_enqueue_script( 'shopchop-medium-zoom', 'https://cdnjs.cloudflare.com/ajax/libs/medium-zoom/1.1.0/medium-zoom.min.js', array(), SHOPCHOP_VERSION, true );
+
+	if ( is_woocommerce() || is_front_page() || is_home() ) {
+		wp_enqueue_style( 'shopchop-swiper', 'https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css', array(), SHOPCHOP_VERSION );
+		wp_enqueue_script( 'shopchop-swiper', 'https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js', array(), SHOPCHOP_VERSION, true );
+		wp_enqueue_style( 'shopchop-glightbox', 'https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css', array(), SHOPCHOP_VERSION );
+		wp_enqueue_script( 'shopchop-glightbox', 'https://cdn.jsdelivr.net/gh/mcstudios/glightbox/dist/js/glightbox.min.js', array(), SHOPCHOP_VERSION, true );
+	}
+
+	if ( is_product() ) {
+		wp_enqueue_script( 'shopchop-medium-zoom', 'https://cdnjs.cloudflare.com/ajax/libs/medium-zoom/1.1.0/medium-zoom.min.js', array(), SHOPCHOP_VERSION, true );
+	}
 
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
@@ -231,6 +237,10 @@ function shopchop_scripts() {
 	));
 }
 add_action( 'wp_enqueue_scripts', 'shopchop_scripts' );
+
+add_action( 'wp_head', function () {
+	echo '<link rel="preconnect" href="https://fonts.bunny.net">' . "\n";
+}, 1 );
 
 /**
  * Enqueue the block editor script.

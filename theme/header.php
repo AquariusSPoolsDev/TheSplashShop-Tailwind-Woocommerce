@@ -24,7 +24,7 @@
 <?php wp_body_open(); ?>
 
 <div id="page">
-	<a href="#content" class="sr-only"><?php esc_html_e( 'Skip to content', 'shopchop' ); ?></a>
+	<a href="#content" class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[9999] focus:px-4 focus:py-2 focus:bg-primary focus:text-white focus:rounded-lg focus:shadow-lg focus:outline-none"><?php esc_html_e( 'Skip to content', 'shopchop' ); ?></a>
 
 	<?php
 	get_template_part( 'template-parts/layout/header', 'content' );

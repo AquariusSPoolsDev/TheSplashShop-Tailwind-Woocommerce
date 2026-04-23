@@ -236,7 +236,7 @@
 				},
 				error() {
 					$el.removeClass('removing').css('opacity', '1');
-					alert('Failed to remove item. Please try again.');
+					ShopChop.Toast.show('Failed to remove item. Please try again.', 'error');
 				},
 			});
 		}
@@ -765,28 +765,6 @@
 			const trigger = $('.shopchop-cart-trigger');
 			const dropdownEl = $('.shopchop-cart-dropdown');
 
-            // ======= JS Tweak: Direct Click to Cart =======
-            trigger.on('click', function(e) {
-                // If the user clicks, just let them go to the cart page.
-                // The dropdown will show via hover (CSS) anyway.
-                // No preventDefault() needed unless you have a specific mobile requirement.
-                window.location.href = $(this).attr('href');
-            });
-
-            // If you want to ensure the dropdown hides properly when moving away
-            wrapper.on('mouseleave', function () {
-                dropdownEl.hide();
-                trigger.attr('aria-expanded', 'false');
-            });
-
-            // To ensure the dropdown shows on hover (if not already handled by createDropdown)
-            wrapper.on('mouseenter', function() {
-                dropdownEl.show();
-                trigger.attr('aria-expanded', 'true');
-                if (!miniCart.getIsLoaded()) miniCart.load();
-            });
-            // ===============================================
-
 			const miniCart = createMiniCart({
 				contentEl,
 				onCountUpdate(count) {
@@ -875,24 +853,48 @@
 				unlockScroll();
 			};
 
-			// ── Per-drawer wrappers ───────────────────────────────────────
-			const openSearch = () =>
-				openDrawer(searchDrawer, '-translate-y-full');
-			const closeSearch = () =>
-				closeDrawer(searchDrawer, '-translate-y-full');
+			// ── Focus helpers ─────────────────────────────────────────────
+			const focusFirst = (el) => {
+				const target = el.querySelector('input, button, a, select, textarea, [tabindex]:not([tabindex="-1"])');
+				if (target) target.focus();
+			};
 
-			const openCart = () => openDrawer(cartDrawer, 'translate-y-full');
-			const closeCart = () => closeDrawer(cartDrawer, 'translate-y-full');
+			// ── Per-drawer wrappers ───────────────────────────────────────
+			const openSearch = () => {
+				openDrawer(searchDrawer, '-translate-y-full');
+				searchBtn.setAttribute('aria-expanded', 'true');
+				focusFirst(searchDrawer);
+			};
+			const closeSearch = () => {
+				closeDrawer(searchDrawer, '-translate-y-full');
+				searchBtn.setAttribute('aria-expanded', 'false');
+				searchBtn.focus();
+			};
+
+			const openCart = () => {
+				openDrawer(cartDrawer, 'translate-y-full');
+				cartBtn.setAttribute('aria-expanded', 'true');
+				focusFirst(cartDrawer);
+			};
+			const closeCart = () => {
+				closeDrawer(cartDrawer, 'translate-y-full');
+				cartBtn.setAttribute('aria-expanded', 'false');
+				cartBtn.focus();
+			};
 
 			const openMenu = () => {
 				openDrawer(menuDrawer, 'translate-x-full');
+				menuBtn.setAttribute('aria-expanded', 'true');
 				iconOpen.style.display = 'none';
 				iconClose.style.display = '';
+				focusFirst(menuDrawer);
 			};
 			const closeMenu = () => {
 				closeDrawer(menuDrawer, 'translate-x-full');
+				menuBtn.setAttribute('aria-expanded', 'false');
 				iconOpen.style.display = '';
 				iconClose.style.display = 'none';
+				menuBtn.focus();
 			};
 
 			// ── Button triggers ───────────────────────────────────────────
@@ -960,7 +962,78 @@
 	};
 
 	/* =========================================================================
-        17. Login / Register Toggle
+        17. Toast Notifications
+    ========================================================================= */
+	ShopChop.Toast = {
+		show(message, type = 'error') {
+			const existing = document.getElementById('shopchop-toast');
+			if (existing) existing.remove();
+
+			const toast = document.createElement('div');
+			toast.id = 'shopchop-toast';
+			toast.setAttribute('role', 'alert');
+			toast.setAttribute('aria-live', 'assertive');
+			toast.className = `shopchop-toast shopchop-toast--${type}`;
+			toast.textContent = message;
+
+			document.body.appendChild(toast);
+
+			// Trigger entrance
+			requestAnimationFrame(() => toast.classList.add('is-visible'));
+
+			// Auto-dismiss after 4s
+			setTimeout(() => {
+				toast.classList.remove('is-visible');
+				toast.addEventListener('transitionend', () => toast.remove(), { once: true });
+			}, 4000);
+		},
+	};
+
+	/* =========================================================================
+        18. Mobile Sub-Menu Accordion
+    ========================================================================= */
+	ShopChop.MobileSubMenu = {
+		init() {
+			const nav = document.getElementById('main-header-menu-mobile');
+			if (!nav) return;
+
+			nav.querySelectorAll('.menu-item-has-children').forEach((item) => {
+				const link = item.querySelector(':scope > a');
+				const subMenu = item.querySelector(':scope > .sub-menu');
+				if (!link || !subMenu) return;
+
+				// Inject toggle button next to the link
+				const btn = document.createElement('button');
+				btn.className = 'mobile-submenu-toggle';
+				btn.setAttribute('aria-expanded', 'false');
+				btn.setAttribute('aria-label', `Toggle ${link.textContent.trim()} sub-menu`);
+				btn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>`;
+				item.appendChild(btn);
+
+				btn.addEventListener('click', (e) => {
+					e.preventDefault();
+					const isOpen = subMenu.classList.contains('is-open');
+
+					// Close all siblings
+					nav.querySelectorAll('.sub-menu.is-open').forEach((s) => {
+						s.classList.remove('is-open');
+						s.previousElementSibling?.setAttribute('aria-expanded', 'false');
+					});
+					nav.querySelectorAll('.mobile-submenu-toggle[aria-expanded="true"]').forEach((b) => {
+						b.setAttribute('aria-expanded', 'false');
+					});
+
+					if (!isOpen) {
+						subMenu.classList.add('is-open');
+						btn.setAttribute('aria-expanded', 'true');
+					}
+				});
+			});
+		},
+	};
+
+	/* =========================================================================
+        19. Login / Register Toggle
     ========================================================================= */
 	ShopChop.AuthToggle = {
 		init() {
@@ -999,6 +1072,7 @@
 		ShopChop.CartDropdown.init();
 		ShopChop.MobileDrawers.init();
 		ShopChop.MobileCart.init();
+		ShopChop.MobileSubMenu.init();
 		ShopChop.AuthToggle.init();
 	});
 })(jQuery);

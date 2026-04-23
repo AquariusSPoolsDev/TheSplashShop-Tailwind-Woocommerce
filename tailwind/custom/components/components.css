@@ -93,7 +93,7 @@ a.button.wc-backward {
 button.button,
 a.button,
 input[type="submit"] {
-	@apply bg-primary font-semibold cursor-pointer text-base lg:text-xl text-background transition-all hover:bg-primary-400 hover:text-background active:bg-primary-400 active:text-background focus:bg-primary-400 focus:text-background rounded-lg h-14 uppercase tracking-wider;
+	@apply bg-primary font-semibold cursor-pointer text-base text-background transition-all hover:bg-primary-400 hover:text-background active:bg-primary-400 active:text-background focus:bg-primary-400 focus:text-background rounded-lg h-14 uppercase tracking-wider;
 
 	&:disabled,
 	&.disabled {
@@ -312,7 +312,7 @@ label { @apply font-semibold; }
 			}
 
 			.shopchop-search-results {
-				@apply absolute left-0 right-0 bg-white border-t-0 rounded-t-none rounded-b-lg border-2 border-grey-200 max-h-64 overflow-y-auto z-99;
+				@apply absolute left-0 right-0 bg-white border-t-0 rounded-t-none rounded-b-lg border border-grey-200 max-h-64 overflow-y-auto z-99;
 
 				.search-result-item {
 					@apply not-last:border-b border-grey-200;
@@ -384,7 +384,12 @@ label { @apply font-semibold; }
 				}
 
 				.shopchop-cart-dropdown {
-					@apply absolute right-0 mt-2.5 w-72 bg-white rounded-lg shadow-sm border border-grey-200 z-50 max-h-80 overflow-y-auto;
+					@apply absolute right-0 mt-2.5 top-full w-72 bg-white rounded-lg shadow-sm border border-grey-200 z-50 max-h-80 overflow-y-auto;
+					
+
+					&::before {
+						@apply absolute top-0 left-0 right-0 content-[''];
+					}
 
 					.cart-dropdown-header {
 						@apply flex items-center justify-between p-2.5 border-b border-grey-200 text-foreground;
@@ -552,7 +557,7 @@ label { @apply font-semibold; }
 							}
 
 							.login-button {
-								@apply block w-full px-6 py-2.5 bg-primary-300 text-white font-medium rounded-lg transition-all hover:bg-primary-400 active:bg-primary-400 focus:bg-primary-400;
+								@apply block w-full px-6 py-2.5 bg-primary-300 text-background font-medium rounded-lg transition-all hover:bg-primary-400 active:bg-primary-400 focus:bg-primary-400;
 							}
 
 							.register-prompt {
@@ -571,14 +576,67 @@ label { @apply font-semibold; }
 
 	.menu-bar-row {
 		@apply hidden lg:block lg:border-t lg:border-t-grey-200;
-		
-		#main-header-menu-primary.menu {
-			@apply lg:flex lg:gap-3 lg:justify-center;
 
-			.menu-item {
-				@apply lg:flex;
-				a {
-					@apply lg:px-6 lg:pt-4 lg:pb-3 lg:border-b-4 lg:border-b-transparent lg:transition-all lg:hover:border-b-primary-400 lg:hover:bg-primary-100/50 hover:text-primary-400;
+		#main-header-menu-primary.menu {
+			@apply lg:flex lg:items-stretch lg:justify-center lg:gap-x-1;
+
+			/* Top-level items */
+			> .menu-item {
+				@apply lg:relative lg:flex;
+
+				> a {
+					@apply lg:flex lg:items-center lg:gap-2 lg:px-5 lg:py-3.5 lg:font-medium lg:text-secondary-300;
+					@apply lg:transition-all;
+					@apply lg:hover:bg-primary-100/60 lg:hover:text-primary-400;
+				}
+
+				/* Active / current page indicator */
+				&.current-menu-item > a,
+				&.current_page_item > a,
+				&.current-menu-ancestor > a,
+				&.current-menu-parent > a {
+					@apply lg:bg-primary-100/60 lg:text-primary-400 lg:font-semibold lg:border-b-2 lg:border-primary-400;
+				}
+
+				/* Sub-menu parent — chevron */
+				&.menu-item-has-children > a::after {
+					content: '';
+					@apply lg:inline-block lg:w-5 lg:h-5 lg:shrink-0 fill-current;
+					background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%231E293B' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+					background-repeat: no-repeat;
+					background-size: contain;
+					transition: transform 0.15s ease;
+				}
+
+				&.menu-item-has-children:hover > a::after,
+				&.menu-item-has-children:focus-within > a::after {
+					transform: rotate(180deg);
+					@apply fill-current;
+				}
+
+				/* Show sub-menu on hover */
+				&:hover > .sub-menu,
+				&:focus-within > .sub-menu {
+					@apply opacity-100 visible pointer-events-auto;
+				}
+			}
+
+			/* Desktop sub-menu */
+			.sub-menu {
+				@apply hidden lg:block absolute top-full left-0 z-50 min-w-52 bg-white border border-grey-200 rounded-b-lg shadow-sm overflow-hidden;
+				@apply opacity-0 invisible transition-opacity duration-200 ease-out pointer-events-none;
+
+				.menu-item {
+					@apply block border-b border-b-grey-200/50 last:border-b-0;
+
+					a {
+						@apply block px-4 py-2.5 text-secondary-300 transition-all duration-150;
+						@apply hover:bg-primary-100/30 hover:text-primary-400;
+					}
+
+					&.current-menu-item > a {
+						@apply text-primary-400 bg-primary-100/30 font-medium;
+					}
 				}
 			}
 		}
@@ -637,7 +695,7 @@ label { @apply font-semibold; }
 			}
 
 			.shopchop-search-results {
-				@apply absolute left-0 right-0 bg-white border-t-0 rounded-t-none rounded-b-lg border-2 border-grey-200 max-h-64 overflow-y-auto z-99;
+				@apply absolute left-0 right-0 bg-white border-t-0 rounded-t-none rounded-b-lg border border-grey-200 max-h-64 overflow-y-auto z-99;
 
 				.search-result-item {
 					@apply not-last:border-b border-grey-200;
@@ -745,7 +803,7 @@ label { @apply font-semibold; }
 				@apply border-t border-t-grey-200 flex flex-col-reverse gap-3;
 
 				.button {
-					@apply h-max py-2 text-base text-center normal-case font-medium flex-1;
+					@apply h-max py-2 text-base text-center normal-case font-medium flex-1 rounded-lg;
 
 					&:not(.checkout) {
 						@apply bg-transparent border text-secondary-400 border-secondary-400 hover:bg-secondary-100 active:bg-secondary-100 focus:bg-secondary-100;
@@ -798,7 +856,7 @@ label { @apply font-semibold; }
 					}
 					.account-details {
 						h5 { @apply text-base line-clamp-1 font-medium; }
-						p { @apply text-xs text-grey-300; }
+						p { @apply text-xs text-grey-400; }
 					}
 				}
 			}
@@ -810,14 +868,70 @@ label { @apply font-semibold; }
 					@apply px-4 pt-4 pb-2 text-sm text-grey-300 uppercase;
 				}
 
-				#main-header-menu-primary {
-					.menu-item {
-						@apply block border-b border-b-grey-200/50 last:border-b-grey-200;
+				#main-header-menu-mobile {
 
-						a {
-							@apply block w-full p-4 transition-all hover:bg-primary-100/30 hover:text-primary-400 active:bg-primary-100/30 active:text-primary-400 focus:bg-primary-100/30 focus:text-primary-400;
+					/* Top-level items */
+					> .menu-item {
+						@apply relative block border-b border-b-grey-200/50 last:border-b-grey-200;
+
+						> a {
+							@apply flex items-center w-full p-4 transition-all;
+							@apply hover:bg-primary-100/30 hover:text-primary-400;
+							@apply active:bg-primary-100/30 active:text-primary-400;
+							@apply focus:bg-primary-100/30 focus:text-primary-400;
 						}
-					}					
+
+						&.current-menu-item > a,
+						&.current_page_item > a,
+						&.current-menu-ancestor > a {
+							@apply text-primary-400 bg-primary-100/30;
+						}
+
+						/* Sub-menu toggle button */
+						&.menu-item-has-children {
+							> a {
+								@apply pr-12;
+							}
+
+							.mobile-submenu-toggle {
+								@apply absolute right-0 top-0 w-12 h-14 flex items-center justify-center text-grey-300;
+								@apply transition-all hover:text-primary-400;
+
+								svg {
+									@apply transition-transform duration-200 w-5 h-5;
+								}
+
+								&[aria-expanded="true"] {
+									@apply text-primary-400;
+									svg { @apply rotate-90; }
+								}
+							}
+						}
+					}
+
+					/* Mobile sub-menu */
+					.sub-menu {
+						@apply hidden border-t border-t-grey-200/50;
+
+						&.is-open {
+							@apply block;
+						}
+
+						.menu-item {
+							@apply block border-b border-b-grey-200/50 last:border-b-0;
+
+							a {
+								@apply flex items-center w-full pl-8 pr-4 p-4 transition-all;
+								@apply hover:bg-primary-100/30 hover:text-primary-400;
+								@apply active:bg-primary-100/30 active:text-primary-400;
+								@apply focus:bg-primary-100/30 focus:text-primary-400;
+							}
+
+							&.current-menu-item > a {
+								@apply text-primary-400 bg-primary-100/30;
+							}
+						}
+					}
 				}
 			}
 
@@ -967,7 +1081,7 @@ label { @apply font-semibold; }
 			}
 
 			.brand-item {
-				@apply border-2 border-grey-200 rounded-xl transition-all hover:border-primary-400 hover:bg-primary-100/50 active:border-primary-400 active:bg-primary-100/50 focus:border-primary-400 focus:bg-primary-100/50;
+				@apply border border-grey-200 rounded-lg transition-all hover:border-primary-400 hover:bg-primary-100/50 active:border-primary-400 active:bg-primary-100/50 focus:border-primary-400 focus:bg-primary-100/50;
 
 				.brand-link {
 					@apply p-4 flex justify-center;
@@ -989,7 +1103,7 @@ label { @apply font-semibold; }
 			}
 
 			.category-item {
-				@apply bg-white border-2 border-grey-200 rounded-xl overflow-hidden transition-all hover:border-primary-400 hover:bg-primary-100/50 active:border-primary-400 active:bg-primary-100/50 focus:border-primary-400 focus:bg-primary-100/50;
+				@apply bg-white border border-grey-200 rounded-lg overflow-hidden transition-all hover:border-primary-400 hover:bg-primary-100/50 active:border-primary-400 active:bg-primary-100/50 focus:border-primary-400 focus:bg-primary-100/50;
 
 				.category-link {
 					@apply flex items-center gap-4;
@@ -1035,7 +1149,7 @@ label { @apply font-semibold; }
 			}
 
 			li.product {
-				@apply w-full h-auto flex flex-col flex-nowrap gap-0 bg-white border-2 border-grey-200 rounded-xl overflow-hidden;
+				@apply w-full h-auto flex flex-col flex-nowrap gap-0 bg-white border border-grey-200 rounded-lg overflow-hidden;
 
 				.woocommerce-LoopProduct-link {
 					.product-image-wrapper {
@@ -1054,7 +1168,7 @@ label { @apply font-semibold; }
 						@apply p-2.5 md:p-4 flex flex-wrap items-start;
 
 						.woocommerce-loop-product__title {
-							@apply text-xl md:text-2xl line-clamp-2 leading-tight font-medium mb-3 grow;
+							@apply text-lg sm:text-xl md:text-2xl line-clamp-2 leading-snug font-medium mb-3 grow;
 						}
 
 						.product-star-rating {
@@ -1201,7 +1315,7 @@ label { @apply font-semibold; }
 					@apply p-2.5 md:p-4 flex flex-wrap items-start;
 
 					.woocommerce-loop-product__title {
-						@apply text-xl md:text-2xl line-clamp-2 leading-tight font-medium mb-3 grow;
+						@apply text-lg sm:text-xl md:text-2xl line-clamp-2 leading-snug font-medium mb-3 grow;
 					}
 
 					.product-star-rating {
@@ -1232,13 +1346,13 @@ label { @apply font-semibold; }
 
 			/* Button wrapper */
 			.product-actions {
-				@apply flex flex-col lg:flex-row gap-2 px-4 pb-4 text-sm lg:text-base mt-auto;
+				@apply flex flex-col lg:flex-row gap-2 px-2.5 md:px-4 pb-2.5 md:pb-4 text-sm lg:text-base mt-auto;
 			}
 
 			.button,
 			.added_to_cart,
 			.stock.coming-soon {
-				@apply flex-1 px-3.5 py-2 h-auto transition-all font-semibold text-center rounded-lg uppercase text-sm lg:text-base;
+				@apply flex-1 px-3.5 py-2.5 h-auto transition-all font-semibold text-center rounded-lg uppercase text-sm lg:text-base;
 			}
 
 			.button {
@@ -1256,7 +1370,7 @@ label { @apply font-semibold; }
 			}
 
 			.added_to_cart {
-				@apply bg-secondary-300 text-white hover:bg-secondary-400 hover:ring-4 hover:ring-secondary-100 active:bg-secondary-400 active:ring-4 active:ring-secondary-100 focus:bg-secondary-400 focus:ring-4 focus:ring-secondary-100 hidden;
+				@apply bg-secondary-300 text-background hover:bg-secondary-400 hover:ring-4 hover:ring-secondary-100 active:bg-secondary-400 active:ring-4 active:ring-secondary-100 focus:bg-secondary-400 focus:ring-4 focus:ring-secondary-100 hidden;
 			}
 
 			.stock.coming-soon {
@@ -1286,7 +1400,7 @@ label { @apply font-semibold; }
 
 					/* The active/current page state */
 					&.current {
-						@apply font-bold bg-primary-300 text-foreground;
+						@apply font-bold bg-primary text-background;
 					}
 
 					/* Arrow specific styling */
@@ -1299,7 +1413,7 @@ label { @apply font-semibold; }
 	}
 
 	.woocommerce-breadcrumb {
-		@apply inline-flex flex-wrap items-center p-3 border bg-white border-grey-200 rounded-xl mb-6;
+		@apply inline-flex flex-wrap items-center p-3 border bg-white border-grey-200 rounded-lg mb-6;
 
 		a {
 			@apply transition-all hover:text-primary-400 active:text-primary-400 focus:text-primary-400;
@@ -1441,7 +1555,7 @@ label { @apply font-semibold; }
 						@apply cursor-pointer rounded-full font-medium px-6.5 py-2 border-2 border-grey-200 text-secondary bg-white transition-all hover:bg-secondary-100 active:bg-secondary-100 focus:bg-secondary-100;
 
 						&.active {
-							@apply bg-secondary-400 border-secondary-400 text-white;
+							@apply bg-secondary-400 border-secondary-400 text-background;
 						}
 
 						&.disabled { 
@@ -1604,7 +1718,7 @@ label { @apply font-semibold; }
 				}
 
 				.shopchop-review-date {
-					@apply text-grey-300 text-xs mt-2;
+					@apply text-grey-400 text-xs mt-2;
 				}
 
 				.woocommerce-review__verified,
@@ -1795,7 +1909,7 @@ label { @apply font-semibold; }
 								@apply h-24 w-24 lg:h-40 lg:w-40 basis-24 lg:basis-40 aspect-square;
 
 								.product-thumbnail {
-									@apply rounded-xl overflow-hidden;
+									@apply rounded-lg overflow-hidden;
 								}
 
 								img {
@@ -1938,7 +2052,7 @@ label { @apply font-semibold; }
 		} 
 
 		.checkout-button.button {
-			@apply text-background hover:text-background active:text-background focus:text-background flex items-center justify-center text-center text-xl rounded-xl;
+			@apply text-background hover:text-background active:text-background focus:text-background flex items-center justify-center text-center text-xl rounded-lg;
 		}
 	}
 }
@@ -2028,6 +2142,10 @@ label { @apply font-semibold; }
 
 				.woocommerce-form__label {
 					@apply inline-flex items-center cursor-pointer;
+
+					input[type="checkbox"] {
+						@apply focus:ring-2 focus:ring-primary-400 focus:ring-offset-1 rounded-sm;
+					}
 				}
 
 			}
@@ -3020,7 +3138,7 @@ label { @apply font-semibold; }
 								@apply inline-flex items-center flex-wrap gap-2;
 
 								.regular {
-									@apply text-grey-300 text-xs font-light;
+									@apply text-grey-400 text-xs font-light;
 								}
 
 								.discount {
@@ -3051,7 +3169,7 @@ label { @apply font-semibold; }
 					@apply border-t border-t-grey-200 pt-4 flex flex-wrap gap-3 justify-between;
 
 					.product-add-to-wishlist {
-						@apply text-grey-300 italic text-xs;
+						@apply text-grey-400 italic text-xs;
 					}
 
 					.wcwl-action-buttons {
@@ -3169,5 +3287,32 @@ label { @apply font-semibold; }
 				}
 			}
 		}
+	}
+}
+
+/* ==========================================================================
+   Toast Notifications
+   ========================================================================== */
+.shopchop-toast {
+	@apply fixed bottom-6 left-1/2 -translate-x-1/2 z-[9999] px-5 py-3 rounded-lg shadow-lg text-sm font-medium text-background pointer-events-none;
+	@apply opacity-0 translate-y-2 transition-all duration-300 ease-out;
+	min-width: 16rem;
+	max-width: calc(100vw - 2rem);
+	text-align: center;
+
+	&.is-visible {
+		@apply opacity-100 translate-y-0 pointer-events-auto;
+	}
+
+	&.shopchop-toast--error {
+		@apply bg-error-400;
+	}
+
+	&.shopchop-toast--success {
+		@apply bg-success-400;
+	}
+
+	&.shopchop-toast--info {
+		@apply bg-primary-400;
 	}
 }
