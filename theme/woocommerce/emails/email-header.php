@@ -42,7 +42,7 @@ $store_name                 = $store_name ?? get_bloginfo( 'name', 'display' );
 							<tr>
 								<td align="center" valign="top">
 									<?php
-									$img = get_option( 'woocommerce_email_header_image' );
+									$img     = get_option( 'woocommerce_email_header_image' );
 									$tagline = get_bloginfo( 'description' );
 									/**
 									 * This filter is documented in templates/emails/email-styles.php
@@ -54,18 +54,15 @@ $store_name                 = $store_name ?? get_bloginfo( 'name', 'display' );
 										$img           = false !== $img_transient ? $img_transient : $img;
 									}
 
+									$logo_src  = $img ? $img : get_template_directory_uri() . '/assets/images/logo.png';
+									$logo_html = '<p style="margin-top:0;"><img src="' . esc_url( $logo_src ) . '" alt="' . esc_attr( $store_name ) . '" /></p>';
+
 									if ( $email_improvements_enabled ) :
 										?>
 										<table class="email-navbar-header-title" border="0" cellpadding="0" cellspacing="0" width="100%" role="presentation">
 											<tr>
 												<td align="left" valign="middle" id="template_header_image">
-													<?php
-													if ( $img ) {
-														echo '<p style="margin-top:0;"><img src="' . esc_url( $img ) . '" alt="' . esc_attr( $store_name ) . '" /></p>';
-													} else {
-														echo '<p class="email-logo-text">' . esc_html( $store_name ) . '</p>';
-													}
-													?>
+													<?php echo $logo_html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 												</td>
 												<td align="right" valign="middle" id="shop_description">
 													<p class="shop-tagline"><?php echo esc_html( $tagline ); ?></p>
@@ -74,11 +71,7 @@ $store_name                 = $store_name ?? get_bloginfo( 'name', 'display' );
 										</table>
 									<?php else : ?>
 										<div id="template_header_image">
-											<?php
-											if ( $img ) {
-												echo '<p style="margin-top:0;"><img src="' . esc_url( $img ) . '" alt="' . esc_attr( $store_name ) . '" /></p>';
-											}
-											?>
+											<?php echo $logo_html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 										</div>
 									<?php endif; ?>
 									<table border="0" cellpadding="0" cellspacing="0" width="100%" id="template_container" role="presentation">

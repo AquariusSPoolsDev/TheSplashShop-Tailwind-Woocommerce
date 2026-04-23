@@ -1,0 +1,431 @@
+/**
+ * WooCommerce My Account
+ * Covers: dashboard, navigation, addresses, edit account, orders list, order detail
+ */
+
+.shopchop-my-account .shopchop-myaccount-wrapper {
+	@apply grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6 lg:gap-12;
+
+	.woocommerce-MyAccount-navigation {
+		ul {
+			@apply p-0 m-0 max-md:p-2 max-md:flex max-md:gap-2 max-md:overflow-x-auto max-md:border-2 max-md:border-grey-200 max-md:rounded-xl max-md:snap-x max-md:scroll-smooth md:block;
+		}
+
+		li {
+			@apply list-none p-0 m-0 max-md:snap-start;
+		}
+
+		a {
+			@apply w-max px-6.5 py-3 md:px-4 md:border-l-4 md:border-l-transparent md:w-full block font-medium text-grey-300 transition-all hover:text-foreground active:text-foreground focus:text-foreground;
+
+			&:hover {
+				@apply md:text-primary-400 md:bg-primary-100 md:px-4 md:border-l-4 md:border-l-primary-400 md:rounded-lg md:rounded-l-none;
+			}
+		}
+
+		.is-active a {
+			@apply max-md:shadow-sm rounded-xl text-foreground bg-white md:text-primary-400 md:bg-primary-100 md:px-4 md:border-l-4 md:border-l-primary-400 md:rounded-lg md:rounded-l-none;
+		}
+	}
+
+	.woocommerce-MyAccount-content {
+		@apply md:col-span-2 lg:col-span-3;
+
+		/* Shared card style */
+		.user-hero-card,
+		.user-action-order,
+		.user-action-billing,
+		.user-action-account-edit,
+		.woocommerce-Address,
+		.woocommerce-orders-table.account-orders-table>tbody>tr,
+		.account-order-details {
+			@apply p-4 lg:p-6 border bg-white border-grey-200 rounded-xl;
+		}
+
+		h1 {
+			@apply font-bold text-3xl md:text-4xl lg:text-5xl mb-4 md:mb-6;
+		}
+
+		h2, h3, p, img { @apply m-0; }
+
+		h2 {
+			@apply text-xl lg:text-2xl mb-4;
+		}
+
+		hr { @apply my-8 lg:my-12 border-grey-200; }
+
+		form p {
+			@apply flex flex-col mb-6;
+		}
+
+		form input, form select {
+			@apply max-w-full;
+		}
+
+		/* Order status pill */
+		.status-badge {
+			@apply block rounded-full font-medium text-sm lg:text-base px-2.5 py-1 lg:px-4 lg:py-2;
+
+			&.status-pending    { @apply bg-amber-100 text-amber-800; }
+			&.status-processing { @apply bg-primary-100 text-primary-400; }
+			&.status-completed  { @apply bg-emerald-100 text-emerald-800; }
+			&.status-on-hold    { @apply bg-amber-100 text-amber-800; }
+			&.status-cancelled  { @apply bg-grey-200/50 text-grey-400; }
+			&.status-refunded   { @apply bg-slate-100 text-slate-800; }
+			&.status-failed     { @apply bg-error-100 text-error-400; }
+		}
+
+		/* Dashboard */
+		.dashboard-user {
+			@apply mb-8;
+
+			.user-hero-card {
+				@apply flex flex-wrap justify-between gap-4 lg:gap-8;
+
+				.user-icon {
+					@apply shrink-0 w-16 h-16 me-4 lg:me-8 lg:w-24 lg:h-24;
+
+					img {
+						@apply rounded-full;
+					}
+				}
+
+				.user-details {
+					@apply w-full;
+
+					h2 {
+						@apply text-xl lg:text-2xl;
+					}
+
+					hr {
+						@apply border-grey-200 my-6 lg:my-4;
+					}
+
+					p {
+						@apply text-grey-300 text-sm;
+					}
+				}
+
+				.user-links {
+					@apply flex flex-row gap-4 lg:gap-3 lg:flex-col text-center items-center;
+
+					.user-logout {
+						@apply h-auto px-8 lg:px-10 py-2 normal-case transition-all bg-transparent border-2 text-secondary-400 border-secondary-400 hover:bg-secondary-100 active:bg-secondary-100 focus:bg-secondary-100 text-base;
+					}
+
+					.admin-access {
+						@apply text-primary-400 underline! text-sm transition-all hover:no-underline! active:no-underline! focus:no-underline!;
+					}
+				}
+			}
+		}
+
+		.dashboard-user-actions {
+			@apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 mt-8;
+
+			h3 {
+				@apply text-xl font-bold mb-1;
+			}
+
+			p {
+				@apply text-grey-300 text-sm;
+			}
+
+			.action-icon {
+				@apply w-20 h-20 rounded-full bg-primary-100 shrink-0 flex items-center justify-center;
+
+				svg {
+					@apply w-10 h-10 text-primary-400;
+				}
+			}
+
+			.user-action-order,
+			.user-action-billing,
+			.user-action-account-edit {
+				@apply flex md:flex-wrap items-center gap-4 transition-all hover:bg-secondary-100/50 active:bg-secondary-100/50 focus:bg-secondary-100/50 hover:border-secondary active:border-secondary focus:border-secondary;
+			}
+		}
+
+		/* Address */
+		.woocommerce-Address {
+			@apply mt-6;
+
+			.woocommerce-Address-title {
+				@apply flex flex-wrap gap-2;
+
+				h2 { @apply mb-0; }
+
+				.edit {
+					@apply rounded-lg px-3 py-1 text-sm transition-all bg-transparent border-2 text-secondary-400 border-secondary-400 hover:bg-secondary-100 active:bg-secondary-100 focus:bg-secondary-100 ms-auto;
+				}
+			}
+		}
+
+		address {
+			@apply mt-4 not-italic;
+		}
+
+		/* Edit Address */
+		.woocommerce-address-fields__field-wrapper {
+			@apply flex flex-wrap gap-x-6;
+
+			.form-row {
+				@apply w-full md:w-[calc(50%-0.75rem)] nth-[1]:w-full nth-[2]:w-full;
+			}
+		}
+
+		.woocommerce-address-fields>p:last-child {
+			@apply max-w-max;
+
+			button {
+				@apply text-base normal-case px-4;
+			}
+		}
+
+		/* Account Details */
+		.woocommerce-EditAccountForm.edit-account {
+			@apply flex flex-wrap gap-x-6;
+
+			.woocommerce-form-row {
+				@apply w-full md:w-[calc(50%-0.75rem)];
+
+				&.form-row-first {
+					@apply w-full;
+				}
+			}
+
+			fieldset {
+				@apply w-full;
+
+				legend {
+					@apply text-xl lg:text-2xl font-bold mb-4;
+				}
+			}
+
+			>p>button[type=submit] {
+				@apply text-base normal-case px-4;
+			}
+		}
+
+		/* Orders List */
+		.woocommerce-orders-table.account-orders-table {
+			@apply w-full;
+
+			tbody {
+				@apply flex flex-wrap gap-4 lg:gap-6;
+
+				tr {
+					@apply w-full flex flex-col;
+
+					td {
+						@apply flex flex-wrap;
+					}
+
+					.order-number-status {
+						@apply justify-between items-center md:text-lg mb-4 lg:mb-6;
+					}
+
+					.order-product-details {
+						@apply py-4 border-y flex-col border-y-grey-200;
+
+						.product-info-wrapper {
+							@apply flex gap-4;
+
+							img {
+								@apply rounded-lg w-20 h-20 lg:w-28 lg:h-28;
+							}
+
+							.product-meta-detail {
+								@apply flex flex-col justify-between;
+
+								.name {
+									@apply text-sm md:text-base line-clamp-1;
+								}
+
+								.variation-meta,
+								.qty-multiplier {
+									@apply text-xs md:text-sm text-grey-300;
+								}
+
+								.price {
+									@apply text-base md:text-lg mt-auto text-primary-400;
+								}
+							}
+						}
+
+						.more-items {
+							@apply text-center text-sm md:text-base mt-4;
+						}
+					}
+
+					.order-date-actions {
+						@apply justify-between items-center mt-4 lg:mt-6;
+
+						time {
+							@apply text-xs md:text-sm text-grey-300;
+						}
+
+						.order-actions-wrapper {
+							@apply flex flex-wrap gap-3;
+
+							a {
+								@apply block h-max rounded-lg px-3 py-1 md:px-5 text-sm md:text-base normal-case;
+							}
+						}
+					}
+				}
+			}
+		}
+
+		.woocommerce-pagination {
+			@apply mt-8 flex justify-center;
+
+			a.button {
+				@apply px-6 inline-flex items-center normal-case text-base border-secondary border-2 bg-transparent text-secondary hover:bg-secondary-100 cursor-pointer;
+			}
+		}
+
+		/* Order Detail */
+		.account-order-details {
+			@apply flex flex-wrap flex-col;
+
+			h2 {
+				@apply text-xl lg:text-2xl font-semibold;
+			}
+
+			.account-order-detail-status {
+				@apply flex flex-wrap gap-4 justify-between;
+
+				.header-left {
+					.order-id {
+						@apply block text-xl font-semibold;
+					}
+
+					.order-date {
+						@apply block text-base font-medium text-grey-300;
+					}
+				}
+
+				.header-right {}
+			}
+
+			.order-updates-wrapper,
+			.woocommerce-order-downloads,
+			.woocommerce-order-details,
+			.woocommerce-customer-details {
+				@apply pt-4 lg:pt-6 mt-4 lg:mt-6 border-t border-grey-200;
+			}
+
+			.order-updates-wrapper {
+				.woocommerce-OrderUpdate.note {
+					@apply mt-4 relative;
+
+					&:first-child .woocommerce-OrderUpdate-inner.comment_container {
+						@apply relative;
+
+						&::after {
+							@apply content-[''] absolute bg-error-400 w-4.5 h-4.5 -top-2 -right-2 border-2 border-white rounded-full;
+						}
+					}
+
+					.woocommerce-OrderUpdate-inner.comment_container {
+						@apply bg-teal-50 border border-teal-500 rounded-xl rounded-bl-none py-2.5 px-4 max-w-full w-fit whitespace-normal text-pretty;
+
+						.woocommerce-OrderUpdate-meta {
+							@apply text-xs text-grey-400;
+						}
+					}
+				}
+			}
+
+			.woocommerce-order-details {
+				table thead {
+					@apply hidden!;
+				}
+
+				table,
+				tbody,
+				tfoot {
+					@apply flex flex-col;
+
+					tr {
+						@apply flex justify-between gap-x-3;
+					}
+				}
+
+				tbody {
+					@apply gap-3;
+
+					.woocommerce-table__line-item.order_item {
+						@apply flex-col md:flex-row;
+
+						.woocommerce-table__product-name.product-name {
+							@apply flex gap-4;
+
+							.shopchop-item-image {
+								@apply shrink-0;
+
+								img {
+									@apply rounded-lg w-20 h-20 lg:w-28 lg:h-28;
+								}
+							}
+
+							.shopchop-item-content {
+								.item-title {
+									@apply text-primary-400 font-medium text-base md:text-lg line-clamp-1;
+								}
+
+								.variation-meta,
+								.shopchop-item-qty {
+									@apply block text-sm md:text-base text-grey-300 mt-1;
+								}
+							}
+						}
+
+						.woocommerce-table__product-total.product-total {
+							@apply mt-auto text-end;
+						}
+					}
+				}
+
+				tfoot {
+					@apply pt-4 mt-4 gap-1.5 border-t border-t-grey-200;
+
+					td {
+						@apply flex gap-x-1.5 items-baseline;
+
+						a.button {
+							@apply px-2.5 py-1 inline-flex items-center normal-case! text-sm! md:text-base! font-medium border-secondary border-2 bg-transparent! text-secondary! hover:bg-secondary-100! cursor-pointer h-max!;
+
+							&.cancel {
+								@apply border-error-400! text-error-400! hover:bg-error-100!;
+							}
+						}
+					}
+				}
+
+				.order-again {
+					@apply text-end mt-4;
+
+					.button {
+						@apply px-5 py-2 text-base normal-case;
+					}
+				}
+			}
+
+			.woocommerce-customer-details {
+				.woocommerce-columns {
+					@apply grid grid-cols-1 lg:grid-cols-2 gap-6;
+
+					.woocommerce-column {
+						@apply col-span-full lg:col-span-1;
+					}
+				}
+
+				address {
+					@apply not-italic;
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,50 @@
+/**
+ * Shared WooCommerce payment method block.
+ * Used by: .classic-checkout and .order-pay-form
+ */
+.wc_payment_methods {
+	@apply flex flex-col gap-4 mb-8;
+
+	.wc_payment_method {
+		@apply p-4 lg:p-6 border-2 bg-white border-grey-200 rounded-lg flex items-center gap-4 cursor-pointer transition-all;
+
+		&.is-selected {
+			@apply border-primary-300 ring-primary-100 ring-4;
+
+			label { @apply text-primary-400; }
+		}
+
+		&:not(.is-selected) {
+			@apply opacity-50;
+		}
+
+		input {
+			@apply cursor-pointer hidden!;
+		}
+
+		span {
+			@apply grow;
+			label {
+				@apply cursor-pointer block w-full;
+			}
+		}
+
+		hr {
+			@apply my-1.5 text-grey-200;
+		}
+
+		.payment_box {
+			@apply block! text-sm text-grey-300;
+		}
+
+		img {
+			@apply w-24 shrink-0;
+		}
+	}
+}
+
+.woocommerce-privacy-policy-text {
+	@apply mb-8;
+
+	a { @apply underline!; }
+}

@@ -1,0 +1,176 @@
+/**
+ * WooCommerce Reviews
+ * Covers: review list, star ratings, summary score, rating bars, add review form
+ */
+
+.woocommerce-Reviews {
+	.review-summary-container {
+		@apply flex flex-wrap flex-col lg:flex-row items-center gap-6 lg:gap-0 pb-10 mb-10 border-b border-b-grey-200;
+	}
+
+	/* Official review list */
+	ol.commentlist {
+		li {
+			@apply mb-4 pb-4 lg:mb-6 lg:pb-6 border-b border-b-grey-200 last:border-none last:mb-0 last:pb-0;
+
+			.comment_container {
+				@apply inline-flex gap-3 lg:gap-6;
+
+				img {
+					@apply shrink-0 w-12 h-12 lg:w-16 lg:h-16 rounded-full;
+				}
+
+				.shopchop-rating-wrapper {
+					@apply flex items-center gap-3 py-2;
+
+					.shopchop-stars {
+						@apply flex gap-0.5;
+
+						.shopchop-star {
+							@apply text-base stroke-none;
+
+							&.is-filled { @apply fill-primary-400; }
+							&.is-empty  { @apply fill-secondary-200/50; }
+						}
+					}
+
+					.shopchop-rating-number {
+						@apply text-xs font-medium bg-secondary-100 border border-grey-200 rounded-full px-2.5 py-1;
+					}
+				}
+
+				.woocommerce-review__author {
+					@apply text-base;
+				}
+
+				.shopchop-review-date {
+					@apply text-grey-400 text-xs mt-2;
+				}
+
+				.woocommerce-review__verified,
+				.woocommerce-review__awaiting-approval {
+					@apply text-sm;
+				}
+
+				.woocommerce-review__verified {
+					@apply text-grey-300;
+				}
+
+				.woocommerce-review__awaiting-approval {
+					@apply text-error-400;
+				}
+			}
+		}
+	}
+
+	/* Score box — left side */
+	.summary-score-box {
+		@apply w-full lg:w-1/4 lg:pe-12 border-b border-b-grey-200 lg:border-b-0 text-center pb-6 lg:pb-0;
+
+		.big-score {
+			@apply text-5xl lg:text-7xl font-bold;
+		}
+
+		.score-out-of {
+			@apply text-xl lg:text-3xl text-grey-300;
+		}
+
+		.total-reviews-label {
+			@apply mt-3 font-medium text-lg;
+		}
+	}
+
+	/* Rating bars — right side */
+	.summary-bars-box {
+		@apply w-full lg:w-3/4 lg:ps-12 lg:border-l lg:border-l-grey-200;
+
+		.bar-row {
+			@apply flex items-center gap-6 mb-2;
+		}
+
+		.bar-track {
+			@apply grow h-2 rounded-full bg-grey-200/50;
+		}
+
+		.bar-fill {
+			@apply h-full rounded-full bg-linear-to-r from-primary-300 to-primary-400;
+		}
+
+		.star-label,
+		.count-label {
+			@apply text-sm min-w-7 font-semibold;
+		}
+	}
+
+	/* Add review form */
+	.comment-respond,
+	.log-in-comment-wrapper {
+		@apply mt-10 pt-10 border-t border-t-grey-200;
+
+		.comment-reply-title {
+			@apply mb-4 text-2xl font-semibold;
+		}
+
+		.comment-form {
+			@apply mt-4 flex flex-col flex-wrap gap-3;
+		}
+
+		input[type="submit"] {
+			@apply text-base px-12 w-max;
+		}
+
+		p label {
+			@apply w-full;
+		}
+
+		input, textarea {
+			@apply max-w-full;
+		}
+
+		.stars {
+			a {
+				@apply -indent-[9999px] relative inline-block w-6 text-3xl text-grey-200 transition-all;
+
+				&::before {
+					@apply content-["★"] absolute left-0 top-0 indent-0;
+				}
+
+				&:hover ~ a {
+					@apply text-grey-200;
+				}
+			}
+
+			&:hover a {
+				@apply text-primary-400;
+			}
+
+			&.selected {
+				a {
+					@apply text-primary-400;
+
+					&.active ~ a {
+						@apply text-grey-200;
+					}
+
+					&:hover ~ a {
+						@apply text-grey-200;
+					}
+				}
+
+				&:hover a {
+					@apply text-primary-400;
+				}
+			}
+		}
+	}
+
+	/* No reviews yet */
+	.woocommerce-noreviews {
+		@apply mb-4 p-4 flex flex-wrap font-semibold items-center bg-success-100 border-l-4 border-l-success-400 text-success-400 rounded-r-xl focus-visible:ring-0;
+	}
+
+	/* Must be logged in / verified purchase */
+	.woocommerce-verification-required {
+		@apply p-4 font-semibold bg-success-100 border-l-4 border-l-success-400 text-success-400 rounded-r-xl;
+	}
+}

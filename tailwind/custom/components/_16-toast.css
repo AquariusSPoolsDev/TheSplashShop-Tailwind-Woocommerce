@@ -1,0 +1,19 @@
+/**
+ * ShopChop Toast Notifications
+ */
+
+.shopchop-toast {
+	@apply fixed bottom-6 left-1/2 -translate-x-1/2 z-[9999] px-5 py-3 rounded-lg shadow-lg text-sm font-medium text-background pointer-events-none;
+	@apply opacity-0 translate-y-2 transition-all duration-300 ease-out;
+	min-width: 16rem;
+	max-width: calc(100vw - 2rem);
+	text-align: center;
+
+	&.is-visible {
+		@apply opacity-100 translate-y-0 pointer-events-auto;
+	}
+
+	&.shopchop-toast--error   { @apply bg-error-400; }
+	&.shopchop-toast--success { @apply bg-success-400; }
+	&.shopchop-toast--info    { @apply bg-primary-400; }
+}
