@@ -1,0 +1,714 @@
+/**
+ * ShopChop Header — Minimal & Normal variants
+ *
+ * Minimal: hides distracting elements (login/register, checkout, cart pages)
+ * Normal:  full header with nav, search, account, cart, mobile panels
+ */
+
+.shopchop-header-minimal,
+.shopchop-header-normal {
+	@apply bg-transparent;
+}
+
+.shopchop-header-minimal {
+	.header-minimal-content {
+		@apply flex justify-between items-center;
+	}
+
+	#mobile-search,
+	#mobile-mini-cart,
+	#mobile-panel { @apply hidden!; }
+}
+
+.shopchop-header-normal {
+	@apply bg-white border-b border-b-grey-200 shadow-sm w-full fixed top-0 lg:static z-10 lg:z-auto;
+
+	.woocommerce-store-notice {
+		@apply hidden! lg:block! text-center px-6 md:px-10 lg:px-16 py-2 bg-linear-to-br text-background font-semibold text-sm from-primary-300 to-primary-400;
+
+		.woocommerce-store-notice__dismiss-link {
+			@apply font-normal underline! ms-3 transition-all hover:no-underline!;
+		}
+	}
+
+	.search-bar-row {
+		.mobile-menu-btns {
+			@apply lg:hidden ml-auto flex gap-2;
+
+			.shopchop-menu-item {
+				@apply p-2 cursor-pointer;
+			}
+
+			#mobile-cart-toggle {
+				.cart-icon-wrapper {
+					@apply relative;
+
+					.cart-icon {
+						@apply w-6 h-6;
+					}
+
+					.cart-count-badge {
+						@apply transition-all absolute -top-2 -right-2 min-w-5 h-5 flex items-center justify-center bg-secondary text-background text-xs font-bold rounded-full px-1;
+					}
+				}
+			}
+		}
+
+		.shopchop-search-wrapper {
+			@apply hidden lg:block relative w-full max-w-xl mx-auto;
+
+			.shopchop-search-bar {
+				@apply bg-white;
+
+				.shopchop-search-input {
+					@apply relative max-w-full lg:pe-32;
+
+					&.results-active {
+						@apply rounded-b-none;
+					}
+				}
+
+				.shopchop-cat-select {
+					@apply absolute p-0 pe-4 text-end w-max h-max right-4 top-1/2 -translate-y-1/2 border-0 ring-0;
+				}
+			}
+
+			.shopchop-search-results {
+				@apply absolute left-0 right-0 bg-white border-t-0 rounded-t-none rounded-b-lg border border-grey-200 max-h-64 overflow-y-auto z-99;
+
+				.search-result-item {
+					@apply not-last:border-b border-grey-200;
+
+					a {
+						@apply flex gap-3 items-center p-2 transition-all hover:bg-secondary-100 active:bg-secondary-100 focus:bg-secondary-100;
+
+						.result-image {
+							@apply shrink-0 w-12 h-12;
+
+							img {
+								@apply max-w-12 max-h-12 object-cover aspect-square;
+							}
+						}
+
+						.result-details {
+							@apply grow;
+
+							.result-title {
+								@apply font-medium text-base line-clamp-1;
+							}
+						}
+					}
+				}
+
+				.search-loading,
+				.search-error,
+				.no-results {
+					@apply text-center p-4 text-grey-300;
+				}
+			}
+		}
+
+		.shopchop-account-controls {
+			@apply hidden lg:flex lg:gap-6 lg:items-center lg:shrink-0;
+
+			.shopchop-wishlist-wrapper {
+				@apply hidden lg:block;
+
+				.shopchop-wishlist-btn {
+					@apply w-12 h-12 rounded-full border-grey-200 border-2 flex items-center justify-center transition-all hover:bg-secondary-100 active:bg-secondary-100 focus:bg-secondary-100;
+				}
+
+				.wishlist-icon {
+					@apply w-6 h-6 text-primary-400;
+				}
+			}
+
+			.shopchop-cart-wrapper {
+				@apply hidden lg:block lg:relative;
+
+				.shopchop-cart-trigger {
+					@apply flex items-center gap-3 cursor-pointer transition-all underline-offset-4 hover:text-primary-400 hover:underline focus:text-primary-400 focus:underline;
+
+					.cart-icon-wrapper {
+						@apply relative;
+
+						.cart-icon {
+							@apply w-6 h-6;
+						}
+
+						.cart-count-badge {
+							@apply transition-all absolute -top-2 -right-2 min-w-5 h-5 flex items-center justify-center bg-secondary text-background text-xs font-bold rounded-full px-1;
+						}
+					}
+
+					.cart-label {
+						@apply text-sm font-medium block;
+					}
+				}
+
+				.shopchop-cart-dropdown {
+					@apply absolute right-0 mt-2.5 top-full w-72 bg-white rounded-lg shadow-sm border border-grey-200 z-50 max-h-80 overflow-y-auto;
+
+					&::before {
+						@apply absolute top-0 left-0 right-0 content-[''];
+					}
+
+					.cart-dropdown-header {
+						@apply flex items-center justify-between p-2.5 border-b border-grey-200 text-foreground;
+
+						h3 {
+							@apply text-base font-semibold;
+						}
+
+						.cart-items-count {
+							@apply text-sm;
+
+							.count-number {
+								@apply font-bold;
+							}
+						}
+					}
+
+					.cart-dropdown-content {
+						@apply flex-1 overflow-y-auto text-sm;
+
+						.shopchop-mini-cart-list-wrapper,
+						.woocommerce-mini-cart__buttons {
+							@apply p-2.5 pe-3;
+						}
+
+						.shopchop-mini-cart-list-wrapper {
+							ul.woocommerce-mini-cart {
+								@apply flex flex-col gap-4;
+
+								li.woocommerce-mini-cart-item {
+									@apply flex items-center gap-2;
+
+									.mini-cart-item-link {
+										@apply flex gap-2 items-center w-full;
+
+										img {
+											@apply w-14 h-14 object-cover rounded shrink-0;
+										}
+
+										.mini-cart-item-details {
+											@apply w-full grow;
+										}
+
+										.mini-cart-item-name {
+											@apply font-semibold text-base line-clamp-1;
+										}
+
+										.quantity {
+											@apply text-grey-400;
+										}
+
+										.price {
+											@apply text-end block;
+										}
+									}
+								}
+							}
+						}
+
+						.woocommerce-mini-cart__total {
+							@apply border-t border-t-grey-200 pt-2.5 mt-2.5 flex justify-between items-center;
+						}
+
+						.woocommerce-mini-cart__buttons {
+							@apply border-t border-t-grey-200 flex gap-3;
+
+							.button {
+								@apply h-max py-1 text-base text-center normal-case font-medium flex-1;
+
+								&:not(.checkout) {
+									@apply bg-transparent border text-secondary-400 border-secondary-400 hover:bg-secondary-100 active:bg-secondary-100 focus:bg-secondary-100;
+								}
+							}
+						}
+
+						.cart-loading,
+						.cart-error,
+						.woocommerce-mini-cart__empty-message {
+							@apply text-center py-12 text-grey-400 text-xs;
+						}
+					}
+				}
+			}
+
+			.shopchop-account-wrapper {
+				@apply hidden lg:block lg:relative;
+
+				.shopchop-account-trigger {
+					@apply flex gap-2 items-center cursor-pointer transition-all underline-offset-4 hover:text-primary-400 hover:underline! focus:text-primary-400 focus:underline!;
+
+					.user-icon {
+						@apply w-6 h-6;
+					}
+
+					.account-label {
+						@apply text-sm font-medium block;
+					}
+				}
+
+				.shopchop-account-dropdown {
+					@apply absolute right-0 mt-2.5 w-72 bg-white rounded-lg shadow-sm border border-grey-200 z-50;
+
+					.account-dropdown-content {
+						@apply p-0;
+
+						.loading-state,
+						.error-state {
+							@apply text-center py-8 text-grey-400;
+						}
+
+						.account-header {
+							@apply border-b border-grey-200 p-2.5;
+
+							.user-greeting {
+								@apply flex items-center gap-2.5 text-sm;
+
+								svg {
+									@apply text-primary-400 w-5 h-5;
+								}
+
+								strong {
+									@apply font-semibold;
+								}
+							}
+						}
+
+						.account-menu-items {
+							@apply flex flex-col w-full;
+
+							.account-menu-item {
+								@apply p-2.5 w-full text-sm text-grey-400 transition-all border-l-4 border-l-transparent hover:bg-primary-100/50 hover:text-primary-400 hover:border-primary-400 active:bg-primary-100/50 active:text-primary-400 active:border-primary-400 focus:bg-primary-100/50 focus:text-primary-400 focus:border-primary-400;
+							}
+						}
+
+						.account-menu-footer {
+							@apply border-t border-grey-200 px-2.5 py-1.5;
+
+							.logout-link {
+								@apply flex items-center gap-2 w-full p-1.5 text-sm text-error-400 rounded transition-all hover:bg-error-100;
+
+								svg {
+									@apply w-4 h-4;
+								}
+							}
+						}
+
+						.account-login-prompt {
+							@apply text-center p-6;
+
+							.login-icon {
+								@apply mx-auto mb-4 w-16 h-16 rounded-full bg-primary-100 flex items-center justify-center;
+
+								svg {
+									@apply text-primary-400 w-10 h-10;
+								}
+							}
+
+							h3 {
+								@apply text-lg font-semibold text-foreground mb-2;
+							}
+
+							p {
+								@apply text-sm text-grey-300 mb-4;
+							}
+
+							.login-button {
+								@apply block w-full px-6 py-2.5 bg-primary-300 text-background font-medium rounded-lg transition-all hover:bg-primary-400 active:bg-primary-400 focus:bg-primary-400;
+							}
+
+							.register-prompt {
+								@apply mt-4 text-sm text-grey-300;
+
+								a {
+									@apply text-primary-400 font-medium transition-all underline-offset-2 hover:underline!;
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	.menu-bar-row {
+		@apply hidden lg:block lg:border-t lg:border-t-grey-200;
+
+		#main-header-menu-primary.menu {
+			@apply lg:flex lg:items-stretch lg:justify-center lg:gap-x-1;
+
+			/* Top-level items */
+			> .menu-item {
+				@apply lg:relative lg:flex;
+
+				> a {
+					@apply lg:flex lg:items-center lg:gap-2 lg:px-5 lg:py-3.5 lg:font-medium lg:text-secondary-300;
+					@apply lg:transition-all;
+					@apply lg:hover:bg-primary-100/60 lg:hover:text-primary-400;
+				}
+
+				/* Active / current page indicator */
+				&.current-menu-item > a,
+				&.current_page_item > a,
+				&.current-menu-ancestor > a,
+				&.current-menu-parent > a {
+					@apply lg:bg-primary-100/60 lg:text-primary-400 lg:font-semibold lg:border-b-2 lg:border-primary-400;
+				}
+
+				/* Sub-menu parent — chevron */
+				&.menu-item-has-children > a::after {
+					content: '';
+					@apply lg:inline-block lg:w-5 lg:h-5 lg:shrink-0 fill-current;
+					background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%231E293B' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+					background-repeat: no-repeat;
+					background-size: contain;
+					transition: transform 0.15s ease;
+				}
+
+				&.menu-item-has-children:hover > a::after,
+				&.menu-item-has-children:focus-within > a::after {
+					transform: rotate(180deg);
+					@apply fill-current;
+				}
+
+				/* Show sub-menu on hover */
+				&:hover > .sub-menu,
+				&:focus-within > .sub-menu {
+					@apply opacity-100 visible pointer-events-auto;
+				}
+			}
+
+			/* Desktop sub-menu */
+			.sub-menu {
+				@apply hidden lg:block absolute top-full left-0 z-50 min-w-52 bg-white border border-grey-200 rounded-b-lg shadow-sm overflow-hidden;
+				@apply opacity-0 invisible transition-opacity duration-200 ease-out pointer-events-none;
+
+				.menu-item {
+					@apply block border-b border-b-grey-200/50 last:border-b-0;
+
+					a {
+						@apply block px-4 py-2.5 text-secondary-300 transition-all duration-150;
+						@apply hover:bg-primary-100/30 hover:text-primary-400;
+					}
+
+					&.current-menu-item > a {
+						@apply text-primary-400 bg-primary-100/30 font-medium;
+					}
+				}
+			}
+		}
+	}
+
+	#backdrop {
+		@apply fixed inset-0 bg-black/40 opacity-0 pointer-events-none z-100;
+		transition: opacity 0.3s ease;
+
+		&.open {
+			@apply opacity-100 pointer-events-auto;
+		}
+	}
+
+	#cart-close,
+	#search-close,
+	#menu-close {
+		svg { @apply w-6 h-6 cursor-pointer; }
+	}
+
+	#mobile-search {
+		@apply lg:hidden fixed inset-0 bg-white flex flex-col overflow-hidden z-200 -translate-y-full transition-transform duration-350 ease-in-out;
+
+		&.open { @apply translate-y-0; }
+
+		.mobile-search-header {
+			@apply p-4 border-b border-b-grey-200 flex justify-between;
+
+			h3 {
+				@apply text-xl font-semibold;
+			}
+		}
+
+		.mobile-search-content {
+			@apply p-4 h-full overflow-y-auto;
+		}
+
+		.shopchop-search-wrapper {
+			@apply block lg:hidden relative w-full max-w-xl mx-auto;
+
+			.shopchop-search-bar {
+				@apply bg-white;
+
+				.shopchop-search-input {
+					@apply relative max-w-full lg:pe-32;
+
+					&.results-active {
+						@apply rounded-b-none;
+					}
+				}
+
+				.shopchop-cat-select {
+					@apply absolute p-0 pe-4 text-end w-max h-max right-4 top-1/2 -translate-y-1/2 border-0 ring-0;
+				}
+			}
+
+			.shopchop-search-results {
+				@apply absolute left-0 right-0 bg-white border-t-0 rounded-t-none rounded-b-lg border border-grey-200 max-h-64 overflow-y-auto z-99;
+
+				.search-result-item {
+					@apply not-last:border-b border-grey-200;
+
+					a {
+						@apply flex gap-3 items-center p-2 transition-all hover:bg-secondary-100 active:bg-secondary-100 focus:bg-secondary-100;
+
+						.result-image {
+							@apply shrink-0 w-12 h-12;
+
+							img {
+								@apply max-w-12 max-h-12 object-cover aspect-square;
+							}
+						}
+
+						.result-details {
+							@apply grow;
+
+							.result-title {
+								@apply font-medium text-base line-clamp-1;
+							}
+						}
+					}
+				}
+
+				.search-loading,
+				.search-error,
+				.no-results {
+					@apply text-center p-4 text-grey-300;
+				}
+			}
+		}
+	}
+
+	#mobile-mini-cart {
+		@apply lg:hidden fixed bottom-0 left-0 right-0 max-h-[75vh] bg-white rounded-t-xl flex flex-col overflow-hidden z-200 translate-y-full transition-transform duration-350 ease-in-out;
+
+		&.open { @apply translate-y-0; }
+
+		.mobile-cart-header {
+			@apply p-4 border-b border-b-grey-200 flex justify-between;
+
+			h3 {
+				@apply text-xl font-semibold;
+
+				span {
+					@apply text-grey-300;
+				}
+			}
+		}
+
+		.mobile-cart-content {
+			@apply flex-1 overflow-y-auto text-sm;
+
+			.shopchop-mini-cart-list-wrapper,
+			.woocommerce-mini-cart__buttons {
+				@apply p-4;
+			}
+
+			.shopchop-mini-cart-list-wrapper {
+				@apply overflow-y-auto;
+
+				ul.woocommerce-mini-cart {
+					@apply flex flex-col gap-4;
+
+					li.woocommerce-mini-cart-item {
+						@apply flex items-center gap-2;
+
+						.mini-cart-item-link {
+							@apply flex gap-2 items-center w-full;
+
+							img {
+								@apply w-18 h-18 object-cover rounded shrink-0;
+							}
+
+							.mini-cart-item-details {
+								@apply w-full grow;
+							}
+
+							.mini-cart-item-name {
+								@apply font-semibold text-base line-clamp-1;
+							}
+
+							.variation {
+								@apply flex flex-wrap gap-1;
+							}
+
+							.quantity {
+								@apply text-grey-400;
+							}
+
+							.price {
+								@apply text-end block;
+							}
+						}
+					}
+				}
+			}
+
+			.woocommerce-mini-cart__total {
+				@apply border-t border-t-grey-200 pt-4 mt-4 flex justify-between items-center;
+			}
+
+			.woocommerce-mini-cart__buttons {
+				@apply border-t border-t-grey-200 flex flex-col-reverse gap-3;
+
+				.button {
+					@apply h-max py-2 text-base text-center normal-case font-medium flex-1 rounded-lg;
+
+					&:not(.checkout) {
+						@apply bg-transparent border text-secondary-400 border-secondary-400 hover:bg-secondary-100 active:bg-secondary-100 focus:bg-secondary-100;
+					}
+				}
+			}
+
+			.cart-loading,
+			.cart-error,
+			.woocommerce-mini-cart__empty-message {
+				@apply text-center py-16 text-grey-400 text-base;
+			}
+		}
+	}
+
+	#mobile-panel {
+		@apply lg:hidden fixed top-0 right-0 bottom-0 w-[min(20rem,100%)] rounded-l-xl bg-white flex flex-col overflow-hidden z-200 translate-x-full transition-transform duration-350 ease-in-out;
+
+		&.open { @apply translate-x-0; }
+
+		.mobile-panel-header {
+			@apply p-4 border-b border-b-grey-200 flex justify-between;
+
+			h3 {
+				@apply text-xl font-semibold;
+
+				span {
+					@apply text-grey-300;
+				}
+			}
+		}
+
+		.mobile-panel-content {
+			@apply overflow-y-auto h-full;
+
+			.shopchop-account-info-mobile a.account-block-wrapper {
+				@apply p-4 flex justify-between items-center hover:bg-primary-100/30 active:bg-primary-100/30 focus:bg-primary-100/30;
+
+				.account-meta {
+					@apply flex items-center gap-2;
+
+					.account-image {
+						@apply w-12 h-12 bg-primary-100 rounded-full shrink-0 flex items-center justify-center;
+
+						img { @apply rounded-full w-12; }
+
+						svg {
+							@apply text-primary-400;
+						}
+					}
+
+					.account-details {
+						h5 { @apply text-base line-clamp-1 font-medium; }
+						p  { @apply text-xs text-grey-400; }
+					}
+				}
+			}
+
+			.shopchop-menu-mobile {
+				@apply border-t border-t-grey-200;
+
+				h5.menu-heading {
+					@apply px-4 pt-4 pb-2 text-sm text-grey-300 uppercase;
+				}
+
+				#main-header-menu-mobile {
+
+					/* Top-level items */
+					> .menu-item {
+						@apply relative block border-b border-b-grey-200/50 last:border-b-grey-200;
+
+						> a {
+							@apply flex items-center w-full p-4 transition-all;
+							@apply hover:bg-primary-100/30 hover:text-primary-400;
+							@apply active:bg-primary-100/30 active:text-primary-400;
+							@apply focus:bg-primary-100/30 focus:text-primary-400;
+						}
+
+						&.current-menu-item > a,
+						&.current_page_item > a,
+						&.current-menu-ancestor > a {
+							@apply text-primary-400 bg-primary-100/30;
+						}
+
+						/* Sub-menu toggle button */
+						&.menu-item-has-children {
+							> a {
+								@apply pr-12;
+							}
+
+							.mobile-submenu-toggle {
+								@apply absolute right-0 top-0 w-12 h-14 flex items-center justify-center text-grey-300;
+								@apply transition-all hover:text-primary-400;
+
+								svg {
+									@apply transition-transform duration-200 w-5 h-5;
+								}
+
+								&[aria-expanded="true"] {
+									@apply text-primary-400;
+									svg { @apply rotate-90; }
+								}
+							}
+						}
+					}
+
+					/* Mobile sub-menu */
+					.sub-menu {
+						@apply hidden border-t border-t-grey-200/50;
+
+						&.is-open {
+							@apply block;
+						}
+
+						.menu-item {
+							@apply block border-b border-b-grey-200/50 last:border-b-0;
+
+							a {
+								@apply flex items-center w-full pl-8 pr-4 p-4 transition-all;
+								@apply hover:bg-primary-100/30 hover:text-primary-400;
+								@apply active:bg-primary-100/30 active:text-primary-400;
+								@apply focus:bg-primary-100/30 focus:text-primary-400;
+							}
+
+							&.current-menu-item > a {
+								@apply text-primary-400 bg-primary-100/30;
+							}
+						}
+					}
+				}
+			}
+
+			.shopchop-account-actions-mobile {
+				h5.account-heading {
+					@apply px-4 pt-4 pb-2 text-sm text-grey-300 uppercase;
+				}
+
+				a.control-item {
+					@apply flex border-b border-b-grey-200/50 last:border-b-grey-200 block w-full p-4 transition-all hover:bg-primary-100/30 hover:text-primary-400 active:bg-primary-100/30 active:text-primary-400 focus:bg-primary-100/30 focus:text-primary-400;
+
+					&.logout {
+						@apply hover:bg-error-100 hover:text-error-400 active:bg-error-100 active:text-error-400 focus:bg-error-100 focus:text-error-400;
+					}
+				}
+			}
+		}
+	}
+}

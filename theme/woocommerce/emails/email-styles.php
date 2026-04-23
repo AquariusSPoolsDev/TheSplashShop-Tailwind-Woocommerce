@@ -92,7 +92,7 @@ $text_lighter_40 = wc_hex_lighter( $text, 40 );
 // body{padding: 0;} ensures proper scale/positioning of the email in the iOS native email app.
 ?>
 body {
-	<!-- background-color: <?php echo esc_attr( $bg ); ?>; -->
+	/* background-color: <?php echo esc_attr( $bg ); ?>; */
 	padding: 0;
 	margin: 0;
 	text-align: center;
@@ -108,20 +108,20 @@ body {
 }
 
 #outer_wrapper {
-	<!-- background-color: <?php echo esc_attr( $bg ); ?>; -->
+	/* background-color: <?php echo esc_attr( $bg ); ?>; */
 }
 
 
 <?php if ( $email_improvements_enabled ) : ?>
 #inner_wrapper {
-	<!-- background-color: <?php echo esc_attr( $body ); ?>; -->
-	<!-- border-radius: 8px; -->
+	/* background-color: <?php echo esc_attr( $body ); ?>; */
+	/* border-radius: 8px; */
 }
 <?php endif; ?>
 
 #wrapper {
 	margin: 0 auto;
-	<!-- padding: <?php echo $email_improvements_enabled ? '24px 0' : '70px 0'; ?>; -->
+	/* padding: <?php echo $email_improvements_enabled ? '24px 0' : '70px 0'; ?>; */
 	-webkit-text-size-adjust: none !important;
 	width: 100%;
 	max-width: 598px;
@@ -175,7 +175,7 @@ body {
 }
 
 #template_header_image {
-	<!-- padding: 32px 32px 0; -->
+	/* padding: 32px 32px 0; */
 }
 
 #template_header_image p {
@@ -233,13 +233,13 @@ body {
 
 #template_footer td {
 	padding: 0;
-	<!-- border-radius: <?php echo $email_improvements_enabled ? '0' : '6px'; ?>; -->
+	/* border-radius: <?php echo $email_improvements_enabled ? '0' : '6px'; ?>; */
 }
 
 #template_footer #credit {
 	border: 0;
 	<?php if ( $email_improvements_enabled ) : ?>
-		<!-- border-top: 1px solid <?php echo esc_attr( $border_color ); ?>; -->
+		/* border-top: 1px solid <?php echo esc_attr( $border_color ); ?>; */
 		border-top: 1px solid #CBD5E1;
 	<?php endif; ?>
 	background-color: #FBFCFD;
@@ -247,8 +247,8 @@ body {
 	font-family: <?php echo $safe_font_family; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>;
 	font-size: 12px;
 	line-height: <?php echo $email_improvements_enabled ? '140%' : '150%'; ?>;
-	<!-- text-align: center; -->
-	<!-- padding: <?php echo $email_improvements_enabled ? '32px' : '24px 0'; ?>; -->
+	/* text-align: center; */
+	/* padding: <?php echo $email_improvements_enabled ? '32px' : '24px 0'; ?>; */
 	padding: 32px;
 }
 
@@ -288,7 +288,7 @@ body {
 }
 
 #body_content .email-order-details tbody tr:last-child td {
-	<!-- border-bottom: 1px solid <?php echo esc_attr( $border_color ); ?>; -->
+	/* border-bottom: 1px solid <?php echo esc_attr( $border_color ); ?>; */
 	padding-bottom: 24px;
 }
 
@@ -325,12 +325,12 @@ body {
 
 #body_content .email-order-details .order-totals-last td,
 #body_content .email-order-details .order-totals-last th {
-	<!-- border-bottom: 1px solid <?php echo esc_attr( $border_color ); ?>; -->
+	/* border-bottom: 1px solid <?php echo esc_attr( $border_color ); ?>; */
 	padding-bottom: 24px;
 }
 
 #body_content .email-order-details .order-customer-note td {
-	<!-- border-bottom: 1px solid <?php echo esc_attr( $border_color ); ?>; -->
+	/* border-bottom: 1px solid <?php echo esc_attr( $border_color ); ?>; */
 	padding-bottom: 24px;
 	padding-top: 24px;
 }
@@ -414,12 +414,12 @@ body {
 }
 
 .link {
-	<!-- color: <?php echo esc_attr( $link_color ); ?>; -->
+	/* color: <?php echo esc_attr( $link_color ); ?>; */
 	color: #007DA1;
 }
 
 #header_wrapper {
-	<!-- padding: <?php echo $email_improvements_enabled ? '20px 32px 0' : '36px 48px'; ?>; -->
+	/* padding: <?php echo $email_improvements_enabled ? '20px 32px 0' : '36px 48px'; ?>; */
 	display: block;
 	padding: 32px;
 	background-color: #1E293B;
@@ -482,7 +482,7 @@ h3 {
 }
 
 a {
-	<!-- color: <?php echo esc_attr( $link_color ); ?>; -->
+	/* color: <?php echo esc_attr( $link_color ); ?>; */
 	color: #007DA1;
 	font-weight: normal;
 	text-decoration: underline;

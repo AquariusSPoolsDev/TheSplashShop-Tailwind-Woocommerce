@@ -1,0 +1,44 @@
+/**
+ * ShopChop Footer — Minimal & Normal variants
+ */
+
+.shopchop-footer-minimal,
+.shopchop-footer-normal {
+
+}
+
+.shopchop-footer-minimal {
+
+}
+
+.shopchop-footer-normal {
+	@apply bg-secondary text-grey-200;
+
+	.footer-brand {
+		p {
+			@apply text-2xl font-light mb-4;
+		}
+	}
+
+	.wp-block-social-link {
+		@apply bg-primary-300 text-background transition-all rounded-sm transform-none! hover:bg-primary-400 active:bg-primary-400 focus:bg-primary-400;
+	}
+
+	h5 {
+		@apply text-background text-2xl font-semibold mb-4;
+	}
+
+	ul.menu {
+		@apply flex flex-wrap gap-4 flex-col;
+	}
+
+	a {
+		@apply underline! underline-offset-4 transition-all hover:no-underline! active:no-underline! focus:no-underline!;
+	}
+
+	.legal-copyright {
+		ul.menu {
+			@apply flex-row justify-center lg:justify-start;
+		}
+	}
+}

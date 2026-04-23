@@ -70,13 +70,13 @@ $email = $email ?? null;
 															);
 															?>
 															<br>
-															Need help or support? <a href="mailto:<?php echo get_option( 'woocommerce_email_from_address' ); ?>"><?php echo get_option( 'woocommerce_email_from_address' ); ?></a>&nbsp;|&nbsp;<a href="http://">WhatsApp us</a><br><br>
+															Need help or support? <a href="mailto:<?php echo esc_attr( get_option( 'woocommerce_email_from_address' ) ); ?>"><?php echo esc_html( get_option( 'woocommerce_email_from_address' ) ); ?></a>&nbsp;|&nbsp;<a href="https://wa.me/60">WhatsApp us</a><br><br>
 
 															<a href="<?php echo esc_url( get_privacy_policy_url() ); ?>">Privacy policy</a>
 															&nbsp;|&nbsp;
 															<a href="<?php echo esc_url( wc_get_page_permalink( 'refund_returns' ) ); ?>">Refund policy</a><br><br>
 
-															&copy; <?php echo date( 'Y' ); ?> <?php echo get_bloginfo( 'name' ); ?>. All rights reserved.
+															&copy; <?php echo esc_html( gmdate( 'Y' ) ); ?> <?php echo esc_html( get_bloginfo( 'name' ) ); ?>. All rights reserved.
 														</td>
 													</tr>
 												</table>

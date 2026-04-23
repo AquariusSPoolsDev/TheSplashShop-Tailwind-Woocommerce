@@ -1,0 +1,108 @@
+/**
+ * Global Form Elements
+ * Covers: buttons, inputs, labels, quantity nav, password input, blockUI overlay
+ */
+
+.button,
+button.button,
+a.button,
+input[type="submit"] {
+	@apply bg-primary font-semibold cursor-pointer text-base text-background transition-all hover:bg-primary-400 hover:text-background active:bg-primary-400 active:text-background focus:bg-primary-400 focus:text-background rounded-lg h-14 uppercase tracking-wider;
+
+	&:disabled,
+	&.disabled {
+		@apply bg-grey-200 text-grey-300 cursor-not-allowed;
+	}
+}
+
+/* Standard text entry fields */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="tel"],
+input[type="number"],
+input[type="url"],
+textarea,
+select {
+	@apply w-full max-w-80 h-14 bg-white border-2 border-grey-200 rounded-lg p-4 focus:border-primary-300 focus:bg-white outline-none transition-all focus:ring-4 focus:ring-primary-100;
+}
+
+textarea { @apply h-32; }
+
+label { @apply font-semibold; }
+
+.required { @apply text-error-400; }
+
+/* Disable Select2 plugin widget */
+.select2.select2-container { @apply hidden!; }
+
+/* Hide sidebar ID injected into body tag */
+#sidebar { @apply hidden!; }
+
+/* Input Number Quantity with +/- Buttons */
+.quantity-nav {
+	@apply inline-flex h-14 items-center border-2 border-grey-200 rounded-lg overflow-hidden;
+
+	.quantity {
+		input::-webkit-outer-spin-button,
+		input::-webkit-inner-spin-button {
+			@apply hidden m-0;
+		}
+
+		input.qty {
+			@apply w-15 border-none! rounded-none! text-center font-bold p-0;
+		}
+	}
+
+	.qty-btn {
+		@apply w-13 h-full border-0 cursor-pointer font-semibold text-2xl text-grey-300 flex items-center justify-center transition-all bg-white hover:bg-secondary-100 hover:text-secondary active:bg-secondary-100 active:text-secondary focus:bg-secondary-100 focus:text-secondary;
+	}
+}
+
+/* Password Input with show/hide toggle */
+.password-input {
+	@apply relative;
+
+	input {
+		@apply pe-12;
+	}
+
+	.show-password-input {
+		@apply absolute right-4 top-1/2 -translate-y-1/2 w-6 h-6 border-none bg-none p-0 cursor-pointer flex items-center justify-center;
+
+		&::after {
+			@apply content-[''] w-full h-full block bg-grey-300;
+			mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0'/%3E%3Ccircle cx='12' cy='12' r='3'/%3E%3C/svg%3E");
+		}
+
+		&.display-password::after {
+			@apply bg-primary-400;
+			mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M10.733 5.076a10.744 10.744 0 0 1 11.205 6.575 1 1 0 0 1 0 .696 10.747 10.747 0 0 1-1.444 2.49'/%3E%3Cpath d='M14.084 14.158a3 3 0 0 1-4.242-4.242'/%3E%3Cpath d='M17.479 17.499a10.75 10.75 0 0 1-15.417-5.151 1 1 0 0 1 0-.696 10.75 10.75 0 0 1 4.446-5.143'/%3E%3Cpath d='m2 2 20 20'/%3E%3C/svg%3E");
+		}
+	}
+}
+
+.woocommerce-password-strength {
+	@apply p-1.5 mt-2 text-center text-sm font-medium rounded-lg w-full;
+
+	&.short  { @apply bg-error-100 text-error-400; }
+	&.bad    { @apply bg-orange-100 text-orange-800; }
+	&.good   { @apply bg-yellow-100 text-yellow-800; }
+	&.strong { @apply bg-primary-100 text-primary-400; }
+}
+
+.woocommerce-password-hint { @apply hidden!; }
+
+.clear { @apply absolute; }
+
+/**
+ * BlockUI Loading Overlay
+ */
+.blockUI.blockOverlay {
+	@apply relative bg-background/75! opacity-100!;
+
+	&::after {
+		background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 100 101'%3E%3Cpath fill='%23cbd5e1' d='M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z'/%3E%3Cpath fill='%23007da1' d='M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z'/%3E%3C/svg%3E");
+		@apply content-[""] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-10 w-10 animate-spin bg-no-repeat bg-center bg-contain;
+	}
+}

@@ -1,0 +1,68 @@
+/**
+ * WooCommerce Login, Register & Password Reset
+ * Covers: auth form toggles, login/register forms, reset password
+ */
+
+.shopchop-my-account .wc-auth-wrapper {
+	@apply max-w-2xl mx-auto;
+
+	.wc-toggle-form {
+		@apply overflow-hidden max-h-0 opacity-0 transition-all duration-300 ease-in-out;
+
+		&.is-open {
+			@apply max-h-128 opacity-100;
+		}
+	}
+
+	.wc-toggle-heading {
+		@apply flex items-center justify-between text-2xl font-bold cursor-pointer select-none;
+
+		.wc-toggle-indicator {
+			@apply transition-[transform] duration-300 ease-in-out;
+		}
+
+		&.is-open .wc-toggle-indicator {
+			@apply rotate-90;
+		}
+	}
+
+	.woocommerce-form {
+		@apply mt-4;
+
+		.form-row {
+			@apply flex flex-col mb-4;
+
+			label { @apply mb-1; }
+
+			input { @apply max-w-full; }
+
+			.woocommerce-button { @apply mt-4 px-8 w-max; }
+
+			.lost_password { @apply ms-4 underline-offset-4 hover:underline! focus:underline! active:underline!; }
+		}
+	}
+
+	.wc-col-login {
+
+	}
+
+	.wc-col-register {
+		@apply mt-6 pt-6 border-t border-t-grey-200;
+	}
+
+	.auth-password-heading {
+		@apply text-3xl mb-4 font-semibold;
+	}
+
+	.woocommerce-ResetPassword {
+		.form-row {
+			@apply flex flex-col mb-4;
+
+			label { @apply mb-1; }
+
+			input { @apply max-w-full; }
+
+			.woocommerce-Button { @apply px-8 w-max; }
+		}
+	}
+}
