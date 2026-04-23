@@ -143,7 +143,7 @@
 		a.button {
 			@apply text-base normal-case h-10 px-5 bg-transparent border-2 flex items-center;
 
-			&.print-reciept {
+			&.print-receipt {
 				@apply border-primary text-primary-400 hover:bg-primary-100 active:bg-primary-100 focus:bg-primary-100;
 			}
 

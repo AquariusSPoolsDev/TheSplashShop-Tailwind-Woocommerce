@@ -34,14 +34,7 @@ if (! defined('ABSPATH')) {
 				?>
 			</div>
 			<div class="user-details">
-				<h2>
-					<?php
-					printf(
-						esc_html__('%s', 'woocommerce'),
-						esc_html($current_user->display_name)
-					);
-					?>
-				</h2>
+				<h2><?php echo esc_html( $current_user->display_name ); ?></h2>
 				<hr>
 				<p class="bg-teal-100 text-teal-800! border-l-2 border-teal-800 p-2 rounded-r-lg">Unlock exclusive rewards with your points. Stay tuned!</p>
 			</div>
@@ -51,7 +44,7 @@ if (! defined('ABSPATH')) {
 			<a class="button user-logout" href="<?php echo esc_url(wc_logout_url()); ?>">Log Out</a>
 
 			<?php if (current_user_can('manage_options')) : ?>
-				<a target="_blank" rel="noopener noreferrer" class="admin-access" href="<?php echo admin_url(); ?>" class="admin-access-link">Site Admin</a>
+				<a target="_blank" rel="noopener noreferrer" class="admin-access" href="<?php echo esc_url( admin_url() ); ?>">Site Admin</a>
 			<?php endif; ?>
 		</div>
 

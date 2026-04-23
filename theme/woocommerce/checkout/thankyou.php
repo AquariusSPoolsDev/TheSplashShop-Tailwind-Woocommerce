@@ -57,20 +57,17 @@ defined('ABSPATH') || exit;
 
 					<li class="woocommerce-order-overview__order order">
 						<?php esc_html_e('Order number', 'woocommerce'); ?>
-						<strong><?php echo $order->get_order_number(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped 
-								?></strong>
+						<strong><?php echo esc_html( $order->get_order_number() ); ?></strong>
 					</li>
 
 					<li class="woocommerce-order-overview__date date">
 						<?php esc_html_e('Date', 'woocommerce'); ?>
-						<strong><?php echo wc_format_datetime($order->get_date_created()); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped 
-								?></strong>
+						<strong><?php echo esc_html( wc_format_datetime( $order->get_date_created() ) ); ?></strong>
 					</li>
 
 					<li class="woocommerce-order-overview__total total">
 						<?php esc_html_e('Total', 'woocommerce'); ?>
-						<strong><?php echo $order->get_formatted_order_total(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped 
-								?></strong>
+						<strong><?php echo wp_kses_post( $order->get_formatted_order_total() ); ?></strong>
 					</li>
 
 					<?php if ($order->get_payment_method_title()) : ?>
@@ -97,7 +94,7 @@ defined('ABSPATH') || exit;
 	</div>
 
 	<div class="wc-thank-you-button-actions">
-		<a href="javascript:window.print()" class="button print-reciept"><?php esc_html_e('Print Receipt', 'woocommerce'); ?></a>
+		<a href="javascript:window.print()" class="button print-receipt"><?php esc_html_e('Print Receipt', 'woocommerce'); ?></a>
 		<a href="<?php echo esc_url( home_url() ); ?>" class="button continue-shopping"><?php esc_html_e('Continue Shopping', 'woocommerce'); ?></a>
 	</div>
 </div>

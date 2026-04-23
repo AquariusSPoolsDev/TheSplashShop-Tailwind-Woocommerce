@@ -36,7 +36,7 @@ if ( '0' === $comment->comment_approved ) { ?>
 		<strong class="woocommerce-review__author"><?php comment_author(); ?> </strong>
 		<?php
 		if ( 'yes' === get_option( 'woocommerce_review_rating_verification_label' ) && $verified ) {
-			echo '<em class="woocommerce-review__verified verified">(' . esc_attr__( 'verified owner', 'woocommerce' ) . ')</em> ';
+			echo '<em class="woocommerce-review__verified verified">(' . esc_html__( 'verified owner', 'woocommerce' ) . ')</em> ';
 		}
 
 		?>

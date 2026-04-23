@@ -92,7 +92,7 @@ if (woocommerce_product_loop()) {
 
 		/* ---------- Products ---------- */
 
-		echo '<h2 class="shop-section-title">All Products</h2>';
+		echo '<h2 class="shop-section-title">' . esc_html__( 'All Products', 'shopchop' ) . '</h2>';
 
 		echo '<ul class="products columns-' . esc_attr(wc_get_loop_prop('columns')) . '">';
 

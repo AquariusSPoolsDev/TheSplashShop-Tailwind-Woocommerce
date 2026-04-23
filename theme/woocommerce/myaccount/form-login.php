@@ -30,7 +30,7 @@ do_action( 'woocommerce_before_customer_login_form' ); ?>
 	<div class="wc-col-login">
 
 		<h2 class="wc-toggle-heading is-open" data-target="wc-login-form" style="cursor:pointer;">
-			<?php esc_html_e( 'Login to', 'woocommerce' ); echo ' ' . get_bloginfo( 'name' ); ?>
+			<?php esc_html_e( 'Login to', 'woocommerce' ); echo ' ' . esc_html( get_bloginfo( 'name' ) ); ?>
 			<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="wc-toggle-indicator"><path d="m9 18 6-6-6-6"/></svg>
 		</h2>
 
@@ -79,7 +79,7 @@ do_action( 'woocommerce_before_customer_login_form' ); ?>
 	<div class="wc-col-register">
 
 		<h2 class="wc-toggle-heading" data-target="wc-register-form" style="cursor:pointer;">
-			<?php esc_html_e( 'Register to', 'woocommerce' ); echo ' ' . get_bloginfo( 'name' ); ?>
+			<?php esc_html_e( 'Register to', 'woocommerce' ); echo ' ' . esc_html( get_bloginfo( 'name' ) ); ?>
 			<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="wc-toggle-indicator"><path d="m9 18 6-6-6-6"/></svg>
 		</h2>
 

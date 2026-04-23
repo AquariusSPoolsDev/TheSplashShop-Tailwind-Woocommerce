@@ -63,7 +63,7 @@ do_action('woocommerce_before_account_orders', $has_orders); ?>
 								$quantity = $item->get_quantity();
 
 								echo '<div class="product-info-wrapper">';
-								echo $product ? $product->get_image(array(96, 96)) : '';
+								echo $product ? wp_kses_post( $product->get_image( array( 96, 96 ) ) ) : '';
 								echo '<div class="product-meta-detail">';
 
 								// Get Clean Base Name
@@ -85,7 +85,7 @@ do_action('woocommerce_before_account_orders', $has_orders); ?>
 								}
 
 								// Display Price + Quantity Multiplier
-								echo '<span class="price">' . $order->get_formatted_line_subtotal($item) . '</span>';
+								echo '<span class="price">' . wp_kses_post( $order->get_formatted_line_subtotal( $item ) ) . '</span>';
 
 								echo '</div></div>';
 							}
@@ -93,7 +93,7 @@ do_action('woocommerce_before_account_orders', $has_orders); ?>
 						}
 
 						if ($unique_item_count > $display_limit) {
-							echo '<p class="more-items">+' . ($unique_item_count - $display_limit) . ' more items</p>';
+							printf( '<p class="more-items">+%s %s</p>', esc_html( $unique_item_count - $display_limit ), esc_html__( 'more items', 'woocommerce' ) );
 						}
 						?>
 					</td>

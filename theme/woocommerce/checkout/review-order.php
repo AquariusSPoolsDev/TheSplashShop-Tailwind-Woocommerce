@@ -39,7 +39,7 @@ defined('ABSPATH') || exit;
 				<tr class="<?php echo esc_attr(apply_filters('woocommerce_cart_item_class', 'cart_item', $cart_item, $cart_item_key)); ?>">
 					<td class="product-name">
 						<div class="shopchop-item-image shrink-0">
-							<?php echo $_product ? $_product->get_image(array(96, 96), array('class' => 'rounded-lg object-cover')) : ''; ?>
+							<?php echo $_product ? wp_kses_post( $_product->get_image( array( 96, 96 ), array( 'class' => 'rounded-lg object-cover' ) ) ) : ''; ?>
 						</div>
 
 						<div class="shopchop-item-content">
@@ -61,7 +61,7 @@ defined('ABSPATH') || exit;
 							}
 
 							// Item Meta Data (standard WC data)
-							echo wc_get_formatted_cart_item_data($cart_item);
+							echo wp_kses_post( wc_get_formatted_cart_item_data( $cart_item ) );
 
 							// Quantity Display
 							echo apply_filters('woocommerce_checkout_cart_item_quantity', ' <div class="shopchop-item-qty">' . sprintf('&times; %s', $cart_item['quantity']) . '</div>', $cart_item, $cart_item_key);
