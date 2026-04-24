@@ -1,4 +1,4 @@
-/**
+﻿/**
  * WooCommerce Login, Register & Password Reset
  * Covers: auth form toggles, login/register forms, reset password
  */
@@ -47,7 +47,7 @@
 	}
 
 	.wc-col-register {
-		@apply mt-6 pt-6 border-t border-t-grey-200;
+		@apply mt-6 pt-6 border-t border-t-neutral-300;
 	}
 
 	.auth-password-heading {

@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Page Layout & Global Structure
  * Covers: 404 page, post titles, entry meta, main content wrapper
  */
@@ -7,11 +7,11 @@
 	@apply text-center py-16;
 
 	.error-404-big {
-		@apply text-9xl font-extrabold text-primary-400 mb-2;
+		@apply text-9xl font-extrabold text-primary-900 mb-2;
 	}
 
 	.error-404-heading {
-		@apply text-3xl lg:text-4xl font-medium text-primary-400 mb-5;
+		@apply text-3xl lg:text-4xl font-medium text-primary-900 mb-5;
 	}
 
 	.error-404-buttons {

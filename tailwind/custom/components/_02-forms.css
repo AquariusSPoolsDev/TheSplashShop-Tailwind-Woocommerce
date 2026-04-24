@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Global Form Elements
  * Covers: buttons, inputs, labels, quantity nav, password input, blockUI overlay
  */
@@ -7,11 +7,11 @@
 button.button,
 a.button,
 input[type="submit"] {
-	@apply bg-primary font-semibold cursor-pointer text-base text-background transition-all hover:bg-primary-400 hover:text-background active:bg-primary-400 active:text-background focus:bg-primary-400 focus:text-background rounded-lg h-14 uppercase tracking-wider;
+	@apply bg-primary-900 text-background font-semibold cursor-pointer text-base transition-all hover:bg-primary-950 hover:text-background active:bg-primary-950 active:text-background focus:bg-primary-950 focus:text-background rounded-lg h-14 uppercase tracking-wider;
 
 	&:disabled,
 	&.disabled {
-		@apply bg-grey-200 text-grey-300 cursor-not-allowed;
+		@apply bg-neutral-300 text-neutral-700 cursor-not-allowed;
 	}
 }
 
@@ -24,14 +24,14 @@ input[type="number"],
 input[type="url"],
 textarea,
 select {
-	@apply w-full max-w-80 h-14 bg-white border-2 border-grey-200 rounded-lg p-4 focus:border-primary-300 focus:bg-white outline-none transition-all focus:ring-4 focus:ring-primary-100;
+	@apply w-full max-w-80 h-14 bg-white border-2 border-neutral-300 rounded-lg p-4 focus:border-primary-700 focus:bg-white outline-none transition-all focus:ring-4 focus:ring-primary-100;
 }
 
 textarea { @apply h-32; }
 
 label { @apply font-semibold; }
 
-.required { @apply text-error-400; }
+.required { @apply text-error-700; }
 
 /* Disable Select2 plugin widget */
 .select2.select2-container { @apply hidden!; }
@@ -41,7 +41,7 @@ label { @apply font-semibold; }
 
 /* Input Number Quantity with +/- Buttons */
 .quantity-nav {
-	@apply inline-flex h-14 items-center border-2 border-grey-200 rounded-lg overflow-hidden;
+	@apply inline-flex h-14 items-center border-2 border-neutral-300 rounded-lg overflow-hidden;
 
 	.quantity {
 		input::-webkit-outer-spin-button,
@@ -55,7 +55,7 @@ label { @apply font-semibold; }
 	}
 
 	.qty-btn {
-		@apply w-13 h-full border-0 cursor-pointer font-semibold text-2xl text-grey-300 flex items-center justify-center transition-all bg-white hover:bg-secondary-100 hover:text-secondary active:bg-secondary-100 active:text-secondary focus:bg-secondary-100 focus:text-secondary;
+		@apply w-13 h-full border-0 cursor-pointer font-semibold text-2xl text-neutral-700 flex items-center justify-center transition-all bg-white hover:bg-secondary-100 hover:text-secondary active:bg-secondary-100 active:text-secondary focus:bg-secondary-100 focus:text-secondary;
 	}
 }
 
@@ -71,12 +71,12 @@ label { @apply font-semibold; }
 		@apply absolute right-4 top-1/2 -translate-y-1/2 w-6 h-6 border-none bg-none p-0 cursor-pointer flex items-center justify-center;
 
 		&::after {
-			@apply content-[''] w-full h-full block bg-grey-300;
+			@apply content-[''] w-full h-full block bg-neutral-700;
 			mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0'/%3E%3Ccircle cx='12' cy='12' r='3'/%3E%3C/svg%3E");
 		}
 
 		&.display-password::after {
-			@apply bg-primary-400;
+			@apply bg-primary-900;
 			mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M10.733 5.076a10.744 10.744 0 0 1 11.205 6.575 1 1 0 0 1 0 .696 10.747 10.747 0 0 1-1.444 2.49'/%3E%3Cpath d='M14.084 14.158a3 3 0 0 1-4.242-4.242'/%3E%3Cpath d='M17.479 17.499a10.75 10.75 0 0 1-15.417-5.151 1 1 0 0 1 0-.696 10.75 10.75 0 0 1 4.446-5.143'/%3E%3Cpath d='m2 2 20 20'/%3E%3C/svg%3E");
 		}
 	}
@@ -85,10 +85,10 @@ label { @apply font-semibold; }
 .woocommerce-password-strength {
 	@apply p-1.5 mt-2 text-center text-sm font-medium rounded-lg w-full;
 
-	&.short  { @apply bg-error-100 text-error-400; }
+	&.short  { @apply bg-error-100 text-error-700; }
 	&.bad    { @apply bg-orange-100 text-orange-800; }
 	&.good   { @apply bg-yellow-100 text-yellow-800; }
-	&.strong { @apply bg-primary-100 text-primary-400; }
+	&.strong { @apply bg-primary-100 text-primary-900; }
 }
 
 .woocommerce-password-hint { @apply hidden!; }

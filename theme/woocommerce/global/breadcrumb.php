@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 /**
  * Shop breadcrumb
@@ -43,7 +43,7 @@ if (! empty($breadcrumb)) {
 			echo esc_html($crumb[0]);
 			echo '</a>';
 		} else {
-			echo '<span class="text-grey-300">' . esc_html($crumb[0]) . '</span>';
+			echo '<span class="text-neutral-700">' . esc_html($crumb[0]) . '</span>';
 		}
 
 		echo $after;

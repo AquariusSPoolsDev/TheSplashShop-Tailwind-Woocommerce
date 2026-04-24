@@ -1,4 +1,4 @@
-/**
+﻿/**
  * WooCommerce Cart Page
  * Covers: cart table, coupon, order totals, shipping calculator, empty cart
  */
@@ -34,7 +34,7 @@
 
 	.button[name="calc_shipping"],
 	.button[name="apply_coupon"] {
-		@apply px-4 normal-case border-2 bg-transparent text-secondary-400 border-secondary-400 hover:bg-secondary-100 cursor-pointer text-base;
+		@apply px-4 normal-case border-2 bg-transparent text-secondary-900 border-secondary-900 hover:bg-secondary-100 cursor-pointer text-base;
 	}
 
 	.woocommerce-cart-form table.shop_table,
@@ -44,7 +44,7 @@
 
 	.woocommerce-cart-form {
 		.cart-table-wrapper {
-			@apply p-4 md:p-6 border bg-white border-grey-200 rounded-lg overflow-hidden mb-8;
+			@apply p-4 md:p-6 border bg-white border-neutral-300 rounded-lg overflow-hidden mb-8;
 
 			table {
 				@apply my-0;
@@ -53,7 +53,7 @@
 					@apply flex flex-wrap flex-col;
 
 					tr {
-						@apply flex gap-3 lg:gap-6 border-b-grey-200 first:pt-0 last:pb-0 py-4;
+						@apply flex gap-3 lg:gap-6 border-b-neutral-300 first:pt-0 last:pb-0 py-4;
 
 						td {
 							@apply p-0;
@@ -81,7 +81,7 @@
 									}
 
 									.cart-item-variations {
-										@apply text-grey-300 text-sm font-normal;
+										@apply text-neutral-700 text-sm font-normal;
 									}
 								}
 
@@ -89,7 +89,7 @@
 									@apply w-8 h-8 text-center;
 
 									a {
-										@apply text-3xl font-bold text-error-400 transition-all hover:text-error-400/75 active:text-error-400/75 focus:text-error-400/75;
+										@apply text-3xl font-bold text-error-700 transition-all hover:text-error-700/75 active:text-error-700/75 focus:text-error-700/75;
 									}
 								}
 
@@ -100,8 +100,8 @@
 									.cart-stock {
 										@apply inline-block px-2.5 py-0.5 rounded-full text-sm font-medium;
 
-										&.instock     { @apply bg-success-100 text-success-400; }
-										&.outofstock  { @apply bg-error-100 text-error-400; }
+										&.instock     { @apply bg-success-100 text-success-800; }
+										&.outofstock  { @apply bg-error-100 text-error-700; }
 										&.pre-order   { @apply bg-sky-100 text-sky-950; }
 										&.coming-soon { @apply bg-amber-50 text-amber-950; }
 									}
@@ -124,11 +124,11 @@
 								}
 
 								.product-price {
-									@apply w-full text-grey-300 text-xs font-medium mb-1;
+									@apply w-full text-neutral-700 text-xs font-medium mb-1;
 								}
 
 								.product-subtotal {
-									@apply w-full text-primary-400 text-lg font-bold;
+									@apply w-full text-primary-900 text-lg font-bold;
 								}
 							}
 						}
@@ -142,14 +142,14 @@
 				@apply flex flex-wrap gap-3 justify-end;
 
 				.coupon-error-notice {
-					@apply w-full text-end italic text-error-400;
+					@apply w-full text-end italic text-error-700;
 				}
 			}
 		}
 	}
 
 	.cart-collaterals .cart_totals {
-		@apply p-4 md:p-6 border bg-white border-grey-200 rounded-lg overflow-hidden;
+		@apply p-4 md:p-6 border bg-white border-neutral-300 rounded-lg overflow-hidden;
 
 		h2 {
 			@apply mt-0 mb-4 text-2xl;
@@ -160,7 +160,7 @@
 				@apply flex flex-col flex-wrap;
 
 				tr {
-					@apply flex justify-between border-b-grey-200;
+					@apply flex justify-between border-b-neutral-300;
 
 					th, td { @apply px-5 py-3; }
 					th      { @apply ps-0; }

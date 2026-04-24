@@ -4,65 +4,105 @@
  * https://tailwindcss.com/docs/theme
  */
 
-/**
- * Your theme variables are merged with Tailwind’s defaults, either extending
- * the default theme with new variables or overriding the values of existing
- * variables.
- */
 @theme {
-	/**
-	 * These theme variables use CSS variables set by WordPress using values
-	 * from your `theme.json` file.
-	 *
-	 * If you are using the classic editor, you should use hardcoded color
-	 * values instead of the `var()` functions below.
-     */
-
+	/* -------- PRIMARY COLORS -------- */
+	--color-primary-50: #F0FEFF;
 	--color-primary-100: #E0F7FE;
-	--color-primary-200: #72DFF9;
-	--color-primary-300: #02BAE9;
-	--color-primary-400: #007DA1;
+	--color-primary-200: #B3EFFD;
+	--color-primary-300: #72DFF9;
+	--color-primary-400: #22D3EE;
+	--color-primary-500: #06B6D4;
+	--color-primary-600: #0891B2;
+	--color-primary-700: #02BAE9;
+	--color-primary-800: #0369A1;
+	--color-primary-900: #007DA1;
+	--color-primary-950: #005A7A;
+
+	/* -------- SECONDARY COLORS -------- */
+	--color-secondary-50: #F8FAFC;
 	--color-secondary-100: #F1F5F9;
-	--color-secondary-200: #94A3B8;
-	--color-secondary-300: #1E293B;
-	--color-secondary-400: #0F172A;
-	--color-grey-100: #F8FAFC;
-	--color-grey-200: #CBD5E1;
-	--color-grey-300: #64748B;
-	--color-grey-400: #334155;
+	--color-secondary-200: #E2E8F0;
+	--color-secondary-300: #CBD5E1;
+	--color-secondary-400: #94A3B8;
+	--color-secondary-500: #64748B;
+	--color-secondary-600: #475569;
+	--color-secondary-700: #334155;
+	--color-secondary-800: #1E293B;
+	--color-secondary-900: #0F172A;
+	--color-secondary-950: #020617;
+
+	/* -------- NEUTRAL COLORS -------- */
+	--color-neutral-50: #FAFAFA;
+	--color-neutral-100: #F8FAFC;
+	--color-neutral-200: #F1F5F9;
+	--color-neutral-300: #CBD5E1;
+	--color-neutral-400: #A8B5C0;
+	--color-neutral-500: #6B7280;
+	--color-neutral-600: #4B5563;
+	--color-neutral-700: #64748B;
+	--color-neutral-800: #334155;
+	--color-neutral-900: #1F2937;
+	--color-neutral-950: #0F172A;
+
+	/* -------- SUCCESS -------- */
+	--color-success-50: #F0FDF4;
 	--color-success-100: #DCFCE7;
-	--color-success-400: #14532D;
+	--color-success-200: #BBF7D0;
+	--color-success-300: #86EFAC;
+	--color-success-400: #4ADE80;
+	--color-success-500: #22C55E;
+	--color-success-600: #16A34A;
+	--color-success-700: #15803D;
+	--color-success-800: #166534;
+	--color-success-900: #14532D;
+
+	/* -------- ERROR -------- */
+	--color-error-50: #FEF2F2;
 	--color-error-100: #FEE2E2;
-	--color-error-400: #B91C1C;
+	--color-error-200: #FECACA;
+	--color-error-300: #FCA5A5;
+	--color-error-400: #F87171;
+	--color-error-500: #EF4444;
+	--color-error-600: #DC2626;
+	--color-error-700: #B91C1C;
+	--color-error-800: #991B1B;
+	--color-error-900: #7F1D1D;
 
-	--color-background: var(--color-grey-100);
-	--color-foreground: var(--color-secondary-400);
-	--color-primary: var(--color-primary-300);
-	--color-secondary: var(--color-secondary-300);
-	--color-tertiary: var(--color-grey-300);
-	
-	/*
-	--container-content: var(--wp--style--global--content-size);
-	--container-wide: var(--wp--style--global--wide-size); 
-	*/
+	/* -------- WARNING -------- */
+	--color-warning-50: #FFFBEB;
+	--color-warning-100: #FEF3C7;
+	--color-warning-200: #FDE68A;
+	--color-warning-300: #FCD34D;
+	--color-warning-400: #FBBF24;
+	--color-warning-500: #F59E0B;
+	--color-warning-600: #D97706;
+	--color-warning-700: #B45309;
+	--color-warning-800: #92400E;
+	--color-warning-900: #78350F;
 
-	/**
-	 * These are the default `font-family` theme variables included with
-     * Tailwind. You can update them below by adding custom fonts at the
-	 * beginning of each value.
-	 *
-	 * Default theme variables can be found in their entirety at the links
-	 * below, on GitHub or in Tailwind’s documentation, respectively:
-	 *
-	 * https://github.com/tailwindlabs/tailwindcss/blob/main/packages/tailwindcss/theme.css
-	 * https://tailwindcss.com/docs/theme#default-theme-variable-reference
-	 */
+	/* -------- INFO -------- */
+	--color-info-50: #EFF6FF;
+	--color-info-100: #DBEAFE;
+	--color-info-200: #BFDBFE;
+	--color-info-300: #93C5FD;
+	--color-info-400: #60A5FA;
+	--color-info-500: #3B82F6;
+	--color-info-600: #2563EB;
+	--color-info-700: #1D4ED8;
+	--color-info-800: #1E40AF;
+	--color-info-900: #1E3A8A;
+
+	/* -------- SEMANTIC ALIASES -------- */
+	/* primary-900 (#007DA1) = 4.68:1 contrast vs white = WCAG AA ✓ */
+	--color-primary: var(--color-primary-900);
+	--color-secondary: var(--color-secondary-800);
+	--color-tertiary: var(--color-neutral-700);
+	--color-background: var(--color-neutral-50);
+	--color-foreground: var(--color-secondary-900);
+
+	/* -------- FONTS -------- */
 	--font-headings: "Poppins", sans-serif, ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 	--font-body: "Nunito Sans", sans-serif, ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 	--font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
 	--font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-
-	/**
-	 * Add your theme below:
-	 */
 }

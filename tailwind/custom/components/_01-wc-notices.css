@@ -1,4 +1,4 @@
-/**
+﻿/**
  * WooCommerce Notice Banners
  * Covers: message, info, error banners + icons + inner content wrappers
  */
@@ -10,7 +10,7 @@
 }
 
 .woocommerce-message {
-	@apply text-success-400 border-l-success-400 bg-success-100;
+	@apply text-success-800 border-l-success-800 bg-success-100;
 }
 
 .woocommerce-info {
@@ -18,7 +18,7 @@
 }
 
 .woocommerce-error {
-	@apply text-error-400! border-l-error-400 bg-error-100;
+	@apply text-error-700! border-l-error-700 bg-error-100;
 }
 
 .wc-message-icon,
@@ -48,12 +48,12 @@
 	.button.wc-backward,
 	a.restore-item,
 	a {
-		@apply ms-auto h-auto bg-secondary hover:bg-secondary-400 active:bg-secondary-400 focus:bg-secondary-400 text-background! normal-case text-base px-5 py-2 rounded-lg;
+		@apply ms-auto h-auto bg-secondary hover:bg-secondary-900 active:bg-secondary-900 focus:bg-secondary-900 text-background! normal-case text-base px-5 py-2 rounded-lg;
 	}
 }
 
 a.button.wc-backward {
-	@apply inline-block ms-auto h-auto bg-secondary hover:bg-secondary-400 active:bg-secondary-400 focus:bg-secondary-400 text-background! normal-case text-base px-5 py-2 rounded-lg;
+	@apply inline-block ms-auto h-auto bg-secondary hover:bg-secondary-900 active:bg-secondary-900 focus:bg-secondary-900 text-background! normal-case text-base px-5 py-2 rounded-lg;
 }
 
 .wc-error-inner {
@@ -68,11 +68,11 @@ a.button.wc-backward {
 
 		::marker,
 		strong {
-			@apply text-error-400!;
+			@apply text-error-700!;
 		}
 
 		a {
-			@apply text-error-400! p-0 bg-transparent! hover:bg-transparent active:bg-transparent focus:bg-transparent;
+			@apply text-error-700! p-0 bg-transparent! hover:bg-transparent active:bg-transparent focus:bg-transparent;
 		}
 	}
 }

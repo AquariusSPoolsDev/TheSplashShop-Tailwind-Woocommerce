@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 /**
  * Template part for displaying the footer content
@@ -18,8 +18,8 @@ $is_minimal_page = is_checkout() ||
 <footer id="colophon" class="<?php echo $is_minimal_page ? 'shopchop-footer-minimal' : 'shopchop-footer-normal'; ?>">
 	<?php if ($is_minimal_page) : ?>
 		<div class="text-center text-sm container mx-auto px-6 md:px-10 lg:px-16 pt-4 pb-8">
-			&copy; <?php echo date("Y"); ?> <a class="underline! transition-all hover:no-underline! active:no-underline! focus:no-underline! text-primary-400 font-semibold" href="<?php echo esc_url(home_url('/')); ?>" rel="home"><?php bloginfo('name'); ?></a>. All Rights Reserved.<br>
-			Website developed by <a class="underline! transition-all hover:no-underline! active:no-underline! focus:no-underline! text-primary-400 font-semibold" href="https://usoppii.my/" target="_blank" rel="noreferrer">Usoppii</a>.
+			&copy; <?php echo date("Y"); ?> <a class="underline! transition-all hover:no-underline! active:no-underline! focus:no-underline! text-primary-900 font-semibold" href="<?php echo esc_url(home_url('/')); ?>" rel="home"><?php bloginfo('name'); ?></a>. All Rights Reserved.<br>
+			Website developed by <a class="underline! transition-all hover:no-underline! active:no-underline! focus:no-underline! text-primary-900 font-semibold" href="https://usoppii.my/" target="_blank" rel="noreferrer">Usoppii</a>.
 		</div>
 	<?php else : ?>
 		<div class="container mx-auto px-6 md:px-10 lg:px-16 py-12">
@@ -69,7 +69,7 @@ $is_minimal_page = is_checkout() ||
 					<?php endif; ?>
 				</div>
 			</div>
-			<div class="border-t border-t-grey-200 mt-6 pt-6 lg:mt-8 lg:pt-8 flex flex-wrap flex-col lg:flex-row justify-center lg:justify-between gap-8 lg:gap-12">
+			<div class="border-t border-t-neutral-300 mt-6 pt-6 lg:mt-8 lg:pt-8 flex flex-wrap flex-col lg:flex-row justify-center lg:justify-between gap-8 lg:gap-12">
 				<div class="legal-copyright">
 					<?php if (is_active_sidebar('footer-content-3')) : ?>
 						<?php dynamic_sidebar('footer-content-3'); ?>
