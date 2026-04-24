@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /**
  * Order Downloads.
  *
@@ -37,7 +37,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		*/ ?>
 		<tbody class="flex flex-col w-full flex-wrap gap-4 lg:gap-6">
 			<?php foreach ( $downloads as $download ) : ?>
-				<tr class="border border-grey-200 p-4 rounded-xl">
+				<tr class="border border-neutral-300 p-4 rounded-xl">
 					<td class="w-full flex gap-3" data-title="download-row">
 						<div class="download-file-product-image wc-product-img shrink-0">
 							<?php 

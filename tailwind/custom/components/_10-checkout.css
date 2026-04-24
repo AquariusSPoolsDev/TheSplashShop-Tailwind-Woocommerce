@@ -1,4 +1,4 @@
-/**
+﻿/**
  * WooCommerce Classic Checkout
  * Covers: coupon/login toggles, billing/shipping fields, order review,
  *         payment selection (styles shared via _00-shared.css)
@@ -7,7 +7,7 @@
 .classic-checkout {
 	.checkout_coupon,
 	.woocommerce-form-login {
-		@apply border border-grey-200 rounded-xl p-4 lg:p-6 flex flex-wrap gap-4 overflow-hidden mb-8;
+		@apply border border-neutral-300 rounded-xl p-4 lg:p-6 flex flex-wrap gap-4 overflow-hidden mb-8;
 
 		.form-row {
 			@apply my-0 first:grow;
@@ -17,7 +17,7 @@
 			}
 
 			.coupon-error-notice {
-				@apply text-sm italic text-error-400;
+				@apply text-sm italic text-error-700;
 			}
 		}
 
@@ -43,7 +43,7 @@
 			.lost_password {
 				@apply text-center mt-2;
 
-				a { @apply underline! text-primary-400; }
+				a { @apply underline! text-primary-900; }
 			}
 		}
 	}
@@ -73,7 +73,7 @@
 				input, select, textarea { @apply max-w-full; }
 
 				.checkout-inline-error-message {
-					@apply text-sm mt-0.5 text-error-400;
+					@apply text-sm mt-0.5 text-error-700;
 				}
 			}
 
@@ -85,7 +85,7 @@
 					@apply inline-flex items-center cursor-pointer;
 
 					input[type="checkbox"] {
-						@apply focus:ring-2 focus:ring-primary-400 focus:ring-offset-1 rounded-sm;
+						@apply focus:ring-2 focus:ring-primary-900 focus:ring-offset-1 rounded-sm;
 					}
 				}
 			}
@@ -95,7 +95,7 @@
 			@apply col-span-full md:col-span-1 lg:col-span-2;
 
 			.order-review-table-wrapper {
-				@apply border bg-white border-grey-200 rounded-lg overflow-hidden;
+				@apply border bg-white border-neutral-300 rounded-lg overflow-hidden;
 
 				table.shop_table {
 					@apply w-full block p-4;
@@ -116,13 +116,13 @@
 
 							.shopchop-item-qty,
 							.variation-meta {
-								@apply text-xs md:text-sm text-grey-300;
+								@apply text-xs md:text-sm text-neutral-700;
 							}
 						}
 					}
 
 					tfoot {
-						@apply flex flex-col gap-1.5 pt-4 mt-4 border-t border-t-grey-200;
+						@apply flex flex-col gap-1.5 pt-4 mt-4 border-t border-t-neutral-300;
 
 						tr {
 							@apply flex gap-4 justify-between;

@@ -1,4 +1,4 @@
-/**
+﻿/**
  * ShopChop Toast Notifications
  */
 
@@ -13,7 +13,7 @@
 		@apply opacity-100 translate-y-0 pointer-events-auto;
 	}
 
-	&.shopchop-toast--error   { @apply bg-error-400; }
-	&.shopchop-toast--success { @apply bg-success-400; }
-	&.shopchop-toast--info    { @apply bg-primary-400; }
+	&.shopchop-toast--error   { @apply bg-error-700; }
+	&.shopchop-toast--success { @apply bg-success-700; }
+	&.shopchop-toast--info    { @apply bg-primary-900; }
 }

@@ -797,9 +797,9 @@ function shopchop_add_next_steps( $order_id ) {
 			<li><strong>Track Your Package:</strong> Once dispatched, a tracking number will be sent to you to monitor your delivery status.</li>
 			<li>
 				<strong>Need Assistance?</strong> Contact us through
-				<a href="https://wa.me/" class="underline! font-bold text-primary-400" target="_blank" rel="noreferrer">WhatsApp</a>
+				<a href="https://wa.me/" class="underline! font-bold text-primary-900" target="_blank" rel="noreferrer">WhatsApp</a>
 				or email us at
-				<a href="mailto:<?php echo esc_attr( get_option( 'woocommerce_email_from_address' ) ); ?>" class="underline! font-bold text-primary-400" rel="noreferrer"><?php echo esc_html( get_option( 'woocommerce_email_from_address' ) ); ?></a>
+				<a href="mailto:<?php echo esc_attr( get_option( 'woocommerce_email_from_address' ) ); ?>" class="underline! font-bold text-primary-900" rel="noreferrer"><?php echo esc_html( get_option( 'woocommerce_email_from_address' ) ); ?></a>
 				with your Order ID: <strong><?php echo esc_html( $order->get_order_number() ); ?></strong>
 			</li>
 		</ul>

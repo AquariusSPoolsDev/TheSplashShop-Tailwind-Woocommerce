@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 /**
  * Checkout billing information form
@@ -52,10 +52,10 @@ defined('ABSPATH') || exit;
 			<p class="form-row form-row-wide create-account">
 				<label class="woocommerce-form__label woocommerce-form__label-for-checkbox checkbox">
 					<input class="sr-only peer woocommerce-form__input woocommerce-form__input-checkbox input-checkbox" id="createaccount" <?php checked((true === $checkout->get_value('createaccount') || (true === apply_filters('woocommerce_create_account_default_checked', false))), true); ?> type="checkbox" name="createaccount" value="1" />
-					<span class="shrink-0 relative w-13 h-7 bg-grey-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary-100 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-grey-200 after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-background after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-primary-400"></span>
+					<span class="shrink-0 relative w-13 h-7 bg-neutral-300 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary-100 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-neutral-300 after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-background after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-primary-900"></span>
 					<span class="select-none ms-4 block">
 						<span class="block font-semibold text-2xl lg:text-3xl font-headings"><?php esc_html_e('Create an account?', 'woocommerce'); ?></span>
-						<span class="block text-sm font-body text-grey-300 font-normal mt-0.5"><?php esc_html_e('Join as a member for instant order tracking and exclusive future benefits.', 'woocommerce'); ?></span>
+						<span class="block text-sm font-body text-neutral-700 font-normal mt-0.5"><?php esc_html_e('Join as a member for instant order tracking and exclusive future benefits.', 'woocommerce'); ?></span>
 					</span>
 				</label>
 			</p>

@@ -1,4 +1,4 @@
-/**
+﻿/**
  * YITH WooCommerce Wishlist
  *
  * Setup:
@@ -32,7 +32,7 @@
 			}
 
 			li {
-				@apply flex flex-col gap-4 p-4 my-4 bg-white border border-grey-200 rounded-lg w-full text-sm;
+				@apply flex flex-col gap-4 p-4 my-4 bg-white border border-neutral-300 rounded-lg w-full text-sm;
 
 				.item-wrapper {
 					@apply mb-0 flex w-full;
@@ -52,7 +52,7 @@
 							@apply my-0;
 
 							a {
-								@apply text-lg font-semibold text-primary-400 line-clamp-1;
+								@apply text-lg font-semibold text-primary-900 line-clamp-1;
 							}
 						}
 
@@ -63,11 +63,11 @@
 								@apply inline-flex items-center flex-wrap gap-2;
 
 								.regular {
-									@apply text-grey-400 text-xs font-light;
+									@apply text-neutral-800 text-xs font-light;
 								}
 
 								.discount {
-									@apply px-2 py-0.5 rounded-4xl text-xs font-normal text-grey-100 bg-primary-400;
+									@apply px-2 py-0.5 rounded-4xl text-xs font-normal text-neutral-100 bg-primary-900;
 								}
 
 								.sale {}
@@ -78,18 +78,18 @@
 							span {
 								@apply inline-block px-2.5 py-0.5 rounded-full text-sm font-medium;
 
-								&.wishlist-in-stock    { @apply bg-success-100 text-success-400; }
-								&.wishlist-out-of-stock { @apply bg-error-100 text-error-400; }
+								&.wishlist-in-stock    { @apply bg-success-100 text-success-800; }
+								&.wishlist-out-of-stock { @apply bg-error-100 text-error-700; }
 							}
 						}
 					}
 				}
 
 				.additional-info-wrapper {
-					@apply border-t border-t-grey-200 pt-4 flex flex-wrap gap-3 justify-between;
+					@apply border-t border-t-neutral-300 pt-4 flex flex-wrap gap-3 justify-between;
 
 					.product-add-to-wishlist {
-						@apply text-grey-400 italic text-xs;
+						@apply text-neutral-800 italic text-xs;
 					}
 
 					.wcwl-action-buttons {
@@ -103,11 +103,11 @@
 							@apply inline-flex! px-3 py-1 border-2 font-normal bg-transparent transition-all rounded-lg! mb-0!;
 
 							&.add_to_cart {
-								@apply text-primary-400 border-primary-400 hover:bg-primary-100 focus:bg-primary-100 active:bg-primary-100;
+								@apply text-primary-900 border-primary-900 hover:bg-primary-100 focus:bg-primary-100 active:bg-primary-100;
 							}
 
 							&.remove_from_wishlist {
-								@apply text-error-400 border-error-400 hover:bg-error-100 focus:bg-error-100 active:bg-error-100;
+								@apply text-error-700 border-error-700 hover:bg-error-100 focus:bg-error-100 active:bg-error-100;
 							}
 						}
 					}
@@ -122,7 +122,7 @@
 
 				tr {
 					&.wishlist-normal-full {
-						@apply flex gap-4 p-6 bg-white border border-grey-200 rounded-lg w-full text-base;
+						@apply flex gap-4 p-6 bg-white border border-neutral-300 rounded-lg w-full text-base;
 
 						td {
 							@apply p-0 text-foreground;
@@ -141,7 +141,7 @@
 
 								.product-name {
 									a {
-										@apply text-xl font-semibold text-primary-400 line-clamp-1;
+										@apply text-xl font-semibold text-primary-900 line-clamp-1;
 									}
 								}
 
@@ -152,11 +152,11 @@
 										@apply inline-flex items-center flex-wrap gap-2;
 
 										.regular {
-											@apply text-grey-300 text-sm font-light;
+											@apply text-neutral-700 text-sm font-light;
 										}
 
 										.discount {
-											@apply px-2 py-0.5 rounded-4xl text-xs font-normal text-grey-100 bg-primary-400;
+											@apply px-2 py-0.5 rounded-4xl text-xs font-normal text-neutral-100 bg-primary-900;
 										}
 
 										.sale {}
@@ -167,8 +167,8 @@
 									span {
 										@apply inline-block px-2.5 py-0.5 rounded-full text-sm font-medium;
 
-										&.wishlist-in-stock     { @apply bg-success-100 text-success-400; }
-										&.wishlist-out-of-stock { @apply bg-error-100 text-error-400; }
+										&.wishlist-in-stock     { @apply bg-success-100 text-success-800; }
+										&.wishlist-out-of-stock { @apply bg-error-100 text-error-700; }
 									}
 								}
 							}
@@ -177,15 +177,15 @@
 								@apply flex flex-col;
 
 								.dateadded {
-									@apply text-sm text-grey-300 mb-2;
+									@apply text-sm text-neutral-700 mb-2;
 								}
 
 								a.add_to_cart {
-									@apply inline-flex! px-4 py-1 text-primary-400 border-2 border-primary-400 bg-transparent transition-all rounded-lg! hover:bg-primary-100 focus:bg-primary-100 active:bg-primary-100;
+									@apply inline-flex! px-4 py-1 text-primary-900 border-2 border-primary-900 bg-transparent transition-all rounded-lg! hover:bg-primary-100 focus:bg-primary-100 active:bg-primary-100;
 								}
 
 								a.remove_from_wishlist {
-									@apply inline-flex! text-error-400 underline! text-sm underline-offset-4 transition-all hover:no-underline! active:no-underline! focus:no-underline!;
+									@apply inline-flex! text-error-700 underline! text-sm underline-offset-4 transition-all hover:no-underline! active:no-underline! focus:no-underline!;
 								}
 							}
 						}

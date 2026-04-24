@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 /**
  * Checkout shipping information form
@@ -25,10 +25,10 @@ defined('ABSPATH') || exit;
 		<h3 id="ship-to-different-address">
 			<label class="woocommerce-form__label woocommerce-form__label-for-checkbox checkbox">
 				<input id="ship-to-different-address-checkbox" class="sr-only peer woocommerce-form__input woocommerce-form__input-checkbox input-checkbox" <?php checked(apply_filters('woocommerce_ship_to_different_address_checked', 'shipping' === get_option('woocommerce_ship_to_destination') ? 1 : 0), 1); ?> type="checkbox" name="ship_to_different_address" value="1" />
-				<span class="shrink-0 relative w-13 h-7 bg-grey-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary-100 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-grey-200 after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-background after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-primary-400"></span>
+				<span class="shrink-0 relative w-13 h-7 bg-neutral-300 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary-100 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-neutral-300 after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-background after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-primary-900"></span>
 				<span class="select-none ms-4 block">
 					<span class="block"><?php esc_html_e('Ship to a different address?', 'woocommerce'); ?></span>
-					<span class="block text-sm font-body text-grey-300 font-normal mt-0.5"><?php esc_html_e('We\'ll deliver your order to this address.', 'woocommerce'); ?></span>
+					<span class="block text-sm font-body text-neutral-700 font-normal mt-0.5"><?php esc_html_e('We\'ll deliver your order to this address.', 'woocommerce'); ?></span>
 				</span>
 			</label>
 		</h3>

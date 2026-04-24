@@ -283,36 +283,50 @@
 	});
 
 	/* =========================================================================
-        2. Gallery Thumbnail Slider  (FlexSlider)
+        2. Product Gallery  (SwiperJS)
     ========================================================================= */
-	ShopChop.GalleryThumbs = {
-		slide() {
-			const $container = $('.flex-control-nav.flex-control-thumbs');
-			const $active = $container.find('img.flex-active').parent('li');
-			if (!$active.length) return;
-
-			const targetScroll =
-				$active.position().left +
-				$container.scrollLeft() -
-				$container.width() / 2 +
-				$active.width() / 2;
-
-			$container.animate({ scrollLeft: targetScroll }, 300);
-		},
-
+	ShopChop.ProductGallery = {
 		init() {
-			const { slide } = ShopChop.GalleryThumbs;
-
-			// Thumbnail click
-			$(document).on('click', '.flex-control-nav img', () =>
-				setTimeout(slide, 50)
+			const galleryEl = document.querySelector(
+				'.woocommerce-product-gallery'
 			);
+			if (!galleryEl) return;
 
-			// Main slider arrow navigation
-			$('.woocommerce-product-gallery').on('after', slide);
+			const mainEl = galleryEl.querySelector('.splashshop-gallery-main');
+			const thumbsEl = galleryEl.querySelector(
+				'.splashshop-gallery-thumbs'
+			);
+			if (!mainEl) return;
 
-			// Initial position on load
-			$(window).on('load', slide);
+			let thumbsSwiper = null;
+			if (thumbsEl) {
+				thumbsSwiper = new Swiper(thumbsEl, {
+					slidesPerView: 'auto',
+					spaceBetween: 8,
+					watchSlidesProgress: true,
+					freeMode: true,
+				});
+			}
+
+			new Swiper(mainEl, {
+				spaceBetween: 0,
+				navigation: thumbsEl
+					? {
+							nextEl: mainEl.querySelector(
+								'.swiper-button-next'
+							),
+							prevEl: mainEl.querySelector(
+								'.swiper-button-prev'
+							),
+						}
+					: false,
+				thumbs: thumbsSwiper ? { swiper: thumbsSwiper } : undefined,
+				on: {
+					afterInit() {
+						galleryEl.style.opacity = '1';
+					},
+				},
+			});
 		},
 	};
 
@@ -1057,7 +1071,7 @@
         Boot – initialise all modules on DOM ready
     ========================================================================= */
 	$(function () {
-		ShopChop.GalleryThumbs.init();
+		ShopChop.ProductGallery.init();
 		ShopChop.CartButton.init();
 		ShopChop.ReviewsPagination.init();
 		ShopChop.ShopPagination.init();

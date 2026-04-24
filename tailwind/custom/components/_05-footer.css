@@ -1,4 +1,4 @@
-/**
+﻿/**
  * ShopChop Footer — Minimal & Normal variants
  */
 
@@ -12,7 +12,7 @@
 }
 
 .shopchop-footer-normal {
-	@apply bg-secondary text-grey-200;
+	@apply bg-secondary text-neutral-300;
 
 	.footer-brand {
 		p {
@@ -21,7 +21,7 @@
 	}
 
 	.wp-block-social-link {
-		@apply bg-primary-300 text-background transition-all rounded-sm transform-none! hover:bg-primary-400 active:bg-primary-400 focus:bg-primary-400;
+		@apply bg-primary-700 text-background transition-all rounded-sm transform-none! hover:bg-primary-900 active:bg-primary-900 focus:bg-primary-900;
 	}
 
 	h5 {

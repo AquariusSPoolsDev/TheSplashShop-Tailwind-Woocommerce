@@ -1,4 +1,4 @@
-{
+﻿{
 	"$schema": "https://schemas.wp.org/trunk/theme.json",
 	"version": 3,
 	"settings": {
@@ -45,12 +45,12 @@
 					"name": "Secondary Light"
 				},
 				{
-					"slug": "grey",
+					"slug": "neutral",
 					"color": "#64748B",
 					"name": "Grey"
 				},
 				{
-					"slug": "grey-light",
+					"slug": "neutral-light",
 					"color": "#CBD5E1",
 					"name": "Grey Light"
 				},

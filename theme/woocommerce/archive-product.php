@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 /**
  * The Template for displaying product archives, including the main shop page which is a post type archive
@@ -87,7 +87,7 @@ if (woocommerce_product_loop()) {
 
 			woocommerce_product_loop_end();
 
-			echo '<hr class="my-6 border-grey-200">';
+			echo '<hr class="my-6 border-neutral-300">';
 		}
 
 		/* ---------- Products ---------- */

@@ -1,4 +1,4 @@
-/**
+﻿/**
  * WooCommerce My Account
  * Covers: dashboard, navigation, addresses, edit account, orders list, order detail
  */
@@ -8,7 +8,7 @@
 
 	.woocommerce-MyAccount-navigation {
 		ul {
-			@apply p-0 m-0 max-md:p-2 max-md:flex max-md:gap-2 max-md:overflow-x-auto max-md:border-2 max-md:border-grey-200 max-md:rounded-xl max-md:snap-x max-md:scroll-smooth md:block;
+			@apply p-0 m-0 max-md:p-2 max-md:flex max-md:gap-2 max-md:overflow-x-auto max-md:border-2 max-md:border-neutral-300 max-md:rounded-xl max-md:snap-x max-md:scroll-smooth md:block;
 		}
 
 		li {
@@ -16,15 +16,15 @@
 		}
 
 		a {
-			@apply w-max px-6.5 py-3 md:px-4 md:border-l-4 md:border-l-transparent md:w-full block font-medium text-grey-300 transition-all hover:text-foreground active:text-foreground focus:text-foreground;
+			@apply w-max px-6.5 py-3 md:px-4 md:border-l-4 md:border-l-transparent md:w-full block font-medium text-neutral-700 transition-all hover:text-foreground active:text-foreground focus:text-foreground;
 
 			&:hover {
-				@apply md:text-primary-400 md:bg-primary-100 md:px-4 md:border-l-4 md:border-l-primary-400 md:rounded-lg md:rounded-l-none;
+				@apply md:text-primary-900 md:bg-primary-100 md:px-4 md:border-l-4 md:border-l-primary-900 md:rounded-lg md:rounded-l-none;
 			}
 		}
 
 		.is-active a {
-			@apply max-md:shadow-sm rounded-xl text-foreground bg-white md:text-primary-400 md:bg-primary-100 md:px-4 md:border-l-4 md:border-l-primary-400 md:rounded-lg md:rounded-l-none;
+			@apply max-md:shadow-sm rounded-xl text-foreground bg-white md:text-primary-900 md:bg-primary-100 md:px-4 md:border-l-4 md:border-l-primary-900 md:rounded-lg md:rounded-l-none;
 		}
 	}
 
@@ -39,7 +39,7 @@
 		.woocommerce-Address,
 		.woocommerce-orders-table.account-orders-table>tbody>tr,
 		.account-order-details {
-			@apply p-4 lg:p-6 border bg-white border-grey-200 rounded-xl;
+			@apply p-4 lg:p-6 border bg-white border-neutral-300 rounded-xl;
 		}
 
 		h1 {
@@ -52,7 +52,7 @@
 			@apply text-xl lg:text-2xl mb-4;
 		}
 
-		hr { @apply my-8 lg:my-12 border-grey-200; }
+		hr { @apply my-8 lg:my-12 border-neutral-300; }
 
 		form p {
 			@apply flex flex-col mb-6;
@@ -67,12 +67,12 @@
 			@apply block rounded-full font-medium text-sm lg:text-base px-2.5 py-1 lg:px-4 lg:py-2;
 
 			&.status-pending    { @apply bg-amber-100 text-amber-800; }
-			&.status-processing { @apply bg-primary-100 text-primary-400; }
+			&.status-processing { @apply bg-primary-100 text-primary-900; }
 			&.status-completed  { @apply bg-emerald-100 text-emerald-800; }
 			&.status-on-hold    { @apply bg-amber-100 text-amber-800; }
-			&.status-cancelled  { @apply bg-grey-200/50 text-grey-400; }
+			&.status-cancelled  { @apply bg-neutral-300/50 text-neutral-800; }
 			&.status-refunded   { @apply bg-slate-100 text-slate-800; }
-			&.status-failed     { @apply bg-error-100 text-error-400; }
+			&.status-failed     { @apply bg-error-100 text-error-700; }
 		}
 
 		/* Dashboard */
@@ -98,11 +98,11 @@
 					}
 
 					hr {
-						@apply border-grey-200 my-6 lg:my-4;
+						@apply border-neutral-300 my-6 lg:my-4;
 					}
 
 					p {
-						@apply text-grey-300 text-sm;
+						@apply text-neutral-700 text-sm;
 					}
 				}
 
@@ -110,11 +110,11 @@
 					@apply flex flex-row gap-4 lg:gap-3 lg:flex-col text-center items-center;
 
 					.user-logout {
-						@apply h-auto px-8 lg:px-10 py-2 normal-case transition-all bg-transparent border-2 text-secondary-400 border-secondary-400 hover:bg-secondary-100 active:bg-secondary-100 focus:bg-secondary-100 text-base;
+						@apply h-auto px-8 lg:px-10 py-2 normal-case transition-all bg-transparent border-2 text-secondary-900 border-secondary-900 hover:bg-secondary-100 active:bg-secondary-100 focus:bg-secondary-100 text-base;
 					}
 
 					.admin-access {
-						@apply text-primary-400 underline! text-sm transition-all hover:no-underline! active:no-underline! focus:no-underline!;
+						@apply text-primary-900 underline! text-sm transition-all hover:no-underline! active:no-underline! focus:no-underline!;
 					}
 				}
 			}
@@ -128,14 +128,14 @@
 			}
 
 			p {
-				@apply text-grey-300 text-sm;
+				@apply text-neutral-700 text-sm;
 			}
 
 			.action-icon {
 				@apply w-20 h-20 rounded-full bg-primary-100 shrink-0 flex items-center justify-center;
 
 				svg {
-					@apply w-10 h-10 text-primary-400;
+					@apply w-10 h-10 text-primary-900;
 				}
 			}
 
@@ -156,7 +156,7 @@
 				h2 { @apply mb-0; }
 
 				.edit {
-					@apply rounded-lg px-3 py-1 text-sm transition-all bg-transparent border-2 text-secondary-400 border-secondary-400 hover:bg-secondary-100 active:bg-secondary-100 focus:bg-secondary-100 ms-auto;
+					@apply rounded-lg px-3 py-1 text-sm transition-all bg-transparent border-2 text-secondary-900 border-secondary-900 hover:bg-secondary-100 active:bg-secondary-100 focus:bg-secondary-100 ms-auto;
 				}
 			}
 		}
@@ -226,7 +226,7 @@
 					}
 
 					.order-product-details {
-						@apply py-4 border-y flex-col border-y-grey-200;
+						@apply py-4 border-y flex-col border-y-neutral-300;
 
 						.product-info-wrapper {
 							@apply flex gap-4;
@@ -244,11 +244,11 @@
 
 								.variation-meta,
 								.qty-multiplier {
-									@apply text-xs md:text-sm text-grey-300;
+									@apply text-xs md:text-sm text-neutral-700;
 								}
 
 								.price {
-									@apply text-base md:text-lg mt-auto text-primary-400;
+									@apply text-base md:text-lg mt-auto text-primary-900;
 								}
 							}
 						}
@@ -262,7 +262,7 @@
 						@apply justify-between items-center mt-4 lg:mt-6;
 
 						time {
-							@apply text-xs md:text-sm text-grey-300;
+							@apply text-xs md:text-sm text-neutral-700;
 						}
 
 						.order-actions-wrapper {
@@ -302,7 +302,7 @@
 					}
 
 					.order-date {
-						@apply block text-base font-medium text-grey-300;
+						@apply block text-base font-medium text-neutral-700;
 					}
 				}
 
@@ -313,7 +313,7 @@
 			.woocommerce-order-downloads,
 			.woocommerce-order-details,
 			.woocommerce-customer-details {
-				@apply pt-4 lg:pt-6 mt-4 lg:mt-6 border-t border-grey-200;
+				@apply pt-4 lg:pt-6 mt-4 lg:mt-6 border-t border-neutral-300;
 			}
 
 			.order-updates-wrapper {
@@ -324,7 +324,7 @@
 						@apply relative;
 
 						&::after {
-							@apply content-[''] absolute bg-error-400 w-4.5 h-4.5 -top-2 -right-2 border-2 border-white rounded-full;
+							@apply content-[''] absolute bg-error-700 w-4.5 h-4.5 -top-2 -right-2 border-2 border-white rounded-full;
 						}
 					}
 
@@ -332,7 +332,7 @@
 						@apply bg-teal-50 border border-teal-500 rounded-xl rounded-bl-none py-2.5 px-4 max-w-full w-fit whitespace-normal text-pretty;
 
 						.woocommerce-OrderUpdate-meta {
-							@apply text-xs text-grey-400;
+							@apply text-xs text-neutral-800;
 						}
 					}
 				}
@@ -372,12 +372,12 @@
 
 							.shopchop-item-content {
 								.item-title {
-									@apply text-primary-400 font-medium text-base md:text-lg line-clamp-1;
+									@apply text-primary-900 font-medium text-base md:text-lg line-clamp-1;
 								}
 
 								.variation-meta,
 								.shopchop-item-qty {
-									@apply block text-sm md:text-base text-grey-300 mt-1;
+									@apply block text-sm md:text-base text-neutral-700 mt-1;
 								}
 							}
 						}
@@ -389,7 +389,7 @@
 				}
 
 				tfoot {
-					@apply pt-4 mt-4 gap-1.5 border-t border-t-grey-200;
+					@apply pt-4 mt-4 gap-1.5 border-t border-t-neutral-300;
 
 					td {
 						@apply flex gap-x-1.5 items-baseline;
@@ -398,7 +398,7 @@
 							@apply px-2.5 py-1 inline-flex items-center normal-case! text-sm! md:text-base! font-medium border-secondary border-2 bg-transparent! text-secondary! hover:bg-secondary-100! cursor-pointer h-max!;
 
 							&.cancel {
-								@apply border-error-400! text-error-400! hover:bg-error-100!;
+								@apply border-error-700! text-error-700! hover:bg-error-100!;
 							}
 						}
 					}
