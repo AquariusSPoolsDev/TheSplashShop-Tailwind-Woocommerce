@@ -211,7 +211,7 @@ add_action( 'widgets_init', 'shopchop_widgets_init' );
  */
 function shopchop_scripts() {
 	wp_enqueue_style( 'shopchop-style', get_stylesheet_uri(), array(), SHOPCHOP_VERSION );
-	wp_enqueue_style( 'shopchop-fonts', 'https://fonts.bunny.net/css?family=be-vietnam-pro:100,200,300,400,500,600,700,800,900', array(), null );
+	wp_enqueue_style( 'shopchop-fonts', 'https://fonts.bunny.net/css?family=be-vietnam-pro:100,200,300,400,500,600,700,800,900|source-sans-3:200,300,400,500,600,700,800,900', array(), null );
 	wp_enqueue_script( 'shopchop-script', get_template_directory_uri() . '/js/script.min.js', array(), SHOPCHOP_VERSION, true );
 
 	if ( is_woocommerce() || is_front_page() || is_home() ) {
