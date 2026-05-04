@@ -4,12 +4,8 @@
 
 body.single-post {
 
-    .single-main-template {
-        @apply container mx-auto px-6 md:px-10 lg:px-16;
-
-        main#main {
-            @apply max-w-3xl mx-auto;
-        }
+    main#main {
+        @apply max-w-3xl mx-auto;
     }
 
     article.type-post {
@@ -20,25 +16,25 @@ body.single-post {
 
             /* [ CATEGORY ] */
             .entry-categories {
-                @apply flex flex-wrap gap-2 mb-3;
+                @apply flex flex-wrap gap-2 mb-4;
 
                 a {
-                    @apply bg-primary-100 text-primary-900 font-semibold px-3 py-0.5 rounded-full text-xs uppercase tracking-wide hover:bg-primary-200 transition-colors;
+                    @apply bg-primary-200 text-primary-950 font-semibold px-4.5 py-1 rounded-lg text-base uppercase tracking-wide hover:bg-primary-100 active:bg-primary-100 transition-colors;
                 }
             }
 
             /* [ TITLE ] */
             .entry-title {
-                @apply text-3xl lg:text-4xl font-extrabold text-secondary-900 mb-4 mx-0;
+                @apply text-2xl md:text-3xl lg:text-5xl font-bold text-secondary-900 mb-4 lg:mb-6;
             }
 
             /* [ AUTHOR ] [ DATE ] */
             .entry-byline {
-                @apply flex flex-wrap items-center gap-3 text-sm text-neutral-500 mb-3;
+                @apply flex flex-wrap items-center gap-4 text-sm md:text-base text-neutral-500 mb-4;
 
                 .entry-author {
-                    a {
-                        @apply flex items-center gap-2 text-secondary-800 font-medium hover:text-primary transition-colors;
+                    a.author-url {
+                        @apply flex items-center gap-2 text-secondary-800 font-medium hover:text-primary active:text-primary transition-colors;
 
                         img {
                             @apply rounded-full w-8 h-8 object-cover;
@@ -47,58 +43,57 @@ body.single-post {
                 }
 
                 .entry-date {
-                    @apply flex items-center gap-2 text-neutral-400;
-
-                    time {
-                        @apply text-neutral-500;
-                    }
-
-                    .date-separator {
-                        @apply text-neutral-300;
-                    }
+                    @apply flex items-center gap-2 text-neutral-500;
                 }
             }
 
-            /* [ TAGS ] */
             .entry-tags {
                 @apply flex flex-wrap gap-2;
 
                 a {
-                    @apply bg-neutral-100 border border-neutral-200 text-neutral-600 text-xs font-medium px-3 py-0.5 rounded-full hover:bg-neutral-200 transition-colors;
+                    @apply border border-neutral-300 bg-white text-neutral-800 text-sm lg:text-base font-medium px-4 py-1 rounded-lg hover:bg-neutral-200 active:bg-neutral-200 transition-colors;
                 }
             }
         }
 
         /* Hero image */
-        figure:first-of-type {
-            @apply mb-8 rounded-xl overflow-hidden;
+        .shopchop-post-thumbnail {
+            @apply mb-12 rounded-lg overflow-hidden;
 
             img {
-                @apply w-full aspect-video object-cover;
+                @apply w-full aspect-video object-cover hover:scale-105 active:scale-105 transition-transform;
             }
         }
 
         /* Content body */
         .entry-content {
-            @apply text-base lg:text-lg leading-relaxed text-secondary-900 mb-10;
+            @apply text-base md:text-lg leading-relaxed text-secondary-900 mb-10;
 
             /* Images inside content */
             figure.wp-block-image {
-                @apply my-8 rounded-xl overflow-hidden;
+                @apply my-8 rounded-lg overflow-hidden;
 
                 img {
-                    @apply w-full rounded-xl;
+                    @apply w-full aspect-video object-cover hover:scale-105 active:scale-105 transition-transform;
                 }
             }
 
             /* Separator */
             hr.wp-block-separator {
-                @apply border-neutral-200 my-8;
+                @apply border-neutral-300 my-8;
             }
 
             /* Blockquote */
             blockquote.wp-block-quote {
-                @apply border-l-4 border-primary-400 pl-5 my-8 text-neutral-600 italic;
+                @apply pl-6;
+
+                p {
+                    @apply mt-0 mb-4 text-neutral-800;
+                }
+
+                cite {
+                    @apply before:content-['—_'] italic text-sm text-neutral-500;
+                }
             }
 
             /* Tables */
@@ -106,59 +101,62 @@ body.single-post {
                 @apply my-8 overflow-x-auto;
 
                 table {
-                    @apply w-full text-sm border-collapse;
+                    @apply w-full border-collapse;
 
                     thead tr {
-                        @apply bg-primary-100 text-primary-900;
+                        @apply bg-primary-100 text-primary-950 font-medium;
                     }
 
                     th,
                     td {
-                        @apply px-4 py-2.5 border border-neutral-200 text-left;
+                        @apply px-5 py-2.5 border border-neutral-300 text-left;
+                    }
+
+                    tbody tr:nth-child(odd) {
+                        @apply bg-white hover:bg-neutral-50 active:bg-neutral-50;
                     }
 
                     tbody tr:nth-child(even) {
-                        @apply bg-neutral-50;
+                        @apply bg-neutral-50 hover:bg-neutral-50/50 active:bg-neutral-50/50;
                     }
                 }
             }
         }
 
         /* [ AUTHOR PORTFOLIO ] */
-        .entry-author-card {
-            @apply flex gap-4 items-start mt-10 p-5 bg-neutral-100 border border-neutral-200 rounded-xl;
+        .author-post-card {
+            @apply p-4 lg:p-6 bg-white hover:bg-neutral-100 active:bg-neutral-100 border border-neutral-300 rounded-lg flex items-center gap-4;
 
             .author-avatar {
-                @apply shrink-0;
+                @apply w-20 h-20 object-cover shrink-0;
 
                 img {
-                    @apply rounded-full w-16 h-16 object-cover;
+                    @apply rounded-full w-full h-full;
                 }
             }
 
-            .author-info {
+            .author-info-metadata {
                 @apply flex flex-col gap-1;
 
                 .author-label {
-                    @apply text-xs text-neutral-400 uppercase tracking-wide;
+                    @apply text-xs text-primary-950 uppercase tracking-wide;
                 }
 
                 .author-name {
-                    @apply text-base font-bold text-secondary-900 hover:text-primary transition-colors;
+                    @apply text-base font-bold text-neutral-800 group-hover:text-primary transition-colors;
                 }
 
                 .author-bio {
-                    @apply text-sm text-neutral-600 mt-1 leading-relaxed;
+                    @apply text-sm text-neutral-600 italic;
                 }
             }
         }
 
-        /* Footer — edit link only */
         .entry-footer {
             @apply mt-4 text-right;
 
             .post-edit-link {
-                @apply text-xs text-neutral-400 hover:text-primary;
+                @apply text-neutral-700 hover:text-primary;
             }
         }
     }

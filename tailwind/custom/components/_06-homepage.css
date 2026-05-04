@@ -29,7 +29,7 @@
 
 		.shopchop-brands-distributor {
 			h2.brands-heading {
-				@apply text-3xl lg:text-4xl font-bold text-center uppercase text-primary-900 mb-6;
+				@apply text-2xl md:text-3xl lg:text-4xl font-bold text-center uppercase text-primary-900 mb-6;
 			}
 
 			.brands-list {
@@ -51,7 +51,7 @@
 
 		.shopchop-categories-item {
 			h2.categories-heading {
-				@apply text-3xl lg:text-4xl font-bold text-primary-900 mb-6;
+				@apply text-2xl md:text-3xl lg:text-4xl font-bold text-primary-900 mb-6;
 			}
 
 			.categories-list {
@@ -74,11 +74,11 @@
 				}
 
 				.category-name {
-					@apply text-xl md:text-2xl font-semibold transition-all group-hover:text-primary-900 group-active:text-primary-900 group-focus:text-primary-900;
+					@apply text-lg md:text-xl lg:text-2xl font-semibold transition-all group-hover:text-primary-900 group-active:text-primary-900 group-focus:text-primary-900;
 				}
 
 				.category-count {
-					@apply text-sm lg:text-base font-normal text-neutral-700;
+					@apply text-sm md:text-base font-normal text-neutral-700;
 				}
 			}
 		}
@@ -88,7 +88,7 @@
 				@apply flex flex-wrap justify-between mb-4;
 
 				h2 {
-					@apply text-3xl lg:text-4xl font-bold text-primary-900 mb-2;
+					@apply text-2xl md:text-3xl lg:text-4xl font-bold text-primary-900 mb-2;
 				}
 
 				.products-button {
@@ -125,7 +125,7 @@
 						@apply p-2.5 md:p-4 flex flex-wrap items-start;
 
 						.woocommerce-loop-product__title {
-							@apply text-lg sm:text-xl md:text-2xl line-clamp-2 leading-snug font-medium mb-3 grow;
+							@apply text-base sm:text-lg md:text-xl lg:text-2xl line-clamp-2 leading-snug font-medium mb-3 grow;
 						}
 
 						.product-star-rating {
@@ -137,7 +137,7 @@
 						}
 
 						.price {
-							@apply text-base md:text-xl text-primary-900 w-full;
+							@apply text-base md:text-lg lg:text-xl text-primary-900 w-full;
 
 							.discount-price .regular {
 								@apply text-neutral-700 text-sm md:text-base font-normal;
@@ -175,7 +175,7 @@
 			@apply grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8;
 
 			h2 {
-				@apply text-3xl lg:text-4xl font-bold text-primary-900 mb-4;
+				@apply text-2xl md:text-3xl lg:text-4xl font-bold text-primary-900 mb-4;
 			}
 
 			.blog-posts-list {
@@ -186,11 +186,11 @@
 						@apply py-4 block;
 
 						.post-title {
-							@apply text-xl lg:text-2xl mb-2 font-semibold line-clamp-1 transition-all hover:underline! active:underline! focus:underline! underline-offset-4;
+							@apply text-lg md:text-xl lg:text-2xl mb-2 font-semibold line-clamp-1 transition-all hover:underline! active:underline! focus:underline! underline-offset-4;
 						}
 
 						.post-date {
-							@apply text-sm lg:text-base text-neutral-700;
+							@apply text-sm md:text-base text-neutral-700;
 						}
 					}
 				}

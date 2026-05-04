@@ -7,11 +7,11 @@
 	@apply text-center py-16;
 
 	.error-404-big {
-		@apply text-9xl font-extrabold text-primary-900 mb-2;
+		@apply text-6xl md:text-7xl lg:text-9xl font-extrabold text-primary-900 mb-2;
 	}
 
 	.error-404-heading {
-		@apply text-3xl lg:text-4xl font-medium text-primary-900 mb-5;
+		@apply text-2xl md:text-3xl lg:text-4xl font-medium text-primary-900 mb-5;
 	}
 
 	.error-404-buttons {
@@ -36,7 +36,7 @@
  */
 .page-title,
 .entry-title {
-	@apply mx-auto text-3xl lg:text-5xl font-extrabold mb-8;
+	@apply mx-auto text-2xl md:text-3xl lg:text-5xl font-extrabold mb-8;
 }
 
 /**

@@ -14,7 +14,7 @@
 		}
 
 		.woocommerce-order-received-title {
-			@apply text-3xl lg:text-4xl font-bold mb-2 text-primary-900;
+			@apply text-2xl md:text-3xl lg:text-4xl font-bold mb-2 text-primary-900;
 		}
 
 		.wc-order-icon {
