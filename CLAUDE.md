@@ -16,7 +16,7 @@ Running locally via **Local by Flywheel** at `c:\Users\muham\Local Sites\lcl26\a
 | JS bundler  | esbuild                                                        |
 | PHP linting | PHPCS                                                          |
 | JS linting  | ESLint + Prettier                                              |
-| Fonts       | Bunny Fonts — Poppins (headings), Nunito Sans (body)          |
+| Fonts       | Bunny Fonts — Be Vietnam Pro (headings + body)                |
 | Carousel    | Swiper v12 (CDN)                                               |
 | Lightbox    | GLightbox (CDN)                                                |
 | Zoom        | medium-zoom (CDN, product page only)                           |
