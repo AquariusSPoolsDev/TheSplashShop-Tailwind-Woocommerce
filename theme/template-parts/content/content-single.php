@@ -31,8 +31,8 @@
 			<div class="entry-byline">
 				<span class="entry-author">
 					<span class="sr-only"><?php esc_html_e( 'Posted by', 'shopchop' ); ?></span>
-					<span class="author vcard">
-						<a class="url fn n" href="<?php echo esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ); ?>">
+					<span class="author-meta">
+						<a class="author-url" href="<?php echo esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ); ?>">
 							<?php echo get_avatar( get_the_author_meta( 'ID' ), 32 ); ?>
 							<?php echo esc_html( get_the_author() ); ?>
 						</a>
@@ -97,21 +97,19 @@
 
 	<?php // [ AUTHOR PORTFOLIO ] ?>
 	<?php if ( 'post' === get_post_type() ) : ?>
-		<div class="entry-author-card">
+		<a href="<?php echo esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ); ?>" class="author-post-card group">
 			<div class="author-avatar">
 				<?php echo get_avatar( get_the_author_meta( 'ID' ), 64 ); ?>
 			</div>
-			<div class="author-info">
+			<div class="author-info-metadata">
 				<span class="author-label"><?php esc_html_e( 'Written by', 'shopchop' ); ?></span>
-				<a class="author-name" href="<?php echo esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ); ?>">
-					<?php echo esc_html( get_the_author() ); ?>
-				</a>
+				<span class="author-name"><?php echo esc_html( get_the_author() ); ?></span>
 				<?php $bio = get_the_author_meta( 'description' ); ?>
 				<?php if ( $bio ) : ?>
 					<p class="author-bio"><?php echo esc_html( $bio ); ?></p>
 				<?php endif; ?>
 			</div>
-		</div>
+		</a>
 	<?php endif; ?>
 
 	<footer class="entry-footer">

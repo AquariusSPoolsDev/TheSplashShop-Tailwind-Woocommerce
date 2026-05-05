@@ -1,6 +1,9 @@
 <?php
 /**
- * The template for displaying archive pages
+ * The template for displaying the blog posts index (Posts page)
+ *
+ * Used when a static front page is set and a Posts page is assigned
+ * under Settings > Reading.
  *
  * @link https://developer.wordpress.org/themes/basics/template-hierarchy/
  *
@@ -16,10 +19,7 @@ get_header();
 			<?php if ( have_posts() ) : ?>
 
 				<header class="archive-page-header">
-					<?php
-					the_archive_title( '<h1 class="archive-page-title">', '</h1>' );
-					the_archive_description( '<p class="archive-page-description">', '</p>' );
-					?>
+					<h1 class="archive-page-title"><?php single_post_title(); ?></h1>
 				</header>
 
 				<div class="archive-posts-grid">
@@ -44,7 +44,7 @@ get_header();
 
 			<?php endif; ?>
 
-	</main><!-- #main -->
+		</main><!-- #main -->
 </section><!-- #primary -->
 
 <?php

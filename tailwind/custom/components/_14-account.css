@@ -102,7 +102,7 @@
 					}
 
 					p {
-						@apply text-neutral-700 text-sm;
+						@apply text-neutral-700 text-base;
 					}
 				}
 
@@ -128,7 +128,7 @@
 			}
 
 			p {
-				@apply text-neutral-700 text-sm;
+				@apply text-neutral-700 text-base;
 			}
 
 			.action-icon {

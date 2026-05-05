@@ -81,7 +81,7 @@
 									}
 
 									.cart-item-variations {
-										@apply text-neutral-700 text-sm font-normal;
+										@apply text-neutral-700 text-base font-normal;
 									}
 								}
 
@@ -124,7 +124,7 @@
 								}
 
 								.product-price {
-									@apply w-full text-neutral-700 text-xs font-medium mb-1;
+									@apply w-full text-neutral-700 text-sm font-medium mb-1;
 								}
 
 								.product-subtotal {
@@ -142,7 +142,7 @@
 				@apply flex flex-wrap gap-3 justify-end;
 
 				.coupon-error-notice {
-					@apply w-full text-end italic text-error-700;
+					@apply w-full! text-end italic text-error-700;
 				}
 			}
 		}

@@ -24,27 +24,27 @@ if ( post_password_required() ) {
 	<?php
 	if ( have_comments() ) :
 		?>
-		<h2>
+		<h2><?php esc_html_e( 'Comments', 'shopchop' ); ?>
 			<?php
-			$shopchop_comment_count = get_comments_number();
-			if ( '1' === $shopchop_comment_count ) {
-				// phpcs:disable WordPress.Security.EscapeOutput.OutputNotEscaped
-				printf(
-					/* translators: 1: title. */
-					esc_html__( 'One comment on &ldquo;%1$s&rdquo;', 'shopchop' ),
-					get_the_title()
-				);
-				// phpcs:enable WordPress.Security.EscapeOutput.OutputNotEscaped
-			} else {
-				// phpcs:disable WordPress.Security.EscapeOutput.OutputNotEscaped
-				printf(
-					/* translators: 1: comment count number, 2: title. */
-					esc_html( _nx( '%1$s comment on &ldquo;%2$s&rdquo;', '%1$s comments on &ldquo;%2$s&rdquo;', $shopchop_comment_count, 'comments title', 'shopchop' ) ),
-					number_format_i18n( $shopchop_comment_count ),
-					get_the_title()
-				);
-				// phpcs:enable WordPress.Security.EscapeOutput.OutputNotEscaped
-			}
+			// $shopchop_comment_count = get_comments_number();
+			// if ( '1' === $shopchop_comment_count ) {
+			// 	// phpcs:disable WordPress.Security.EscapeOutput.OutputNotEscaped
+			// 	printf(
+			// 		/* translators: 1: title. */
+			// 		esc_html__( 'One comment on &ldquo;%1$s&rdquo;', 'shopchop' ),
+			// 		get_the_title()
+			// 	);
+			// 	// phpcs:enable WordPress.Security.EscapeOutput.OutputNotEscaped
+			// } else {
+			// 	// phpcs:disable WordPress.Security.EscapeOutput.OutputNotEscaped
+			// 	printf(
+			// 		/* translators: 1: comment count number, 2: title. */
+			// 		esc_html( _nx( '%1$s comment on &ldquo;%2$s&rdquo;', '%1$s comments on &ldquo;%2$s&rdquo;', $shopchop_comment_count, 'comments title', 'shopchop' ) ),
+			// 		number_format_i18n( $shopchop_comment_count ),
+			// 		get_the_title()
+			// 	);
+			// 	// phpcs:enable WordPress.Security.EscapeOutput.OutputNotEscaped
+			// }
 			?>
 		</h2>
 

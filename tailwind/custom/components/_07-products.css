@@ -62,7 +62,7 @@
 					}
 
 					.onsale {
-						@apply text-sm px-3 py-1;
+						@apply text-xs md:text-sm px-3 py-1;
 					}
 				}
 
@@ -70,7 +70,7 @@
 					@apply p-2.5 md:p-4 flex flex-wrap items-start;
 
 					.woocommerce-loop-product__title {
-						@apply text-base sm:text-lg md:text-xl lg:text-2xl line-clamp-2 leading-snug font-medium mb-3 grow;
+						@apply text-base sm:text-lg md:text-xl lg:text-2xl line-clamp-2 leading-snug font-medium mb-1.5 md:mb-2.5 lg:mb-3 grow;
 					}
 
 					.product-star-rating {
@@ -107,7 +107,7 @@
 			.button,
 			.added_to_cart,
 			.stock.coming-soon {
-				@apply flex-1 px-3.5 py-2.5 h-auto transition-all font-semibold text-center rounded-lg uppercase text-sm lg:text-base;
+				@apply flex-1 px-3.5 py-1.5 md:py-2.5 h-auto transition-all font-semibold text-center rounded-lg uppercase text-sm lg:text-base;
 			}
 
 			.button {
@@ -191,7 +191,7 @@
 	}
 
 	.out-of-stock-badge {
-		@apply top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-neutral-800/80 text-background font-semibold text-sm lg:text-lg rounded-full w-20 h-20 lg:w-24 lg:h-24 flex items-center text-center justify-center shadow-sm;
+		@apply top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-neutral-800/80 text-background font-semibold text-sm lg:text-lg rounded-full w-20 h-20 lg:w-24 lg:h-24 flex items-center text-center justify-center shadow-sm p-3;
 	}
 
 	.woocommerce-product-gallery__trigger {
@@ -203,7 +203,19 @@
 	}
 
 	.splashshop-gallery-main {
-		@apply overflow-hidden rounded-xl w-full;
+		@apply overflow-hidden rounded-xl w-full relative;
+
+		.swiper-button-prev,
+		.swiper-button-next {
+			@apply w-12 h-12 bg-primary text-white p-2 hover:bg-primary-950 active:bg-primary-950 transition-all;
+
+			.swiper-navigation-icon {
+				@apply w-6 h-6;
+			}
+		}
+
+		.swiper-button-prev {@apply left-0!;}
+		.swiper-button-next {@apply right-0!;}
 
 		.woocommerce-product-gallery__image {
 			@apply w-full h-full;
@@ -225,7 +237,7 @@
 			@apply w-auto cursor-pointer;
 
 			img {
-				@apply w-16 h-16 rounded-md border-2 border-transparent transition-all opacity-60 grayscale-50 object-cover;
+				@apply w-16 h-16 rounded-lg border-2 border-transparent transition-all opacity-60 grayscale-50 object-cover;
 			}
 
 			&.swiper-slide-thumb-active img {

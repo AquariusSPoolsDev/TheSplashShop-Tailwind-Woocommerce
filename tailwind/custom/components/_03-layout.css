@@ -35,7 +35,8 @@
  * Post title styles
  */
 .page-title,
-.entry-title {
+.entry-title,
+.archive-page-title {
 	@apply mx-auto text-2xl md:text-3xl lg:text-5xl font-extrabold mb-8;
 }
 
