@@ -68,11 +68,11 @@
 		@apply w-full lg:w-1/4 lg:pe-12 border-b border-b-neutral-300 lg:border-b-0 text-center pb-6 lg:pb-0;
 
 		.big-score {
-			@apply text-5xl lg:text-7xl font-bold;
+			@apply text-4xl md:text-5xl lg:text-7xl font-bold;
 		}
 
 		.score-out-of {
-			@apply text-xl lg:text-3xl text-neutral-700;
+			@apply text-lg md:text-xl lg:text-3xl text-neutral-700;
 		}
 
 		.total-reviews-label {
@@ -129,7 +129,7 @@
 
 		.stars {
 			a {
-				@apply -indent-[9999px] relative inline-block w-6 text-3xl text-neutral-300 transition-all;
+				@apply -indent-[9999px] relative inline-block w-6 text-2xl md:text-3xl text-neutral-300 transition-all;
 
 				&::before {
 					@apply content-["★"] absolute left-0 top-0 indent-0;

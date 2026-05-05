@@ -1,4 +1,5 @@
 <?php
+
 /**
  * The template for displaying all single posts
  *
@@ -9,42 +10,70 @@
 
 get_header();
 ?>
-<p>single.php (Main WordPress)</p>
-	<section id="primary" class="single-main-template">
-		<main id="main">
+<section id="primary" class="single-main-template">
+	<main id="main">
 
-			<?php
-			/* Start the Loop */
-			while ( have_posts() ) :
-				the_post();
-				get_template_part( 'template-parts/content/content', 'single' );
+		<?php
+		/* Start the Loop */
+		while (have_posts()) :
+			the_post();
+			get_template_part('template-parts/content/content', 'single');
 
-				if ( is_singular( 'post' ) ) {
-					// Previous/next post navigation.
-					the_post_navigation(
-						array(
-							'next_text' => '<span aria-hidden="true">' . __( 'Next Post', 'shopchop' ) . '</span> ' .
-								'<span class="sr-only">' . __( 'Next post:', 'shopchop' ) . '</span> <br/>' .
-								'<span>%title</span>',
-							'prev_text' => '<span aria-hidden="true">' . __( 'Previous Post', 'shopchop' ) . '</span> ' .
-								'<span class="sr-only">' . __( 'Previous post:', 'shopchop' ) . '</span> <br/>' .
-								'<span>%title</span>',
-						)
-					);
-				}
+			if (is_singular('post')) {
+				$prev_post = get_adjacent_post(false, '', true);
+				$next_post = get_adjacent_post(false, '', false);
 
-				// If comments are open, or we have at least one comment, load
-				// the comment template.
-				if ( comments_open() || get_comments_number() ) {
-					comments_template();
-				}
+				if ($prev_post || $next_post) : ?>
+					<nav class="post-navigation" aria-label="<?php esc_attr_e('Post navigation', 'shopchop'); ?>">
+						<div class="nav-links">
+							<?php if ($prev_post) :
+								$prev_thumb = get_the_post_thumbnail($prev_post, 'thumbnail');
+							?>
+								<a href="<?php echo esc_url(get_permalink($prev_post)); ?>" class="nav-post nav-prev group">
+									<div class="nav-post-image">
+										<?php if ($prev_thumb) : ?>
+											<?php echo $prev_thumb; ?>
+										<?php endif; ?>
+									</div>
+									<div class="nav-post-content">
+										<span class="nav-post-label"><?php esc_html_e('Previous Post', 'shopchop'); ?></span>
+										<span class="nav-post-title"><?php echo esc_html(get_the_title($prev_post)); ?></span>
+									</div>
+								</a>
+							<?php endif; ?>
 
-				// End the loop.
-			endwhile;
-			?>
+							<?php if ($next_post) :
+								$next_thumb = get_the_post_thumbnail($next_post, 'thumbnail');
+							?>
+								<a href="<?php echo esc_url(get_permalink($next_post)); ?>" class="nav-post nav-next group">
+									<div class="nav-post-image">
+										<?php if ($next_thumb) : ?>
+											<?php echo $next_thumb; ?>
+										<?php endif; ?>
+									</div>
+									<div class="nav-post-content">
+										<span class="nav-post-label"><?php esc_html_e('Next Post', 'shopchop'); ?></span>
+										<span class="nav-post-title"><?php echo esc_html(get_the_title($next_post)); ?></span>
+									</div>
+								</a>
+							<?php endif; ?>
+						</div>
+					</nav>
+		<?php endif;
+			}
 
-		</main><!-- #main -->
-	</section><!-- #primary -->
+			// If comments are open, or we have at least one comment, load
+			// the comment template.
+			if (comments_open() || get_comments_number()) {
+				comments_template();
+			}
+
+		// End the loop.
+		endwhile;
+		?>
+
+	</main><!-- #main -->
+</section><!-- #primary -->
 
 <?php
 get_footer();

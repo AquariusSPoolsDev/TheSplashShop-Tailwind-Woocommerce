@@ -16,7 +16,7 @@
 
 	.footer-brand {
 		p {
-			@apply text-2xl font-light mb-4;
+			@apply text-lg lg:text-2xl font-light mb-4;
 		}
 	}
 
@@ -25,7 +25,7 @@
 	}
 
 	h5 {
-		@apply text-background text-2xl font-semibold mb-4;
+		@apply text-background text-lg lg:text-2xl font-semibold mb-4;
 	}
 
 	ul.menu {

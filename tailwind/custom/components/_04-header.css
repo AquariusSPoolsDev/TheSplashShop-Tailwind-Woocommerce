@@ -199,6 +199,13 @@
 											@apply font-semibold text-base line-clamp-1;
 										}
 
+										dl.variation {
+											@apply flex flex-wrap gap-x-1 text-neutral-600;
+
+											dt, dd { @apply text-xs; }
+											dd p   { @apply m-0 inline; }
+										}
+
 										.quantity {
 											@apply text-neutral-800;
 										}
@@ -240,7 +247,7 @@
 				@apply hidden lg:block lg:relative;
 
 				.shopchop-account-trigger {
-					@apply flex gap-2 items-center cursor-pointer transition-all underline-offset-4 hover:text-primary-900 hover:underline! focus:text-primary-900 focus:underline!;
+					@apply flex gap-2 items-center cursor-pointer transition-all underline-offset-4 hover:text-primary-900 hover:underline! active:text-primary-900 active:underline! focus:text-primary-900 focus:underline!;
 
 					.user-icon {
 						@apply w-6 h-6;
@@ -539,8 +546,11 @@
 								@apply font-semibold text-base line-clamp-1;
 							}
 
-							.variation {
-								@apply flex flex-wrap gap-1;
+							dl.variation {
+								@apply flex flex-wrap gap-x-1 text-neutral-600;
+
+								dt, dd { @apply text-xs; }
+								dd p   { @apply m-0 inline; }
 							}
 
 							.quantity {

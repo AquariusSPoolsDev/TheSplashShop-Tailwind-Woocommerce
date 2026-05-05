@@ -173,38 +173,37 @@ function shopchop_html5_comment( $comment, $args, $depth ) {
 	<<?php echo esc_attr( $tag ); ?> id="comment-<?php comment_ID(); ?>" <?php comment_class( $comment->has_children ? 'parent' : '', $comment ); ?>>
 		<article id="div-comment-<?php comment_ID(); ?>" class="comment-body">
 			<footer class="comment-meta">
-				<div class="comment-author vcard">
+				<div class="author-avatar">
 					<?php if ( 0 !== $args['avatar_size'] ) echo get_avatar( $comment, $args['avatar_size'] ); ?>
-					<?php
-					$comment_author = get_comment_author_link( $comment );
-					if ( '0' === $comment->comment_approved && ! $show_pending_links ) {
-						$comment_author = get_comment_author( $comment );
-					}
-					printf(
-						/* translators: %s: Comment author link. */
-						wp_kses_post( __( '%s <span class="says">says:</span>', 'shopchop' ) ),
-						sprintf( '<b class="fn">%s</b>', wp_kses_post( $comment_author ) )
-					);
-					?>
-				</div><!-- .comment-author -->
-
-				<div class="comment-metadata">
-					<?php
-					printf(
-						'<a href="%s"><time datetime="%s">%s</time></a>',
-						esc_url( get_comment_link( $comment, $args ) ),
-						esc_attr( get_comment_time( 'c' ) ),
-						esc_html(
-							sprintf(
-								/* translators: 1: Comment date, 2: Comment time. */
-								__( '%1$s at %2$s', 'shopchop' ),
-								get_comment_date( '', $comment ),
-								get_comment_time()
+				</div>
+				<div class="author-comment-metadata">
+					<div class="author-name">
+						<?php
+						$comment_author = get_comment_author_link( $comment );
+						if ( '0' === $comment->comment_approved && ! $show_pending_links ) {
+							$comment_author = get_comment_author( $comment );
+						}
+						printf(wp_kses_post( $comment_author ));
+						?>
+					</div>
+					<div class="author-time">
+						<?php
+						printf(
+							'<a href="%s"><time datetime="%s">%s</time></a>',
+							esc_url( get_comment_link( $comment, $args ) ),
+							esc_attr( get_comment_time( 'c' ) ),
+							esc_html(
+								sprintf(
+									/* translators: 1: Comment date, 2: Comment time. */
+									__( '%1$s at %2$s', 'shopchop' ),
+									get_comment_date( '', $comment ),
+									get_comment_time()
+								)
 							)
-						)
-					);
-					edit_comment_link( __( 'Edit', 'shopchop' ), ' <span class="edit-link">', '</span>' );
-					?>
+						);
+						edit_comment_link( __( 'Edit', 'shopchop' ), ' <span class="edit-link">', '</span>' );
+						?>
+					</div>
 				</div><!-- .comment-metadata -->
 
 				<?php if ( '0' === $comment->comment_approved ) : ?>
@@ -1015,7 +1014,7 @@ function shopchop_get_mini_cart() {
 
 	ob_start();
 	woocommerce_mini_cart();
-	$mini_cart = ob_get_clean();
+	$mini_cart = str_replace( "\xEF\xBB\xBF", '', trim( ob_get_clean() ) );
 
 	wp_send_json_success( array(
 		'cart_html'     => $mini_cart,
@@ -1049,7 +1048,7 @@ function shopchop_remove_cart_item() {
 
 	ob_start();
 	woocommerce_mini_cart();
-	$mini_cart = ob_get_clean();
+	$mini_cart = str_replace( "\xEF\xBB\xBF", '', trim( ob_get_clean() ) );
 
 	wp_send_json_success( array(
 		'cart_html'     => $mini_cart,

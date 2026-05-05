@@ -196,7 +196,7 @@ if ( ! function_exists( 'shopchop_post_thumbnail' ) ) :
 		if ( is_singular() ) :
 			?>
 
-			<figure>
+			<figure class="shopchop-post-thumbnail">
 				<?php the_post_thumbnail(); ?>
 			</figure><!-- .post-thumbnail -->
 
@@ -204,7 +204,7 @@ if ( ! function_exists( 'shopchop_post_thumbnail' ) ) :
 		else :
 			?>
 
-			<figure>
+			<figure class="shopchop-post-thumbnail">
 				<a href="<?php the_permalink(); ?>" aria-hidden="true" tabindex="-1">
 					<?php the_post_thumbnail(); ?>
 				</a>

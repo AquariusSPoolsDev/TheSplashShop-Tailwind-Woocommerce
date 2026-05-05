@@ -1,0 +1,137 @@
+/**
+ * Blog Archive — post card grid, page header, pagination
+ */
+
+.archive-main-template {
+
+	.archive-page-header {
+		@apply mb-8;
+
+		.archive-page-title {
+			@apply mb-0;
+		}
+
+		.archive-page-description {
+			@apply text-base text-neutral-700 my-4;
+		}
+	}
+
+	/* ── Post grid ── */
+	.archive-posts-grid {
+		@apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6;
+	}
+
+	/* ── Post card ── */
+	article.archive-post-card {
+		@apply relative flex flex-col bg-white border border-neutral-300 rounded-xl overflow-hidden transition-all hover:border-primary active:border-primary;
+
+		/* Thumbnail */
+		.archive-card-thumbnail {
+			@apply overflow-hidden shrink-0;
+
+			a {
+				@apply block;
+			}
+
+			img {
+				@apply w-full aspect-video object-cover transition-transform group-hover:scale-105 group-active:scale-105;
+			}
+
+			.archive-card-no-image {
+				@apply w-full aspect-video bg-linear-to-br from-primary-100 to-primary-300 flex items-center justify-center;
+			}
+		}
+
+		/* Card body */
+		.archive-card-body {
+			@apply flex flex-col flex-1 gap-3 p-4 lg:p-5;
+
+			/* Categories */
+			.archive-card-categories {
+				@apply flex flex-wrap gap-1.5;
+
+				a {
+					@apply bg-primary-100 text-primary-950 font-semibold text-xs px-3 py-0.5 rounded-lg uppercase tracking-wide transition-colors hover:bg-primary-200 active:bg-primary-200;
+				}
+			}
+
+			/* Title — stretched link covers entire card */
+			.archive-card-title {
+				@apply text-lg md:text-xl font-semibold text-secondary-900 line-clamp-2 leading-snug transition-colors group-hover:text-primary group-active:text-primary;
+
+				a {
+					@apply after:absolute after:inset-0 after:content-[''];
+				}
+			}
+
+			/* Raise interactive elements above stretched link */
+			.archive-card-categories a,
+			.archive-card-readmore {
+				@apply relative z-1;
+			}
+
+			/* Byline: avatar + author + date */
+			.archive-card-byline {
+				@apply flex items-center gap-2 text-sm text-neutral-500;
+
+				img {
+					@apply w-7 h-7 rounded-full object-cover shrink-0;
+				}
+
+				.archive-card-author {
+					@apply font-medium text-neutral-700;
+				}
+
+				.archive-card-dot {
+					@apply text-neutral-400;
+				}
+
+				.archive-card-date {
+					@apply text-neutral-500;
+				}
+			}
+
+			/* Excerpt */
+			.archive-card-excerpt {
+				@apply text-sm text-neutral-600 leading-relaxed line-clamp-2 grow;
+			}
+
+			/* Read more */
+			.archive-card-readmore {
+				@apply mt-auto text-sm font-semibold text-primary flex items-center gap-1.5 transition-colors group-hover:text-primary-700 group-active:text-primary-700;
+			}
+		}
+	}
+
+	/* ── No posts found ── */
+	.archive-no-posts {
+		@apply col-span-full text-center py-16 text-neutral-500;
+	}
+
+	/* ── Pagination ── */
+	.archive-pagination {
+		@apply flex justify-center mt-12;
+
+		.nav-links {
+			@apply flex flex-nowrap items-stretch border border-neutral-300 rounded-lg overflow-hidden;
+
+			a,
+			span {
+				@apply flex items-center justify-center min-w-11 h-11 px-4 font-medium transition-all border-r border-neutral-300 last:border-r-0;
+			}
+
+			a {
+				@apply hover:bg-primary-100 active:bg-primary-100;
+			}
+
+			span.current {
+				@apply font-bold bg-primary text-background;
+			}
+
+			.prev,
+			.next {
+				@apply text-base lg:text-xl px-3;
+			}
+		}
+	}
+}

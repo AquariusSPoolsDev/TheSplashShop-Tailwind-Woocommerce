@@ -1,0 +1,347 @@
+/* =============================================================================
+   Blog — Single Post (type-post)
+   ============================================================================= */
+
+body.single-post {
+
+    main#main {
+        @apply max-w-3xl mx-auto;
+    }
+
+    article.type-post {
+
+        /* Header */
+        .entry-header {
+            @apply mb-6;
+
+            /* [ CATEGORY ] */
+            .entry-categories {
+                @apply flex flex-wrap gap-2 mb-4;
+
+                a {
+                    @apply bg-primary-200 text-primary-950 font-semibold px-4.5 py-1 rounded-lg text-base uppercase tracking-wide hover:bg-primary-100 active:bg-primary-100 transition-colors;
+                }
+            }
+
+            /* [ TITLE ] */
+            .entry-title {
+                @apply text-2xl md:text-3xl lg:text-5xl font-bold text-secondary-900 mb-4 lg:mb-6;
+            }
+
+            /* [ AUTHOR ] [ DATE ] */
+            .entry-byline {
+                @apply flex flex-wrap items-center gap-4 text-sm md:text-base text-neutral-500 mb-4;
+
+                .entry-author {
+                    a.author-url {
+                        @apply flex items-center gap-2 text-secondary-800 font-medium hover:text-primary active:text-primary transition-colors;
+
+                        img {
+                            @apply rounded-full w-8 h-8 object-cover;
+                        }
+                    }
+                }
+
+                .entry-date {
+                    @apply flex items-center gap-2 text-neutral-500;
+                }
+            }
+
+            .entry-tags {
+                @apply flex flex-wrap gap-2;
+
+                a {
+                    @apply border border-neutral-300 bg-white text-neutral-800 text-sm lg:text-base font-medium px-4 py-1 rounded-lg hover:bg-neutral-200 active:bg-neutral-200 transition-colors;
+                }
+            }
+        }
+
+        /* Hero image */
+        .shopchop-post-thumbnail {
+            @apply mb-12 rounded-lg overflow-hidden;
+
+            img {
+                @apply w-full aspect-video object-cover hover:scale-105 active:scale-105 transition-transform;
+            }
+        }
+
+        /* Content body */
+        .entry-content {
+            @apply text-base md:text-lg leading-relaxed text-secondary-900 mb-10;
+
+            /* Images inside content */
+            figure.wp-block-image {
+                @apply my-8 rounded-lg overflow-hidden;
+
+                img {
+                    @apply w-full aspect-video object-cover hover:scale-105 active:scale-105 transition-transform;
+                }
+            }
+
+            /* Separator */
+            hr.wp-block-separator {
+                @apply border-neutral-300 my-8;
+            }
+
+            /* Blockquote */
+            blockquote.wp-block-quote {
+                @apply pl-6;
+
+                p {
+                    @apply mt-0 mb-4 text-neutral-800;
+                }
+
+                cite {
+                    @apply before:content-['—_'] italic text-sm text-neutral-500;
+                }
+            }
+
+            /* Tables */
+            figure.wp-block-table {
+                @apply my-8 overflow-x-auto;
+
+                table {
+                    @apply w-full border-collapse;
+
+                    thead tr {
+                        @apply bg-primary-100 text-primary-950 font-medium;
+                    }
+
+                    th,
+                    td {
+                        @apply px-5 py-2.5 border border-neutral-300 text-left;
+                    }
+
+                    tbody tr:nth-child(odd) {
+                        @apply bg-white hover:bg-neutral-50 active:bg-neutral-50;
+                    }
+
+                    tbody tr:nth-child(even) {
+                        @apply bg-neutral-50 hover:bg-neutral-50/50 active:bg-neutral-50/50;
+                    }
+                }
+            }
+        }
+
+        /* [ AUTHOR PORTFOLIO ] */
+        .author-post-card {
+            @apply p-4 lg:p-6 mt-12 bg-white hover:bg-neutral-100 active:bg-neutral-100 border border-neutral-300 rounded-lg flex items-center gap-4;
+
+            .author-avatar {
+                @apply w-20 h-20 object-cover shrink-0;
+
+                img {
+                    @apply rounded-full w-full h-full;
+                }
+            }
+
+            .author-info-metadata {
+                @apply flex flex-col gap-1;
+
+                .author-label {
+                    @apply text-xs text-primary-950 uppercase tracking-wide;
+                }
+
+                .author-name {
+                    @apply text-base font-bold text-neutral-800 group-hover:text-primary transition-colors;
+                }
+
+                .author-bio {
+                    @apply text-sm text-neutral-600 italic;
+                }
+            }
+        }
+
+        .entry-footer {
+            @apply mt-4 text-right;
+
+            .post-edit-link {
+                @apply text-neutral-700 hover:text-primary;
+            }
+        }
+    }
+
+    /* Post navigation */
+    .post-navigation {
+        @apply my-12 py-8 border-y border-neutral-300;
+
+        .nav-links {
+            @apply flex flex-col md:flex-row gap-4;
+
+            .nav-post {
+                @apply flex items-center flex-1 bg-white border border-neutral-300 rounded-lg transition-all overflow-hidden hover:border-primary hover:bg-neutral-100 active:bg-neutral-100;
+
+                .nav-post-image {
+                    @apply shrink-0 h-full w-24 aspect-square overflow-hidden bg-linear-to-b from-primary-300 to-primary-500;
+
+                    img {
+                        @apply w-full h-full object-cover;
+                    }
+                }
+
+                .nav-post-content {
+                    @apply flex flex-col gap-1 min-w-0 px-4;
+
+                    .nav-post-label {
+                        @apply text-sm text-neutral-600 uppercase tracking-wide;
+                    }
+
+                    .nav-post-title {
+                        @apply text-base font-semibold text-secondary-900 line-clamp-2 leading-snug group-hover:text-primary transition-colors;
+                    }
+                }
+            }
+        }
+    }
+
+    /* Comments */
+    #comments {
+        @apply mt-12;
+
+        /* ── Section heading ── */
+        > h2 {
+            @apply text-xl md:text-2xl font-bold text-secondary-900 mb-8;
+        }
+
+
+        li.comment {
+            ol.children {
+                @apply list-none mt-4 ps-14 border-l-2 border-primary space-y-0;
+
+                li.comment {
+                    @apply m-0 p-0;
+                }
+            }
+
+            .comment-body {
+                @apply border-b border-neutral-300 pb-6 mb-6;
+            }
+        }
+
+        footer.comment-meta {
+            @apply flex flex-wrap items-center gap-4 mb-2;
+
+            .author-avatar {
+                @apply shrink-0 w-10 h-10 rounded-full overflow-hidden ring-2 ring-primary-500;
+
+                img {
+                    @apply w-full h-full;
+                }
+            }
+
+            .author-comment-metadata {
+                @apply grow flex flex-col gap-2 md:flex-row md:justify-between md:items-center;
+
+                .author-name {
+                    @apply text-base font-semibold text-secondary-900;
+                }
+
+                .author-time {
+                    @apply text-sm text-neutral-600;
+
+                    .comment-edit-link {
+                        @apply hover:text-primary active:text-primary ms-2 transition-colors;
+                    }
+                }
+            }
+        }
+
+        /* Comment text */
+        .comment-content {
+            @apply ps-14 text-base text-neutral-800 leading-relaxed;
+
+            p { @apply mb-0;}
+        }
+
+        /* Moderation */
+        .comment-awaiting-moderation {
+            @apply block ms-14 text-sm italic text-warning-800 bg-warning-100 border-l-4 border-l-warning-800 rounded-r-xl p-2;
+        }
+
+        /* Reply link */
+        .reply {
+            @apply ps-14 mt-2;
+
+            a.comment-reply-link {
+                @apply text-sm font-medium text-neutral-600 hover:text-primary transition-colors;
+            }
+        }
+
+        /* ── Comment form ── */
+        .comment-respond {
+            @apply mb-8 border border-neutral-300 rounded-xl p-4 lg:p-6 bg-white;
+
+            .comment-reply-title {
+                @apply flex items-center justify-between text-xl md:text-2xl font-bold text-secondary-900 mb-8;
+
+                small a {
+                    @apply text-sm font-normal text-primary hover:underline;
+                }
+            }
+
+            .comment-form {
+                @apply grid grid-cols-1 lg:grid-cols-2 gap-4;
+
+                p {
+                    @apply m-0 flex flex-col gap-1;
+
+                    label {
+                        @apply font-semibold text-foreground;
+                    }
+
+                    /* Inputs inherit global _02-forms.css styles (h-14 border-2 rounded-lg etc) */
+                    input[type="text"],
+                    input[type="email"] {
+                        @apply max-w-full;
+                    }
+
+                    /* Logged-in message */
+                    &.logged-in-as {
+                        @apply text-foreground;
+
+                        a { @apply text-primary hover:underline; }
+                    }
+
+                    &.comment-notes,
+                    &.logged-in-as {
+                        display: unset;
+                        @apply order-1;
+                    }
+
+                    &.comment-form-comment {
+                        @apply order-4;
+
+                        textarea#comment {
+                            @apply max-w-full h-36 resize-y;
+                        }
+                    }
+                    
+                    &.comment-form-author { @apply lg:col-span-1 order-2; }
+                    &.comment-form-email  { @apply lg:col-span-1 order-3; }
+
+                    &.comment-form-url,
+                    &.comment-form-cookies-consent {
+                        @apply hidden;
+                    }
+
+                    &.logged-in-as,
+                    &.comment-notes,
+                    &.comment-form-comment,
+                    &.form-submit {
+                        @apply col-span-2;
+                    }
+                    
+                    &.form-submit {
+                        @apply flex order-5;
+
+                        input#submit {
+                            @apply px-8;
+                        }
+                    }
+                }
+
+                
+            }
+        }
+    }
+}
