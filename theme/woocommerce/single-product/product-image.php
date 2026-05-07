@@ -55,7 +55,7 @@ $wrapper_classes   = apply_filters(
 				?>
 				<div class="swiper-slide">
 					<div class="<?php echo esc_attr( $wrapper_classname ); ?>">
-						<img src="<?php echo esc_url( wc_placeholder_img_src( 'woocommerce_single' ) ); ?>" alt="<?php esc_html_e( 'Awaiting product image', 'woocommerce' ); ?>" class="wp-post-image" />
+						<img src="<?php echo esc_url( wc_placeholder_img_src( 'woocommerce_single' ) ); ?>" alt="<?php echo esc_attr( $product->get_name() ); ?>" class="wp-post-image" />
 					</div>
 				</div>
 
@@ -63,8 +63,8 @@ $wrapper_classes   = apply_filters(
 		</div>
 
 		<?php if ( $post_thumbnail_id && ( ! empty( $gallery_image_ids ) ) ) : ?>
-			<div class="swiper-button-prev"></div>
-			<div class="swiper-button-next"></div>
+			<div class="swiper-button-prev" role="button" aria-label="<?php esc_attr_e( 'Previous product image', 'shopchop' ); ?>"></div>
+			<div class="swiper-button-next" role="button" aria-label="<?php esc_attr_e( 'Next product image', 'shopchop' ); ?>"></div>
 		<?php endif; ?>
 	</div>
 

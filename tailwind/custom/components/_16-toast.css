@@ -5,9 +5,9 @@
 .shopchop-toast {
 	@apply fixed bottom-6 left-1/2 -translate-x-1/2 z-[9999] px-5 py-3 rounded-lg shadow-lg text-sm font-medium text-background pointer-events-none;
 	@apply opacity-0 translate-y-2 transition-all duration-300 ease-out;
+	@apply flex items-center gap-3;
 	min-width: 16rem;
 	max-width: calc(100vw - 2rem);
-	text-align: center;
 
 	&.is-visible {
 		@apply opacity-100 translate-y-0 pointer-events-auto;
@@ -16,4 +16,8 @@
 	&.shopchop-toast--error   { @apply bg-error-700; }
 	&.shopchop-toast--success { @apply bg-success-700; }
 	&.shopchop-toast--info    { @apply bg-primary-900; }
+
+	.shopchop-toast-close {
+		@apply ml-auto flex-shrink-0 opacity-70 hover:opacity-100 active:opacity-100 transition-opacity cursor-pointer;
+	}
 }

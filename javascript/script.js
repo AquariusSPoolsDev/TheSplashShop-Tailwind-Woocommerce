@@ -142,11 +142,8 @@
 			}, DELAY_OUT);
 		});
 
-		// ── Click (touch / keyboard) ──────────────────────────────────────
-		trigger.on('click', (e) => {
-			e.preventDefault();
-			toggle();
-		});
+		// ── Click → navigate to href (hover already handles open/close) ──
+		// Do nothing — let the <a> href fire naturally.
 
 		// ── Close when clicking outside ───────────────────────────────────
 		$(document).on('click', (e) => {
@@ -752,7 +749,7 @@
 									? `<img src="${p.image}" alt="${p.title}">`
 									: '';
 								return `
-                                <div class="search-result-item">
+                                <div class="search-result-item" role="option" aria-label="${p.title}">
                                     <a href="${p.url}">
                                         <div class="result-image">${img}</div>
                                         <div class="result-details">
@@ -847,13 +844,17 @@
 			});
 
 			// When an item is added show the cart briefly, then auto-close
+			let isHoveringCart = false;
+			wrapper.on('mouseenter', () => { isHoveringCart = true; });
+			wrapper.on('mouseleave', () => { isHoveringCart = false; });
+
 			$(document.body).on('added_to_cart', () => {
 				miniCart.markStale();
 
 				if (!dropdownEl.is(':visible')) {
 					dropdown.show();
 					setTimeout(() => {
-						if (!wrapper.is(':hover')) dropdown.hide();
+						if (!isHoveringCart) dropdown.hide();
 					}, 2000);
 				} else {
 					miniCart.load();
@@ -921,6 +922,25 @@
 				if (target) target.focus();
 			};
 
+			const getFocusable = (el) =>
+				[...el.querySelectorAll('input, button, a, select, textarea, [tabindex]:not([tabindex="-1"])')].filter(
+					(n) => !n.disabled && n.offsetParent !== null
+				);
+
+			const trapFocus = (e, el) => {
+				const nodes = getFocusable(el);
+				if (!nodes.length) return;
+				const first = nodes[0];
+				const last = nodes[nodes.length - 1];
+				if (e.shiftKey && document.activeElement === first) {
+					e.preventDefault();
+					last.focus();
+				} else if (!e.shiftKey && document.activeElement === last) {
+					e.preventDefault();
+					first.focus();
+				}
+			};
+
 			// ── Per-drawer wrappers ───────────────────────────────────────
 			const openSearch = () => {
 				openDrawer(searchDrawer, '-translate-y-full');
@@ -980,12 +1000,18 @@
 				if (menuDrawer.classList.contains('open')) closeMenu();
 			});
 
-			// ── Escape key ────────────────────────────────────────────────
+			// ── Escape + Tab key handling ─────────────────────────────────
 			document.addEventListener('keydown', (e) => {
-				if (e.key !== 'Escape') return;
-				if (searchDrawer.classList.contains('open')) closeSearch();
-				if (cartDrawer.classList.contains('open')) closeCart();
-				if (menuDrawer.classList.contains('open')) closeMenu();
+				if (e.key === 'Escape') {
+					if (searchDrawer.classList.contains('open')) closeSearch();
+					if (cartDrawer.classList.contains('open')) closeCart();
+					if (menuDrawer.classList.contains('open')) closeMenu();
+				}
+				if (e.key === 'Tab') {
+					if (searchDrawer.classList.contains('open')) trapFocus(e, searchDrawer);
+					if (cartDrawer.classList.contains('open')) trapFocus(e, cartDrawer);
+					if (menuDrawer.classList.contains('open')) trapFocus(e, menuDrawer);
+				}
 			});
 		},
 	};
@@ -1036,18 +1062,41 @@
 			toast.setAttribute('role', 'alert');
 			toast.setAttribute('aria-live', 'assertive');
 			toast.className = `shopchop-toast shopchop-toast--${type}`;
-			toast.textContent = message;
 
+			const msg = document.createElement('span');
+			msg.textContent = message;
+
+			const closeBtn = document.createElement('button');
+			closeBtn.className = 'shopchop-toast-close';
+			closeBtn.setAttribute('aria-label', 'Dismiss notification');
+			closeBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>`;
+
+			toast.appendChild(msg);
+			toast.appendChild(closeBtn);
 			document.body.appendChild(toast);
+
+			const dismiss = () => {
+				toast.classList.remove('is-visible');
+				toast.addEventListener('transitionend', () => toast.remove(), { once: true });
+			};
+
+			closeBtn.addEventListener('click', dismiss);
 
 			// Trigger entrance
 			requestAnimationFrame(() => toast.classList.add('is-visible'));
 
-			// Auto-dismiss after 4s
-			setTimeout(() => {
-				toast.classList.remove('is-visible');
-				toast.addEventListener('transitionend', () => toast.remove(), { once: true });
-			}, 4000);
+			// Auto-dismiss after 6s
+			const timer = setTimeout(dismiss, 6000);
+
+			// Escape key dismiss
+			const onKeydown = (e) => {
+				if (e.key === 'Escape') {
+					clearTimeout(timer);
+					dismiss();
+					document.removeEventListener('keydown', onKeydown);
+				}
+			};
+			document.addEventListener('keydown', onKeydown);
 		},
 	};
 
@@ -1076,12 +1125,11 @@
 					e.preventDefault();
 					const isOpen = subMenu.classList.contains('is-open');
 
-					// Close all siblings
-					nav.querySelectorAll('.sub-menu.is-open').forEach((s) => {
+					// Close sibling sub-menus only (not nested children of other branches)
+					item.parentElement.querySelectorAll(':scope > .menu-item-has-children > .sub-menu.is-open').forEach((s) => {
 						s.classList.remove('is-open');
-						s.previousElementSibling?.setAttribute('aria-expanded', 'false');
 					});
-					nav.querySelectorAll('.mobile-submenu-toggle[aria-expanded="true"]').forEach((b) => {
+					item.parentElement.querySelectorAll(':scope > .menu-item-has-children > .mobile-submenu-toggle[aria-expanded="true"]').forEach((b) => {
 						b.setAttribute('aria-expanded', 'false');
 					});
 

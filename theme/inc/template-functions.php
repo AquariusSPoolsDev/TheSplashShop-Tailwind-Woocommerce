@@ -826,12 +826,12 @@ function shopchop_add_next_steps( $order_id ) {
  * Accepts: POST action=wc_search_products, search_term, category, nonce.
  */
 function shopchop_search_products() {
-	check_ajax_referer( 'wc_ajax_search_nonce', 'nonce' );
+	check_ajax_referer( 'wc_ajax_search_nonce', 'nonce', true );
 
 	$search_term = isset( $_POST['search_term'] ) ? sanitize_text_field( $_POST['search_term'] ) : '';
 	$category    = isset( $_POST['category'] )    ? sanitize_text_field( $_POST['category'] )    : '';
 
-	if ( empty( $search_term ) ) {
+	if ( empty( $search_term ) || mb_strlen( $search_term ) < 2 ) {
 		wp_send_json_success( array( 'products' => array() ) );
 		return;
 	}
@@ -942,7 +942,7 @@ add_action( 'wp_ajax_nopriv_wc_search_products', 'shopchop_search_products' );
  * Accepts: POST action=wc_get_categories, nonce.
  */
 function shopchop_search_get_cat() {
-	check_ajax_referer( 'wc_ajax_search_nonce', 'nonce' );
+	check_ajax_referer( 'wc_ajax_search_nonce', 'nonce', true );
 
 	$categories = get_terms( array(
 		'taxonomy'   => 'product_cat',
@@ -992,7 +992,7 @@ function shopchop_search_bar_shortcode( $atts ) {
 				<option value="all">All Products</option>
 			</select>
 		</div>
-		<div class="shopchop-search-results" style="display:none;"></div>
+		<div class="shopchop-search-results" role="listbox" aria-label="<?php esc_attr_e( 'Search results', 'shopchop' ); ?>" style="display:none;"></div>
 	</div>
 	<?php return ob_get_clean();
 }
@@ -1010,7 +1010,7 @@ add_shortcode( 'shopchop_search_bar', 'shopchop_search_bar_shortcode' );
  * Accepts: POST action=shopchop_get_mini_cart, nonce.
  */
 function shopchop_get_mini_cart() {
-	check_ajax_referer( 'wc_ajax_search_nonce', 'nonce' );
+	check_ajax_referer( 'wc_ajax_search_nonce', 'nonce', true );
 
 	ob_start();
 	woocommerce_mini_cart();
@@ -1035,7 +1035,7 @@ add_action( 'wp_ajax_nopriv_shopchop_get_mini_cart', 'shopchop_get_mini_cart' );
  * Accepts: POST action=shopchop_remove_cart_item, cart_item_key, nonce.
  */
 function shopchop_remove_cart_item() {
-	check_ajax_referer( 'wc_ajax_search_nonce', 'nonce' );
+	check_ajax_referer( 'wc_ajax_search_nonce', 'nonce', true );
 
 	$cart_item_key = isset( $_POST['cart_item_key'] ) ? sanitize_text_field( $_POST['cart_item_key'] ) : '';
 
@@ -1059,7 +1059,7 @@ function shopchop_remove_cart_item() {
 	) );
 }
 add_action( 'wp_ajax_shopchop_remove_cart_item',        'shopchop_remove_cart_item' );
-add_action( 'wp_ajax_nopriv_shopchop_remove_cart_item', 'shopchop_remove_cart_item' );
+add_action( 'wp_ajax_nopriv_shopchop_remove_cart_item', 'shopchop_remove_cart_item' ); // guests can have a cart session
 
 
 
@@ -1075,7 +1075,7 @@ function shopchop_cart_fragments( $fragments ) {
 	$word  = $count === 1 ? 'item' : 'items';
 
 	ob_start(); ?>
-	<span class="cart-count-badge"><?php echo $count >= 0 ? $count : ''; ?></span>
+	<span class="cart-count-badge" aria-live="polite" aria-atomic="true" aria-label="<?php echo esc_attr( sprintf( _n( '%d item in cart', '%d items in cart', $count, 'shopchop' ), $count ) ); ?>"><?php echo $count >= 0 ? $count : ''; ?></span>
 	<?php $fragments['.cart-count-badge'] = ob_get_clean();
 
 	ob_start(); ?>

@@ -483,12 +483,13 @@
 			}
 		}
 
+		/* Centre the two buttons symmetrically around the midpoint */
 		.swiper-button-prev {
-			@apply left-[calc(50%-3rem)];
+			@apply left-1/2 -translate-x-[calc(100%+0.25rem)];
 		}
 
 		.swiper-button-next {
-			@apply left-[calc(50%+0.5rem)];
+			@apply left-1/2 translate-x-1;
 		}
 	}
 
