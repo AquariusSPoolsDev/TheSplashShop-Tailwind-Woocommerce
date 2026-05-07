@@ -24,7 +24,7 @@
 	@apply bg-white border-b border-b-neutral-300 shadow-sm w-full fixed top-0 lg:static z-10 lg:z-auto;
 
 	.woocommerce-store-notice {
-		@apply hidden! lg:block! text-center px-6 md:px-10 lg:px-16 py-2 bg-linear-to-br text-background font-semibold text-sm from-primary-700 to-primary-900;
+		@apply hidden lg:block text-center px-6 md:px-10 lg:px-16 py-2 bg-linear-to-br text-background font-semibold text-sm from-primary-700 to-primary-900;
 
 		.woocommerce-store-notice__dismiss-link {
 			@apply font-normal underline! ms-3 transition-all hover:no-underline!;
