@@ -25,7 +25,7 @@ if ( ! is_a( $product, WC_Product::class ) || ! $product->is_visible() ) {
 }
 ?>
 
-<li <?php wc_product_class( '', $product ); ?>>
+<li <?php wc_product_class( 'group', $product ); ?>>
 	<?php
 	/**
 	 * Hook: woocommerce_before_shop_loop_item.

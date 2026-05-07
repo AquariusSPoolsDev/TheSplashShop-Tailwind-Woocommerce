@@ -160,7 +160,7 @@ function shopchop_widgets_init() {
 		array(
 			'name'          => __( 'Footer Content 0', 'shopchop' ),
 			'id'            => 'footer-content-0',
-			'description'   => __( 'Add widgets here to appear in your footer.', 'shopchop' ),
+			'description'   => __( 'Social icons — displayed below the logo and site tagline in the footer brand column.', 'shopchop' ),
 			'before_widget' => '<div id="%1$s" class="widget %2$s">',
 			'after_widget'  => '</div>',
 			'before_title'  => '<h5 class="widget-title">',
@@ -172,7 +172,7 @@ function shopchop_widgets_init() {
 		array(
 			'name'          => __( 'Footer Content 1', 'shopchop' ),
 			'id'            => 'footer-content-1',
-			'description'   => __( 'Add widgets here to appear in your footer.', 'shopchop' ),
+			'description'   => __( 'Main navigation links — primary site menu displayed in the footer.', 'shopchop' ),
 			'before_widget' => '<div id="%1$s" class="widget %2$s">',
 			'after_widget'  => '</div>',
 			'before_title'  => '<h5 class="widget-title">',
@@ -184,7 +184,7 @@ function shopchop_widgets_init() {
 		array(
 			'name'          => __( 'Footer Content 2', 'shopchop' ),
 			'id'            => 'footer-content-2',
-			'description'   => __( 'Add widgets here to appear in your footer.', 'shopchop' ),
+			'description'   => __( 'Extra navigation menu — secondary links such as categories, collections, or support pages.', 'shopchop' ),
 			'before_widget' => '<div id="%1$s" class="widget %2$s">',
 			'after_widget'  => '</div>',
 			'before_title'  => '<h5 class="widget-title">',
@@ -196,7 +196,7 @@ function shopchop_widgets_init() {
 		array(
 			'name'          => __( 'Footer Content 3', 'shopchop' ),
 			'id'            => 'footer-content-3',
-			'description'   => __( 'Add widgets here to appear in your footer.', 'shopchop' ),
+			'description'   => __( 'Legal links — Privacy Policy, Return Policy, Cookie Policy, and similar pages. Displayed in the bottom bar above the copyright line.', 'shopchop' ),
 			'before_widget' => '<div id="%1$s" class="widget %2$s">',
 			'after_widget'  => '</div>',
 			'before_title'  => '<h5 class="widget-title">',
@@ -212,11 +212,11 @@ add_action( 'widgets_init', 'shopchop_widgets_init' );
 function shopchop_scripts() {
 	wp_enqueue_style( 'shopchop-style', get_stylesheet_uri(), array(), SHOPCHOP_VERSION );
 	wp_enqueue_style( 'shopchop-fonts', 'https://fonts.bunny.net/css?family=be-vietnam-pro:100,200,300,400,500,600,700,800,900|source-sans-3:200,300,400,500,600,700,800,900', array(), null );
-	wp_enqueue_script( 'shopchop-script', get_template_directory_uri() . '/js/script.min.js', array(), SHOPCHOP_VERSION, true );
+	wp_enqueue_style( 'shopchop-swiper', 'https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css', array(), SHOPCHOP_VERSION );
+	wp_enqueue_script( 'shopchop-swiper', 'https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js', array(), SHOPCHOP_VERSION, true );
+	wp_enqueue_script( 'shopchop-script', get_template_directory_uri() . '/js/script.min.js', array( 'jquery', 'shopchop-swiper' ), SHOPCHOP_VERSION, true );
 
 	if ( is_woocommerce() || is_front_page() || is_home() ) {
-		wp_enqueue_style( 'shopchop-swiper', 'https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css', array(), SHOPCHOP_VERSION );
-		wp_enqueue_script( 'shopchop-swiper', 'https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js', array(), SHOPCHOP_VERSION, true );
 		wp_enqueue_style( 'shopchop-glightbox', 'https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css', array(), SHOPCHOP_VERSION );
 		wp_enqueue_script( 'shopchop-glightbox', 'https://cdn.jsdelivr.net/gh/mcstudios/glightbox/dist/js/glightbox.min.js', array(), SHOPCHOP_VERSION, true );
 	}

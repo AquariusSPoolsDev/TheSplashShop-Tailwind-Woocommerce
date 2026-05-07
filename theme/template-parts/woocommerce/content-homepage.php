@@ -9,7 +9,7 @@
 
 ?>
 
-<article id="post-<?php the_ID(); ?>" <?php post_class(["shopchop-homepage"]); ?>>
+<article id="post-<?php the_ID(); ?>" <?php post_class( ['shopchop-homepage-content'] ); ?>>
 
 <?php the_content(); ?>
 
