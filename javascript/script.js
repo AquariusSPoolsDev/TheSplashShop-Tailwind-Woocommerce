@@ -283,7 +283,55 @@
 	});
 
 	/* =========================================================================
-        2. Product Gallery  (SwiperJS)
+        2A. Hero Carousel  (SwiperJS)
+    ========================================================================= */
+	ShopChop.HeroCarousel = {
+		init() {
+			document.querySelectorAll('.shopchop-hero-swiper[data-swiper]').forEach((el) => {
+				try {
+					const config = JSON.parse(el.dataset.swiper);
+					new Swiper(el, config);
+				} catch (e) {
+					console.warn('ShopChop HeroCarousel: invalid config', e);
+				}
+			});
+		},
+	};
+
+	/* =========================================================================
+        2B. Products Carousel  (SwiperJS)
+    ========================================================================= */
+	ShopChop.ProductsCarousel = {
+		init() {
+			document.querySelectorAll('.shopchop-products-swiper[data-swiper]').forEach((el) => {
+				try {
+					const config = JSON.parse(el.dataset.swiper);
+					new Swiper(el, config);
+				} catch (e) {
+					console.warn('ShopChop ProductsCarousel: invalid config', e);
+				}
+			});
+		},
+	};
+
+	/* =========================================================================
+        2C. Testimonials Carousel  (SwiperJS)
+    ========================================================================= */
+	ShopChop.TestimonialsCarousel = {
+		init() {
+			document.querySelectorAll('.shopchop-testimonials-swiper[data-swiper]').forEach((el) => {
+				try {
+					const config = JSON.parse(el.dataset.swiper);
+					new Swiper(el, config);
+				} catch (e) {
+					console.warn('ShopChop TestimonialsCarousel: invalid config', e);
+				}
+			});
+		},
+	};
+
+	/* =========================================================================
+        2D. Product Gallery  (SwiperJS)
     ========================================================================= */
 	ShopChop.ProductGallery = {
 		init() {
@@ -1071,6 +1119,9 @@
         Boot – initialise all modules on DOM ready
     ========================================================================= */
 	$(function () {
+		ShopChop.HeroCarousel.init();
+		ShopChop.ProductsCarousel.init();
+		ShopChop.TestimonialsCarousel.init();
 		ShopChop.ProductGallery.init();
 		ShopChop.CartButton.init();
 		ShopChop.ReviewsPagination.init();
