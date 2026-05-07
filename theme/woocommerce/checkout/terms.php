@@ -25,13 +25,16 @@ if ( apply_filters( 'woocommerce_checkout_show_terms', true ) && function_exists
 		?>
 
 		<?php if ( wc_terms_and_conditions_checkbox_enabled() ) : ?>
-			<p class="form-row validate-required">
-				<label class="woocommerce-form__label woocommerce-form__label-for-checkbox checkbox">
-				<input type="checkbox" class="woocommerce-form__input woocommerce-form__input-checkbox input-checkbox" name="terms" <?php checked( apply_filters( 'woocommerce_terms_is_checked_default', isset( $_POST['terms'] ) ), true ); // WPCS: input var ok, csrf ok. ?> id="terms" />
-					<span class="woocommerce-terms-and-conditions-checkbox-text"><?php wc_terms_and_conditions_checkbox_text(); ?></span>&nbsp;<abbr class="required" title="<?php esc_attr_e( 'required', 'woocommerce' ); ?>">*</abbr>
+			<div class="form-row validate-required mb-4">
+				<label class="woocommerce-form__label woocommerce-form__label-for-checkbox inline-flex items-center cursor-pointer">
+					<input type="checkbox" id="terms" name="terms" value="1"
+						class="sr-only peer woocommerce-form__input woocommerce-form__input-checkbox input-checkbox"
+						<?php checked( apply_filters( 'woocommerce_terms_is_checked_default', isset( $_POST['terms'] ) ), true ); // WPCS: input var ok, csrf ok. ?> />
+					<div class="relative w-9 h-5 bg-neutral-300 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary-100 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-neutral-300 after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-background after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary-900"></div>
+					<span class="woocommerce-terms-and-conditions-checkbox-text select-none ms-3"><?php wc_terms_and_conditions_checkbox_text(); ?>&nbsp;<abbr class="required" title="<?php esc_attr_e( 'required', 'woocommerce' ); ?>">*</abbr></span>
 				</label>
 				<input type="hidden" name="terms-field" value="1" />
-			</p>
+			</div>
 		<?php endif; ?>
 	</div>
 	<?php

@@ -77,6 +77,7 @@
 				}
 			}
 
+
 			h3#ship-to-different-address,
 			.form-row.create-account {
 				@apply my-8;
@@ -133,6 +134,16 @@
 						}
 					}
 				}
+			}
+		}
+
+		.woocommerce-terms-and-conditions-wrapper {
+			.checkout-inline-error-message {
+				@apply text-sm mt-0.5 text-error-700;
+			}
+
+			.woocommerce-terms-and-conditions-link {
+				@apply underline!;
 			}
 		}
 
