@@ -1164,6 +1164,58 @@
 	};
 
 	/* =========================================================================
+        ScrollUtils – progress bar + back-to-top button
+    ========================================================================= */
+	ShopChop.ScrollUtils = {
+		init() {
+			const root = document.documentElement;
+
+			// Inject progress bar
+			const bar = document.createElement('div');
+			bar.id = 'shopchop-progress-bar';
+			document.body.prepend(bar);
+
+			// Inject back-to-top button
+			const btn = document.createElement('button');
+			btn.id = 'shopchop-back-to-top';
+			btn.setAttribute('aria-label', 'Back to top');
+			btn.innerHTML =
+				'<svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"></polyline></svg>';
+			document.body.appendChild(btn);
+
+			// Measure header height and set --header-h
+			const setHeaderH = () => {
+				const header = document.getElementById('masthead');
+				root.style.setProperty('--header-h', header ? header.offsetHeight + 'px' : '0px');
+			};
+			setHeaderH();
+			window.addEventListener('resize', setHeaderH);
+
+			// Scroll handler (rAF-throttled)
+			let ticking = false;
+			const onScroll = () => {
+				if (ticking) return;
+				ticking = true;
+				requestAnimationFrame(() => {
+					const scrolled = window.scrollY;
+					const total =
+						document.documentElement.scrollHeight - window.innerHeight;
+					const pct = total > 0 ? (scrolled / total) * 100 : 0;
+					root.style.setProperty('--scroll-progress', pct + '%');
+					btn.classList.toggle('is-visible', scrolled > 300);
+					ticking = false;
+				});
+			};
+			window.addEventListener('scroll', onScroll, { passive: true });
+
+			// Back to top click
+			btn.addEventListener('click', () => {
+				window.scrollTo({ top: 0, behavior: 'smooth' });
+			});
+		},
+	};
+
+	/* =========================================================================
         Boot – initialise all modules on DOM ready
     ========================================================================= */
 	$(function () {
@@ -1187,5 +1239,6 @@
 		ShopChop.MobileCart.init();
 		ShopChop.MobileSubMenu.init();
 		ShopChop.AuthToggle.init();
+		ShopChop.ScrollUtils.init();
 	});
 })(jQuery);
