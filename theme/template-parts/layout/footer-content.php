@@ -19,7 +19,7 @@ $is_minimal_page = is_checkout() ||
 	<?php if ($is_minimal_page) : ?>
 		<div class="text-center text-sm container mx-auto px-6 md:px-10 lg:px-16 pt-4 pb-8">
 			&copy; <?php echo date("Y"); ?> <a class="underline! transition-all hover:no-underline! active:no-underline! focus:no-underline! text-primary-900 font-semibold" href="<?php echo esc_url(home_url('/')); ?>" rel="home"><?php bloginfo('name'); ?></a>. All Rights Reserved.<br>
-			Website developed by <a class="underline! transition-all hover:no-underline! active:no-underline! focus:no-underline! text-primary-900 font-semibold" href="https://usoppii.my/" target="_blank" rel="noreferrer">Usoppii</a>.
+			Website developed by <a class="underline! transition-all hover:no-underline! active:no-underline! focus:no-underline! text-primary-900 font-semibold" href="https://usoppii.my/" target="_blank" rel="noreferrer">Usoppii.my</a>.
 		</div>
 	<?php else : ?>
 		<div class="container mx-auto px-6 md:px-10 lg:px-16 py-12">
@@ -76,7 +76,7 @@ $is_minimal_page = is_checkout() ||
 					<?php endif; ?>
 					<div class="text-center lg:text-start text-sm mt-2">
 						&copy; <?php echo date("Y"); ?> <a class="font-semibold" href="<?php echo esc_url(home_url('/')); ?>" rel="home"><?php bloginfo('name'); ?></a>. All Rights Reserved.
-						Website developed by <a class="font-semibold" href="https://usoppii.my/" target="_blank" rel="noreferrer">Usoppii</a>.
+						Website developed by <a class="font-semibold" href="https://usoppii.my/" target="_blank" rel="noreferrer">Usoppii.my</a>.
 					</div>
 				</div>
 

@@ -1179,6 +1179,7 @@
 			const btn = document.createElement('button');
 			btn.id = 'shopchop-back-to-top';
 			btn.setAttribute('aria-label', 'Back to top');
+			btn.setAttribute('title', 'Back to top');
 			btn.innerHTML =
 				'<svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"></polyline></svg>';
 			document.body.appendChild(btn);
