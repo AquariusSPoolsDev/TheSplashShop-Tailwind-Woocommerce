@@ -5,60 +5,25 @@
 
 /* ── Scroll progress bar ────────────────────────────────────────────────── */
 #shopchop-progress-bar {
-	position: fixed;
-	top: var(--header-h, 0px); /* sits below fixed mobile header */
-	left: 0;
+	@apply fixed left-0 top-0 h-[3px] z-[9] bg-primary-950 pointer-events-none lg:z-50;
 	width: var(--scroll-progress, 0%);
-	height: 3px;
-	z-index: 9; /* below mobile header (z-10) */
-	background-color: var(--color-primary-950);
 	transition: width 80ms linear;
-	pointer-events: none;
 
-	@media (width >= 1024px) {
-		top: 0; /* desktop header is static — bar pins to top */
-		z-index: 50;
+	@media (width < 1024px) {
+		top: var(--header-h, 0px); /* sits below fixed mobile header */
 	}
 }
 
 /* ── Back to top button ─────────────────────────────────────────────────── */
 #shopchop-back-to-top {
-	position: fixed;
-	bottom: 1.5rem;
-	right: 1.5rem;
-	z-index: 50;
-	width: 2.75rem;
-	height: 2.75rem;
-	border-radius: 9999px;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	background-color: var(--color-primary-950);
-	color: var(--color-background);
-	box-shadow: 0 4px 12px rgb(0 0 0 / 0.15);
-	cursor: pointer;
-	border: none;
-	opacity: 0;
-	transform: translateY(12px);
-	transition: opacity 250ms ease, transform 250ms ease, background-color 150ms ease;
-	pointer-events: none;
-
-	&:hover {
-		background-color: var(--color-primary-900);
-	}
+	@apply fixed bottom-6 right-6 z-50 w-11 h-11 rounded-full flex items-center justify-center bg-primary-950 text-background shadow-lg cursor-pointer border-none opacity-0 pointer-events-none transition-all duration-250 hover:bg-primary-900 translate-y-3;
 
 	&.is-visible {
-		opacity: 1;
-		transform: translateY(0);
-		pointer-events: auto;
+		@apply opacity-100 pointer-events-auto translate-y-0;
 	}
 
 	svg {
-		width: 1.25rem;
-		height: 1.25rem;
-		stroke: currentColor;
-		stroke-width: 2.5;
-		fill: none;
+		@apply w-5 h-5 stroke-[2.5] fill-none stroke-current;
 		stroke-linecap: round;
 		stroke-linejoin: round;
 	}
