@@ -796,7 +796,7 @@ function shopchop_add_next_steps( $order_id ) {
 			<li><strong>Track Your Package:</strong> Once dispatched, a tracking number will be sent to you to monitor your delivery status.</li>
 			<li>
 				<strong>Need Assistance?</strong> Contact us through
-				<a href="https://wa.me/" class="underline! font-bold text-primary-900" target="_blank" rel="noreferrer">WhatsApp</a>
+				<a href="https://wa.me/60129127126" class="underline! font-bold text-primary-900" target="_blank" rel="noreferrer">WhatsApp</a>
 				or email us at
 				<a href="mailto:<?php echo esc_attr( get_option( 'woocommerce_email_from_address' ) ); ?>" class="underline! font-bold text-primary-900" rel="noreferrer"><?php echo esc_html( get_option( 'woocommerce_email_from_address' ) ); ?></a>
 				with your Order ID: <strong><?php echo esc_html( $order->get_order_number() ); ?></strong>
@@ -1275,6 +1275,51 @@ add_filter( 'woocommerce_loop_add_to_cart_link', function ( $html, $product ) {
 	}
 	return $html;
 }, 10, 2 );
+
+
+
+/**
+ * Show a notice on checkout if the cart contains any Pre-Order items.
+ */
+add_action( 'woocommerce_before_checkout_form', 'shopchop_preorder_checkout_notice' );
+function shopchop_preorder_checkout_notice() {
+	foreach ( WC()->cart->get_cart() as $cart_item ) {
+		$product = $cart_item['data'];
+		if ( $product && $product->get_stock_status() === 'pre_order' ) {
+			wc_print_notice(
+				__( 'Your cart contains a Pre-Order item. Pre-order items will be shipped as soon as stock is available.', 'shopchop' ),
+				'notice'
+			);
+			break;
+		}
+	}
+}
+
+
+
+/**
+ * Append a Pre-Order badge to item names in order emails and My Account order details.
+ *
+ * $is_visible = false in email context; true when product link is rendered on frontend.
+ *
+ * @param string                $name       Item name.
+ * @param WC_Order_Item_Product $item       Order item.
+ * @param bool                  $is_visible Whether a product link is being rendered.
+ * @return string
+ */
+add_filter( 'woocommerce_order_item_name', 'shopchop_preorder_item_name_badge', 10, 3 );
+function shopchop_preorder_item_name_badge( $name, $item, $is_visible ) {
+	$product = $item->get_product();
+	if ( ! $product || $product->get_stock_status() !== 'pre_order' ) {
+		return $name;
+	}
+
+	$badge = '<span class="preorder-badge" style="display:inline-block;background:#d1ecff;color:#0073aa;font-size:.7rem;font-weight:700;padding:1px 6px;border-radius:4px;vertical-align:middle;margin-left:6px;">'
+		. __( 'Pre-Order', 'shopchop' )
+		. '</span>';
+
+	return $name . $badge;
+}
 
 
 
