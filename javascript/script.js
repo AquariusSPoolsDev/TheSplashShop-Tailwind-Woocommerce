@@ -1239,6 +1239,41 @@
 	};
 
 	/* =========================================================================
+        WhatsApp Button – update href dynamically on variation select
+    ========================================================================= */
+	ShopChop.WhatsAppButton = {
+		init() {
+			const btn = document.getElementById( 'shopchop-whatsapp-btn' );
+			if ( ! btn ) return;
+
+			const number      = btn.dataset.waNumber;
+			const name        = btn.dataset.productName;
+			const pageUrl     = btn.dataset.productUrl;
+			const defaultHref = btn.getAttribute( 'href' );
+
+			const buildUrl = ( price ) => {
+				const message = `Hi, I'm interested in ${ name } (${ price })\n${ pageUrl }`;
+				return `https://wa.me/${ number }?text=${ encodeURIComponent( message ) }`;
+			};
+
+			$( document.body ).on( 'found_variation', ( e, variation ) => {
+				if ( variation.display_price ) {
+					const price = ShopChop.WhatsAppButton.formatPrice( variation.display_price );
+					btn.href = buildUrl( price );
+				}
+			} );
+
+			$( document.body ).on( 'reset_data', () => {
+				btn.href = defaultHref;
+			} );
+		},
+
+		formatPrice( amount ) {
+			return 'RM' + parseFloat( amount ).toFixed( 2 );
+		},
+	};
+
+	/* =========================================================================
         Boot – initialise all modules on DOM ready
     ========================================================================= */
 	$(function () {
@@ -1263,5 +1298,6 @@
 		ShopChop.MobileSubMenu.init();
 		ShopChop.AuthToggle.init();
 		ShopChop.ScrollUtils.init();
+		ShopChop.WhatsAppButton.init();
 	});
 })(jQuery);
