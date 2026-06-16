@@ -73,7 +73,7 @@
 		@apply flex flex-col lg:justify-between items-center gap-6 lg:gap-8;
 
 		.brand-distributor-heading {
-			@apply text-2xl lg:text-4xl text-center lg:text-start font-bold uppercase bg-linear-to-br from-primary-50 to-primary-100 bg-clip-text text-transparent text-balance;
+			@apply text-2xl lg:text-4xl text-center lg:text-start font-extrabold uppercase bg-linear-to-br from-primary-50 to-primary-100 bg-clip-text text-transparent text-balance;
 		}
 
 		.brand-logo-grid {
@@ -94,10 +94,10 @@
 
 /* ── Category Grid ── */
 .shopchop-category-grid {
-	@apply py-16 lg:py-20;
+	@apply py-20 lg:py-28;
 
 	.category-heading {
-		@apply text-2xl lg:text-4xl text-center lg:text-start font-bold uppercase bg-linear-to-br from-secondary-800 to-secondary-950 bg-clip-text text-transparent text-balance mb-6;
+		@apply text-2xl lg:text-4xl text-center lg:text-start font-extrabold uppercase bg-linear-to-br from-secondary-800 to-secondary-950 bg-clip-text text-transparent text-balance mb-6;
 	}
 
 	.category-grid-wrapper {
@@ -148,19 +148,57 @@
 
 /* ── USP Bar ── */
 .shopchop-usp-bar {
-	@apply py-16 lg:py-20 border-y border-neutral-300/50;
-	background-color: var(--color-secondary-50);
-	background-image: url("data:image/svg+xml,%3Csvg width='100' height='20' viewBox='0 0 100 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M21.184 20c.357-.13.72-.264 1.088-.402l1.768-.661C33.64 15.347 39.647 14 50 14c10.271 0 15.362 1.222 24.629 4.928.955.383 1.869.74 2.75 1.072h6.225c-2.51-.73-5.139-1.691-8.233-2.928C65.888 13.278 60.562 12 50 12c-10.626 0-16.855 1.397-26.66 5.063l-1.767.662c-2.475.923-4.66 1.674-6.724 2.275h6.335zm0-20C13.258 2.892 8.077 4 0 4V2c5.744 0 9.951-.574 14.85-2h6.334zM77.38 0C85.239 2.966 90.502 4 100 4V2c-6.842 0-11.386-.542-16.396-2h-6.225zM0 14c8.44 0 13.718-1.21 22.272-4.402l1.768-.661C33.64 5.347 39.647 4 50 4c10.271 0 15.362 1.222 24.629 4.928C84.112 12.722 89.438 14 100 14v-2c-10.271 0-15.362-1.222-24.629-4.928C65.888 3.278 60.562 2 50 2 39.374 2 33.145 3.397 23.34 7.063l-1.767.662C13.223 10.84 8.163 12 0 12v2z' fill='%23CBD5E1' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
+	@apply py-16 lg:py-20 border-y border-neutral-300/50 relative overflow-hidden;
+	background-color: var(--color-neutral-100);
+
+	/* Aurora background layer */
+	&::before {
+		content: '';
+		position: absolute;
+		inset: -10px;
+		pointer-events: none;
+		z-index: 0;
+		background-image:
+			repeating-linear-gradient(
+				100deg,
+				var(--color-neutral-100) 0%,
+				var(--color-neutral-100) 7%,
+				transparent 10%,
+				transparent 12%,
+				var(--color-neutral-100) 16%
+			),
+			repeating-linear-gradient(
+				100deg,
+				var(--color-warning-400) 10%,
+				var(--color-warning-200) 15%,
+				var(--color-success-300) 20%,
+				var(--color-success-200) 25%,
+				var(--color-warning-300) 30%
+			);
+		background-size: 300% 200%;
+		background-position: 50% 50%;
+		filter: blur(10px);
+		opacity: 0.4;
+		will-change: transform;
+		mask-image: radial-gradient(ellipse at 80% 0%, black 10%, transparent 70%);
+		animation: shopchop-aurora 60s linear infinite;
+	}
+
+	/* Ensure content sits above aurora */
+	> * {
+		position: relative;
+		z-index: 1;
+	}
 
 	.usp-heading {
-		@apply text-2xl lg:text-4xl text-center font-bold uppercase bg-linear-to-br from-secondary-800 to-secondary-950 bg-clip-text text-transparent text-balance mb-8;
+		@apply text-2xl lg:text-4xl text-center font-extrabold uppercase bg-linear-to-br from-secondary-800 to-secondary-950 bg-clip-text text-transparent text-balance mb-8;
 	}
 
 	.usp-grid {
 		@apply grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-10;
 
 		.usp-card {
-			@apply flex flex-col items-center text-center gap-5;
+			@apply flex flex-col items-center text-center gap-3;
 
 			.usp-image-wrap {
 				@apply w-16 h-16 lg:w-20 lg:h-20 p-4 flex items-center justify-center bg-primary-50 shadow-md shadow-primary-200 rounded-lg;
@@ -187,7 +225,7 @@
 
 /* ── Products Carousel ── */
 .shopchop-products-carousel {
-	@apply py-16 lg:py-20;
+	@apply py-20 lg:py-28;
 
 	.products-carousel-header {
 		@apply flex flex-col lg:flex-row lg:items-start lg:justify-between gap-3 mb-8;
@@ -197,7 +235,7 @@
 		@apply flex flex-col gap-1;
 
 		.products-carousel-heading {
-			@apply text-2xl lg:text-4xl font-bold uppercase bg-linear-to-br from-secondary-800 to-secondary-950 bg-clip-text text-transparent text-balance;
+			@apply text-2xl lg:text-4xl font-extrabold uppercase bg-linear-to-br from-secondary-800 to-secondary-950 bg-clip-text text-transparent text-balance;
 		}
 
 		.products-carousel-description {
@@ -316,7 +354,7 @@
 
 		.swiper-button-prev,
 		.swiper-button-next {
-			@apply w-10 h-10 bg-primary text-background hover:bg-primary-950 active:bg-primary-950 active:scale-90 transition-all top-[40%];
+			@apply w-11 h-11 bg-primary text-background hover:bg-primary-950 active:bg-primary-950 active:scale-90 transition-all top-[40%];
 
 			.swiper-navigation-icon {
 				@apply w-6 h-6;
@@ -354,7 +392,7 @@
 			@apply flex flex-col gap-2;
 
 			.promo-banner-heading {
-				@apply text-2xl lg:text-4xl font-bold text-background leading-tight tracking-tight;
+				@apply text-2xl lg:text-4xl font-extrabold text-background leading-tight tracking-tight;
 			}
 
 			.promo-banner-description {
@@ -420,7 +458,7 @@
 			}
 
 			.spotlight-heading {
-				@apply text-3xl lg:text-5xl font-bold text-foreground leading-tight tracking-tight;
+				@apply text-3xl lg:text-5xl font-extrabold text-foreground leading-tight tracking-tight;
 			}
 
 			.spotlight-description {
@@ -453,13 +491,13 @@
 
 /* ── Testimonials Carousel ── */
 .shopchop-testimonials-carousel {
-	@apply py-16 lg:py-20 bg-white border-t border-neutral-200;
+	@apply py-16 lg:py-20 bg-neutral-50 border-y border-neutral-300;
 
 	.testimonials-header {
 		@apply mb-10 flex flex-col gap-2 text-center;
 
 		.testimonials-heading {
-			@apply text-2xl lg:text-4xl font-bold uppercase bg-linear-to-br from-secondary-800 to-secondary-950 bg-clip-text text-transparent text-balance;
+			@apply text-2xl lg:text-4xl font-extrabold uppercase bg-linear-to-br from-secondary-800 to-secondary-950 bg-clip-text text-transparent text-balance;
 		}
 
 		.testimonials-description {
@@ -476,7 +514,7 @@
 
 		.swiper-button-prev,
 		.swiper-button-next {
-			@apply w-10 h-10 rounded-full bg-primary text-background hover:bg-primary-950 active:bg-primary-950 active:scale-90 transition-all top-auto bottom-0;
+			@apply w-11 h-11 rounded-full bg-primary text-background hover:bg-primary-950 active:bg-primary-950 active:scale-90 transition-all top-auto bottom-0;
 
 			.swiper-navigation-icon {
 				@apply w-4 h-4;
@@ -540,13 +578,13 @@
 
 /* ── Blog Posts Grid ── */
 .shopchop-blog-posts-grid {
-	@apply py-16 lg:py-20 bg-neutral-50 border-y border-neutral-200;
+	@apply py-16 lg:py-20 bg-neutral-50 border-y border-neutral-300;
 
 	.blog-grid-header {
 		@apply mb-10 flex flex-col gap-2;
 
 		.blog-grid-heading {
-			@apply text-2xl lg:text-4xl font-bold uppercase bg-linear-to-br from-secondary-800 to-secondary-950 bg-clip-text text-transparent text-balance;
+			@apply text-2xl lg:text-4xl font-extrabold uppercase bg-linear-to-br from-secondary-800 to-secondary-950 bg-clip-text text-transparent text-balance;
 		}
 
 		.blog-grid-description {
@@ -589,7 +627,7 @@
 		}
 
 		.blog-post-category {
-			@apply relative z-1 inline-flex w-max text-xs font-semibold uppercase tracking-wide px-3 py-0.5 rounded-lg bg-primary-100 text-primary-950 transition-colors hover:bg-primary-200 active:bg-primary-200;
+			@apply relative z-1 inline-flex w-max text-sm font-semibold uppercase tracking-wide px-3 py-0.5 rounded-lg bg-primary-100 text-primary-950 transition-colors hover:bg-primary-200 active:bg-primary-200;
 		}
 
 		.blog-post-title {
@@ -609,7 +647,7 @@
 			@apply relative z-1 flex items-center justify-between gap-4 mt-auto pt-4 border-t border-neutral-100;
 		
 			.blog-post-date {
-				@apply text-xs text-neutral-500;
+				@apply text-sm text-neutral-500;
 			}
 			
 			.blog-post-read-more {
@@ -642,5 +680,44 @@
 				@apply translate-x-0.5;
 			}
 		}
+	}
+}
+
+/* ── Aurora keyframes ── */
+@keyframes shopchop-aurora {
+	from { background-position: 50% 50%; }
+	to   { background-position: 350% 50%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.shopchop-usp-bar::before {
+		animation: none;
+	}
+
+	/* Disable scale/translate decorative motion */
+	.category-grid-card,
+	.blog-post-card,
+	.spotlight-image {
+		&:hover, &:active {
+			transform: none !important;
+		}
+	}
+
+	.brand-logo-img,
+	.cat-image,
+	.blog-post-img,
+	.shopchop-products-swiper .product-image-wrapper img {
+		transform: none !important;
+		transition: none !important;
+	}
+
+	.subcategory-list-all svg,
+	.products-carousel-view-all svg,
+	.promo-banner-cta svg,
+	.spotlight-cta svg,
+	.blog-post-read-more svg,
+	.blog-grid-view-all svg {
+		transform: none !important;
+		transition: none !important;
 	}
 }
