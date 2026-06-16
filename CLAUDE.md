@@ -77,10 +77,10 @@ TheSplashShop-Tailwind-Woocommerce/
 
 **Registered nav menus:**
 
-- `menu-1` — Primary
-- `main-menu` — Main Header Menu
-- `sec-menu` — Secondary Header Menu
-- `footer-1-menu`, `footer-2-menu`, `footer-3-menu` — Footer menus
+- `menu-1` — Main Navigation Menu (used in header: desktop + mobile)
+- `footer-1-menu` — Footer Menu #1 (via widget sidebar)
+- `footer-2-menu` — Footer Menu #2 (via widget sidebar)
+- `footer-3-menu` — Footer Menu #3 (via widget sidebar)
 
 **Registered widget sidebars:**
 

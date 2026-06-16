@@ -7,7 +7,7 @@
 button.button,
 a.button,
 input[type="submit"] {
-	@apply bg-primary-900 text-background font-semibold cursor-pointer text-base transition-all hover:bg-primary-950 hover:text-background active:bg-primary-950 active:text-background focus:bg-primary-950 focus:text-background rounded-lg h-14 uppercase tracking-wider;
+	@apply bg-primary-900 text-background font-semibold cursor-pointer text-base transition-all hover:bg-primary-950 hover:text-background active:bg-primary-950 active:text-background active:scale-[0.97] focus:bg-primary-950 focus:text-background rounded-lg h-14 uppercase tracking-wider;
 
 	&:disabled,
 	&.disabled {
@@ -86,8 +86,8 @@ label { @apply font-semibold; }
 	@apply p-1.5 mt-2 text-center text-sm font-medium rounded-lg w-full;
 
 	&.short  { @apply bg-error-100 text-error-700; }
-	&.bad    { @apply bg-orange-100 text-orange-800; }
-	&.good   { @apply bg-yellow-100 text-yellow-800; }
+	&.bad    { @apply bg-warning-100 text-warning-800; }
+	&.good   { @apply bg-warning-50 text-warning-600; }
 	&.strong { @apply bg-primary-100 text-primary-900; }
 }
 

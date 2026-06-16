@@ -4,6 +4,11 @@
  *         gallery, variations, tabs, attributes, related/upsell products
  */
 
+/* Pre-order badge — shown on order item names (frontend order pages, emails) */
+.preorder-badge {
+	@apply inline-block bg-info-100 text-info-700 text-[0.7rem] font-bold px-1.5 py-px rounded align-middle ml-1.5;
+}
+
 /* Archive sorting/result count bar */
 .shop-utility-wrapper {
 	@apply pb-6 mb-6 border-b border-b-neutral-300 flex gap-4 justify-between;
@@ -27,7 +32,7 @@
 		&.columns-6 { @apply lg:grid-cols-6; }
 
 		li.product {
-			@apply w-full flex flex-col flex-nowrap gap-0 border bg-white border-neutral-300 rounded-lg overflow-hidden;
+			@apply w-full flex flex-col flex-nowrap gap-0 border bg-white border-neutral-300 rounded-lg overflow-hidden transition-all hover:scale-[1.01] active:scale-[0.98];
 
 			/* Category card */
 			&.product-category a {
@@ -207,7 +212,7 @@
 
 		.swiper-button-prev,
 		.swiper-button-next {
-			@apply w-12 h-12 bg-primary text-white p-2 hover:bg-primary-950 active:bg-primary-950 transition-all;
+			@apply w-12 h-12 bg-primary text-background p-2 hover:bg-primary-950 active:bg-primary-950 active:scale-90 transition-all;
 
 			.swiper-navigation-icon {
 				@apply w-6 h-6;
@@ -274,7 +279,7 @@
 			}
 
 			.discount {
-				@apply px-2.5 py-1 rounded-4xl font-normal text-neutral-100 bg-primary-900 text-base;
+				@apply px-2.5 py-1 rounded-full font-normal text-neutral-100 bg-primary-900 text-base;
 			}
 
 			.sale {}
@@ -355,8 +360,8 @@
 			@apply mb-6 me-4 text-xl font-semibold;
 
 			&.out-of-stock  { @apply text-error-700; }
-			&.pre-order     { @apply text-sky-950; }
-			&.coming-soon   { @apply text-amber-950; }
+			&.pre-order     { @apply text-info-700; }
+			&.coming-soon   { @apply text-warning-800; }
 		}
 	}
 

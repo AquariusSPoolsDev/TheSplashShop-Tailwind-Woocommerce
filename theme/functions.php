@@ -15,7 +15,7 @@ if ( ! defined( 'SHOPCHOP_VERSION' ) ) {
 	 * to create your production build, the value below will be replaced in the
 	 * generated zip file with a timestamp, converted to base 36.
 	 */
-	define( 'SHOPCHOP_VERSION', '0.1.0' );
+	define( 'SHOPCHOP_VERSION', '0.1.1' );
 }
 
 if ( ! defined( 'SHOPCHOP_TYPOGRAPHY_CLASSES' ) ) {
@@ -80,13 +80,10 @@ if ( ! function_exists( 'shopchop_setup' ) ) :
 		// This theme uses wp_nav_menu() in two locations.
 		register_nav_menus(
 			array(
-				'menu-1' => __( 'Primary', 'shopchop' ),
-				// 'menu-2' => __( 'Footer Menu', 'shopchop' ),
-				'main-menu' => __( 'Main Header Menu', 'shopchop' ),
-				'sec-menu' => __( 'Secondary Header Menu', 'shopchop' ),
-				'footer-1-menu' => __( 'Footer 1 Menu', 'shopchop' ),
-				'footer-2-menu' => __( 'Footer 2 Menu', 'shopchop' ),
-				'footer-3-menu' => __( 'Footer 3 Menu', 'shopchop' ),
+				'menu-1'        => __( 'Main Navigation Menu', 'shopchop' ),
+				'footer-1-menu' => __( 'Footer Menu #1', 'shopchop' ),
+				'footer-2-menu' => __( 'Footer Menu #2', 'shopchop' ),
+				'footer-3-menu' => __( 'Footer Menu #3', 'shopchop' ),
 			)
 		);
 
@@ -210,19 +207,23 @@ add_action( 'widgets_init', 'shopchop_widgets_init' );
  * Enqueue scripts and styles.
  */
 function shopchop_scripts() {
-	wp_enqueue_style( 'shopchop-style', get_stylesheet_uri(), array(), SHOPCHOP_VERSION );
+	$ver = ( defined( 'WP_DEBUG' ) && WP_DEBUG )
+		? filemtime( get_template_directory() . '/style.css' )
+		: SHOPCHOP_VERSION;
+
+	wp_enqueue_style( 'shopchop-style', get_stylesheet_uri(), array(), $ver );
 	wp_enqueue_style( 'shopchop-fonts', 'https://fonts.bunny.net/css?family=be-vietnam-pro:100,200,300,400,500,600,700,800,900|source-sans-3:200,300,400,500,600,700,800,900', array(), null );
-	wp_enqueue_style( 'shopchop-swiper', 'https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css', array(), SHOPCHOP_VERSION );
-	wp_enqueue_script( 'shopchop-swiper', 'https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js', array(), SHOPCHOP_VERSION, true );
-	wp_enqueue_script( 'shopchop-script', get_template_directory_uri() . '/js/script.min.js', array( 'jquery', 'shopchop-swiper' ), SHOPCHOP_VERSION, true );
+	wp_enqueue_script( 'shopchop-script', get_template_directory_uri() . '/js/script.min.js', array( 'jquery' ), $ver, true );
 
 	if ( is_woocommerce() || is_front_page() || is_home() ) {
-		wp_enqueue_style( 'shopchop-glightbox', 'https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css', array(), SHOPCHOP_VERSION );
-		wp_enqueue_script( 'shopchop-glightbox', 'https://cdn.jsdelivr.net/gh/mcstudios/glightbox/dist/js/glightbox.min.js', array(), SHOPCHOP_VERSION, true );
+		wp_enqueue_style( 'shopchop-swiper', 'https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css', array(), $ver );
+		wp_enqueue_script( 'shopchop-swiper', 'https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js', array(), $ver, true );
+		wp_enqueue_style( 'shopchop-glightbox', 'https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css', array(), $ver );
+		wp_enqueue_script( 'shopchop-glightbox', 'https://cdn.jsdelivr.net/gh/mcstudios/glightbox/dist/js/glightbox.min.js', array(), $ver, true );
 	}
 
 	if ( is_product() ) {
-		wp_enqueue_script( 'shopchop-medium-zoom', 'https://cdnjs.cloudflare.com/ajax/libs/medium-zoom/1.1.0/medium-zoom.min.js', array(), SHOPCHOP_VERSION, true );
+		wp_enqueue_script( 'shopchop-medium-zoom', 'https://cdnjs.cloudflare.com/ajax/libs/medium-zoom/1.1.0/medium-zoom.min.js', array(), $ver, true );
 	}
 
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
@@ -231,8 +232,9 @@ function shopchop_scripts() {
 
 	// Localize script for AJAX search
 	wp_localize_script('shopchop-script', 'shopchopDynamicSearch', array(
-		'ajax_url' => admin_url('admin-ajax.php'),
-		'nonce' => wp_create_nonce('wc_ajax_search_nonce')
+		'ajax_url'   => admin_url('admin-ajax.php'),
+		'nonce'      => wp_create_nonce('wc_ajax_search_nonce'),
+		'cart_nonce' => wp_create_nonce('shopchop_cart_nonce'),
 	));
 }
 add_action( 'wp_enqueue_scripts', 'shopchop_scripts' );

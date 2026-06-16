@@ -18,23 +18,7 @@ $is_minimal_page = is_checkout() || is_wc_endpoint_url('order-received') || (is_
 		<div class="container mx-auto px-6 md:px-10 lg:px-16 py-4">
 			<div class="header-minimal-content">
 				<div class="shopchop-logo-meta">
-					<?php
-					if (has_custom_logo()) {
-						$custom_logo_id = get_theme_mod('custom_logo');
-						$logo = wp_get_attachment_image_src($custom_logo_id, 'full');
-						$logo_src = $logo[0];
-					} else {
-						$logo_src = get_stylesheet_directory_uri() . '/assets/images/logo.png';
-					}
-					?>
-
-					<a href="<?php echo esc_url(home_url('/')); ?>" class="block">
-						<img
-							src="<?php echo esc_url($logo_src); ?>"
-							alt="<?php bloginfo('name'); ?>"
-							title="<?php bloginfo('name'); ?>"
-							class="h-16 w-auto shrink-0">
-					</a>
+					<?php shopchop_render_logo( 'h-16 w-auto shrink-0' ); ?>
 				</div>
 				<div class="shopchop-tagline-desc max-w-48">
 					<?php
@@ -59,23 +43,7 @@ $is_minimal_page = is_checkout() || is_wc_endpoint_url('order-received') || (is_
 					<!-- Search Bar Row: Logo, Search Bar, Account Controls -->
 					<div class="search-bar-row flex flex-wrap items-center w-full lg:gap-6 py-4">
 						<div class="shopchop-logo-meta lg:shrink-0">
-							<?php
-							if (has_custom_logo()) {
-								$custom_logo_id = get_theme_mod('custom_logo');
-								$logo = wp_get_attachment_image_src($custom_logo_id, 'full');
-								$logo_src = $logo[0];
-							} else {
-								$logo_src = get_stylesheet_directory_uri() . '/assets/images/logo.png';
-							}
-							?>
-
-							<a href="<?php echo esc_url(home_url('/')); ?>" class="block">
-								<img
-									src="<?php echo esc_url($logo_src); ?>"
-									alt="<?php bloginfo('name'); ?>"
-									title="<?php bloginfo('name'); ?>"
-									class="h-16 lg:h-20 w-auto shrink-0">
-							</a>
+							<?php shopchop_render_logo( 'h-16 lg:h-20 w-auto shrink-0' ); ?>
 						</div>
 
 						<!-- Mobile Menu Cluster Buttons -->

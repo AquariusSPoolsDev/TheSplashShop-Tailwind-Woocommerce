@@ -102,8 +102,8 @@
 
 										&.instock     { @apply bg-success-100 text-success-800; }
 										&.outofstock  { @apply bg-error-100 text-error-700; }
-										&.pre-order   { @apply bg-sky-100 text-sky-950; }
-										&.coming-soon { @apply bg-amber-50 text-amber-950; }
+										&.pre-order   { @apply bg-info-100 text-info-700; }
+										&.coming-soon { @apply bg-warning-100 text-warning-800; }
 									}
 								}
 

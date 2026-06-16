@@ -14,7 +14,7 @@
             @apply flex flex-wrap gap-2 mb-4;
 
             a {
-                @apply bg-primary-200 text-primary-950 font-semibold px-4.5 py-1 rounded-lg text-base uppercase tracking-wide hover:bg-primary-100 active:bg-primary-100 transition-colors;
+                @apply bg-primary-200 text-primary-950 font-semibold px-4.5 py-1 rounded-lg text-base uppercase tracking-wide hover:bg-primary-100 active:bg-primary-100 active:scale-[0.97] transition-all;
             }
         }
 
@@ -46,7 +46,7 @@
             @apply flex flex-wrap gap-2;
 
             a {
-                @apply border border-neutral-300 bg-white text-neutral-800 text-sm lg:text-base font-medium px-4 py-1 rounded-lg hover:bg-neutral-200 active:bg-neutral-200 transition-colors;
+                @apply border border-neutral-300 bg-white text-neutral-800 text-sm lg:text-base font-medium px-4 py-1 rounded-lg hover:bg-neutral-200 active:bg-neutral-200 active:scale-[0.97] transition-all;
             }
         }
     }
@@ -120,7 +120,7 @@
 
     /* [ AUTHOR PORTFOLIO ] */
     .author-post-card {
-        @apply p-4 lg:p-6 mt-12 bg-white hover:bg-neutral-100 active:bg-neutral-100 border border-neutral-300 rounded-lg flex items-center gap-4;
+        @apply p-4 lg:p-6 mt-12 bg-white hover:bg-neutral-100 hover:scale-[1.01] active:bg-neutral-100 active:scale-[0.98] border border-neutral-300 rounded-lg flex items-center gap-4 transition-all;
 
         .author-avatar {
             @apply w-20 h-20 object-cover shrink-0;
@@ -163,7 +163,7 @@
             @apply flex flex-col md:flex-row gap-4;
 
             .nav-post {
-                @apply flex items-center flex-1 bg-white border border-neutral-300 rounded-lg transition-all overflow-hidden hover:border-primary hover:bg-neutral-100 active:bg-neutral-100;
+                @apply flex items-center flex-1 bg-white border border-neutral-300 rounded-lg transition-all overflow-hidden hover:border-primary hover:bg-neutral-100 hover:scale-[1.01] active:bg-neutral-100 active:scale-[0.98];
 
                 .nav-post-image {
                     @apply shrink-0 h-full w-24 aspect-square overflow-hidden bg-linear-to-b from-primary-300 to-primary-500;

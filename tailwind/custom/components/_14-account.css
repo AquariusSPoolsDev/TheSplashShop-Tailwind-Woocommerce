@@ -66,12 +66,12 @@
 		.status-badge {
 			@apply block rounded-full font-medium text-sm md:text-base px-2.5 py-1 md:px-4 md:py-2;
 
-			&.status-pending    { @apply bg-amber-100 text-amber-800; }
+			&.status-pending    { @apply bg-warning-100 text-warning-800; }
 			&.status-processing { @apply bg-primary-100 text-primary-900; }
-			&.status-completed  { @apply bg-emerald-100 text-emerald-800; }
-			&.status-on-hold    { @apply bg-amber-100 text-amber-800; }
+			&.status-completed  { @apply bg-success-100 text-success-800; }
+			&.status-on-hold    { @apply bg-warning-100 text-warning-800; }
 			&.status-cancelled  { @apply bg-neutral-300/50 text-neutral-800; }
-			&.status-refunded   { @apply bg-slate-100 text-slate-800; }
+			&.status-refunded   { @apply bg-neutral-100 text-neutral-700; }
 			&.status-failed     { @apply bg-error-100 text-error-700; }
 		}
 
@@ -142,7 +142,7 @@
 			.user-action-order,
 			.user-action-billing,
 			.user-action-account-edit {
-				@apply flex md:flex-wrap items-center gap-4 transition-all hover:bg-secondary-100/50 active:bg-secondary-100/50 focus:bg-secondary-100/50 hover:border-secondary active:border-secondary focus:border-secondary;
+				@apply flex md:flex-wrap items-center gap-4 transition-all hover:bg-secondary-100/50 hover:border-secondary hover:scale-[1.01] active:bg-secondary-100/50 active:border-secondary active:scale-[0.98] focus:bg-secondary-100/50 focus:border-secondary;
 			}
 		}
 
@@ -156,7 +156,7 @@
 				h2 { @apply mb-0; }
 
 				.edit {
-					@apply rounded-lg px-3 py-1 text-sm transition-all bg-transparent border-2 text-secondary-900 border-secondary-900 hover:bg-secondary-100 active:bg-secondary-100 focus:bg-secondary-100 ms-auto;
+					@apply rounded-lg px-3 py-1 text-sm transition-all bg-transparent border-2 text-secondary-900 border-secondary-900 hover:bg-secondary-100 active:bg-secondary-100 active:scale-[0.97] focus:bg-secondary-100 ms-auto;
 				}
 			}
 		}

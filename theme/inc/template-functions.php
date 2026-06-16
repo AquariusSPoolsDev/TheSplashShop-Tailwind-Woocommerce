@@ -764,7 +764,7 @@ add_action(    'shopchop_checkout_payment',          'woocommerce_checkout_payme
  */
 add_filter( 'authenticate', 'shopchop_remove_login_errors', 20, 3 );
 function shopchop_remove_login_errors( $user, $username, $password ) {
-	if ( empty( $username ) || empty( $password ) || is_wp_error( $user ) ) {
+	if ( ! empty( $username ) && ! empty( $password ) && is_wp_error( $user ) ) {
 		return new WP_Error(
 			'authentication_failed',
 			__( '<strong>Error</strong>: Invalid username or password. Please try again.' )
@@ -1035,7 +1035,7 @@ add_action( 'wp_ajax_nopriv_shopchop_get_mini_cart', 'shopchop_get_mini_cart' );
  * Accepts: POST action=shopchop_remove_cart_item, cart_item_key, nonce.
  */
 function shopchop_remove_cart_item() {
-	check_ajax_referer( 'wc_ajax_search_nonce', 'nonce', true );
+	check_ajax_referer( 'shopchop_cart_nonce', 'nonce', true );
 
 	$cart_item_key = isset( $_POST['cart_item_key'] ) ? sanitize_text_field( $_POST['cart_item_key'] ) : '';
 
@@ -1314,7 +1314,7 @@ function shopchop_preorder_item_name_badge( $name, $item, $is_visible ) {
 		return $name;
 	}
 
-	$badge = '<span class="preorder-badge" style="display:inline-block;background:#d1ecff;color:#0073aa;font-size:.7rem;font-weight:700;padding:1px 6px;border-radius:4px;vertical-align:middle;margin-left:6px;">'
+	$badge = '<span class="preorder-badge">'
 		. __( 'Pre-Order', 'shopchop' )
 		. '</span>';
 
@@ -1357,8 +1357,8 @@ function shopchop_admin_custom_status_styles() {
 	<style>
 		mark.instock     { background:#d1fae5!important; color:#065f46!important; padding:2px 8px; border-radius:4px; font-weight:600!important; }
 		mark.outofstock  { background:#ffe4e6!important; color:#9f1239!important; padding:2px 8px; border-radius:4px; font-weight:600!important; }
-		mark.pre-order   { background:#d1ecff; color:#0073aa; padding:2px 8px; border-radius:4px; font-weight:600; }
-		mark.coming-soon { background:#fff3cd; color:#b45309; padding:2px 8px; border-radius:4px; font-weight:600; }
+		mark.pre-order   { background:#DBEAFE; color:#1D4ED8; padding:2px 8px; border-radius:4px; font-weight:600; }
+		mark.coming-soon { background:#FEF3C7; color:#92400E; padding:2px 8px; border-radius:4px; font-weight:600; }
 
 		.wp-list-table .column-thumb { width:80px!important; }
 		.thumb.column-thumb .attachment-thumbnail { max-width:80px; max-height:80px; }

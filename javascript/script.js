@@ -49,6 +49,15 @@
 			const word = count === 1 ? 'item' : 'items';
 			return `<span class="count-number">${count}</span> ${word}`;
 		},
+
+		escapeHtml(str) {
+			return String(str)
+				.replace(/&/g, '&amp;')
+				.replace(/</g, '&lt;')
+				.replace(/>/g, '&gt;')
+				.replace(/"/g, '&quot;')
+				.replace(/'/g, '&#39;');
+		},
 	};
 
 	/* =========================================================================
@@ -83,7 +92,7 @@
 				data: {
 					action: 'shopchop_remove_cart_item',
 					cart_item_key: cartItemKey,
-					nonce: shopchopDynamicSearch.nonce,
+					nonce: shopchopDynamicSearch.cart_nonce,
 				},
 				...callbacks,
 			});
@@ -254,6 +263,7 @@
     ========================================================================= */
 	ShopChop.ProductSlider = {
 		init($scope) {
+			if (typeof Swiper === 'undefined') return;
 			$scope.find('.shopchop-product-slider').each(function () {
 				new Swiper(this, {
 					slidesPerView: 2,
@@ -284,6 +294,7 @@
     ========================================================================= */
 	ShopChop.HeroCarousel = {
 		init() {
+			if (typeof Swiper === 'undefined') return;
 			document.querySelectorAll('.shopchop-hero-swiper[data-swiper]').forEach((el) => {
 				try {
 					const config = JSON.parse(el.dataset.swiper);
@@ -300,6 +311,7 @@
     ========================================================================= */
 	ShopChop.ProductsCarousel = {
 		init() {
+			if (typeof Swiper === 'undefined') return;
 			document.querySelectorAll('.shopchop-products-swiper[data-swiper]').forEach((el) => {
 				try {
 					const config = JSON.parse(el.dataset.swiper);
@@ -316,6 +328,7 @@
     ========================================================================= */
 	ShopChop.TestimonialsCarousel = {
 		init() {
+			if (typeof Swiper === 'undefined') return;
 			document.querySelectorAll('.shopchop-testimonials-swiper[data-swiper]').forEach((el) => {
 				try {
 					const config = JSON.parse(el.dataset.swiper);
@@ -332,6 +345,7 @@
     ========================================================================= */
 	ShopChop.ProductGallery = {
 		init() {
+			if (typeof Swiper === 'undefined') return;
 			const galleryEl = document.querySelector(
 				'.woocommerce-product-gallery'
 			);
@@ -745,15 +759,17 @@
 
 						const html = products
 							.map((p) => {
+								const title = Utils.escapeHtml(p.title);
+								const url = Utils.escapeHtml(p.url);
 								const img = p.image
-									? `<img src="${p.image}" alt="${p.title}">`
+									? `<img src="${Utils.escapeHtml(p.image)}" alt="${title}">`
 									: '';
 								return `
-                                <div class="search-result-item" role="option" aria-label="${p.title}">
-                                    <a href="${p.url}">
+                                <div class="search-result-item" role="option" aria-label="${title}">
+                                    <a href="${url}">
                                         <div class="result-image">${img}</div>
                                         <div class="result-details">
-                                            <span class="result-title">${p.title}</span>
+                                            <span class="result-title">${title}</span>
                                         </div>
                                     </a>
                                 </div>`;
@@ -1045,7 +1061,13 @@
 				}
 			);
 
-			miniCart.load(); // Initial load
+			// Lazy-load on first drawer open (same pattern as desktop CartDropdown)
+			const cartToggle = document.getElementById('mobile-cart-toggle');
+			if (cartToggle) {
+				cartToggle.addEventListener('click', () => {
+					if (!miniCart.getIsLoaded()) miniCart.load();
+				}, { once: false });
+			}
 		},
 	};
 
