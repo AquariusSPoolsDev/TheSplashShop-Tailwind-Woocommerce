@@ -25,17 +25,19 @@ do_action( 'woocommerce_before_shipping_calculator' ); ?>
 
 	<section class="shipping-calculator-form" id="shipping-calculator-form" style="display:none;">
 
-		<?php if ( apply_filters( 'woocommerce_shipping_calculator_enable_country', true ) ) : ?>
-			<p class="form-row form-row-wide" id="calc_shipping_country_field">
-				<label for="calc_shipping_country"><?php esc_html_e( 'Country', 'woocommerce' ); ?></label>
-				<select name="calc_shipping_country" id="calc_shipping_country" class="country_to_state country_select" rel="calc_shipping_state">
-					<option value="default"><?php esc_html_e( 'Select a country&hellip;', 'woocommerce' ); ?></option>
-					<?php
-					foreach ( WC()->countries->get_shipping_countries() as $key => $value ) {
-						echo '<option value="' . esc_attr( $key ) . '"' . selected( WC()->customer->get_shipping_country(), esc_attr( $key ), false ) . '>' . esc_html( $value ) . '</option>';
-					}
-					?>
-				</select>
+		<p class="shipping-calculator-hint text-sm text-neutral-500 !mt-4 !mb-2 !p-0"><?php esc_html_e( 'Enter postcode to auto-fill city &amp; state.', 'shopchop' ); ?></p>
+
+		<?php if ( apply_filters( 'woocommerce_shipping_calculator_enable_postcode', true ) ) : ?>
+			<p class="form-row form-row-wide" id="calc_shipping_postcode_field">
+				<label for="calc_shipping_postcode"><?php esc_html_e( 'Postcode:', 'woocommerce' ); ?></label>
+				<input type="text" class="input-text" placeholder="Postcode" value="<?php echo esc_attr( WC()->customer->get_shipping_postcode() ); ?>" name="calc_shipping_postcode" id="calc_shipping_postcode" maxlength="5" inputmode="numeric" />
+			</p>
+		<?php endif; ?>
+
+		<?php if ( apply_filters( 'woocommerce_shipping_calculator_enable_city', true ) ) : ?>
+			<p class="form-row form-row-wide" id="calc_shipping_city_field">
+				<label for="calc_shipping_city"><?php esc_html_e( 'City:', 'woocommerce' ); ?></label>
+				<input type="text" class="input-text" placeholder="City" value="<?php echo esc_attr( WC()->customer->get_shipping_city() ); ?>" name="calc_shipping_city" id="calc_shipping_city" />
 			</p>
 		<?php endif; ?>
 
@@ -74,17 +76,17 @@ do_action( 'woocommerce_before_shipping_calculator' ); ?>
 			</p>
 		<?php endif; ?>
 
-		<?php if ( apply_filters( 'woocommerce_shipping_calculator_enable_city', true ) ) : ?>
-			<p class="form-row form-row-wide" id="calc_shipping_city_field">
-				<label for="calc_shipping_city"><?php esc_html_e( 'City:', 'woocommerce' ); ?></label>
-				<input type="text" class="input-text" placeholder="City" value="<?php echo esc_attr( WC()->customer->get_shipping_city() ); ?>" name="calc_shipping_city" id="calc_shipping_city" />
-			</p>
-		<?php endif; ?>
-
-		<?php if ( apply_filters( 'woocommerce_shipping_calculator_enable_postcode', true ) ) : ?>
-			<p class="form-row form-row-wide" id="calc_shipping_postcode_field">
-				<label for="calc_shipping_postcode"><?php esc_html_e( 'Postcode:', 'woocommerce' ); ?></label>
-				<input type="text" class="input-text" placeholder="Postcode" value="<?php echo esc_attr( WC()->customer->get_shipping_postcode() ); ?>" name="calc_shipping_postcode" id="calc_shipping_postcode" />
+		<?php if ( apply_filters( 'woocommerce_shipping_calculator_enable_country', true ) ) : ?>
+			<p class="form-row form-row-wide" id="calc_shipping_country_field">
+				<label for="calc_shipping_country"><?php esc_html_e( 'Country', 'woocommerce' ); ?></label>
+				<select name="calc_shipping_country" id="calc_shipping_country" class="country_to_state country_select" rel="calc_shipping_state">
+					<option value="default"><?php esc_html_e( 'Select a country&hellip;', 'woocommerce' ); ?></option>
+					<?php
+					foreach ( WC()->countries->get_shipping_countries() as $key => $value ) {
+						echo '<option value="' . esc_attr( $key ) . '"' . selected( WC()->customer->get_shipping_country(), esc_attr( $key ), false ) . '>' . esc_html( $value ) . '</option>';
+					}
+					?>
+				</select>
 			</p>
 		<?php endif; ?>
 

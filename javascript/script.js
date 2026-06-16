@@ -1239,6 +1239,65 @@
 	};
 
 	/* =========================================================================
+        20. Postcode Autofill – fills City + State from Malaysia postcode
+    ========================================================================= */
+	ShopChop.PostcodeAutofill = {
+		init() {
+			// Strip non-digits from postcode fields; enforce 5-char limit
+			const enforcePostcode = function () {
+				const $el  = $( this );
+				const clean = $el.val().replace( /\D/g, '' ).slice( 0, 5 );
+				if ( clean !== $el.val() ) $el.val( clean );
+			};
+
+			$( document ).on( 'input', '#billing_postcode, #shipping_postcode, #calc_shipping_postcode', enforcePostcode );
+
+			// Strip non-tel chars from phone fields (digits, +, space, -, parentheses)
+			$( document ).on( 'input', '#billing_phone, #shipping_phone', function () {
+				const $el  = $( this );
+				const clean = $el.val().replace( /[^\d+\s\-()\[\]]/g, '' );
+				if ( clean !== $el.val() ) $el.val( clean );
+			} );
+
+			if ( typeof shopchopPostcodes === 'undefined' ) return;
+
+			const fill = ( $input, cityId, stateId ) => {
+				const code = $input.val().trim();
+				if ( code.length !== 5 ) return false;
+
+				const match = shopchopPostcodes[ code ];
+				if ( ! match ) return false;
+
+				$( cityId ).val( match.city );
+				const $state = $( stateId );
+				if ( $state.length ) {
+					$state.val( match.state ).trigger( 'change' );
+				}
+				return true;
+			};
+
+			$( document ).on( 'input', '#billing_postcode', function () {
+				fill( $( this ), '#billing_city', '#billing_state' );
+			} );
+
+			$( document ).on( 'input', '#shipping_postcode', function () {
+				fill( $( this ), '#shipping_city', '#shipping_state' );
+			} );
+
+			let calcAutoSubmitTimer;
+			$( document ).on( 'input', '#calc_shipping_postcode', function () {
+				const matched = fill( $( this ), '#calc_shipping_city', '#calc_shipping_state' );
+				if ( matched ) {
+					clearTimeout( calcAutoSubmitTimer );
+					calcAutoSubmitTimer = setTimeout( () => {
+						$( '.woocommerce-shipping-calculator button[name="calc_shipping"]' ).trigger( 'click' );
+					}, 800 );
+				}
+			} );
+		},
+	};
+
+	/* =========================================================================
         WhatsApp Button – update href dynamically on variation select
     ========================================================================= */
 	ShopChop.WhatsAppButton = {
@@ -1299,5 +1358,6 @@
 		ShopChop.AuthToggle.init();
 		ShopChop.ScrollUtils.init();
 		ShopChop.WhatsAppButton.init();
+		ShopChop.PostcodeAutofill.init();
 	});
 })(jQuery);

@@ -492,9 +492,11 @@ function shopchop_override_address_fields( $fields ) {
 	$fields['first_name']['placeholder'] = __( 'Name',                                   'woocommerce' );
 	$fields['address_1']['placeholder']  = __( '3, Jalan Pembangunan, Taman Perumahan',  'woocommerce' );
 	$fields['city']['placeholder']       = __( 'Johor Bahru',                            'woocommerce' );
-	$fields['postcode']['placeholder']   = __( '80000',                                  'woocommerce' );
-	$fields['phone']['placeholder']      = __( '+60123456789',                           'woocommerce' );
-	$fields['email']['placeholder']      = __( 'mail@example.com',                       'woocommerce' );
+	$fields['postcode']['placeholder']        = __( '80000', 'woocommerce' );
+	$fields['phone']['placeholder']           = __( '+60123456789', 'woocommerce' );
+	$fields['email']['placeholder']           = __( 'mail@example.com', 'woocommerce' );
+	$fields['postcode']['custom_attributes']  = [ 'maxlength' => '5', 'inputmode' => 'numeric', 'pattern' => '[0-9]{5}' ];
+	$fields['phone']['custom_attributes']     = [ 'inputmode' => 'tel' ];
 
 	return $fields;
 }

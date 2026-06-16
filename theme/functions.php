@@ -236,8 +236,77 @@ function shopchop_scripts() {
 		'nonce'      => wp_create_nonce('wc_ajax_search_nonce'),
 		'cart_nonce' => wp_create_nonce('shopchop_cart_nonce'),
 	));
+
+	// Localize postcode lookup only on checkout and edit-address pages
+	if ( function_exists( 'is_checkout' ) && ( is_checkout() || is_cart() || is_wc_endpoint_url( 'edit-address' ) ) ) {
+		wp_localize_script( 'shopchop-script', 'shopchopPostcodes', shopchop_build_postcode_lookup() );
+	}
 }
 add_action( 'wp_enqueue_scripts', 'shopchop_scripts' );
+
+function shopchop_load_postcode_json() {
+	static $data = null;
+	if ( $data !== null ) return $data;
+
+	$json_path = get_template_directory() . '/data/my-postcodes.json';
+	if ( ! file_exists( $json_path ) ) return ( $data = [] );
+
+	$decoded = json_decode( file_get_contents( $json_path ), true );
+	$data    = ( $decoded && ! empty( $decoded['states'] ) ) ? $decoded : [];
+	return $data;
+}
+
+function shopchop_build_postcode_lookup() {
+	$data = shopchop_load_postcode_json();
+	if ( empty( $data ) ) return [];
+
+	// WooCommerce uses SWK for Sarawak; JSON has SRW
+	$code_map = [ 'SRW' => 'SWK' ];
+
+	$lookup = [];
+	foreach ( $data['states'] as $state ) {
+		$state_code = $code_map[ $state['code'] ] ?? $state['code'];
+		foreach ( $state['cities'] as $city ) {
+			foreach ( $city['postcodes'] as $postcode ) {
+				if ( ! isset( $lookup[ $postcode ] ) ) {
+					$lookup[ $postcode ] = [
+						'city'  => $city['name'],
+						'state' => $state_code,
+					];
+				}
+			}
+		}
+	}
+	return $lookup;
+}
+
+// MY address format: "79000 Iskandar Puteri, Johor" (postcode + city on line 1, state on line 2)
+add_filter( 'woocommerce_localisation_address_formats', function ( $formats ) {
+	$formats['MY'] = "{name}\n{company}\n{address_1}\n{address_2}\n{postcode} {city}\n{state}\n{country}";
+	return $formats;
+} );
+
+// Override WooCommerce Malaysia state list with names from the JSON dataset
+add_filter( 'woocommerce_states', function ( $states ) {
+	$data = shopchop_load_postcode_json();
+	if ( empty( $data ) ) return $states;
+
+	$code_map = [ 'SRW' => 'SWK' ];
+	$name_map = [
+		'KUL' => 'W.P. Kuala Lumpur',
+		'LBN' => 'W.P. Labuan',
+		'PJY' => 'W.P. Putrajaya',
+	];
+
+	$my_states = [];
+	foreach ( $data['states'] as $state ) {
+		$code               = $code_map[ $state['code'] ] ?? $state['code'];
+		$my_states[ $code ] = $name_map[ $code ] ?? $state['name'];
+	}
+
+	$states['MY'] = $my_states;
+	return $states;
+} );
 
 add_action( 'wp_head', function () {
 	echo '<link rel="preconnect" href="https://fonts.bunny.net">' . "\n";

@@ -17,7 +17,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-$page_title = ( 'billing' === $load_address ) ? esc_html__( 'Billing address', 'woocommerce' ) : esc_html__( 'Shipping address', 'woocommerce' );
+$page_title = ( 'billing' === $load_address ) ? esc_html__( 'Edit Billing Address', 'shopchop' ) : esc_html__( 'Edit Shipping Address', 'shopchop' );
 
 do_action( 'woocommerce_before_edit_account_address_form' ); ?>
 
