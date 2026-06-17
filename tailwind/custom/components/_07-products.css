@@ -288,6 +288,47 @@
 		form.cart {
 			@apply flex flex-wrap gap-3 w-full;
 
+			table.woocommerce-grouped-product-list {
+				@apply w-full mb-4;
+
+				tr.woocommerce-grouped-product-list-item {
+					@apply p-4 bg-white border border-neutral-300 rounded-lg mb-4 last:mb-0 grid gap-x-4 gap-y-1;
+					grid-template-columns: auto 1fr;
+
+					.woocommerce-grouped-product-list-item__image {
+						@apply row-span-3 self-center;
+
+						.grouped-product-image {
+							@apply size-20 lg:size-28 rounded-lg object-cover;
+						}
+					}
+
+					.woocommerce-grouped-product-list-item__label {
+						@apply text-xl lg:text-2xl font-medium self-end;
+					}
+
+					.woocommerce-grouped-product-list-item__price {
+						@apply self-center;
+					}
+
+					.woocommerce-grouped-product-list-item__quantity {
+						@apply self-start;
+
+						.quantity-nav {
+							@apply h-8 lg:h-10;
+
+							.qty-btn {
+								@apply w-8 lg:w-10 text-base md:text-lg lg:text-xl;
+							}
+
+							.quantity input.qty {
+								@apply w-12 text-base;
+							}
+						}
+					}
+				}
+			}
+
 			.button {
 				@apply px-8;
 			}

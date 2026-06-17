@@ -30,9 +30,10 @@ do_action( 'woocommerce_before_add_to_cart_form' ); ?>
 			$grouped_product_columns = apply_filters(
 				'woocommerce_grouped_product_columns',
 				array(
-					'quantity',
+					'image',
 					'label',
 					'price',
+					'quantity',
 				),
 				$product
 			);
@@ -57,6 +58,9 @@ do_action( 'woocommerce_before_add_to_cart_form' ); ?>
 					do_action( 'woocommerce_grouped_product_list_before_' . $column_id, $grouped_product_child );
 
 					switch ( $column_id ) {
+						case 'image':
+							$value = $grouped_product_child->get_image( 'thumbnail', array( 'class' => 'grouped-product-image' ) );
+							break;
 						case 'quantity':
 							ob_start();
 
@@ -89,7 +93,7 @@ do_action( 'woocommerce_before_add_to_cart_form' ); ?>
 								woocommerce_quantity_input(
 									array(
 										'input_name'  => 'quantity[' . $grouped_product_child->get_id() . ']',
-										'input_value' => isset( $_POST['quantity'][ $grouped_product_child->get_id() ] ) ? wc_stock_amount( wc_clean( wp_unslash( $_POST['quantity'][ $grouped_product_child->get_id() ] ) ) ) : '', // phpcs:ignore WordPress.Security.NonceVerification.Missing
+										'input_value' => isset( $_POST['quantity'][ $grouped_product_child->get_id() ] ) ? wc_stock_amount( wc_clean( wp_unslash( $_POST['quantity'][ $grouped_product_child->get_id() ] ) ) ) : 1, // phpcs:ignore WordPress.Security.NonceVerification.Missing
 										'min_value'   => apply_filters( 'woocommerce_quantity_input_min', 0, $grouped_product_child ),
 										'max_value'   => $grouped_product_child->get_max_purchase_quantity(),
 										'placeholder' => '0',
