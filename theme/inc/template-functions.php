@@ -24,6 +24,9 @@
  *  § 14 Mini Cart AJAX                (get cart, remove item, fragments)
  *  § 15 Mini Cart Shortcodes          ([shopchop_mini_cart] etc.)
  *  § 16 Custom Stock Statuses         (Pre-Order, Coming Soon)
+ *  § 17 Recently Viewed Products      (cookie-based, single product pages)
+ *  § 18 WhatsApp Floating Button      (single product pages)
+ *  § 19 Admin Login Page Styling      (custom CSS, same WP auth)
  * ─────────────────────────────────────────────────────────────────────────────
  *
  * @package ShopChop
@@ -556,9 +559,7 @@ function shopchop_custom_review_rating() {
 	<div class="shopchop-rating-wrapper">
 		<div class="shopchop-stars" role="img" aria-label="Rated <?php echo $rating; ?> out of 5">
 			<?php for ( $i = 1; $i <= 5; $i++ ) : ?>
-				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="shopchop-star <?php echo $i <= $rating ? 'is-filled' : 'is-empty'; ?>">
-					<path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"/>
-				</svg>
+				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256" class="shopchop-star <?php echo $i <= $rating ? 'is-filled' : 'is-empty'; ?>"><path d="M239.18,97.26A16.38,16.38,0,0,0,224.92,86l-59-4.76L143.14,26.15a16.36,16.36,0,0,0-30.27,0L90.11,81.23,31.08,86a16.46,16.46,0,0,0-9.37,28.86l45,38.83L53,211.75a16.38,16.38,0,0,0,24.5,17.82L128,198.49l50.53,31.08A16.4,16.4,0,0,0,203,211.75l-13.76-58.07,45-38.83A16.43,16.43,0,0,0,239.18,97.26Zm-15.34,5.47-48.7,42a8,8,0,0,0-2.56,7.91l14.88,62.8a.37.37,0,0,1-.17.48c-.18.14-.23.11-.38,0l-54.72-33.65a8,8,0,0,0-8.38,0L69.09,215.94c-.15.09-.19.12-.38,0a.37.37,0,0,1-.17-.48l14.88-62.8a8,8,0,0,0-2.56-7.91l-48.7-42c-.12-.1-.23-.19-.13-.5s.18-.27.33-.29l63.92-5.16A8,8,0,0,0,103,91.86l24.62-59.61c.08-.17.11-.25.35-.25s.27.08.35.25L153,91.86a8,8,0,0,0,6.75,4.92l63.92,5.16c.15,0,.24,0,.33.29S224,102.63,223.84,102.73Z"></path></svg>
 			<?php endfor; ?>
 		</div>
 		<span class="shopchop-rating-number"><?php echo number_format( $rating, 1 ); ?> / 5</span>
@@ -792,16 +793,23 @@ function shopchop_add_next_steps( $order_id ) {
 	if ( ! $order ) return;
 	?>
 	<section class="wc-next-steps-order">
-		<h2 class="wc-next-steps-title">What to do Next?</h2>
-		<ul class="list-disc ml-5 space-y-1">
-			<li><strong>Order Confirmation:</strong> You'll receive an email notification as soon as your order is processed and ready for shipment.</li>
-			<li><strong>Track Your Package:</strong> Once dispatched, a tracking number will be sent to you to monitor your delivery status.</li>
-			<li>
-				<strong>Need Assistance?</strong> Contact us through
-				<a href="https://wa.me/60129127126" class="underline! font-bold text-primary-900" target="_blank" rel="noreferrer">WhatsApp</a>
-				or email us at
+		<h2 class="wc-next-steps-title">Next Steps</h2>
+		<ul class="space-y-2">
+			<li class="flex items-start gap-2">
+				<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 256 256" aria-hidden="true" class="shrink-0 mt-0.5"><path d="M128,96a32,32,0,1,0,32,32A32,32,0,0,0,128,96Zm0,48a16,16,0,1,1,16-16A16,16,0,0,1,128,144Z"></path></svg>
+				<span><strong>Order Confirmation:</strong> We'll email you when your order ships.</span>
+			</li>
+			<li class="flex items-start gap-2">
+				<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 256 256" aria-hidden="true" class="shrink-0 mt-0.5"><path d="M128,96a32,32,0,1,0,32,32A32,32,0,0,0,128,96Zm0,48a16,16,0,1,1,16-16A16,16,0,0,1,128,144Z"></path></svg>
+				<span><strong>Track Your Package:</strong> We'll email your tracking number once we dispatch.</span>
+			</li>
+			<li class="flex items-start gap-2">
+				<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 256 256" aria-hidden="true" class="shrink-0 mt-0.5"><path d="M128,96a32,32,0,1,0,32,32A32,32,0,0,0,128,96Zm0,48a16,16,0,1,1,16-16A16,16,0,0,1,128,144Z"></path></svg>
+				<span><strong>Need help?</strong> Reach us on
+				<a href="<?php echo esc_url( 'https://wa.me/60129127126?text=' . rawurlencode( 'Hi, I need help with my order: #' . $order->get_order_number() ) ); ?>" class="underline! font-bold text-primary-900" target="_blank" rel="noreferrer">WhatsApp</a>
+				or
 				<a href="mailto:<?php echo esc_attr( get_option( 'woocommerce_email_from_address' ) ); ?>" class="underline! font-bold text-primary-900" rel="noreferrer"><?php echo esc_html( get_option( 'woocommerce_email_from_address' ) ); ?></a>
-				with your Order ID: <strong><?php echo esc_html( $order->get_order_number() ); ?></strong>
+				with Order ID <strong><?php echo esc_html( $order->get_order_number() ); ?></strong></span>
 			</li>
 		</ul>
 	</section>
@@ -1109,11 +1117,7 @@ function shopchop_mini_cart_shortcode() {
 	<div class="shopchop-cart-wrapper">
 		<a href="<?php echo wc_get_cart_url(); ?>" class="shopchop-cart-trigger" aria-label="Shopping Cart" aria-expanded="false">
 			<div class="cart-icon-wrapper">
-				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="cart-icon">
-					<circle cx="8" cy="21" r="1"/>
-					<circle cx="19" cy="21" r="1"/>
-					<path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/>
-				</svg>
+				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256" class="cart-icon"><path d="M230.14,58.87A8,8,0,0,0,224,56H62.68L56.6,22.57A8,8,0,0,0,48.73,16H24a8,8,0,0,0,0,16h18L67.56,172.29a24,24,0,0,0,5.33,11.27,28,28,0,1,0,44.4,8.44h45.42A27.75,27.75,0,0,0,160,204a28,28,0,1,0,28-28H91.17a8,8,0,0,1-7.87-6.57L80.13,152h116a24,24,0,0,0,23.61-19.71l12.16-66.86A8,8,0,0,0,230.14,58.87ZM104,204a12,12,0,1,1-12-12A12,12,0,0,1,104,204Zm96,0a12,12,0,1,1-12-12A12,12,0,0,1,200,204Zm4-74.57A8,8,0,0,1,196.1,136H77.22L65.59,72H214.41Z"></path></svg>
 				<span class="cart-count-badge"><?php echo $count >= 0 ? $count : ''; ?></span>
 			</div>
 			<span class="cart-label">Cart</span>
@@ -1145,11 +1149,7 @@ function shopchop_mobile_cart_icon() {
 	$count = WC()->cart->get_cart_contents_count();
 	ob_start(); ?>
 	<div class="cart-icon-wrapper">
-		<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="cart-icon" aria-hidden="true">
-			<circle cx="8" cy="21" r="1"/>
-			<circle cx="19" cy="21" r="1"/>
-			<path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/>
-		</svg>
+		<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256" class="cart-icon" aria-hidden="true"><path d="M230.14,58.87A8,8,0,0,0,224,56H62.68L56.6,22.57A8,8,0,0,0,48.73,16H24a8,8,0,0,0,0,16h18L67.56,172.29a24,24,0,0,0,5.33,11.27,28,28,0,1,0,44.4,8.44h45.42A27.75,27.75,0,0,0,160,204a28,28,0,1,0,28-28H91.17a8,8,0,0,1-7.87-6.57L80.13,152h116a24,24,0,0,0,23.61-19.71l12.16-66.86A8,8,0,0,0,230.14,58.87ZM104,204a12,12,0,1,1-12-12A12,12,0,0,1,104,204Zm96,0a12,12,0,1,1-12-12A12,12,0,0,1,200,204Zm4-74.57A8,8,0,0,1,196.1,136H77.22L65.59,72H214.41Z"></path></svg>
 		<span class="cart-count-badge"><?php echo $count >= 0 ? $count : ''; ?></span>
 	</div>
 	<?php return ob_get_clean();
@@ -1175,9 +1175,7 @@ function shopchop_mobile_cart_details() {
 			<span>(<span class="cart-items-count"><span class="count-number"><?php echo $count; ?></span> <?php echo $word; ?></span>)</span>
 		</h3>
 		<button id="cart-close" aria-label="Close cart">
-			<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-				<path d="M18 6 6 18"/><path d="m6 6 12 12"/>
-			</svg>
+			<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256" aria-hidden="true"><path d="M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z"></path></svg>
 		</button>
 	</div>
 	<div class="mobile-cart-content">
@@ -1538,3 +1536,145 @@ function shopchop_whatsapp_button() {
 	</a>
 	<?php
 }
+
+
+
+/* =============================================================================
+   § 19 — Admin Login Page Styling
+   ============================================================================= */
+
+/**
+ * Enqueue custom CSS on the WordPress login screen.
+ * Same WP auth — purely cosmetic override.
+ */
+add_action( 'login_enqueue_scripts', 'shopchop_login_styles' );
+function shopchop_login_styles() {
+	$logo_url = get_template_directory_uri() . '/assets/images/logo.png';
+	?>
+	<style>
+		/* ── Page ── */
+		body.login {
+			background: #f8fafc;
+			font-family: 'Manrope', sans-serif;
+		}
+
+		/* ── Logo area ── */
+		#login h1 a {
+			background-image: url(<?php echo esc_url( $logo_url ); ?>);
+			background-color: transparent;
+			background-repeat: no-repeat;
+			background-position: center;
+			background-size: contain;
+			width: 200px;
+			height: 80px;
+		}
+
+		/* ── Card ── */
+		#loginform,
+		#lostpasswordform,
+		#registerform {
+			background: #ffffff;
+			border: 1px solid #e2e8f0;
+			border-radius: 12px;
+			box-shadow: 0 4px 24px rgba(0,0,0,.06);
+			padding: 32px 36px;
+			margin-top: 16px;
+		}
+
+		/* ── Labels ── */
+		#loginform label,
+		#lostpasswordform label {
+			font-family: 'Manrope', sans-serif;
+			font-size: .8125rem;
+			font-weight: 600;
+			color: #475569;
+			text-transform: uppercase;
+			letter-spacing: .04em;
+		}
+
+		/* ── Inputs ── */
+		#loginform input[type="text"],
+		#loginform input[type="password"],
+		#lostpasswordform input[type="text"] {
+			font-family: 'Manrope', sans-serif;
+			border: 1.5px solid #e2e8f0;
+			border-radius: 8px;
+			padding: 10px 14px;
+			font-size: .9375rem;
+			color: #0f172a;
+			box-shadow: none;
+			transition: border-color .15s ease;
+		}
+		#loginform input[type="text"]:focus,
+		#loginform input[type="password"]:focus,
+		#lostpasswordform input[type="text"]:focus {
+			border-color: #3b82f6;
+			box-shadow: 0 0 0 3px rgba(59,130,246,.15);
+			outline: none;
+		}
+
+		/* ── Submit button ── */
+		#loginform .button-primary,
+		#lostpasswordform .button-primary {
+			font-family: 'Manrope', sans-serif;
+			font-weight: 700;
+			font-size: .9375rem;
+			background: #0f172a;
+			border-color: #0f172a;
+			border-radius: 8px;
+			padding: 10px 20px;
+			height: auto;
+			line-height: 1.4;
+			box-shadow: none;
+			text-shadow: none;
+			transition: background .15s ease, border-color .15s ease;
+		}
+		#loginform .button-primary:hover,
+		#loginform .button-primary:focus,
+		#lostpasswordform .button-primary:hover,
+		#lostpasswordform .button-primary:focus {
+			background: #1e293b;
+			border-color: #1e293b;
+			box-shadow: none;
+		}
+
+		/* ── Remember me ── */
+		#loginform .forgetmenot label {
+			font-size: .875rem;
+			font-weight: 500;
+			text-transform: none;
+			letter-spacing: 0;
+			color: #64748b;
+		}
+
+		/* ── Back / nav links ── */
+		#nav a,
+		#backtoblog a {
+			font-family: 'Manrope', sans-serif;
+			font-size: .8125rem;
+			color: #64748b;
+		}
+		#nav a:hover,
+		#backtoblog a:hover {
+			color: #0f172a;
+		}
+
+		/* ── Error / success notices ── */
+		#login_error,
+		.message {
+			font-family: 'Manrope', sans-serif;
+			border-radius: 8px;
+			border-left-width: 4px;
+			font-size: .875rem;
+		}
+	</style>
+	<link rel="preconnect" href="https://fonts.bunny.net">
+	<link rel="stylesheet" href="https://fonts.bunny.net/css?family=manrope:400,600,700,800">
+	<?php
+}
+
+/** Point the login logo link back to the site home. */
+add_filter( 'login_headerurl', fn() => home_url() );
+
+/** Update the logo link title attribute. */
+add_filter( 'login_headertext', fn() => get_bloginfo( 'name' ) );

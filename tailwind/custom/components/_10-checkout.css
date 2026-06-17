@@ -131,6 +131,10 @@
 							&.order-total {
 								@apply text-xl mt-2;
 							}
+
+							&.cart-discount .woocommerce-remove-coupon {
+								@apply text-xs text-error-700 hover:text-error-700/75 transition-colors;
+							}
 						}
 					}
 				}

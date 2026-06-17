@@ -1091,7 +1091,7 @@
 			const closeBtn = document.createElement('button');
 			closeBtn.className = 'shopchop-toast-close';
 			closeBtn.setAttribute('aria-label', 'Dismiss notification');
-			closeBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>`;
+			closeBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 256 256"><path d="M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z"></path></svg>`;
 
 			toast.appendChild(msg);
 			toast.appendChild(closeBtn);
@@ -1140,7 +1140,7 @@
 				btn.className = 'mobile-submenu-toggle';
 				btn.setAttribute('aria-expanded', 'false');
 				btn.setAttribute('aria-label', `Toggle ${link.textContent.trim()} sub-menu`);
-				btn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>`;
+				btn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 256 256"><path d="M181.66,133.66l-80,80a8,8,0,0,1-11.32-11.32L164.69,128,90.34,53.66a8,8,0,0,1,11.32-11.32l80,80A8,8,0,0,1,181.66,133.66Z"></path></svg>`;
 				item.appendChild(btn);
 
 				btn.addEventListener('click', (e) => {
@@ -1203,13 +1203,16 @@
 			btn.setAttribute('aria-label', 'Back to top');
 			btn.setAttribute('title', 'Back to top');
 			btn.innerHTML =
-				'<svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"></polyline></svg>';
+				'<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256"><path d="M213.66,165.66a8,8,0,0,1-11.32,0L128,91.31,53.66,165.66a8,8,0,0,1-11.32-11.32l80-80a8,8,0,0,1,11.32,0l80,80A8,8,0,0,1,213.66,165.66Z"></path></svg>';
 			document.body.appendChild(btn);
 
 			// Measure header height and set --header-h
+			// Only offset the bar if the header is fixed (normal header on mobile).
+			// Minimal header is static, so the bar should sit at top-0.
 			const setHeaderH = () => {
 				const header = document.getElementById('masthead');
-				root.style.setProperty('--header-h', header ? header.offsetHeight + 'px' : '0px');
+				const isFixed = header && getComputedStyle(header).position === 'fixed';
+				root.style.setProperty('--header-h', isFixed ? header.offsetHeight + 'px' : '0px');
 			};
 			setHeaderH();
 			window.addEventListener('resize', setHeaderH);

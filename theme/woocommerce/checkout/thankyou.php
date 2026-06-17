@@ -94,7 +94,13 @@ defined('ABSPATH') || exit;
 	</div>
 
 	<div class="wc-thank-you-button-actions">
-		<a href="javascript:window.print()" class="button print-receipt"><?php esc_html_e('Print Receipt', 'woocommerce'); ?></a>
-		<a href="<?php echo esc_url( home_url() ); ?>" class="button continue-shopping"><?php esc_html_e('Continue Shopping', 'woocommerce'); ?></a>
+		<a href="javascript:window.print()" class="button print-receipt">
+			<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256" aria-hidden="true"><path d="M214.67,72H200V40a8,8,0,0,0-8-8H64a8,8,0,0,0-8,8V72H41.33C27.36,72,16,82.77,16,96v80a8,8,0,0,0,8,8H56v32a8,8,0,0,0,8,8H192a8,8,0,0,0,8-8V184h32a8,8,0,0,0,8-8V96C240,82.77,228.64,72,214.67,72ZM72,48H184V72H72ZM184,208H72V160H184Zm40-40H200V152a8,8,0,0,0-8-8H64a8,8,0,0,0-8,8v16H32V96c0-4.41,4.19-8,9.33-8H214.67c5.14,0,9.33,3.59,9.33,8Zm-24-52a12,12,0,1,1-12-12A12,12,0,0,1,200,116Z"></path></svg>
+			<?php esc_html_e('Print Receipt', 'woocommerce'); ?>
+		</a>
+		<a href="<?php echo esc_url( home_url() ); ?>" class="button continue-shopping">
+			<?php esc_html_e('Continue Shopping', 'woocommerce'); ?>
+			<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256" aria-hidden="true"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"></path></svg>
+		</a>
 	</div>
 </div>

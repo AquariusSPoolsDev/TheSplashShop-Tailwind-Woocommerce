@@ -288,7 +288,11 @@
 							@apply flex flex-col w-full;
 
 							.account-menu-item {
-								@apply p-2.5 w-full text-sm text-neutral-800 transition-all border-l-4 border-l-transparent hover:bg-primary-100/30 hover:text-primary-900 hover:border-primary-900 active:bg-primary-100/30 active:text-primary-900 active:border-primary-900 focus:bg-primary-100/30 focus:text-primary-900 focus:border-primary-900;
+								@apply flex items-center gap-2.5 p-2.5 w-full text-sm text-neutral-800 transition-all border-l-4 border-l-transparent hover:bg-primary-100/30 hover:text-primary-900 hover:border-primary-900 active:bg-primary-100/30 active:text-primary-900 active:border-primary-900 focus:bg-primary-100/30 focus:text-primary-900 focus:border-primary-900;
+
+								svg {
+									@apply w-4 h-4 shrink-0;
+								}
 							}
 						}
 
