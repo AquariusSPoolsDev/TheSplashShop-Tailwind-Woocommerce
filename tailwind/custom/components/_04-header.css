@@ -35,7 +35,7 @@
 			@apply lg:hidden ml-auto flex gap-2;
 
 			.shopchop-menu-item {
-				@apply p-2 cursor-pointer;
+				@apply p-2 rounded-full cursor-pointer transition-all hover:bg-secondary-100 active:bg-secondary-100 active:scale-90 focus:bg-secondary-100 focus-visible:outline-2 focus-visible:outline-primary-700 focus-visible:outline-offset-2;
 			}
 
 			#mobile-cart-toggle {
@@ -425,7 +425,9 @@
 	#cart-close,
 	#search-close,
 	#menu-close {
-		svg { @apply w-6 h-6 cursor-pointer; }
+		@apply w-10 h-10 flex items-center justify-center rounded-full cursor-pointer transition-all hover:bg-secondary-100 active:bg-secondary-100 active:scale-90 focus:bg-secondary-100 focus-visible:outline-2 focus-visible:outline-primary-700 focus-visible:outline-offset-2;
+
+		svg { @apply w-6 h-6; }
 	}
 
 	#mobile-search {

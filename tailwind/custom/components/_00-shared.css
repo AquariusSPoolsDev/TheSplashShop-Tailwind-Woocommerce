@@ -6,7 +6,7 @@
 	@apply flex flex-col gap-4 mb-8;
 
 	.wc_payment_method {
-		@apply p-4 lg:p-6 border-2 bg-white border-neutral-300 rounded-lg flex items-center gap-4 cursor-pointer transition-all;
+		@apply p-4 lg:p-6 border-2 bg-white border-neutral-300 rounded-lg flex items-center gap-4 cursor-pointer transition-all hover:border-primary-700 has-[input:focus-visible]:outline-2 has-[input:focus-visible]:outline-primary-700 has-[input:focus-visible]:outline-offset-2;
 
 		&.is-selected {
 			@apply border-primary-700 ring-primary-100 ring-4;

@@ -200,7 +200,7 @@
 	}
 
 	.woocommerce-product-gallery__trigger {
-		@apply right-2.5 top-2.5 w-8 h-8 flex justify-center items-center bg-background rounded-lg shadow-sm;
+		@apply right-2.5 top-2.5 w-10 h-10 flex justify-center items-center bg-background rounded-lg shadow-sm transition-all hover:bg-neutral-100 active:bg-neutral-100 active:scale-90 focus:bg-neutral-100 focus-visible:outline-2 focus-visible:outline-primary-700 focus-visible:outline-offset-2;
 	}
 
 	.woocommerce-product-gallery {
@@ -212,7 +212,7 @@
 
 		.swiper-button-prev,
 		.swiper-button-next {
-			@apply w-12 h-12 bg-primary text-background p-2 hover:bg-primary-950 active:bg-primary-950 active:scale-90 transition-all;
+			@apply w-12 h-12 bg-primary text-background p-2 hover:bg-primary-950 active:bg-primary-950 active:scale-90 focus:bg-primary-950 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-background transition-all;
 
 			.swiper-navigation-icon {
 				@apply w-6 h-6;
