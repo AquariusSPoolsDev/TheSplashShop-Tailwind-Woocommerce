@@ -16,7 +16,7 @@ Running locally via **Local by Flywheel** at `c:\Users\muham\Local Sites\lcl26\a
 | JS bundler  | esbuild                                                        |
 | PHP linting | PHPCS                                                          |
 | JS linting  | ESLint + Prettier                                              |
-| Fonts       | Bunny Fonts — Be Vietnam Pro (headings + body)                |
+| Fonts       | Bunny Fonts — Manrope 300–800 (single font, headings + body)  |
 | Carousel    | Swiper v12 (CDN)                                               |
 | Lightbox    | GLightbox (CDN)                                                |
 | Zoom        | medium-zoom (CDN, product page only)                           |
@@ -77,10 +77,10 @@ TheSplashShop-Tailwind-Woocommerce/
 
 **Registered nav menus:**
 
-- `menu-1` — Primary
-- `main-menu` — Main Header Menu
-- `sec-menu` — Secondary Header Menu
-- `footer-1-menu`, `footer-2-menu`, `footer-3-menu` — Footer menus
+- `menu-1` — Main Navigation Menu (used in header: desktop + mobile)
+- `footer-1-menu` — Footer Menu #1 (via widget sidebar)
+- `footer-2-menu` — Footer Menu #2 (via widget sidebar)
+- `footer-3-menu` — Footer Menu #3 (via widget sidebar)
 
 **Registered widget sidebars:**
 

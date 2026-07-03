@@ -7,7 +7,6 @@
 
 .shopchop-header-minimal,
 .shopchop-header-normal {
-	@apply bg-transparent;
 }
 
 .shopchop-header-minimal {
@@ -24,7 +23,7 @@
 	@apply bg-white border-b border-b-neutral-300 shadow-sm w-full fixed top-0 lg:static z-10 lg:z-auto;
 
 	.woocommerce-store-notice {
-		@apply hidden lg:block text-center px-6 md:px-10 lg:px-16 py-2 bg-linear-to-br text-background font-semibold text-sm from-primary-700 to-primary-900;
+		@apply hidden! lg:block! text-center px-6 md:px-10 lg:px-16 py-2 bg-linear-to-br text-background font-semibold text-sm from-primary-700 to-primary-900;
 
 		.woocommerce-store-notice__dismiss-link {
 			@apply font-normal underline! ms-3 transition-all hover:no-underline!;
@@ -36,7 +35,7 @@
 			@apply lg:hidden ml-auto flex gap-2;
 
 			.shopchop-menu-item {
-				@apply p-2 cursor-pointer;
+				@apply p-2 rounded-full cursor-pointer transition-all hover:bg-secondary-100 active:bg-secondary-100 active:scale-90 focus:bg-secondary-100 focus-visible:outline-2 focus-visible:outline-primary-700 focus-visible:outline-offset-2;
 			}
 
 			#mobile-cart-toggle {
@@ -115,7 +114,7 @@
 				@apply hidden lg:block;
 
 				.shopchop-wishlist-btn {
-					@apply w-12 h-12 rounded-full border-neutral-300 border-2 flex items-center justify-center transition-all hover:bg-secondary-100 active:bg-secondary-100 focus:bg-secondary-100;
+					@apply w-12 h-12 rounded-full border-neutral-300 border-2 flex items-center justify-center transition-all hover:bg-secondary-100 active:bg-secondary-100 active:scale-90 focus:bg-secondary-100;
 				}
 
 				.wishlist-icon {
@@ -226,10 +225,10 @@
 							@apply border-t border-t-neutral-300 flex gap-3;
 
 							.button {
-								@apply h-max py-1 text-base text-center normal-case font-medium flex-1;
+								@apply box-border h-11 flex items-center justify-center py-0 text-base text-center normal-case font-medium flex-1;
 
 								&:not(.checkout) {
-									@apply bg-transparent border text-secondary-900 border-secondary-900 hover:bg-secondary-100 active:bg-secondary-100 focus:bg-secondary-100;
+									@apply bg-transparent border-2 text-secondary-900 border-secondary-900 hover:bg-secondary-100 active:bg-secondary-100 focus:bg-secondary-100;
 								}
 							}
 						}
@@ -289,7 +288,11 @@
 							@apply flex flex-col w-full;
 
 							.account-menu-item {
-								@apply p-2.5 w-full text-sm text-neutral-800 transition-all border-l-4 border-l-transparent hover:bg-primary-100/50 hover:text-primary-900 hover:border-primary-900 active:bg-primary-100/50 active:text-primary-900 active:border-primary-900 focus:bg-primary-100/50 focus:text-primary-900 focus:border-primary-900;
+								@apply flex items-center gap-2.5 p-2.5 w-full text-sm text-neutral-800 transition-all border-l-4 border-l-transparent hover:bg-primary-100/30 hover:text-primary-900 hover:border-primary-900 active:bg-primary-100/30 active:text-primary-900 active:border-primary-900 focus:bg-primary-100/30 focus:text-primary-900 focus:border-primary-900;
+
+								svg {
+									@apply w-4 h-4 shrink-0;
+								}
 							}
 						}
 
@@ -325,7 +328,7 @@
 							}
 
 							.login-button {
-								@apply block w-full px-6 py-2.5 bg-primary-700 text-background font-medium rounded-lg transition-all hover:bg-primary-900 active:bg-primary-900 focus:bg-primary-900;
+								@apply block w-full px-6 py-2.5 bg-primary-900 text-background font-medium rounded-lg transition-all hover:bg-primary-950 active:bg-primary-950 focus:bg-primary-950;
 							}
 
 							.register-prompt {
@@ -399,7 +402,7 @@
 
 					a {
 						@apply block px-4 py-2.5 text-secondary-800 transition-all duration-150;
-						@apply hover:bg-primary-100/30 hover:text-primary-900;
+						@apply hover:bg-primary-100/30 hover:text-primary-900 focus:bg-primary-100/30 focus:text-primary-900;
 					}
 
 					&.current-menu-item > a {
@@ -422,7 +425,9 @@
 	#cart-close,
 	#search-close,
 	#menu-close {
-		svg { @apply w-6 h-6 cursor-pointer; }
+		@apply w-10 h-10 flex items-center justify-center rounded-full cursor-pointer transition-all hover:bg-secondary-100 active:bg-secondary-100 active:scale-90 focus:bg-secondary-100 focus-visible:outline-2 focus-visible:outline-primary-700 focus-visible:outline-offset-2;
+
+		svg { @apply w-6 h-6; }
 	}
 
 	#mobile-search {
@@ -573,10 +578,10 @@
 				@apply border-t border-t-neutral-300 flex flex-col-reverse gap-3;
 
 				.button {
-					@apply h-max py-2 text-base text-center normal-case font-medium flex-1 rounded-lg;
+					@apply box-border h-12 flex items-center justify-center py-0 text-base text-center normal-case font-medium flex-1 rounded-lg;
 
 					&:not(.checkout) {
-						@apply bg-transparent border text-secondary-900 border-secondary-900 hover:bg-secondary-100 active:bg-secondary-100 focus:bg-secondary-100;
+						@apply bg-transparent border-2 text-secondary-900 border-secondary-900 hover:bg-secondary-100 active:bg-secondary-100 focus:bg-secondary-100;
 					}
 				}
 			}

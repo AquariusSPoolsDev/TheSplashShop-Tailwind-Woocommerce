@@ -12,11 +12,15 @@
 		}
 
 		li {
-			@apply list-none p-0 m-0 max-md:snap-start;
+			@apply list-none p-0 my-1 max-md:snap-start;
 		}
 
 		a {
-			@apply w-max px-6.5 py-3 md:px-4 md:border-l-4 md:border-l-transparent md:w-full block font-medium text-neutral-700 transition-all hover:text-foreground active:text-foreground focus:text-foreground;
+			@apply w-max px-6 py-2.5 md:py-3 md:px-4 md:border-l-4 md:border-l-transparent md:w-full flex items-center gap-x-2.5 font-medium text-neutral-700 transition-all hover:text-foreground active:text-foreground focus:text-foreground;
+
+			svg {
+				@apply hidden md:block md:size-6 md:text-neutral-500 md:shrink-0 md:transition-colors;
+			}
 
 			&:hover {
 				@apply md:text-primary-900 md:bg-primary-100 md:px-4 md:border-l-4 md:border-l-primary-900 md:rounded-lg md:rounded-l-none;
@@ -25,6 +29,10 @@
 
 		.is-active a {
 			@apply max-md:shadow-sm rounded-xl text-foreground bg-white md:text-primary-900 md:bg-primary-100 md:px-4 md:border-l-4 md:border-l-primary-900 md:rounded-lg md:rounded-l-none;
+
+			svg {
+				@apply md:text-primary-900;
+			}
 		}
 	}
 
@@ -66,12 +74,12 @@
 		.status-badge {
 			@apply block rounded-full font-medium text-sm md:text-base px-2.5 py-1 md:px-4 md:py-2;
 
-			&.status-pending    { @apply bg-amber-100 text-amber-800; }
+			&.status-pending    { @apply bg-warning-100 text-warning-800; }
 			&.status-processing { @apply bg-primary-100 text-primary-900; }
-			&.status-completed  { @apply bg-emerald-100 text-emerald-800; }
-			&.status-on-hold    { @apply bg-amber-100 text-amber-800; }
+			&.status-completed  { @apply bg-success-100 text-success-800; }
+			&.status-on-hold    { @apply bg-warning-100 text-warning-800; }
 			&.status-cancelled  { @apply bg-neutral-300/50 text-neutral-800; }
-			&.status-refunded   { @apply bg-slate-100 text-slate-800; }
+			&.status-refunded   { @apply bg-neutral-100 text-neutral-700; }
 			&.status-failed     { @apply bg-error-100 text-error-700; }
 		}
 
@@ -142,7 +150,7 @@
 			.user-action-order,
 			.user-action-billing,
 			.user-action-account-edit {
-				@apply flex md:flex-wrap items-center gap-4 transition-all hover:bg-secondary-100/50 active:bg-secondary-100/50 focus:bg-secondary-100/50 hover:border-secondary active:border-secondary focus:border-secondary;
+				@apply flex md:flex-wrap items-center gap-4 transition-all hover:bg-secondary-100/50 hover:border-secondary hover:scale-[1.01] active:bg-secondary-100/50 active:border-secondary active:scale-[0.98] focus:bg-secondary-100/50 focus:border-secondary;
 			}
 		}
 
@@ -156,7 +164,7 @@
 				h2 { @apply mb-0; }
 
 				.edit {
-					@apply rounded-lg px-3 py-1 text-sm transition-all bg-transparent border-2 text-secondary-900 border-secondary-900 hover:bg-secondary-100 active:bg-secondary-100 focus:bg-secondary-100 ms-auto;
+					@apply rounded-lg px-3 py-1 text-sm transition-all bg-transparent border-2 text-secondary-900 border-secondary-900 hover:bg-secondary-100 active:bg-secondary-100 active:scale-[0.97] focus:bg-secondary-100 ms-auto;
 				}
 			}
 		}
@@ -395,10 +403,10 @@
 						@apply flex gap-x-1.5 items-baseline;
 
 						a.button {
-							@apply px-2.5 py-1 inline-flex items-center normal-case! text-sm! md:text-base! font-medium border-secondary border-2 bg-transparent! text-secondary! hover:bg-secondary-100! cursor-pointer h-max!;
+							@apply px-2.5 py-1 inline-flex items-center normal-case! text-sm! md:text-base! font-medium border-secondary border-2 bg-transparent! text-secondary! transition-all hover:bg-secondary-100! active:bg-secondary-100! focus:bg-secondary-100! cursor-pointer h-max!;
 
 							&.cancel {
-								@apply border-error-700! text-error-700! hover:bg-error-100!;
+								@apply border-error-700! text-error-700! hover:bg-error-100! active:bg-error-100! focus:bg-error-100!;
 							}
 						}
 					}

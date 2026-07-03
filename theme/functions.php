@@ -15,7 +15,7 @@ if ( ! defined( 'SHOPCHOP_VERSION' ) ) {
 	 * to create your production build, the value below will be replaced in the
 	 * generated zip file with a timestamp, converted to base 36.
 	 */
-	define( 'SHOPCHOP_VERSION', '0.1.0' );
+	define( 'SHOPCHOP_VERSION', '0.1.1' );
 }
 
 if ( ! defined( 'SHOPCHOP_TYPOGRAPHY_CLASSES' ) ) {
@@ -80,13 +80,10 @@ if ( ! function_exists( 'shopchop_setup' ) ) :
 		// This theme uses wp_nav_menu() in two locations.
 		register_nav_menus(
 			array(
-				'menu-1' => __( 'Primary', 'shopchop' ),
-				// 'menu-2' => __( 'Footer Menu', 'shopchop' ),
-				'main-menu' => __( 'Main Header Menu', 'shopchop' ),
-				'sec-menu' => __( 'Secondary Header Menu', 'shopchop' ),
-				'footer-1-menu' => __( 'Footer 1 Menu', 'shopchop' ),
-				'footer-2-menu' => __( 'Footer 2 Menu', 'shopchop' ),
-				'footer-3-menu' => __( 'Footer 3 Menu', 'shopchop' ),
+				'menu-1'        => __( 'Main Navigation Menu', 'shopchop' ),
+				'footer-1-menu' => __( 'Footer Menu #1', 'shopchop' ),
+				'footer-2-menu' => __( 'Footer Menu #2', 'shopchop' ),
+				'footer-3-menu' => __( 'Footer Menu #3', 'shopchop' ),
 			)
 		);
 
@@ -210,19 +207,23 @@ add_action( 'widgets_init', 'shopchop_widgets_init' );
  * Enqueue scripts and styles.
  */
 function shopchop_scripts() {
-	wp_enqueue_style( 'shopchop-style', get_stylesheet_uri(), array(), SHOPCHOP_VERSION );
-	wp_enqueue_style( 'shopchop-fonts', 'https://fonts.bunny.net/css?family=be-vietnam-pro:100,200,300,400,500,600,700,800,900|source-sans-3:200,300,400,500,600,700,800,900', array(), null );
-	wp_enqueue_style( 'shopchop-swiper', 'https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css', array(), SHOPCHOP_VERSION );
-	wp_enqueue_script( 'shopchop-swiper', 'https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js', array(), SHOPCHOP_VERSION, true );
-	wp_enqueue_script( 'shopchop-script', get_template_directory_uri() . '/js/script.min.js', array( 'jquery', 'shopchop-swiper' ), SHOPCHOP_VERSION, true );
+	$ver = ( defined( 'WP_DEBUG' ) && WP_DEBUG )
+		? filemtime( get_template_directory() . '/style.css' )
+		: SHOPCHOP_VERSION;
+
+	wp_enqueue_style( 'shopchop-style', get_stylesheet_uri(), array(), $ver );
+	wp_enqueue_style( 'shopchop-fonts', 'https://fonts.bunny.net/css?family=manrope:300,400,500,600,700,800', array(), null );
+	wp_enqueue_script( 'shopchop-script', get_template_directory_uri() . '/js/script.min.js', array( 'jquery' ), $ver, true );
 
 	if ( is_woocommerce() || is_front_page() || is_home() ) {
-		wp_enqueue_style( 'shopchop-glightbox', 'https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css', array(), SHOPCHOP_VERSION );
-		wp_enqueue_script( 'shopchop-glightbox', 'https://cdn.jsdelivr.net/gh/mcstudios/glightbox/dist/js/glightbox.min.js', array(), SHOPCHOP_VERSION, true );
+		wp_enqueue_style( 'shopchop-swiper', 'https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css', array(), $ver );
+		wp_enqueue_script( 'shopchop-swiper', 'https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js', array(), $ver, true );
+		wp_enqueue_style( 'shopchop-glightbox', 'https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css', array(), $ver );
+		wp_enqueue_script( 'shopchop-glightbox', 'https://cdn.jsdelivr.net/gh/mcstudios/glightbox/dist/js/glightbox.min.js', array(), $ver, true );
 	}
 
 	if ( is_product() ) {
-		wp_enqueue_script( 'shopchop-medium-zoom', 'https://cdnjs.cloudflare.com/ajax/libs/medium-zoom/1.1.0/medium-zoom.min.js', array(), SHOPCHOP_VERSION, true );
+		wp_enqueue_script( 'shopchop-medium-zoom', 'https://cdnjs.cloudflare.com/ajax/libs/medium-zoom/1.1.0/medium-zoom.min.js', array(), $ver, true );
 	}
 
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
@@ -231,11 +232,81 @@ function shopchop_scripts() {
 
 	// Localize script for AJAX search
 	wp_localize_script('shopchop-script', 'shopchopDynamicSearch', array(
-		'ajax_url' => admin_url('admin-ajax.php'),
-		'nonce' => wp_create_nonce('wc_ajax_search_nonce')
+		'ajax_url'   => admin_url('admin-ajax.php'),
+		'nonce'      => wp_create_nonce('wc_ajax_search_nonce'),
+		'cart_nonce' => wp_create_nonce('shopchop_cart_nonce'),
 	));
+
+	// Localize postcode lookup only on checkout and edit-address pages
+	if ( function_exists( 'is_checkout' ) && ( is_checkout() || is_cart() || is_wc_endpoint_url( 'edit-address' ) ) ) {
+		wp_localize_script( 'shopchop-script', 'shopchopPostcodes', shopchop_build_postcode_lookup() );
+	}
 }
 add_action( 'wp_enqueue_scripts', 'shopchop_scripts' );
+
+function shopchop_load_postcode_json() {
+	static $data = null;
+	if ( $data !== null ) return $data;
+
+	$json_path = get_template_directory() . '/data/my-postcodes.json';
+	if ( ! file_exists( $json_path ) ) return ( $data = [] );
+
+	$decoded = json_decode( file_get_contents( $json_path ), true );
+	$data    = ( $decoded && ! empty( $decoded['states'] ) ) ? $decoded : [];
+	return $data;
+}
+
+function shopchop_build_postcode_lookup() {
+	$data = shopchop_load_postcode_json();
+	if ( empty( $data ) ) return [];
+
+	// WooCommerce uses SWK for Sarawak; JSON has SRW
+	$code_map = [ 'SRW' => 'SWK' ];
+
+	$lookup = [];
+	foreach ( $data['states'] as $state ) {
+		$state_code = $code_map[ $state['code'] ] ?? $state['code'];
+		foreach ( $state['cities'] as $city ) {
+			foreach ( $city['postcodes'] as $postcode ) {
+				if ( ! isset( $lookup[ $postcode ] ) ) {
+					$lookup[ $postcode ] = [
+						'city'  => $city['name'],
+						'state' => $state_code,
+					];
+				}
+			}
+		}
+	}
+	return $lookup;
+}
+
+// MY address format: "79000 Iskandar Puteri, Johor" (postcode + city on line 1, state on line 2)
+add_filter( 'woocommerce_localisation_address_formats', function ( $formats ) {
+	$formats['MY'] = "{name}\n{company}\n{address_1}\n{address_2}\n{postcode} {city}\n{state}\n{country}";
+	return $formats;
+} );
+
+// Override WooCommerce Malaysia state list with names from the JSON dataset
+add_filter( 'woocommerce_states', function ( $states ) {
+	$data = shopchop_load_postcode_json();
+	if ( empty( $data ) ) return $states;
+
+	$code_map = [ 'SRW' => 'SWK' ];
+	$name_map = [
+		'KUL' => 'W.P. Kuala Lumpur',
+		'LBN' => 'W.P. Labuan',
+		'PJY' => 'W.P. Putrajaya',
+	];
+
+	$my_states = [];
+	foreach ( $data['states'] as $state ) {
+		$code               = $code_map[ $state['code'] ] ?? $state['code'];
+		$my_states[ $code ] = $name_map[ $code ] ?? $state['name'];
+	}
+
+	$states['MY'] = $my_states;
+	return $states;
+} );
 
 add_action( 'wp_head', function () {
 	echo '<link rel="preconnect" href="https://fonts.bunny.net">' . "\n";

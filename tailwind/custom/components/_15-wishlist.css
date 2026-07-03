@@ -12,7 +12,7 @@
 	@apply my-0;
 
 	.yith-wcwl-add-to-wishlist-button {
-		@apply h-14 px-6 font-semibold border-2 transition-all border-secondary text-secondary rounded-lg hover:bg-secondary-100 focus:bg-secondary-100;
+		@apply h-14 px-6 font-semibold border-2 transition-all border-secondary text-secondary rounded-lg hover:bg-secondary-100 active:bg-secondary-100 active:scale-[0.97] focus:bg-secondary-100;
 	}
 }
 
@@ -67,7 +67,7 @@
 								}
 
 								.discount {
-									@apply px-2 py-0.5 rounded-4xl text-xs font-normal text-neutral-100 bg-primary-900;
+									@apply px-2 py-0.5 rounded-full text-xs font-normal text-neutral-100 bg-primary-900;
 								}
 
 								.sale {}
@@ -156,7 +156,7 @@
 										}
 
 										.discount {
-											@apply px-2 py-0.5 rounded-4xl text-xs font-normal text-neutral-100 bg-primary-900;
+											@apply px-2 py-0.5 rounded-full text-xs font-normal text-neutral-100 bg-primary-900;
 										}
 
 										.sale {}

@@ -86,10 +86,10 @@
 								}
 
 								.product-remove {
-									@apply w-8 h-8 text-center;
+									@apply w-10 h-10 flex items-center justify-center text-center mx-auto;
 
 									a {
-										@apply text-xl md:text-2xl lg:text-3xl font-bold text-error-700 transition-all hover:text-error-700/75 active:text-error-700/75 focus:text-error-700/75;
+										@apply flex items-center justify-center w-full h-full rounded-full text-xl md:text-2xl lg:text-3xl font-bold text-error-700 transition-all hover:text-error-700/75 hover:bg-error-100 active:text-error-700/75 active:bg-error-100 focus-visible:outline-2 focus-visible:outline-error-700 focus-visible:outline-offset-2;
 									}
 								}
 
@@ -102,8 +102,8 @@
 
 										&.instock     { @apply bg-success-100 text-success-800; }
 										&.outofstock  { @apply bg-error-100 text-error-700; }
-										&.pre-order   { @apply bg-sky-100 text-sky-950; }
-										&.coming-soon { @apply bg-amber-50 text-amber-950; }
+										&.pre-order   { @apply bg-info-100 text-info-700; }
+										&.coming-soon { @apply bg-warning-100 text-warning-800; }
 									}
 								}
 

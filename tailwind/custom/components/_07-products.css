@@ -4,6 +4,11 @@
  *         gallery, variations, tabs, attributes, related/upsell products
  */
 
+/* Pre-order badge — shown on order item names (frontend order pages, emails) */
+.preorder-badge {
+	@apply inline-block bg-info-100 text-info-700 text-[0.7rem] font-bold px-1.5 py-px rounded align-middle ml-1.5;
+}
+
 /* Archive sorting/result count bar */
 .shop-utility-wrapper {
 	@apply pb-6 mb-6 border-b border-b-neutral-300 flex gap-4 justify-between;
@@ -27,7 +32,7 @@
 		&.columns-6 { @apply lg:grid-cols-6; }
 
 		li.product {
-			@apply w-full flex flex-col flex-nowrap gap-0 border bg-white border-neutral-300 rounded-lg overflow-hidden;
+			@apply w-full flex flex-col flex-nowrap gap-0 border bg-white border-neutral-300 rounded-lg overflow-hidden transition-all hover:scale-[1.01] active:scale-[0.98];
 
 			/* Category card */
 			&.product-category a {
@@ -195,7 +200,7 @@
 	}
 
 	.woocommerce-product-gallery__trigger {
-		@apply right-2.5 top-2.5 w-8 h-8 flex justify-center items-center bg-background rounded-lg shadow-sm;
+		@apply right-2.5 top-2.5 w-10 h-10 flex justify-center items-center bg-background rounded-lg shadow-sm transition-all hover:bg-neutral-100 active:bg-neutral-100 active:scale-90 focus:bg-neutral-100 focus-visible:outline-2 focus-visible:outline-primary-700 focus-visible:outline-offset-2;
 	}
 
 	.woocommerce-product-gallery {
@@ -207,7 +212,7 @@
 
 		.swiper-button-prev,
 		.swiper-button-next {
-			@apply w-12 h-12 bg-primary text-white p-2 hover:bg-primary-950 active:bg-primary-950 transition-all;
+			@apply w-12 h-12 bg-primary text-background p-2 hover:bg-primary-950 active:bg-primary-950 active:scale-90 focus:bg-primary-950 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-background transition-all;
 
 			.swiper-navigation-icon {
 				@apply w-6 h-6;
@@ -274,7 +279,7 @@
 			}
 
 			.discount {
-				@apply px-2.5 py-1 rounded-4xl font-normal text-neutral-100 bg-primary-900 text-base;
+				@apply px-2.5 py-1 rounded-full font-normal text-neutral-100 bg-primary-900 text-base;
 			}
 
 			.sale {}
@@ -282,6 +287,59 @@
 
 		form.cart {
 			@apply flex flex-wrap gap-3 w-full;
+
+			table.woocommerce-grouped-product-list {
+				@apply w-full mb-4;
+
+				tr.woocommerce-grouped-product-list-item {
+					@apply p-4 bg-white border border-neutral-300 rounded-lg mb-4 last:mb-0 grid gap-x-4 gap-y-1;
+					grid-template-columns: auto 1fr;
+
+					.woocommerce-grouped-product-list-item__image {
+						@apply row-span-3 self-center;
+
+						.grouped-product-image {
+							@apply size-20 lg:size-28 rounded-lg object-cover;
+						}
+					}
+
+					.woocommerce-grouped-product-list-item__label {
+						@apply text-xl lg:text-2xl font-medium self-end;
+					}
+
+					.woocommerce-grouped-product-list-item__price {
+						@apply self-center;
+
+						.price {
+							@apply text-primary-900 font-semibold;
+
+							del {
+								@apply text-neutral-400 font-normal text-sm;
+							}
+
+							.discount-price .discount {
+								@apply py-0 px-1.5 text-xs;
+							}
+						}
+					}
+
+					.woocommerce-grouped-product-list-item__quantity {
+						@apply self-start;
+
+						.quantity-nav {
+							@apply h-8 lg:h-10;
+
+							.qty-btn {
+								@apply w-8 lg:w-10 text-base md:text-lg lg:text-xl;
+							}
+
+							.quantity input.qty {
+								@apply w-12 text-base;
+							}
+						}
+					}
+				}
+			}
 
 			.button {
 				@apply px-8;
@@ -355,8 +413,8 @@
 			@apply mb-6 me-4 text-xl font-semibold;
 
 			&.out-of-stock  { @apply text-error-700; }
-			&.pre-order     { @apply text-sky-950; }
-			&.coming-soon   { @apply text-amber-950; }
+			&.pre-order     { @apply text-info-700; }
+			&.coming-soon   { @apply text-warning-800; }
 		}
 	}
 
@@ -433,5 +491,18 @@
 		@apply w-full;
 
 		ul.products { @apply bg-transparent; }
+	}
+}
+
+/* ── Recently Viewed Products ── */
+.shopchop-recently-viewed {
+	@apply py-10 border-t border-neutral-200;
+
+	.recently-viewed-heading {
+		@apply mb-6 text-2xl lg:text-3xl font-extrabold uppercase bg-linear-to-br from-secondary-800 to-secondary-950 bg-clip-text text-transparent;
+	}
+
+	ul.products {
+		@apply bg-transparent;
 	}
 }

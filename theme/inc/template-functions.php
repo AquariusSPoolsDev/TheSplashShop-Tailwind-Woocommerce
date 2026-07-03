@@ -24,6 +24,9 @@
  *  § 14 Mini Cart AJAX                (get cart, remove item, fragments)
  *  § 15 Mini Cart Shortcodes          ([shopchop_mini_cart] etc.)
  *  § 16 Custom Stock Statuses         (Pre-Order, Coming Soon)
+ *  § 17 Recently Viewed Products      (cookie-based, single product pages)
+ *  § 18 WhatsApp Floating Button      (single product pages)
+ *  § 19 Admin Login Page Styling      (custom CSS, same WP auth)
  * ─────────────────────────────────────────────────────────────────────────────
  *
  * @package ShopChop
@@ -492,9 +495,11 @@ function shopchop_override_address_fields( $fields ) {
 	$fields['first_name']['placeholder'] = __( 'Name',                                   'woocommerce' );
 	$fields['address_1']['placeholder']  = __( '3, Jalan Pembangunan, Taman Perumahan',  'woocommerce' );
 	$fields['city']['placeholder']       = __( 'Johor Bahru',                            'woocommerce' );
-	$fields['postcode']['placeholder']   = __( '80000',                                  'woocommerce' );
-	$fields['phone']['placeholder']      = __( '+60123456789',                           'woocommerce' );
-	$fields['email']['placeholder']      = __( 'mail@example.com',                       'woocommerce' );
+	$fields['postcode']['placeholder']        = __( '80000', 'woocommerce' );
+	$fields['phone']['placeholder']           = __( '+60123456789', 'woocommerce' );
+	$fields['email']['placeholder']           = __( 'mail@example.com', 'woocommerce' );
+	$fields['postcode']['custom_attributes']  = [ 'maxlength' => '5', 'inputmode' => 'numeric', 'pattern' => '[0-9]{5}' ];
+	$fields['phone']['custom_attributes']     = [ 'inputmode' => 'tel' ];
 
 	return $fields;
 }
@@ -554,9 +559,11 @@ function shopchop_custom_review_rating() {
 	<div class="shopchop-rating-wrapper">
 		<div class="shopchop-stars" role="img" aria-label="Rated <?php echo $rating; ?> out of 5">
 			<?php for ( $i = 1; $i <= 5; $i++ ) : ?>
-				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="shopchop-star <?php echo $i <= $rating ? 'is-filled' : 'is-empty'; ?>">
-					<path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"/>
-				</svg>
+				<?php if ( $i <= $rating ) : ?>
+					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256" class="shopchop-star is-filled" aria-hidden="true"><path d="M234.29,114.85l-45,38.83L203,211.75a16.4,16.4,0,0,1-24.5,17.82L128,198.49,77.47,229.57A16.4,16.4,0,0,1,53,211.75l13.76-58.07-45-38.83A16.46,16.46,0,0,1,31.08,86l59-4.76,22.76-55.08a16.36,16.36,0,0,1,30.27,0l22.75,55.08,59,4.76a16.46,16.46,0,0,1,9.37,28.86Z"></path></svg>
+				<?php else : ?>
+					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256" class="shopchop-star is-empty" aria-hidden="true"><path d="M239.18,97.26A16.38,16.38,0,0,0,224.92,86l-59-4.76L143.14,26.15a16.36,16.36,0,0,0-30.27,0L90.11,81.23,31.08,86a16.46,16.46,0,0,0-9.37,28.86l45,38.83L53,211.75a16.38,16.38,0,0,0,24.5,17.82L128,198.49l50.53,31.08A16.4,16.4,0,0,0,203,211.75l-13.76-58.07,45-38.83A16.43,16.43,0,0,0,239.18,97.26Zm-15.34,5.47-48.7,42a8,8,0,0,0-2.56,7.91l14.88,62.8a.37.37,0,0,1-.17.48c-.18.14-.23.11-.38,0l-54.72-33.65a8,8,0,0,0-8.38,0L69.09,215.94c-.15.09-.19.12-.38,0a.37.37,0,0,1-.17-.48l14.88-62.8a8,8,0,0,0-2.56-7.91l-48.7-42c-.12-.1-.23-.19-.13-.5s.18-.27.33-.29l63.92-5.16A8,8,0,0,0,103,91.86l24.62-59.61c.08-.17.11-.25.35-.25s.27.08.35.25L153,91.86a8,8,0,0,0,6.75,4.92l63.92,5.16c.15,0,.24,0,.33.29S224,102.63,223.84,102.73Z"></path></svg>
+				<?php endif; ?>
 			<?php endfor; ?>
 		</div>
 		<span class="shopchop-rating-number"><?php echo number_format( $rating, 1 ); ?> / 5</span>
@@ -667,6 +674,30 @@ function shopchop_auto_completed_note( $order_id, $order ) {
    ============================================================================= */
 
 /**
+ * Insert Wishlist between Dashboard and Orders in My Account nav.
+ */
+add_filter( 'woocommerce_account_menu_items', function ( $items ) {
+	$new_items = array();
+	foreach ( $items as $key => $label ) {
+		$new_items[ $key ] = $label;
+		if ( 'dashboard' === $key ) {
+			$new_items['wishlist'] = __( 'Wishlist', 'shopchop' );
+		}
+	}
+	return $new_items;
+} );
+
+add_filter( 'woocommerce_get_endpoint_url', function ( $url, $endpoint ) {
+	if ( 'wishlist' === $endpoint && function_exists( 'YITH_WCWL' ) ) {
+		$page_id = YITH_WCWL()->get_wishlist_page_id();
+		if ( $page_id ) {
+			$url = get_permalink( $page_id );
+		}
+	}
+	return $url;
+}, 10, 2 );
+
+/**
  * Insert a contextual <h1> title at the top of every My Account content area.
  */
 add_action( 'woocommerce_account_content', 'shopchop_account_content_title', 1 );
@@ -764,7 +795,7 @@ add_action(    'shopchop_checkout_payment',          'woocommerce_checkout_payme
  */
 add_filter( 'authenticate', 'shopchop_remove_login_errors', 20, 3 );
 function shopchop_remove_login_errors( $user, $username, $password ) {
-	if ( empty( $username ) || empty( $password ) || is_wp_error( $user ) ) {
+	if ( ! empty( $username ) && ! empty( $password ) && is_wp_error( $user ) ) {
 		return new WP_Error(
 			'authentication_failed',
 			__( '<strong>Error</strong>: Invalid username or password. Please try again.' )
@@ -790,16 +821,23 @@ function shopchop_add_next_steps( $order_id ) {
 	if ( ! $order ) return;
 	?>
 	<section class="wc-next-steps-order">
-		<h2 class="wc-next-steps-title">What to do Next?</h2>
-		<ul class="list-disc ml-5 space-y-1">
-			<li><strong>Order Confirmation:</strong> You'll receive an email notification as soon as your order is processed and ready for shipment.</li>
-			<li><strong>Track Your Package:</strong> Once dispatched, a tracking number will be sent to you to monitor your delivery status.</li>
-			<li>
-				<strong>Need Assistance?</strong> Contact us through
-				<a href="https://wa.me/60129127126" class="underline! font-bold text-primary-900" target="_blank" rel="noreferrer">WhatsApp</a>
-				or email us at
+		<h2 class="wc-next-steps-title">Next Steps</h2>
+		<ul class="space-y-2">
+			<li class="flex items-start gap-2">
+				<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 256 256" aria-hidden="true" class="shrink-0 mt-0.5"><path d="M128,96a32,32,0,1,0,32,32A32,32,0,0,0,128,96Zm0,48a16,16,0,1,1,16-16A16,16,0,0,1,128,144Z"></path></svg>
+				<span><strong>Order Confirmation:</strong> We'll email you when your order ships.</span>
+			</li>
+			<li class="flex items-start gap-2">
+				<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 256 256" aria-hidden="true" class="shrink-0 mt-0.5"><path d="M128,96a32,32,0,1,0,32,32A32,32,0,0,0,128,96Zm0,48a16,16,0,1,1,16-16A16,16,0,0,1,128,144Z"></path></svg>
+				<span><strong>Track Your Package:</strong> We'll email your tracking number once we dispatch.</span>
+			</li>
+			<li class="flex items-start gap-2">
+				<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 256 256" aria-hidden="true" class="shrink-0 mt-0.5"><path d="M128,96a32,32,0,1,0,32,32A32,32,0,0,0,128,96Zm0,48a16,16,0,1,1,16-16A16,16,0,0,1,128,144Z"></path></svg>
+				<span><strong>Need help?</strong> Reach us on
+				<a href="<?php echo esc_url( 'https://wa.me/60129127126?text=' . rawurlencode( 'Hi, I need help with my order: #' . $order->get_order_number() ) ); ?>" class="underline! font-bold text-primary-900" target="_blank" rel="noreferrer">WhatsApp</a>
+				or
 				<a href="mailto:<?php echo esc_attr( get_option( 'woocommerce_email_from_address' ) ); ?>" class="underline! font-bold text-primary-900" rel="noreferrer"><?php echo esc_html( get_option( 'woocommerce_email_from_address' ) ); ?></a>
-				with your Order ID: <strong><?php echo esc_html( $order->get_order_number() ); ?></strong>
+				with Order ID <strong><?php echo esc_html( $order->get_order_number() ); ?></strong></span>
 			</li>
 		</ul>
 	</section>
@@ -1035,7 +1073,7 @@ add_action( 'wp_ajax_nopriv_shopchop_get_mini_cart', 'shopchop_get_mini_cart' );
  * Accepts: POST action=shopchop_remove_cart_item, cart_item_key, nonce.
  */
 function shopchop_remove_cart_item() {
-	check_ajax_referer( 'wc_ajax_search_nonce', 'nonce', true );
+	check_ajax_referer( 'shopchop_cart_nonce', 'nonce', true );
 
 	$cart_item_key = isset( $_POST['cart_item_key'] ) ? sanitize_text_field( $_POST['cart_item_key'] ) : '';
 
@@ -1107,11 +1145,7 @@ function shopchop_mini_cart_shortcode() {
 	<div class="shopchop-cart-wrapper">
 		<a href="<?php echo wc_get_cart_url(); ?>" class="shopchop-cart-trigger" aria-label="Shopping Cart" aria-expanded="false">
 			<div class="cart-icon-wrapper">
-				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="cart-icon">
-					<circle cx="8" cy="21" r="1"/>
-					<circle cx="19" cy="21" r="1"/>
-					<path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/>
-				</svg>
+				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256" class="cart-icon"><path d="M230.14,58.87A8,8,0,0,0,224,56H62.68L56.6,22.57A8,8,0,0,0,48.73,16H24a8,8,0,0,0,0,16h18L67.56,172.29a24,24,0,0,0,5.33,11.27,28,28,0,1,0,44.4,8.44h45.42A27.75,27.75,0,0,0,160,204a28,28,0,1,0,28-28H91.17a8,8,0,0,1-7.87-6.57L80.13,152h116a24,24,0,0,0,23.61-19.71l12.16-66.86A8,8,0,0,0,230.14,58.87ZM104,204a12,12,0,1,1-12-12A12,12,0,0,1,104,204Zm96,0a12,12,0,1,1-12-12A12,12,0,0,1,200,204Zm4-74.57A8,8,0,0,1,196.1,136H77.22L65.59,72H214.41Z"></path></svg>
 				<span class="cart-count-badge"><?php echo $count >= 0 ? $count : ''; ?></span>
 			</div>
 			<span class="cart-label">Cart</span>
@@ -1143,11 +1177,7 @@ function shopchop_mobile_cart_icon() {
 	$count = WC()->cart->get_cart_contents_count();
 	ob_start(); ?>
 	<div class="cart-icon-wrapper">
-		<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="cart-icon" aria-hidden="true">
-			<circle cx="8" cy="21" r="1"/>
-			<circle cx="19" cy="21" r="1"/>
-			<path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/>
-		</svg>
+		<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256" class="cart-icon" aria-hidden="true"><path d="M230.14,58.87A8,8,0,0,0,224,56H62.68L56.6,22.57A8,8,0,0,0,48.73,16H24a8,8,0,0,0,0,16h18L67.56,172.29a24,24,0,0,0,5.33,11.27,28,28,0,1,0,44.4,8.44h45.42A27.75,27.75,0,0,0,160,204a28,28,0,1,0,28-28H91.17a8,8,0,0,1-7.87-6.57L80.13,152h116a24,24,0,0,0,23.61-19.71l12.16-66.86A8,8,0,0,0,230.14,58.87ZM104,204a12,12,0,1,1-12-12A12,12,0,0,1,104,204Zm96,0a12,12,0,1,1-12-12A12,12,0,0,1,200,204Zm4-74.57A8,8,0,0,1,196.1,136H77.22L65.59,72H214.41Z"></path></svg>
 		<span class="cart-count-badge"><?php echo $count >= 0 ? $count : ''; ?></span>
 	</div>
 	<?php return ob_get_clean();
@@ -1173,9 +1203,7 @@ function shopchop_mobile_cart_details() {
 			<span>(<span class="cart-items-count"><span class="count-number"><?php echo $count; ?></span> <?php echo $word; ?></span>)</span>
 		</h3>
 		<button id="cart-close" aria-label="Close cart">
-			<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-				<path d="M18 6 6 18"/><path d="m6 6 12 12"/>
-			</svg>
+			<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256" aria-hidden="true"><path d="M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z"></path></svg>
 		</button>
 	</div>
 	<div class="mobile-cart-content">
@@ -1314,7 +1342,7 @@ function shopchop_preorder_item_name_badge( $name, $item, $is_visible ) {
 		return $name;
 	}
 
-	$badge = '<span class="preorder-badge" style="display:inline-block;background:#d1ecff;color:#0073aa;font-size:.7rem;font-weight:700;padding:1px 6px;border-radius:4px;vertical-align:middle;margin-left:6px;">'
+	$badge = '<span class="preorder-badge">'
 		. __( 'Pre-Order', 'shopchop' )
 		. '</span>';
 
@@ -1357,8 +1385,8 @@ function shopchop_admin_custom_status_styles() {
 	<style>
 		mark.instock     { background:#d1fae5!important; color:#065f46!important; padding:2px 8px; border-radius:4px; font-weight:600!important; }
 		mark.outofstock  { background:#ffe4e6!important; color:#9f1239!important; padding:2px 8px; border-radius:4px; font-weight:600!important; }
-		mark.pre-order   { background:#d1ecff; color:#0073aa; padding:2px 8px; border-radius:4px; font-weight:600; }
-		mark.coming-soon { background:#fff3cd; color:#b45309; padding:2px 8px; border-radius:4px; font-weight:600; }
+		mark.pre-order   { background:#DBEAFE; color:#1D4ED8; padding:2px 8px; border-radius:4px; font-weight:600; }
+		mark.coming-soon { background:#FEF3C7; color:#92400E; padding:2px 8px; border-radius:4px; font-weight:600; }
 
 		.wp-list-table .column-thumb { width:80px!important; }
 		.thumb.column-thumb .attachment-thumbnail { max-width:80px; max-height:80px; }
@@ -1384,3 +1412,297 @@ function shopchop_admin_custom_status_styles() {
 	</style>
 	<?php
 }
+
+
+
+/* =============================================================================
+   § 17 — Recently Viewed Products (single product pages)
+   ============================================================================= */
+
+define( 'SHOPCHOP_RECENTLY_VIEWED_MAX', 6 );
+define( 'SHOPCHOP_RECENTLY_VIEWED_COOKIE', 'shopchop_recently_viewed' );
+
+/**
+ * Write current product ID into the recently-viewed cookie on every product page visit.
+ */
+add_action( 'template_redirect', 'shopchop_track_recently_viewed' );
+function shopchop_track_recently_viewed() {
+	if ( ! is_product() ) {
+		return;
+	}
+
+	$product_id = get_the_ID();
+	$viewed     = isset( $_COOKIE[ SHOPCHOP_RECENTLY_VIEWED_COOKIE ] )
+		? array_map( 'absint', explode( '|', sanitize_text_field( wp_unslash( $_COOKIE[ SHOPCHOP_RECENTLY_VIEWED_COOKIE ] ) ) ) )
+		: array();
+
+	// Move current ID to front, remove duplicates, cap at max.
+	$viewed = array_filter( $viewed, fn( $id ) => $id !== $product_id );
+	array_unshift( $viewed, $product_id );
+	$viewed = array_slice( $viewed, 0, SHOPCHOP_RECENTLY_VIEWED_MAX );
+
+	setcookie(
+		SHOPCHOP_RECENTLY_VIEWED_COOKIE,
+		implode( '|', $viewed ),
+		time() + ( 30 * DAY_IN_SECONDS ),
+		COOKIEPATH,
+		COOKIE_DOMAIN,
+		is_ssl(),
+		false
+	);
+}
+
+/**
+ * Render the Recently Viewed section on single product pages.
+ * Hooked between tabs (10) and related products (20).
+ */
+add_action( 'woocommerce_after_single_product_summary', 'shopchop_recently_viewed_section', 15 );
+function shopchop_recently_viewed_section() {
+	if ( ! isset( $_COOKIE[ SHOPCHOP_RECENTLY_VIEWED_COOKIE ] ) ) {
+		return;
+	}
+
+	$viewed = array_map( 'absint', explode( '|', sanitize_text_field( wp_unslash( $_COOKIE[ SHOPCHOP_RECENTLY_VIEWED_COOKIE ] ) ) ) );
+
+	// Exclude the product currently being viewed.
+	$viewed = array_filter( $viewed, fn( $id ) => $id !== get_the_ID() );
+	$viewed = array_values( array_slice( $viewed, 0, 4 ) );
+
+	if ( empty( $viewed ) ) {
+		return;
+	}
+
+	$args = array(
+		'post_type'           => 'product',
+		'post__in'            => $viewed,
+		'orderby'             => 'post__in',
+		'posts_per_page'      => 4,
+		'post_status'         => 'publish',
+		'ignore_sticky_posts' => true,
+	);
+
+	$query = new WP_Query( $args );
+
+	if ( ! $query->have_posts() ) {
+		return;
+	}
+	?>
+	<section class="shopchop-recently-viewed">
+		<h2 class="recently-viewed-heading">
+			<?php esc_html_e( 'Recently Viewed', 'shopchop' ); ?>
+		</h2>
+		<?php
+		woocommerce_product_loop_start();
+
+		while ( $query->have_posts() ) {
+			$query->the_post();
+			wc_get_template_part( 'content', 'product' );
+		}
+
+		wp_reset_postdata();
+
+		woocommerce_product_loop_end();
+		?>
+	</section>
+	<?php
+}
+
+
+
+/* =============================================================================
+   § 18 — WhatsApp Floating Button (single product pages)
+   ============================================================================= */
+
+define( 'SHOPCHOP_WHATSAPP_NUMBER', '60123456789' );
+
+/**
+ * Inject the floating WhatsApp button on single product pages.
+ * Hooked late into wp_footer so it renders after all page content.
+ */
+add_action( 'wp_footer', 'shopchop_whatsapp_button', 5 );
+function shopchop_whatsapp_button() {
+	if ( ! is_product() ) {
+		return;
+	}
+
+	global $product;
+	if ( ! $product ) {
+		return;
+	}
+
+	$name    = get_the_title();
+	if ( $product->is_type( 'variable' ) ) {
+		$min = $product->get_variation_price( 'min' );
+		$max = $product->get_variation_price( 'max' );
+		$price = html_entity_decode( wp_strip_all_tags( wc_price( $min ) ), ENT_QUOTES | ENT_HTML5, 'UTF-8' );
+		if ( $min !== $max ) {
+			$price .= ' - ' . html_entity_decode( wp_strip_all_tags( wc_price( $max ) ), ENT_QUOTES | ENT_HTML5, 'UTF-8' );
+		}
+	} else {
+		$price = html_entity_decode( wp_strip_all_tags( wc_price( (float) $product->get_price() ) ), ENT_QUOTES | ENT_HTML5, 'UTF-8' );
+	}
+	$url     = get_permalink();
+	$message = "Hi, I'm interested in {$name} ({$price})" . "\n" . $url;
+
+	$wa_url = 'https://wa.me/' . SHOPCHOP_WHATSAPP_NUMBER . '?text=' . rawurlencode( $message );
+	?>
+	<a
+		id="shopchop-whatsapp-btn"
+		href="<?php echo esc_attr( $wa_url ); ?>"
+		target="_blank"
+		rel="noopener noreferrer"
+		aria-label="<?php esc_attr_e( 'Chat on WhatsApp', 'shopchop' ); ?>"
+		title="<?php esc_attr_e( 'Chat on WhatsApp', 'shopchop' ); ?>"
+		data-wa-number="<?php echo esc_attr( SHOPCHOP_WHATSAPP_NUMBER ); ?>"
+		data-product-name="<?php echo esc_attr( $name ); ?>"
+		data-product-url="<?php echo esc_attr( $url ); ?>"
+	>
+		<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+			<path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+		</svg>
+		<span><?php esc_html_e( 'Chat', 'shopchop' ); ?></span>
+	</a>
+	<?php
+}
+
+
+
+/* =============================================================================
+   § 19 — Admin Login Page Styling
+   ============================================================================= */
+
+/**
+ * Enqueue custom CSS on the WordPress login screen.
+ * Same WP auth — purely cosmetic override.
+ */
+add_action( 'login_enqueue_scripts', 'shopchop_login_styles' );
+function shopchop_login_styles() {
+	$logo_url = get_template_directory_uri() . '/assets/images/logo.png';
+	?>
+	<style>
+		/* ── Page ── */
+		body.login {
+			background: #f8fafc;
+			font-family: 'Manrope', sans-serif;
+		}
+
+		/* ── Logo area ── */
+		#login h1 a {
+			background-image: url(<?php echo esc_url( $logo_url ); ?>);
+			background-color: transparent;
+			background-repeat: no-repeat;
+			background-position: center;
+			background-size: contain;
+			width: 200px;
+			height: 80px;
+		}
+
+		/* ── Card ── */
+		#loginform,
+		#lostpasswordform,
+		#registerform {
+			background: #ffffff;
+			border: 1px solid #e2e8f0;
+			border-radius: 12px;
+			box-shadow: 0 4px 24px rgba(0,0,0,.06);
+			padding: 32px 36px;
+			margin-top: 16px;
+		}
+
+		/* ── Labels ── */
+		#loginform label,
+		#lostpasswordform label {
+			font-family: 'Manrope', sans-serif;
+			font-size: .8125rem;
+			font-weight: 600;
+			color: #475569;
+			text-transform: uppercase;
+			letter-spacing: .04em;
+		}
+
+		/* ── Inputs ── */
+		#loginform input[type="text"],
+		#loginform input[type="password"],
+		#lostpasswordform input[type="text"] {
+			font-family: 'Manrope', sans-serif;
+			border: 1.5px solid #e2e8f0;
+			border-radius: 8px;
+			padding: 10px 14px;
+			font-size: .9375rem;
+			color: #0f172a;
+			box-shadow: none;
+			transition: border-color .15s ease;
+		}
+		#loginform input[type="text"]:focus,
+		#loginform input[type="password"]:focus,
+		#lostpasswordform input[type="text"]:focus {
+			border-color: #3b82f6;
+			box-shadow: 0 0 0 3px rgba(59,130,246,.15);
+			outline: none;
+		}
+
+		/* ── Submit button ── */
+		#loginform .button-primary,
+		#lostpasswordform .button-primary {
+			font-family: 'Manrope', sans-serif;
+			font-weight: 700;
+			font-size: .9375rem;
+			background: #0f172a;
+			border-color: #0f172a;
+			border-radius: 8px;
+			padding: 10px 20px;
+			height: auto;
+			line-height: 1.4;
+			box-shadow: none;
+			text-shadow: none;
+			transition: background .15s ease, border-color .15s ease;
+		}
+		#loginform .button-primary:hover,
+		#loginform .button-primary:focus,
+		#lostpasswordform .button-primary:hover,
+		#lostpasswordform .button-primary:focus {
+			background: #1e293b;
+			border-color: #1e293b;
+			box-shadow: none;
+		}
+
+		/* ── Remember me ── */
+		#loginform .forgetmenot label {
+			font-size: .875rem;
+			font-weight: 500;
+			text-transform: none;
+			letter-spacing: 0;
+			color: #64748b;
+		}
+
+		/* ── Back / nav links ── */
+		#nav a,
+		#backtoblog a {
+			font-family: 'Manrope', sans-serif;
+			font-size: .8125rem;
+			color: #64748b;
+		}
+		#nav a:hover,
+		#backtoblog a:hover {
+			color: #0f172a;
+		}
+
+		/* ── Error / success notices ── */
+		#login_error,
+		.message {
+			font-family: 'Manrope', sans-serif;
+			border-radius: 8px;
+			border-left-width: 4px;
+			font-size: .875rem;
+		}
+	</style>
+	<link rel="preconnect" href="https://fonts.bunny.net">
+	<link rel="stylesheet" href="https://fonts.bunny.net/css?family=manrope:400,600,700,800">
+	<?php
+}
+
+/** Point the login logo link back to the site home. */
+add_filter( 'login_headerurl', fn() => home_url() );
+
+/** Update the logo link title attribute. */
+add_filter( 'login_headertext', fn() => get_bloginfo( 'name' ) );

@@ -10,15 +10,13 @@
 
 /* ── Back to top button ─────────────────────────────────────────────────── */
 #shopchop-back-to-top {
-	@apply fixed bottom-6 right-6 z-50 w-11 h-11 rounded-lg flex items-center justify-center bg-primary-950 text-background shadow-lg cursor-pointer border-none opacity-0 pointer-events-none transition-all duration-250 hover:bg-primary-900 translate-y-3;
+	@apply fixed bottom-6 right-6 z-50 w-11 h-11 rounded-lg flex items-center justify-center bg-primary-950 text-primary-50 shadow-lg cursor-pointer border-none opacity-0 pointer-events-none transition-all duration-250 hover:bg-primary-900 active:scale-90 focus-visible:outline-2 focus-visible:outline-primary-700 focus-visible:outline-offset-2 translate-y-3;
 
 	&.is-visible {
 		@apply opacity-100 pointer-events-auto translate-y-0;
 	}
 
 	svg {
-		@apply w-5 h-5 stroke-[2.5] fill-none stroke-current;
-		stroke-linecap: round;
-		stroke-linejoin: round;
+		@apply w-5 h-5 fill-current;
 	}
 }

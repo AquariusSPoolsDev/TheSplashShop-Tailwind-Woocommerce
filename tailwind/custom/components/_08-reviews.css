@@ -128,11 +128,16 @@
 		}
 
 		.stars {
+			@apply mt-2;
+
 			a {
-				@apply -indent-[9999px] relative inline-block w-6 text-2xl md:text-3xl text-neutral-300 transition-all;
+				@apply -indent-[9999px] relative inline-block w-6 h-6 text-neutral-300 transition-all;
 
 				&::before {
-					@apply content-["★"] absolute left-0 top-0 indent-0;
+					content: "";
+					@apply absolute left-0 top-0 w-6 h-6 bg-current;
+					-webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 256 256'%3E%3Cpath d='M234.29,114.85l-45,38.83L203,211.75a16.4,16.4,0,0,1-24.5,17.82L128,198.49,77.47,229.57A16.4,16.4,0,0,1,53,211.75l13.76-58.07-45-38.83A16.46,16.46,0,0,1,31.08,86l59-4.76,22.76-55.08a16.36,16.36,0,0,1,30.27,0l22.75,55.08,59,4.76a16.46,16.46,0,0,1,9.37,28.86Z'/%3E%3C/svg%3E") no-repeat center / contain;
+					mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 256 256'%3E%3Cpath d='M234.29,114.85l-45,38.83L203,211.75a16.4,16.4,0,0,1-24.5,17.82L128,198.49,77.47,229.57A16.4,16.4,0,0,1,53,211.75l13.76-58.07-45-38.83A16.46,16.46,0,0,1,31.08,86l59-4.76,22.76-55.08a16.36,16.36,0,0,1,30.27,0l22.75,55.08,59,4.76a16.46,16.46,0,0,1,9.37,28.86Z'/%3E%3C/svg%3E") no-repeat center / contain;
 				}
 
 				&:hover ~ a {

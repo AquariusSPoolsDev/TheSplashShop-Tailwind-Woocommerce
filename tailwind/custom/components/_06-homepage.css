@@ -1,5 +1,12 @@
 /**
  * ShopChop Homepage
+ *
+ * border-y rule: sections that self-frame via a gradient/full-bleed background
+ * (Hero, Brand Logos, Promo Banner) or whose content already reads as a distinct
+ * block via per-card borders (Category Grid, Products Carousel) skip a section
+ * divider. Flat-tinted (bg-neutral-50) or dense icon-bar sections (USP Bar,
+ * Testimonials, Blog Grid) get border-y to separate them from plain white
+ * neighbors. Keep this rule in mind before adding/removing border-y on a section.
  */
 
 /* Override the container constraints from .shopchop-main-content-wrapper */
@@ -27,7 +34,7 @@
 
 		.swiper-button-prev,
 		.swiper-button-next {
-			@apply w-12 h-12 bg-primary text-white p-2 hover:bg-primary-950 active:bg-primary-950 transition-all after:text-base;
+			@apply w-12 h-12 bg-primary text-background p-2 hover:bg-primary-950 active:bg-primary-950 active:scale-90 focus:bg-primary-950 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-background transition-all after:text-base;
 
 			.swiper-navigation-icon {
 				@apply w-6 h-6;
@@ -73,7 +80,7 @@
 		@apply flex flex-col lg:justify-between items-center gap-6 lg:gap-8;
 
 		.brand-distributor-heading {
-			@apply text-2xl lg:text-4xl text-center lg:text-start font-bold uppercase bg-linear-to-br from-primary-50 to-primary-100 bg-clip-text text-transparent text-balance;
+			@apply text-2xl lg:text-4xl text-center lg:text-start font-extrabold uppercase bg-linear-to-br from-primary-50 to-primary-100 bg-clip-text text-transparent text-balance;
 		}
 
 		.brand-logo-grid {
@@ -81,10 +88,10 @@
 		}
 
 		.brand-logo-item {
-			@apply lg:w-55 h-auto bg-white border border-neutral-300 rounded-lg flex justify-center p-4 transition-all cursor-pointer;
+			@apply lg:w-55 h-auto bg-white rounded-lg flex justify-center items-center p-4 shadow-[0_1px_2px_rgba(0,0,0,0.06),0_4px_12px_rgba(0,0,0,0.08)];
 
 			.brand-logo-img {
-				@apply max-w-40 h-auto grayscale opacity-60 transition-all;
+				@apply max-w-40 h-auto grayscale opacity-60 transition-all duration-300;
 				@apply group-hover:scale-105 group-hover:grayscale-0 group-hover:opacity-100;
 				@apply group-active:scale-105 group-active:grayscale-0 group-active:opacity-100;
 			}
@@ -94,17 +101,17 @@
 
 /* ── Category Grid ── */
 .shopchop-category-grid {
-	@apply py-16 lg:py-20;
+	@apply py-20 lg:py-28;
 
 	.category-heading {
-		@apply text-2xl lg:text-4xl text-center lg:text-start font-bold uppercase bg-linear-to-br from-secondary-800 to-secondary-950 bg-clip-text text-transparent text-balance mb-6;
+		@apply text-2xl lg:text-4xl text-center lg:text-start font-extrabold uppercase bg-linear-to-br from-secondary-800 to-secondary-950 bg-clip-text text-transparent text-balance mb-6;
 	}
 
 	.category-grid-wrapper {
 		@apply grid gap-4 md:gap-6 lg:gap-10 grid-cols-1 md:grid-cols-2 lg:grid-cols-3;
 
 		.category-grid-card {
-			@apply relative flex flex-row gap-4 overflow-hidden rounded-xl border border-neutral-300 bg-white transition-all hover:border-primary active:border-primary;
+			@apply relative flex flex-row gap-4 overflow-hidden rounded-xl border border-neutral-300 bg-white transition-all hover:border-primary hover:scale-[1.01] active:border-primary active:scale-[0.98];
 
 			.cat-image-wrapper {
 				@apply relative z-[1] block overflow-hidden transition-all flex-shrink-0 w-24 md:w-32 lg:w-40 h-auto;
@@ -148,19 +155,57 @@
 
 /* ── USP Bar ── */
 .shopchop-usp-bar {
-	@apply py-16 lg:py-20 border-y border-neutral-300/50;
-	background-color: var(--color-secondary-50);
-	background-image: url("data:image/svg+xml,%3Csvg width='100' height='20' viewBox='0 0 100 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M21.184 20c.357-.13.72-.264 1.088-.402l1.768-.661C33.64 15.347 39.647 14 50 14c10.271 0 15.362 1.222 24.629 4.928.955.383 1.869.74 2.75 1.072h6.225c-2.51-.73-5.139-1.691-8.233-2.928C65.888 13.278 60.562 12 50 12c-10.626 0-16.855 1.397-26.66 5.063l-1.767.662c-2.475.923-4.66 1.674-6.724 2.275h6.335zm0-20C13.258 2.892 8.077 4 0 4V2c5.744 0 9.951-.574 14.85-2h6.334zM77.38 0C85.239 2.966 90.502 4 100 4V2c-6.842 0-11.386-.542-16.396-2h-6.225zM0 14c8.44 0 13.718-1.21 22.272-4.402l1.768-.661C33.64 5.347 39.647 4 50 4c10.271 0 15.362 1.222 24.629 4.928C84.112 12.722 89.438 14 100 14v-2c-10.271 0-15.362-1.222-24.629-4.928C65.888 3.278 60.562 2 50 2 39.374 2 33.145 3.397 23.34 7.063l-1.767.662C13.223 10.84 8.163 12 0 12v2z' fill='%23CBD5E1' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
+	@apply py-16 lg:py-20 border-y border-neutral-300/50 relative overflow-hidden;
+	background-color: var(--color-neutral-100);
+
+	/* Aurora background layer */
+	&::before {
+		content: '';
+		position: absolute;
+		inset: -10px;
+		pointer-events: none;
+		z-index: 0;
+		background-image:
+			repeating-linear-gradient(
+				100deg,
+				var(--color-neutral-100) 0%,
+				var(--color-neutral-100) 7%,
+				transparent 10%,
+				transparent 12%,
+				var(--color-neutral-100) 16%
+			),
+			repeating-linear-gradient(
+				100deg,
+				var(--color-warning-400) 10%,
+				var(--color-warning-200) 15%,
+				var(--color-success-300) 20%,
+				var(--color-success-200) 25%,
+				var(--color-warning-300) 30%
+			);
+		background-size: 300% 200%;
+		background-position: 50% 50%;
+		filter: blur(10px);
+		opacity: 0.4;
+		will-change: transform;
+		mask-image: radial-gradient(ellipse at 80% 0%, black 10%, transparent 70%);
+		animation: shopchop-aurora 60s linear infinite;
+	}
+
+	/* Ensure content sits above aurora */
+	> * {
+		position: relative;
+		z-index: 1;
+	}
 
 	.usp-heading {
-		@apply text-2xl lg:text-4xl text-center font-bold uppercase bg-linear-to-br from-secondary-800 to-secondary-950 bg-clip-text text-transparent text-balance mb-8;
+		@apply text-2xl lg:text-4xl text-center font-extrabold uppercase bg-linear-to-br from-secondary-800 to-secondary-950 bg-clip-text text-transparent text-balance mb-8;
 	}
 
 	.usp-grid {
 		@apply grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-10;
 
 		.usp-card {
-			@apply flex flex-col items-center text-center gap-5;
+			@apply flex flex-col items-center text-center gap-3;
 
 			.usp-image-wrap {
 				@apply w-16 h-16 lg:w-20 lg:h-20 p-4 flex items-center justify-center bg-primary-50 shadow-md shadow-primary-200 rounded-lg;
@@ -187,7 +232,7 @@
 
 /* ── Products Carousel ── */
 .shopchop-products-carousel {
-	@apply py-16 lg:py-20;
+	@apply py-20 lg:py-28;
 
 	.products-carousel-header {
 		@apply flex flex-col lg:flex-row lg:items-start lg:justify-between gap-3 mb-8;
@@ -197,7 +242,7 @@
 		@apply flex flex-col gap-1;
 
 		.products-carousel-heading {
-			@apply text-2xl lg:text-4xl font-bold uppercase bg-linear-to-br from-secondary-800 to-secondary-950 bg-clip-text text-transparent text-balance;
+			@apply text-2xl lg:text-4xl font-extrabold uppercase bg-linear-to-br from-secondary-800 to-secondary-950 bg-clip-text text-transparent text-balance;
 		}
 
 		.products-carousel-description {
@@ -316,7 +361,7 @@
 
 		.swiper-button-prev,
 		.swiper-button-next {
-			@apply w-10 h-10 bg-primary text-white hover:bg-primary-950 active:bg-primary-950 transition-all top-[40%];
+			@apply w-11 h-11 bg-primary text-background hover:bg-primary-950 active:bg-primary-950 active:scale-90 focus:bg-primary-950 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-background transition-all top-[40%];
 
 			.swiper-navigation-icon {
 				@apply w-6 h-6;
@@ -354,7 +399,7 @@
 			@apply flex flex-col gap-2;
 
 			.promo-banner-heading {
-				@apply text-2xl lg:text-4xl font-bold text-white leading-tight tracking-tight;
+				@apply text-2xl lg:text-4xl font-extrabold text-background leading-tight tracking-tight;
 			}
 
 			.promo-banner-description {
@@ -366,7 +411,7 @@
 			@apply flex-shrink-0;
 
 			.promo-banner-cta {
-				@apply inline-flex items-center gap-2 px-8 py-3.5 bg-white text-secondary-900 font-bold rounded-lg uppercase transition-all hover:bg-secondary-50 hover:ring-4 hover:ring-white/30 active:bg-secondary-50 active:ring-4 active:ring-white/30;
+				@apply inline-flex items-center gap-2 px-8 py-3.5 bg-background text-secondary-900 font-bold rounded-lg uppercase transition-all hover:bg-secondary-50 hover:ring-4 hover:ring-white/30 active:bg-secondary-50 active:ring-4 active:ring-white/30 active:scale-[0.97];
 
 				svg {
 					@apply w-5 h-5 transition-transform duration-200;
@@ -406,7 +451,7 @@
 		@apply border-y border-neutral-200;
 		background-image:
 			url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='2' cy='2' r='1.5' fill='%23000000' fill-opacity='0.04'/%3E%3C/svg%3E");
-		background-color: #ffffff;
+		background-color: var(--color-background);
 	}
 
 	.spotlight-inner {
@@ -420,7 +465,7 @@
 			}
 
 			.spotlight-heading {
-				@apply text-3xl lg:text-5xl font-bold text-foreground leading-tight tracking-tight;
+				@apply text-3xl lg:text-5xl font-extrabold text-foreground leading-tight tracking-tight;
 			}
 
 			.spotlight-description {
@@ -428,7 +473,7 @@
 			}
 
 			.spotlight-cta {
-				@apply inline-flex items-center gap-2 w-max px-8 py-3 bg-primary text-background font-semibold rounded-lg uppercase transition-all hover:bg-primary-950 hover:ring-4 hover:ring-primary-200 active:bg-primary-950 active:ring-4 active:ring-primary-200;
+				@apply inline-flex items-center gap-2 w-max px-8 py-3 bg-primary text-background font-semibold rounded-lg uppercase transition-all hover:bg-primary-950 hover:ring-4 hover:ring-primary-200 active:bg-primary-950 active:ring-4 active:ring-primary-200 active:scale-[0.97];
 
 				svg {
 					@apply w-5 h-5 transition-transform duration-200;
@@ -453,13 +498,13 @@
 
 /* ── Testimonials Carousel ── */
 .shopchop-testimonials-carousel {
-	@apply py-16 lg:py-20 bg-white border-t border-neutral-200;
+	@apply py-16 lg:py-20 bg-neutral-50 border-y border-neutral-300;
 
 	.testimonials-header {
 		@apply mb-10 flex flex-col gap-2 text-center;
 
 		.testimonials-heading {
-			@apply text-2xl lg:text-4xl font-bold uppercase bg-linear-to-br from-secondary-800 to-secondary-950 bg-clip-text text-transparent text-balance;
+			@apply text-2xl lg:text-4xl font-extrabold uppercase bg-linear-to-br from-secondary-800 to-secondary-950 bg-clip-text text-transparent text-balance;
 		}
 
 		.testimonials-description {
@@ -476,7 +521,7 @@
 
 		.swiper-button-prev,
 		.swiper-button-next {
-			@apply w-10 h-10 rounded-full bg-primary text-white hover:bg-primary-950 active:bg-primary-950 transition-all top-auto bottom-0;
+			@apply w-11 h-11 rounded-full bg-primary text-background hover:bg-primary-950 active:bg-primary-950 active:scale-90 focus:bg-primary-950 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-background transition-all top-auto bottom-0;
 
 			.swiper-navigation-icon {
 				@apply w-4 h-4;
@@ -540,13 +585,13 @@
 
 /* ── Blog Posts Grid ── */
 .shopchop-blog-posts-grid {
-	@apply py-16 lg:py-20 bg-neutral-50 border-y border-neutral-200;
+	@apply py-16 lg:py-20 bg-neutral-50 border-y border-neutral-300;
 
 	.blog-grid-header {
 		@apply mb-10 flex flex-col gap-2;
 
 		.blog-grid-heading {
-			@apply text-2xl lg:text-4xl font-bold uppercase bg-linear-to-br from-secondary-800 to-secondary-950 bg-clip-text text-transparent text-balance;
+			@apply text-2xl lg:text-4xl font-extrabold uppercase bg-linear-to-br from-secondary-800 to-secondary-950 bg-clip-text text-transparent text-balance;
 		}
 
 		.blog-grid-description {
@@ -555,7 +600,7 @@
 	}
 
 	.blog-grid-wrapper {
-		@apply grid grid-cols-1 gap-6 lg:gap-8;
+		@apply grid grid-cols-1 gap-4 md:gap-6 lg:gap-10;
 
 		&.blog-grid-cols-2 {
 			@apply md:grid-cols-2;
@@ -566,7 +611,7 @@
 		}
 
 		.blog-post-card {
-			@apply relative flex flex-col bg-white border border-neutral-300 rounded-xl overflow-hidden transition-all hover:border-primary active:border-primary;
+			@apply relative flex flex-col bg-white border border-neutral-300 rounded-xl overflow-hidden transition-all hover:border-primary hover:scale-[1.01] active:border-primary active:scale-[0.98];
 		
 		.blog-post-thumbnail {
 			@apply overflow-hidden shrink-0;
@@ -589,7 +634,7 @@
 		}
 
 		.blog-post-category {
-			@apply relative z-1 inline-flex w-max text-xs font-semibold uppercase tracking-wide px-3 py-0.5 rounded-lg bg-primary-100 text-primary-950 transition-colors hover:bg-primary-200 active:bg-primary-200;
+			@apply relative z-1 inline-flex w-max text-sm font-semibold uppercase tracking-wide px-3 py-0.5 rounded-lg bg-primary-100 text-primary-950 transition-colors hover:bg-primary-200 active:bg-primary-200;
 		}
 
 		.blog-post-title {
@@ -609,7 +654,7 @@
 			@apply relative z-1 flex items-center justify-between gap-4 mt-auto pt-4 border-t border-neutral-100;
 		
 			.blog-post-date {
-				@apply text-xs text-neutral-500;
+				@apply text-sm text-neutral-500;
 			}
 			
 			.blog-post-read-more {
@@ -632,7 +677,7 @@
 		@apply mt-10 flex justify-center;
 
 		.blog-grid-view-all {
-			@apply inline-flex items-center gap-2 px-8 py-3 rounded-full border-2 border-primary text-primary font-semibold transition-all hover:bg-primary hover:text-white active:bg-primary active:text-white;
+			@apply inline-flex items-center gap-2 px-8 py-3 rounded-lg border-2 border-primary text-primary font-semibold transition-all hover:bg-primary hover:text-background active:bg-primary active:text-background active:scale-[0.97];
 
 			svg {
 				@apply w-4.5 h-4.5 transition-all;
@@ -642,5 +687,53 @@
 				@apply translate-x-0.5;
 			}
 		}
+	}
+}
+
+/* ── Aurora keyframes ── */
+@keyframes shopchop-aurora {
+	from { background-position: 50% 50%; }
+	to   { background-position: 350% 50%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.shopchop-usp-bar::before {
+		animation: none;
+	}
+
+	.woocommerce-product-gallery {
+		transition: none !important;
+	}
+
+	.wc-toggle-form,
+	.wc-toggle-heading .wc-toggle-indicator {
+		transition: none !important;
+	}
+
+	/* Disable scale/translate decorative motion */
+	.category-grid-card,
+	.blog-post-card,
+	.spotlight-image {
+		&:hover, &:active {
+			transform: none !important;
+		}
+	}
+
+	.brand-logo-img,
+	.cat-image,
+	.blog-post-img,
+	.shopchop-products-swiper .product-image-wrapper img {
+		transform: none !important;
+		transition: none !important;
+	}
+
+	.subcategory-list-all svg,
+	.products-carousel-view-all svg,
+	.promo-banner-cta svg,
+	.spotlight-cta svg,
+	.blog-post-read-more svg,
+	.blog-grid-view-all svg {
+		transform: none !important;
+		transition: none !important;
 	}
 }

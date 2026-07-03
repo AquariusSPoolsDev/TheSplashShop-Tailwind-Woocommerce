@@ -7,6 +7,30 @@
  * @package ShopChop
  */
 
+if ( ! function_exists( 'shopchop_render_logo' ) ) :
+	/**
+	 * Outputs the site logo — custom logo if set, otherwise fallback image.
+	 *
+	 * @param string $img_class Tailwind classes applied to the <img> element.
+	 */
+	function shopchop_render_logo( $img_class = 'h-16 w-auto shrink-0' ) {
+		if ( has_custom_logo() ) {
+			$logo_src = wp_get_attachment_image_src( get_theme_mod( 'custom_logo' ), 'full' )[0];
+		} else {
+			$logo_src = get_stylesheet_directory_uri() . '/assets/images/logo.png';
+		}
+		?>
+		<a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="block">
+			<img
+				src="<?php echo esc_url( $logo_src ); ?>"
+				alt="<?php bloginfo( 'name' ); ?>"
+				title="<?php bloginfo( 'name' ); ?>"
+				class="<?php echo esc_attr( $img_class ); ?>">
+		</a>
+		<?php
+	}
+endif;
+
 if ( ! function_exists( 'shopchop_posted_on' ) ) :
 	/**
 	 * Prints HTML with meta information for the current post-date/time.
