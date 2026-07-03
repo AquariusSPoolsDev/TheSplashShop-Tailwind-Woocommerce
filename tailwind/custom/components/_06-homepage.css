@@ -1,5 +1,12 @@
 /**
  * ShopChop Homepage
+ *
+ * border-y rule: sections that self-frame via a gradient/full-bleed background
+ * (Hero, Brand Logos, Promo Banner) or whose content already reads as a distinct
+ * block via per-card borders (Category Grid, Products Carousel) skip a section
+ * divider. Flat-tinted (bg-neutral-50) or dense icon-bar sections (USP Bar,
+ * Testimonials, Blog Grid) get border-y to separate them from plain white
+ * neighbors. Keep this rule in mind before adding/removing border-y on a section.
  */
 
 /* Override the container constraints from .shopchop-main-content-wrapper */
@@ -81,10 +88,10 @@
 		}
 
 		.brand-logo-item {
-			@apply lg:w-55 h-auto bg-white border border-neutral-300 rounded-lg flex justify-center p-4 transition-all cursor-pointer;
+			@apply lg:w-55 h-auto bg-white rounded-lg flex justify-center items-center p-4 shadow-[0_1px_2px_rgba(0,0,0,0.06),0_4px_12px_rgba(0,0,0,0.08)];
 
 			.brand-logo-img {
-				@apply max-w-40 h-auto grayscale opacity-60 transition-all;
+				@apply max-w-40 h-auto grayscale opacity-60 transition-[transform,filter,opacity] duration-300;
 				@apply group-hover:scale-105 group-hover:grayscale-0 group-hover:opacity-100;
 				@apply group-active:scale-105 group-active:grayscale-0 group-active:opacity-100;
 			}
@@ -593,7 +600,7 @@
 	}
 
 	.blog-grid-wrapper {
-		@apply grid grid-cols-1 gap-6 lg:gap-8;
+		@apply grid grid-cols-1 gap-4 md:gap-6 lg:gap-10;
 
 		&.blog-grid-cols-2 {
 			@apply md:grid-cols-2;
