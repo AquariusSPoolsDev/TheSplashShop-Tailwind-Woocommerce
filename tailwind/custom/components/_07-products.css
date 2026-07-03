@@ -309,6 +309,18 @@
 
 					.woocommerce-grouped-product-list-item__price {
 						@apply self-center;
+
+						.price {
+							@apply text-primary-900 font-semibold;
+
+							del {
+								@apply text-neutral-400 font-normal text-sm;
+							}
+
+							.discount-price .discount {
+								@apply py-0 px-1.5 text-xs;
+							}
+						}
 					}
 
 					.woocommerce-grouped-product-list-item__quantity {

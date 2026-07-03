@@ -225,7 +225,7 @@
 							@apply border-t border-t-neutral-300 flex gap-3;
 
 							.button {
-								@apply h-max py-1 text-base text-center normal-case font-medium flex-1;
+								@apply box-border h-11 flex items-center justify-center py-0 text-base text-center normal-case font-medium flex-1;
 
 								&:not(.checkout) {
 									@apply bg-transparent border-2 text-secondary-900 border-secondary-900 hover:bg-secondary-100 active:bg-secondary-100 focus:bg-secondary-100;
@@ -576,7 +576,7 @@
 				@apply border-t border-t-neutral-300 flex flex-col-reverse gap-3;
 
 				.button {
-					@apply h-max py-2 text-base text-center normal-case font-medium flex-1 rounded-lg;
+					@apply box-border h-12 flex items-center justify-center py-0 text-base text-center normal-case font-medium flex-1 rounded-lg;
 
 					&:not(.checkout) {
 						@apply bg-transparent border-2 text-secondary-900 border-secondary-900 hover:bg-secondary-100 active:bg-secondary-100 focus:bg-secondary-100;
