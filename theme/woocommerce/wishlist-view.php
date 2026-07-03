@@ -61,7 +61,7 @@ if (! defined('YITH_WCWL')) {
 			<?php if ($show_cb) : ?>
 				<?php ++$column_count; ?>
 				<th class="product-checkbox">
-					<input type="checkbox" value="" name="" id="bulk_add_to_cart" />
+					<input type="checkbox" value="" name="" id="bulk_add_to_cart" aria-label="<?php esc_attr_e('Select all products', 'yith-woocommerce-wishlist'); ?>" />
 				</th>
 			<?php endif; ?>
 
@@ -249,7 +249,7 @@ if (! defined('YITH_WCWL')) {
 									 * @return string
 									 */
 									?>
-									<a href="<?php echo esc_url($item->get_remove_url()); ?>" class="remove remove_from_wishlist" title="<?php echo esc_html(apply_filters('yith_wcwl_remove_product_wishlist_message_title', __('Remove this product', 'yith-woocommerce-wishlist'))); ?>">&times;</a>
+									<a href="<?php echo esc_url($item->get_remove_url()); ?>" class="remove remove_from_wishlist" title="<?php echo esc_html(apply_filters('yith_wcwl_remove_product_wishlist_message_title', __('Remove this product', 'yith-woocommerce-wishlist'))); ?>" onclick="return confirm('<?php echo esc_js(__('Remove this product from your wishlist?', 'yith-woocommerce-wishlist')); ?>');"><span aria-hidden="true">&times;</span><span class="sr-only"><?php esc_html_e('Remove this product', 'yith-woocommerce-wishlist'); ?></span></a>
 								</div>
 							</td>
 						<?php endif; ?>
@@ -380,7 +380,7 @@ if (! defined('YITH_WCWL')) {
 									?>
 
 									<?php if (! $no_interactions && $wishlist->current_user_can('update_quantity')) : ?>
-										<input type="number" min="1" step="1" name="items[<?php echo esc_attr($item->get_product_id()); ?>][quantity]" value="<?php echo esc_attr($item->get_quantity()); ?>" />
+										<input type="number" min="1" step="1" name="items[<?php echo esc_attr($item->get_product_id()); ?>][quantity]" value="<?php echo esc_attr($item->get_quantity()); ?>" aria-label="<?php echo esc_attr(sprintf(__('Quantity for %s', 'yith-woocommerce-wishlist'), $product->get_title())); ?>" />
 									<?php else : ?>
 										<?php echo esc_html($item->get_quantity()); ?>
 									<?php endif; ?>
@@ -546,7 +546,7 @@ if (! defined('YITH_WCWL')) {
 								?>
 								<?php if ($move_to_another_wishlist && $available_multi_wishlist && count($users_wishlists) > 1) : ?>
 									<?php if ('select' === $move_to_another_wishlist_type) : ?>
-										<select class="change-wishlist selectBox">
+										<select class="change-wishlist selectBox" aria-label="<?php echo esc_attr(sprintf(__('Move %s to another wishlist', 'yith-woocommerce-wishlist'), $product->get_title())); ?>">
 											<option value=""><?php esc_html_e('Move', 'yith-woocommerce-wishlist'); ?></option>
 											<?php
 											foreach ($users_wishlists as $wl) :
@@ -610,7 +610,7 @@ if (! defined('YITH_WCWL')) {
 									 * @return string
 									 */
 								?>
-									<a href="<?php echo esc_url($item->get_remove_url()); ?>" class="remove_from_wishlist" title="<?php echo esc_html(apply_filters('yith_wcwl_remove_product_wishlist_message_title', __('Remove this product', 'yith-woocommerce-wishlist'))); ?>"><?php esc_html_e('Remove', 'yith-woocommerce-wishlist'); ?></a>
+									<a href="<?php echo esc_url($item->get_remove_url()); ?>" class="remove_from_wishlist" title="<?php echo esc_html(apply_filters('yith_wcwl_remove_product_wishlist_message_title', __('Remove this product', 'yith-woocommerce-wishlist'))); ?>" onclick="return confirm('<?php echo esc_js(__('Remove this product from your wishlist?', 'yith-woocommerce-wishlist')); ?>');"><?php esc_html_e('Remove', 'yith-woocommerce-wishlist'); ?></a>
 								<?php endif; ?>
 
 								<?php

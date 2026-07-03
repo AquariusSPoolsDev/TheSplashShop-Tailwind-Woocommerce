@@ -12,9 +12,9 @@
 	--color-primary-300: #72DFF9;
 	--color-primary-400: #22D3EE;
 	--color-primary-500: #06B6D4;
-	--color-primary-600: #0891B2;
-	--color-primary-700: #02BAE9;
-	--color-primary-800: #0369A1;
+	--color-primary-600: #04A7C8;
+	--color-primary-700: #0399BB;
+	--color-primary-800: #018BAE;
 	--color-primary-900: #007DA1;
 	--color-primary-950: #005A7A;
 
@@ -100,6 +100,12 @@
 	--color-tertiary: var(--color-neutral-700);
 	--color-background: var(--color-neutral-50);
 	--color-foreground: var(--color-secondary-900);
+
+	/* -------- COMPONENT TOKENS -------- */
+	/* Reference these (not raw scale steps) in new button/border markup to stop shade drift. */
+	--color-button-primary: var(--color-primary-900);
+	--color-button-primary-hover: var(--color-primary-950);
+	--color-button-secondary-border: var(--color-secondary-300);
 
 	/* -------- FONTS -------- */
 	--font-headings: "Manrope", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";

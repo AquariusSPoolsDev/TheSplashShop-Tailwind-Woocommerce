@@ -345,17 +345,27 @@
     ========================================================================= */
 	ShopChop.ProductGallery = {
 		init() {
-			if (typeof Swiper === 'undefined') return;
 			const galleryEl = document.querySelector(
 				'.woocommerce-product-gallery'
 			);
 			if (!galleryEl) return;
 
+			// Gallery starts at opacity:0 (inline style) to avoid a flash of
+			// unstyled slides before Swiper mounts. If Swiper never loads/inits,
+			// reveal it anyway so the image isn't permanently invisible.
+			if (typeof Swiper === 'undefined') {
+				galleryEl.style.opacity = '1';
+				return;
+			}
+
 			const mainEl = galleryEl.querySelector('.splashshop-gallery-main');
 			const thumbsEl = galleryEl.querySelector(
 				'.splashshop-gallery-thumbs'
 			);
-			if (!mainEl) return;
+			if (!mainEl) {
+				galleryEl.style.opacity = '1';
+				return;
+			}
 
 			let thumbsSwiper = null;
 			if (thumbsEl) {
@@ -1169,17 +1179,29 @@
     ========================================================================= */
 	ShopChop.AuthToggle = {
 		init() {
-			$(document).on('click', '.wc-toggle-heading', function () {
-				const $target = $(`#${$(this).data('target')}`);
+			const toggle = function ($heading) {
+				const $target = $(`#${$heading.data('target')}`);
 				const wasOpen = $target.hasClass('is-open');
 
 				// Close all panels first
 				$('.wc-toggle-form, .wc-toggle-heading').removeClass('is-open');
+				$('.wc-toggle-heading').attr('aria-expanded', 'false');
 
 				// Re-open the clicked one if it was previously closed
 				if (!wasOpen) {
 					$target.addClass('is-open');
-					$(this).addClass('is-open');
+					$heading.addClass('is-open').attr('aria-expanded', 'true');
+				}
+			};
+
+			$(document).on('click', '.wc-toggle-heading', function () {
+				toggle($(this));
+			});
+
+			$(document).on('keydown', '.wc-toggle-heading', function (e) {
+				if (e.key === 'Enter' || e.key === ' ') {
+					e.preventDefault();
+					toggle($(this));
 				}
 			});
 		},

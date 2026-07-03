@@ -29,7 +29,7 @@ do_action( 'woocommerce_before_customer_login_form' ); ?>
 
 	<div class="wc-col-login">
 
-		<h2 class="wc-toggle-heading is-open" data-target="wc-login-form" style="cursor:pointer;">
+		<h2 class="wc-toggle-heading is-open" data-target="wc-login-form" style="cursor:pointer;" role="button" tabindex="0" aria-expanded="true" aria-controls="wc-login-form">
 			<?php esc_html_e( 'Login to', 'woocommerce' ); echo ' ' . esc_html( get_bloginfo( 'name' ) ); ?>
 			<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256" class="wc-toggle-indicator"><path d="M181.66,133.66l-80,80a8,8,0,0,1-11.32-11.32L164.69,128,90.34,53.66a8,8,0,0,1,11.32-11.32l80,80A8,8,0,0,1,181.66,133.66Z"></path></svg>
 		</h2>
@@ -78,7 +78,7 @@ do_action( 'woocommerce_before_customer_login_form' ); ?>
 
 	<div class="wc-col-register">
 
-		<h2 class="wc-toggle-heading" data-target="wc-register-form" style="cursor:pointer;">
+		<h2 class="wc-toggle-heading" data-target="wc-register-form" style="cursor:pointer;" role="button" tabindex="0" aria-expanded="false" aria-controls="wc-register-form">
 			<?php esc_html_e( 'Register to', 'woocommerce' ); echo ' ' . esc_html( get_bloginfo( 'name' ) ); ?>
 			<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256" class="wc-toggle-indicator"><path d="M181.66,133.66l-80,80a8,8,0,0,1-11.32-11.32L164.69,128,90.34,53.66a8,8,0,0,1,11.32-11.32l80,80A8,8,0,0,1,181.66,133.66Z"></path></svg>
 		</h2>

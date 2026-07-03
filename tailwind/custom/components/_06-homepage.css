@@ -694,6 +694,15 @@
 		animation: none;
 	}
 
+	.woocommerce-product-gallery {
+		transition: none !important;
+	}
+
+	.wc-toggle-form,
+	.wc-toggle-heading .wc-toggle-indicator {
+		transition: none !important;
+	}
+
 	/* Disable scale/translate decorative motion */
 	.category-grid-card,
 	.blog-post-card,
