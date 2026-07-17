@@ -834,9 +834,9 @@ function shopchop_add_next_steps( $order_id ) {
 			<li class="flex items-start gap-2">
 				<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 256 256" aria-hidden="true" class="shrink-0 mt-0.5"><path d="M128,96a32,32,0,1,0,32,32A32,32,0,0,0,128,96Zm0,48a16,16,0,1,1,16-16A16,16,0,0,1,128,144Z"></path></svg>
 				<span><strong>Need help?</strong> Reach us on
-				<a href="<?php echo esc_url( 'https://wa.me/60129127126?text=' . rawurlencode( 'Hi, I need help with my order: #' . $order->get_order_number() ) ); ?>" class="underline! font-bold text-primary-900" target="_blank" rel="noreferrer">WhatsApp</a>
+				<a href="<?php echo esc_url( 'https://wa.me/' . shopchop_get_whatsapp_number() . '?text=' . rawurlencode( 'Hi, I need help with my order: #' . $order->get_order_number() ) ); ?>" class="underline! font-bold text-primary-900" target="_blank" rel="noreferrer">WhatsApp</a>
 				or
-				<a href="mailto:<?php echo esc_attr( get_option( 'woocommerce_email_from_address' ) ); ?>" class="underline! font-bold text-primary-900" rel="noreferrer"><?php echo esc_html( get_option( 'woocommerce_email_from_address' ) ); ?></a>
+				<a href="mailto:<?php echo esc_attr( shopchop_get_shop_email() ); ?>" class="underline! font-bold text-primary-900" rel="noreferrer"><?php echo esc_html( shopchop_get_shop_email() ); ?></a>
 				with Order ID <strong><?php echo esc_html( $order->get_order_number() ); ?></strong></span>
 			</li>
 		</ul>
@@ -1513,7 +1513,31 @@ function shopchop_recently_viewed_section() {
    § 18 — WhatsApp Floating Button (single product pages)
    ============================================================================= */
 
-define( 'SHOPCHOP_WHATSAPP_NUMBER', '60123456789' );
+/**
+ * Get the shop's WhatsApp number from ShopChop general settings.
+ */
+function shopchop_get_whatsapp_number() {
+	if ( class_exists( 'ShopChop_General_Settings' ) ) {
+		$phone = ShopChop_General_Settings::get( 'shop_phone' );
+		if ( $phone ) {
+			return $phone;
+		}
+	}
+	return '60123456789';
+}
+
+/**
+ * Get the shop's contact email from ShopChop general settings.
+ */
+function shopchop_get_shop_email() {
+	if ( class_exists( 'ShopChop_General_Settings' ) ) {
+		$email = ShopChop_General_Settings::get( 'shop_email' );
+		if ( $email ) {
+			return $email;
+		}
+	}
+	return get_option( 'woocommerce_email_from_address' );
+}
 
 /**
  * Inject the floating WhatsApp button on single product pages.
@@ -1544,7 +1568,7 @@ function shopchop_whatsapp_button() {
 	$url     = get_permalink();
 	$message = "Hi, I'm interested in {$name} ({$price})" . "\n" . $url;
 
-	$wa_url = 'https://wa.me/' . SHOPCHOP_WHATSAPP_NUMBER . '?text=' . rawurlencode( $message );
+	$wa_url = 'https://wa.me/' . shopchop_get_whatsapp_number() . '?text=' . rawurlencode( $message );
 	?>
 	<a
 		id="shopchop-whatsapp-btn"
@@ -1553,7 +1577,7 @@ function shopchop_whatsapp_button() {
 		rel="noopener noreferrer"
 		aria-label="<?php esc_attr_e( 'Chat on WhatsApp', 'shopchop' ); ?>"
 		title="<?php esc_attr_e( 'Chat on WhatsApp', 'shopchop' ); ?>"
-		data-wa-number="<?php echo esc_attr( SHOPCHOP_WHATSAPP_NUMBER ); ?>"
+		data-wa-number="<?php echo esc_attr( shopchop_get_whatsapp_number() ); ?>"
 		data-product-name="<?php echo esc_attr( $name ); ?>"
 		data-product-url="<?php echo esc_attr( $url ); ?>"
 	>

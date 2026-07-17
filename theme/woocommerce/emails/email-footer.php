@@ -70,7 +70,7 @@ $email = $email ?? null;
 															);
 															?>
 															<br>
-															Need help or support? <a href="mailto:<?php echo esc_attr( get_option( 'woocommerce_email_from_address' ) ); ?>"><?php echo esc_html( get_option( 'woocommerce_email_from_address' ) ); ?></a>&nbsp;|&nbsp;<a href="https://wa.me/60">WhatsApp us</a><br><br>
+															Need help or support? <a href="mailto:<?php echo esc_attr( shopchop_get_shop_email() ); ?>"><?php echo esc_html( shopchop_get_shop_email() ); ?></a>&nbsp;|&nbsp;<a href="https://wa.me/<?php echo esc_attr( shopchop_get_whatsapp_number() ); ?>">WhatsApp us</a><br><br>
 
 															<a href="<?php echo esc_url( get_privacy_policy_url() ); ?>">Privacy policy</a>
 															&nbsp;|&nbsp;
