@@ -82,9 +82,9 @@ $is_minimal_page = is_checkout() ||
 
 				<div class="flex gap-1.5 flex-wrap justify-center lg:justify-end">
 					<img src="<?php echo get_template_directory_uri(); ?>/assets/icons/fpx-icon.jpg" alt="FPX" title="FPX" class="w-12 h-6 rounded-sm shrink-0">
-					<img src="<?php echo get_template_directory_uri(); ?>/assets/icons/master-icon.jpg" alt="MasterCard" title="MasterCard" class="w-12 h-6 rounded-sm shrink-0">
-					<img src="<?php echo get_template_directory_uri(); ?>/assets/icons/visa-icon.jpg" alt="Visa" title="Visa" class="w-12 h-6 rounded-sm shrink-0">
-					<img src="<?php echo get_template_directory_uri(); ?>/assets/icons/tng-icon.jpg" alt="TNG EWallet" title="TNG EWallet" class="w-12 h-6 rounded-sm shrink-0">
+					<img src="<?php echo get_template_directory_uri(); ?>/assets/icons/duitnow-qr-icon.png" alt="DuitNow QR" title="DuitNow QR" class="w-12 h-6 rounded-sm shrink-0">
+					<img src="<?php echo get_template_directory_uri(); ?>/assets/icons/mastercard-icon.png" alt="MasterCard" title="MasterCard" class="w-12 h-6 rounded-sm shrink-0">
+					<img src="<?php echo get_template_directory_uri(); ?>/assets/icons/visa-new-icon.png" alt="Visa" title="Visa" class="w-12 h-6 rounded-sm shrink-0">
 				</div>
 			</div>
 		</div>
