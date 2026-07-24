@@ -16,6 +16,10 @@
 		@apply opacity-100 pointer-events-auto translate-y-0;
 	}
 
+	body.shopchop-drawer-open & {
+		@apply opacity-0! pointer-events-none! translate-y-3!;
+	}
+
 	svg {
 		@apply w-5 h-5 fill-current;
 	}

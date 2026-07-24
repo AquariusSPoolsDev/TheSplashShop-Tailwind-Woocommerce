@@ -932,6 +932,7 @@
 				el.classList.add('open');
 				el.classList.remove(classToRemove);
 				backdrop.classList.add('open');
+				document.body.classList.add('shopchop-drawer-open');
 				lockScroll();
 			};
 
@@ -939,6 +940,7 @@
 				el.classList.remove('open');
 				el.classList.add(classToAdd);
 				backdrop.classList.remove('open');
+				document.body.classList.remove('shopchop-drawer-open');
 				unlockScroll();
 			};
 
