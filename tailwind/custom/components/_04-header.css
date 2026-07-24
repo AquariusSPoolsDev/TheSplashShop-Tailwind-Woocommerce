@@ -508,7 +508,7 @@
 		&.open { @apply translate-y-0; }
 
 		.mobile-cart-header {
-			@apply p-4 border-b border-b-neutral-300 flex justify-between;
+			@apply p-4 border-b border-b-neutral-300 flex items-center justify-between;
 
 			h3 {
 				@apply text-xl font-semibold;
@@ -522,8 +522,7 @@
 		.mobile-cart-content {
 			@apply flex-1 overflow-y-auto text-sm;
 
-			.shopchop-mini-cart-list-wrapper,
-			.woocommerce-mini-cart__buttons {
+			.shopchop-mini-cart-list-wrapper {
 				@apply p-4;
 			}
 
@@ -575,10 +574,10 @@
 			}
 
 			.woocommerce-mini-cart__buttons {
-				@apply border-t border-t-neutral-300 flex flex-col-reverse gap-3;
+				@apply p-4 border-t border-t-neutral-300 flex flex-col-reverse gap-3;
 
 				.button {
-					@apply box-border h-12 flex items-center justify-center py-0 text-base text-center normal-case font-medium flex-1 rounded-lg;
+					@apply box-border flex items-center justify-center p-3 text-base text-center normal-case font-medium flex-1 rounded-lg;
 
 					&:not(.checkout) {
 						@apply bg-transparent border-2 text-secondary-900 border-secondary-900 hover:bg-secondary-100 active:bg-secondary-100 focus:bg-secondary-100;
