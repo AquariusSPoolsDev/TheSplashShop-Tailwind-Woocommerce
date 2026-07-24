@@ -60,9 +60,6 @@ defined('ABSPATH') || exit;
 								echo '<span class="variation-meta">' . esc_html($variation_list) . '</span>';
 							}
 
-							// Item Meta Data (standard WC data)
-							echo wp_kses_post( wc_get_formatted_cart_item_data( $cart_item ) );
-
 							// Quantity Display
 							echo apply_filters('woocommerce_checkout_cart_item_quantity', ' <div class="shopchop-item-qty">' . sprintf('&times; %s', $cart_item['quantity']) . '</div>', $cart_item, $cart_item_key);
 							?>

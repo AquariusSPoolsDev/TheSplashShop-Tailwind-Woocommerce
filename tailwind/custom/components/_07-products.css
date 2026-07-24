@@ -14,6 +14,23 @@
 	@apply pb-6 mb-6 border-b border-b-neutral-300 flex gap-4 justify-between;
 }
 
+/* Shop/category archive header — title + optional term description */
+.woocommerce-products-header {
+	@apply mb-8;
+
+	.woocommerce-products-header__title {
+		@apply mb-3;
+	}
+
+	.term-description {
+		@apply text-lg text-neutral-700;
+
+		p {
+			@apply mb-0;
+		}
+	}
+}
+
 .shopchop-wrapper.shopchop-woocommerce,
 .shopchop-homepage-wrapper {
 
@@ -455,6 +472,10 @@
 
 			h2 {
 				@apply mb-4 text-2xl font-semibold;
+			}
+
+			p {
+				@apply mb-4 last:mb-0;
 			}
 		}
 	}
