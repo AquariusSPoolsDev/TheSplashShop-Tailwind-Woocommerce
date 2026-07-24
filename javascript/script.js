@@ -553,7 +553,7 @@
 				$btn.closest('.pill-swatches-container')
 					.prev('div')
 					.find('select')
-					.val($btn.data('value'))
+					.val($btn.attr('data-value'))
 					.trigger('change');
 
 				$btn.addClass('active').siblings().removeClass('active');
@@ -575,7 +575,7 @@
 
 			$form.find('.pill-swatches-container').each(function () {
 				const attr = $(this).data('attribute_name');
-				const val = $(this).find('.pill-swatch.active').data('value');
+				const val = $(this).find('.pill-swatch.active').attr('data-value');
 				if (val) selected[attr] = val;
 			});
 
@@ -584,7 +584,7 @@
 				const attr = $pill
 					.closest('.pill-swatches-container')
 					.data('attribute_name');
-				const testSel = { ...selected, [attr]: $pill.data('value') };
+				const testSel = { ...selected, [attr]: $pill.attr('data-value') };
 
 				const isPossible = allVariations.some((variation) => {
 					if (!variation.is_purchasable) return false;
