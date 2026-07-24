@@ -158,5 +158,8 @@ Nonce localized via `shopchopDynamicSearch.nonce` (JS object).
 
 - Repo tracked at theme root
 - Two contributors: `muhdyusuffrosli` (previous username owner), `usoppii` (current username owner)
-- ~15 commits, active development as of April 2026
+- ~16 commits, active development as of July 2026
 - `.claude/settings.local.json` allows `git add *` and `npm run *` without prompt
+- Two remotes: `origin` (`usoppii/TheSplashShop-Tailwind-Woocommerce`, fork) and `upstream` (`AquariusSPoolsDev/TheSplashShop-Tailwind-Woocommerce`, canonical). Local `main` tracks `upstream`.
+- Commits to `main` auto-push to `upstream` (confirmed via reflog, no manual `git push` needed). `origin` fork does NOT get this — needs manual authenticated push to stay in sync; no cached HTTPS credential or `gh auth` in this dev environment as of 2026-07-24.
+- Current version: **1.0.2** (bumped from 1.0.1 in `9a33c89`). Version lives in `tailwind/custom/file-header.css` (source), synced into `theme/style.css` + `theme/style-editor.css` on build — bump the source file, not the compiled ones.
