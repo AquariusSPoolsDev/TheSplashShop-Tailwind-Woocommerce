@@ -252,7 +252,7 @@ add_action( 'woocommerce_before_main_content', 'shopchop_wc_wrapper_start' );
 add_action( 'woocommerce_after_main_content',  'shopchop_wc_wrapper_end'   );
 
 function shopchop_wc_wrapper_start() { ?>
-	<main id="primary" class="shopchop-wrapper shopchop-woocommerce" role="primary">
+	<main id="primary" class="shopchop-wrapper shopchop-woocommerce woocommerce" role="primary">
 <?php }
 
 function shopchop_wc_wrapper_end() { ?>

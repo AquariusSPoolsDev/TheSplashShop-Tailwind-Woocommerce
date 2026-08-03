@@ -135,6 +135,10 @@
 							&.cart-discount .woocommerce-remove-coupon {
 								@apply text-xs text-error-700 hover:text-error-700/75 transition-colors;
 							}
+
+							&.woocommerce-shipping-totals td {
+								@apply flex-1 text-end;
+							}
 						}
 					}
 				}

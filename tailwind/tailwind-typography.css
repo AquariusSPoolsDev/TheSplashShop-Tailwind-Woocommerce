@@ -69,3 +69,11 @@
 	--tw-prose-invert-th-borders: --theme(--color-background, initial);
 	--tw-prose-invert-td-borders: --theme(--color-background, initial);
 }
+
+/**
+ * Typography plugin gives `img` a top/bottom margin by default. Strip it so
+ * inline images (e.g. courier logos in cart shipping labels) sit flush.
+ */
+.prose img {
+	@apply my-0;
+}
