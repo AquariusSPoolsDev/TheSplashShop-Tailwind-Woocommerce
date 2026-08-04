@@ -706,8 +706,9 @@ function shopchop_account_content_title() {
 		'orders'       => 'Orders',
 		'downloads'    => 'Downloads',
 		'view-order'   => 'Order Details',
-		'edit-address' => 'Addresses',
-		'edit-account' => 'Account Details',
+		'edit-address'  => 'Addresses',
+		'edit-account'  => 'Account Details',
+		'pool-profile'  => 'Pool Profile',
 	);
 	
 	$title = 'Dashboard'; // default

@@ -626,6 +626,166 @@
 	};
 
 	/* =========================================================================
+        8b. Pool Profile – Auto-calc Volume from L x W x H (cm or ft toggle)
+    ========================================================================= */
+	ShopChop.PoolSizeCalculator = {
+		metresPerUnit: {
+			m: 1,
+			ft: 0.3048,
+		},
+
+		calc($l, $w, $h, $volume, unit) {
+			const factor = ShopChop.PoolSizeCalculator.metresPerUnit[unit];
+			const l = parseFloat($l.val());
+			const w = parseFloat($w.val());
+			const h = parseFloat($h.val());
+
+			if (l > 0 && w > 0 && h > 0) {
+				const litres = l * factor * (w * factor) * (h * factor) * 1000;
+				$volume.val(Math.round(litres));
+			}
+		},
+
+		init() {
+			const $l = $('#pool_size_l');
+			const $w = $('#pool_size_w');
+			const $h = $('#pool_size_h');
+			const $volume = $('#pool_volume');
+			const $options = $('.pool-size-unit-option');
+
+			if (!$l.length || !$w.length || !$h.length || !$volume.length || !$options.length) return;
+
+			const recalc = () => {
+				const unit = $options.filter('.is-active').data('unit') || 'm';
+				ShopChop.PoolSizeCalculator.calc($l, $w, $h, $volume, unit);
+			};
+
+			[$l, $w, $h].forEach(($field) => $field.on('input', recalc));
+
+			$options.on('click', function () {
+				$options.removeClass('is-active');
+				$(this).addClass('is-active');
+				recalc();
+			});
+		},
+	};
+
+	/* =========================================================================
+        8c. Pool Profile – Photo Dropzone (preview + drag & drop)
+    ========================================================================= */
+	ShopChop.PoolPhotoDropzone = {
+		showPreview(file, $preview) {
+			const reader = new FileReader();
+			reader.onload = (e) => {
+				$preview.html(`<img src="${e.target.result}" data-full="${e.target.result}" alt="" />`);
+			};
+			reader.readAsDataURL(file);
+		},
+
+		init() {
+			const $dropzone = $('#pool_photo_dropzone');
+			const $input = $('#pool_photo_dropzone .pool-photo-input');
+			const $preview = $('#pool_photo_preview');
+
+			if (!$dropzone.length || !$input.length) return;
+
+			$input.on('change', function () {
+				if (this.files && this.files[0]) {
+					ShopChop.PoolPhotoDropzone.showPreview(this.files[0], $preview);
+				}
+			});
+
+			$dropzone.on('dragover', (e) => {
+				e.preventDefault();
+				$dropzone.addClass('is-dragover');
+			});
+
+			$dropzone.on('dragleave drop', () => {
+				$dropzone.removeClass('is-dragover');
+			});
+
+			$dropzone.on('drop', (e) => {
+				e.preventDefault();
+				const files = e.originalEvent.dataTransfer.files;
+				if (files && files[0]) {
+					$input[0].files = files;
+					$input.trigger('change');
+				}
+			});
+		},
+	};
+
+	/* =========================================================================
+        8d. Pool Profile – Photo Full Preview Modal
+    ========================================================================= */
+	ShopChop.PoolPhotoModal = {
+		init() {
+			const $modal = $('#pool_photo_modal');
+			const $modalImg = $('#pool_photo_modal_img');
+
+			if (!$modal.length) return;
+
+			const open = (src) => {
+				$modalImg.attr('src', src);
+				$modal.addClass('is-open').attr('aria-hidden', 'false');
+			};
+
+			const close = () => {
+				$modal.removeClass('is-open').attr('aria-hidden', 'true');
+				$modalImg.attr('src', '');
+			};
+
+			$(document).on('click', '#pool_photo_preview img', function () {
+				open($(this).data('full') || $(this).attr('src'));
+			});
+
+			$('#pool_photo_modal_close').on('click', close);
+			$modal.on('click', (e) => {
+				if (e.target === $modal[0]) close();
+			});
+			$(document).on('keydown', (e) => {
+				if (e.key === 'Escape') close();
+			});
+		},
+	};
+
+	/* =========================================================================
+        8e. Pool Profile – Delete Confirmation Modal
+    ========================================================================= */
+	ShopChop.PoolProfileDeleteModal = {
+		init() {
+			const $modal = $('#pool_profile_delete_modal');
+			const $name = $('#pool_profile_delete_modal_name');
+			const $confirm = $('#pool_profile_delete_modal_confirm');
+
+			if (!$modal.length) return;
+
+			const open = ($trigger) => {
+				$name.text($trigger.data('profile-name'));
+				$confirm.attr('href', $trigger.attr('href'));
+				$modal.addClass('is-open').attr('aria-hidden', 'false');
+			};
+
+			const close = () => {
+				$modal.removeClass('is-open').attr('aria-hidden', 'true');
+			};
+
+			$(document).on('click', '.pool-profile-delete', function (e) {
+				e.preventDefault();
+				open($(this));
+			});
+
+			$('#pool_profile_delete_modal_close, #pool_profile_delete_modal_cancel').on('click', close);
+			$modal.on('click', (e) => {
+				if (e.target === $modal[0]) close();
+			});
+			$(document).on('keydown', (e) => {
+				if (e.key === 'Escape') close();
+			});
+		},
+	};
+
+	/* =========================================================================
         9. My Account – Horizontal Menu Scroll to Active Item
     ========================================================================= */
 	ShopChop.AccountMenu = {
@@ -1386,5 +1546,9 @@
 		ShopChop.ScrollUtils.init();
 		ShopChop.WhatsAppButton.init();
 		ShopChop.PostcodeAutofill.init();
+		ShopChop.PoolSizeCalculator.init();
+		ShopChop.PoolPhotoDropzone.init();
+		ShopChop.PoolPhotoModal.init();
+		ShopChop.PoolProfileDeleteModal.init();
 	});
 })(jQuery);
