@@ -1237,6 +1237,48 @@ function shopchop_custom_stock_status( $statuses ) {
 
 
 /**
+ * Variable products: WooCommerce's own stock-status sync only understands
+ * instock/outofstock/onbackorder, so a variable product whose variations are
+ * all "Pre-Order" (or "Coming Soon") gets its parent stamped "outofstock" —
+ * core has no idea those custom statuses exist. Recompute the parent's
+ * status live from its variations instead of trusting the stored meta.
+ *
+ * Priority when variations disagree: instock > pre_order > coming_soon > outofstock.
+ *
+ * @param string     $status  Stored stock status.
+ * @param WC_Product $product Current product.
+ * @return string
+ */
+add_filter( 'woocommerce_product_get_stock_status', 'shopchop_variable_stock_status_from_children', 10, 2 );
+function shopchop_variable_stock_status_from_children( $status, $product ) {
+	if ( ! $product->is_type( 'variable' ) ) {
+		return $status;
+	}
+
+	$children_statuses = array();
+	foreach ( $product->get_children() as $variation_id ) {
+		$variation = wc_get_product( $variation_id );
+		if ( $variation ) {
+			$children_statuses[] = $variation->get_stock_status();
+		}
+	}
+
+	if ( empty( $children_statuses ) ) {
+		return $status;
+	}
+
+	foreach ( array( 'instock', 'pre_order', 'coming_soon' ) as $priority_status ) {
+		if ( in_array( $priority_status, $children_statuses, true ) ) {
+			return $priority_status;
+		}
+	}
+
+	return 'outofstock';
+}
+
+
+
+/**
  * Replace the frontend stock HTML for custom statuses.
  *
  * @param string     $html    Default stock HTML.
