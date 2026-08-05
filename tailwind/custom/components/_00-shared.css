@@ -48,3 +48,15 @@
 
 	a { @apply underline!; }
 }
+
+/**
+ * Reusable responsive grids, applied directly in the WP editor for uniformity.
+ * !important so they win over block/theme.json inline styles.
+ */
+.grid-columns-max-3 {
+	@apply grid-cols-1! md:grid-cols-2! lg:grid-cols-3! gap-4! md:gap-6! lg:gap-10!;
+}
+
+.grid-columns-max-2 {
+	@apply grid-cols-1! md:grid-cols-2! gap-4! md:gap-6!;
+}
