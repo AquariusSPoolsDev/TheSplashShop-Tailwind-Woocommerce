@@ -143,10 +143,26 @@
 									a {
 										@apply text-xl font-semibold text-primary-900 line-clamp-1;
 									}
+
+									dl.variation {
+										@apply mt-1.5 mb-0 grid grid-cols-[auto_1fr] gap-x-1.5 gap-y-0.5 text-sm text-neutral-700;
+
+										dt {
+											@apply font-medium text-foreground m-0;
+
+											p { @apply m-0; }
+										}
+
+										dd {
+											@apply m-0 p-0;
+
+											p { @apply m-0; }
+										}
+									}
 								}
 
 								.product-price {
-									@apply mb-2;
+									@apply mb-2 mt-2;
 
 									.discount-price {
 										@apply inline-flex items-center flex-wrap gap-2;
