@@ -58,11 +58,12 @@ do_action('woocommerce_before_account_orders', $has_orders); ?>
 						$display_limit = 1;
 						$i = 0;
 						foreach ($items as $item) {
-							if ($i < $display_limit) {
+							$is_extra = $i >= $display_limit;
+							if (true) {
 								$product = $item->get_product();
 								$quantity = $item->get_quantity();
 
-								echo '<div class="product-info-wrapper">';
+								printf('<div class="product-info-wrapper%s">', $is_extra ? ' order-extra-item' : '');
 								echo $product ? wp_kses_post( $product->get_image( array( 96, 96 ) ) ) : '';
 								echo '<div class="product-meta-detail">';
 
@@ -93,7 +94,12 @@ do_action('woocommerce_before_account_orders', $has_orders); ?>
 						}
 
 						if ($unique_item_count > $display_limit) {
-							printf( '<p class="more-items">+%s %s</p>', esc_html( $unique_item_count - $display_limit ), esc_html__( 'more items', 'woocommerce' ) );
+							printf(
+									'<button type="button" class="more-items" aria-expanded="false" data-label-expand="+%1$s %2$s (expand)" data-label-collapse="%3$s">+%1$s %2$s (expand)</button>',
+									esc_html( $unique_item_count - $display_limit ),
+									esc_html__( 'more items', 'woocommerce' ),
+									esc_html__( 'Collapse', 'woocommerce' )
+								);
 						}
 						?>
 					</td>
