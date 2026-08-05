@@ -752,6 +752,19 @@
 	/* =========================================================================
         8e. Pool Profile – Delete Confirmation Modal
     ========================================================================= */
+	ShopChop.OrderItemsToggle = {
+		init() {
+			$(document).on('click', '.order-product-details .more-items', function () {
+				const $btn = $(this);
+				const $wrapper = $btn.closest('.order-product-details');
+				const expanded = $wrapper.toggleClass('is-expanded').hasClass('is-expanded');
+
+				$btn.attr('aria-expanded', expanded ? 'true' : 'false');
+				$btn.text(expanded ? $btn.data('label-collapse') : $btn.data('label-expand'));
+			});
+		},
+	};
+
 	ShopChop.PoolProfileDeleteModal = {
 		init() {
 			const $modal = $('#pool_profile_delete_modal');
@@ -1550,5 +1563,6 @@
 		ShopChop.PoolPhotoDropzone.init();
 		ShopChop.PoolPhotoModal.init();
 		ShopChop.PoolProfileDeleteModal.init();
+		ShopChop.OrderItemsToggle.init();
 	});
 })(jQuery);
