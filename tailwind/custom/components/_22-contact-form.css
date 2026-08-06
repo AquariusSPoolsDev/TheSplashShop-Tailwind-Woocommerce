@@ -1,0 +1,178 @@
+/**
+ * Meow Apps Contact Form Block
+ */
+.meow-contact-form {
+	@apply flex flex-col gap-4;
+
+	.meow-contact-form__group {
+		@apply flex flex-col;
+	}
+
+	.meow-contact-form__group-label {
+		@apply font-semibold;
+	}
+
+	.meow-contact-form__group-input,
+	.meow-contact-form__group-textarea {
+		@apply w-full! max-w-none!;
+	}
+
+	.meow-contact-form__group-consent label {
+		@apply flex items-start gap-2 font-normal cursor-pointer;
+	}
+
+	.meow-contact-form__group-consent input[type="checkbox"] {
+		@apply w-5! h-5! mt-0.5! shrink-0! cursor-pointer! accent-primary-900! focus:ring-2! focus:ring-primary-900! focus:ring-offset-1! rounded-sm!;
+	}
+
+	.meow-contact-form__info {
+		@apply text-sm text-neutral-700 my-0 italic;
+
+		a { @apply underline!; }
+	}
+
+	.meow-contact-form__group-button {
+		@apply bg-primary-900! text-background! font-semibold! cursor-pointer! text-base! transition-all! hover:bg-primary-950! hover:text-background! active:bg-primary-950! active:text-background! active:scale-[0.97]! focus:bg-primary-950! focus:text-background! rounded-lg! h-14! uppercase! tracking-wider! max-w-none! w-auto! self-start! px-8!;
+	}
+}
+
+/**
+ * ShopChop Contact Quick Menu (Elementor widget)
+ */
+.shopchop-contact-quick-menu {
+	@apply py-6;
+
+	.quick-menu-heading {
+		@apply text-xl lg:text-3xl text-center lg:text-start font-extrabold uppercase bg-linear-to-br from-secondary-800 to-secondary-950 bg-clip-text text-transparent text-balance mt-0 mb-6;
+	}
+
+	.quick-menu-grid {
+		@apply grid grid-cols-2 gap-4 md:gap-6;
+
+		&.quick-menu-cols-1 {
+			@apply grid-cols-1;
+
+			.quick-menu-card {
+				@apply md:max-w-sm md:mx-auto;
+			}
+		}
+
+		&.quick-menu-cols-3 {
+			@apply md:grid-cols-3;
+		}
+
+		&.quick-menu-cols-4 {
+			@apply md:grid-cols-4;
+		}
+	}
+
+	.quick-menu-card {
+		@apply flex flex-col items-center text-center gap-3 p-4 lg:p-6 bg-white border border-neutral-300 rounded-xl transition-all hover:border-primary hover:scale-[1.01] active:border-primary active:scale-[0.98];
+
+		.quick-menu-icon-wrap {
+			@apply w-14 h-14 flex items-center justify-center rounded-lg bg-primary-100 text-primary transition-all;
+
+			svg {
+				@apply w-7 h-7;
+			}
+		}
+
+		.quick-menu-label {
+			@apply text-base lg:text-lg font-semibold text-foreground;
+		}
+	}
+}
+
+/**
+ * ShopChop Contact Options (Elementor widget)
+ */
+.shopchop-contact-options {
+	@apply py-6;
+
+	.contact-options-heading {
+		@apply text-xl lg:text-3xl text-center lg:text-start font-extrabold uppercase bg-linear-to-br from-secondary-800 to-secondary-950 bg-clip-text text-transparent text-balance mt-0 mb-6;
+	}
+
+	.contact-options-grid {
+		@apply grid grid-cols-1 gap-4 md:gap-6;
+
+		&.contact-options-cols-2 {
+			@apply md:grid-cols-2;
+		}
+	}
+
+	.contact-options-card {
+		@apply relative flex flex-col p-5 lg:p-6 bg-white border border-neutral-300 rounded-xl transition-all hover:border-primary hover:scale-[1.01] active:border-primary active:scale-[0.98];
+
+		.contact-options-card-top {
+			@apply flex items-start justify-between gap-3;
+		}
+
+		.contact-options-title-link {
+			@apply text-inherit no-underline! after:absolute after:inset-0 after:content-[''];
+		}
+
+		.contact-options-icon-wrap {
+			@apply w-11 h-11 shrink-0 flex items-center justify-center rounded-lg;
+
+			svg {
+				@apply w-6 h-6;
+			}
+		}
+
+		.contact-options-badge {
+			@apply text-xs font-semibold px-2.5 py-1 rounded-md whitespace-nowrap;
+		}
+
+		.contact-options-title {
+			@apply text-lg lg:text-xl font-semibold text-foreground mt-4;
+		}
+
+		.contact-options-description {
+			@apply text-sm text-neutral-600 leading-relaxed m-0;
+		}
+
+		.contact-options-link {
+			@apply relative z-1 mt-1 inline-flex items-center gap-1.5 text-sm font-semibold w-max transition-all no-underline!;
+
+			svg {
+				@apply w-4 h-4 transition-transform duration-200;
+			}
+
+			&:hover svg, &:active svg {
+				@apply translate-x-0.5;
+			}
+		}
+
+		/* ── Accent colors ── */
+		&.contact-options-color-primary {
+			.contact-options-icon-wrap,
+			.contact-options-badge { @apply bg-primary-100 text-primary-900; }
+			.contact-options-link { @apply text-primary hover:text-primary-950 active:text-primary-950; }
+		}
+
+		&.contact-options-color-success {
+			.contact-options-icon-wrap,
+			.contact-options-badge { @apply bg-success-100 text-success-900; }
+			.contact-options-link { @apply text-success-800 hover:text-success-900 active:text-success-900; }
+		}
+
+		&.contact-options-color-secondary {
+			.contact-options-icon-wrap,
+			.contact-options-badge { @apply bg-secondary-100 text-secondary-900; }
+			.contact-options-link { @apply text-secondary-800 hover:text-secondary-950 active:text-secondary-950; }
+		}
+
+		&.contact-options-color-warning {
+			.contact-options-icon-wrap,
+			.contact-options-badge { @apply bg-warning-100 text-warning-900; }
+			.contact-options-link { @apply text-warning-700 hover:text-warning-900 active:text-warning-900; }
+		}
+
+		&.contact-options-color-neutral {
+			.contact-options-icon-wrap,
+			.contact-options-badge { @apply bg-neutral-100 text-neutral-700; }
+			.contact-options-link { @apply text-neutral-700 hover:text-neutral-900 active:text-neutral-900; }
+		}
+	}
+}

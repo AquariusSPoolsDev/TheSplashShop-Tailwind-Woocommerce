@@ -44,7 +44,7 @@
 }
 
 .woocommerce-privacy-policy-text {
-	@apply mb-8;
+	@apply mt-4 mb-8;
 
 	a { @apply underline!; }
 }
@@ -59,4 +59,46 @@
 
 .grid-columns-max-2 {
 	@apply grid-cols-1! md:grid-cols-2! gap-4! md:gap-6!;
+}
+
+/**
+ * ShopChop Heading / Paragraph / Divider (Elementor widgets)
+ * Plain content elements — styling comes entirely from theme tokens,
+ * not Elementor's own typography/color panels.
+ */
+.shopchop-heading {
+	@apply mt-0 text-xl lg:text-3xl font-extrabold text-balance leading-tight;
+
+	&.shopchop-heading-section {
+		@apply uppercase bg-linear-to-br from-secondary-800 to-secondary-950 bg-clip-text text-transparent;
+	}
+
+	&.shopchop-heading-simple {
+		@apply text-foreground;
+	}
+}
+
+.shopchop-paragraph {
+	@apply leading-relaxed text-balance;
+
+	&.shopchop-paragraph-sm { @apply text-sm; }
+	&.shopchop-paragraph-base { @apply text-base lg:text-lg; }
+	&.shopchop-paragraph-lg { @apply text-lg lg:text-xl; }
+
+	&.shopchop-paragraph-muted { @apply text-neutral-600; }
+	&.shopchop-paragraph-foreground { @apply text-foreground; }
+
+	a { @apply text-primary underline hover:text-primary-950 active:text-primary-950; }
+}
+
+.shopchop-divider {
+	@apply border-t border-neutral-400 mx-auto;
+
+	&.shopchop-divider-full { @apply w-full; }
+	&.shopchop-divider-medium { @apply w-3/5; }
+	&.shopchop-divider-short { @apply w-24; }
+
+	&.shopchop-divider-sm { @apply my-4; }
+	&.shopchop-divider-md { @apply my-8; }
+	&.shopchop-divider-lg { @apply my-12 lg:my-16; }
 }
