@@ -292,7 +292,7 @@
 			@apply inline-flex items-center flex-wrap gap-3;
 
 			.regular {
-				@apply text-neutral-700 text-sm font-normal;
+				@apply text-neutral-700 text-base font-bold;
 			}
 
 			.discount {
