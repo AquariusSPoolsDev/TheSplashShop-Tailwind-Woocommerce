@@ -46,6 +46,18 @@
 
 	}
 
+	.wc-form-divider {
+		@apply relative flex items-center justify-center my-6 text-sm font-semibold uppercase tracking-wide text-neutral-500;
+
+		&::before {
+			@apply content-[''] absolute inset-x-0 h-px bg-neutral-300;
+		}
+
+		span {
+			@apply relative bg-background px-3;
+		}
+	}
+
 	.wc-col-register {
 		@apply mt-6 pt-6 border-t border-t-neutral-300;
 	}

@@ -39,9 +39,13 @@ do_action( 'woocommerce_before_customer_login_form' ); ?>
 
 				<?php do_action( 'woocommerce_login_form_start' ); ?>
 
+				<?php echo do_shortcode( '[nextend_social_login provider="google" align="center" style="fullwidth"]' ); ?>
+
+				<div class="wc-form-divider" role="separator"><span><?php esc_html_e( 'or', 'shopchop' ); ?></span></div>
+
 				<p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
-					<label for="username"><?php esc_html_e( 'Username or email address', 'woocommerce' ); ?>&nbsp;<span class="required" aria-hidden="true">*</span><span class="screen-reader-text"><?php esc_html_e( 'Required', 'woocommerce' ); ?></span></label>
-					<input type="text" class="woocommerce-Input woocommerce-Input--text input-text" name="username" id="username" autocomplete="username" value="<?php echo ( ! empty( $_POST['username'] ) && is_string( $_POST['username'] ) ) ? esc_attr( wp_unslash( $_POST['username'] ) ) : ''; ?>" required aria-required="true" /><?php // @codingStandardsIgnoreLine ?>
+					<label for="username"><?php esc_html_e( 'Email address', 'woocommerce' ); ?>&nbsp;<span class="required" aria-hidden="true">*</span><span class="screen-reader-text"><?php esc_html_e( 'Required', 'woocommerce' ); ?></span></label>
+					<input type="text" class="woocommerce-Input woocommerce-Input--text input-text" name="username" id="username" autocomplete="username" inputmode="email" placeholder="<?php esc_attr_e( 'you@example.com', 'shopchop' ); ?>" autofocus value="<?php echo ( ! empty( $_POST['username'] ) && is_string( $_POST['username'] ) ) ? esc_attr( wp_unslash( $_POST['username'] ) ) : ''; ?>" required aria-required="true" /><?php // @codingStandardsIgnoreLine ?>
 				</p>
 				<p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
 					<label for="password"><?php esc_html_e( 'Password', 'woocommerce' ); ?>&nbsp;<span class="required" aria-hidden="true">*</span><span class="screen-reader-text"><?php esc_html_e( 'Required', 'woocommerce' ); ?></span></label>
@@ -87,6 +91,10 @@ do_action( 'woocommerce_before_customer_login_form' ); ?>
 			<form method="post" class="woocommerce-form woocommerce-form-register register" <?php do_action( 'woocommerce_register_form_tag' ); ?> >
 
 				<?php do_action( 'woocommerce_register_form_start' ); ?>
+
+				<?php echo do_shortcode( '[nextend_social_login provider="google" align="center" style="fullwidth"]' ); ?>
+
+				<div class="wc-form-divider" role="separator"><span><?php esc_html_e( 'or', 'shopchop' ); ?></span></div>
 
 				<?php if ( 'no' === get_option( 'woocommerce_registration_generate_username' ) ) : ?>
 
