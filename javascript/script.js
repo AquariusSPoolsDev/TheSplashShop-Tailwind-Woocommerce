@@ -652,6 +652,7 @@
 			const $h = $('#pool_size_h');
 			const $volume = $('#pool_volume');
 			const $options = $('.pool-size-unit-option');
+			const $unit = $('#pool_size_unit');
 
 			if (!$l.length || !$w.length || !$h.length || !$volume.length || !$options.length) return;
 
@@ -665,6 +666,7 @@
 			$options.on('click', function () {
 				$options.removeClass('is-active');
 				$(this).addClass('is-active');
+				$unit.val($(this).data('unit'));
 				recalc();
 			});
 		},

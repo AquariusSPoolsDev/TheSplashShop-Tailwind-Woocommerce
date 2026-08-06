@@ -175,6 +175,9 @@ function shopchop_handle_pool_profile_actions() {
 				update_post_meta( $post_id, '_' . $dim, is_numeric( $value ) ? floatval( $value ) : '' );
 			}
 
+			$size_unit = isset( $_POST['pool_size_unit'] ) ? sanitize_text_field( wp_unslash( $_POST['pool_size_unit'] ) ) : 'm';
+			update_post_meta( $post_id, '_pool_size_unit', 'ft' === $size_unit ? 'ft' : 'm' );
+
 			// Optional pool characteristics.
 			$shape     = isset( $_POST['pool_shape'] ) ? sanitize_text_field( wp_unslash( $_POST['pool_shape'] ) ) : '';
 			$sanitiser = isset( $_POST['sanitiser_method'] ) ? sanitize_text_field( wp_unslash( $_POST['sanitiser_method'] ) ) : '';

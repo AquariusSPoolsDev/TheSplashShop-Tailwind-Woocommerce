@@ -166,10 +166,12 @@ $get_meta = function( $key ) use ( $editing ) {
 					<div class="pool-size-calculator form-row">
 						<div class="pool-size-calculator-label">
 							<label><?php esc_html_e( 'Pool size (optional)', 'shopchop' ); ?></label>
+							<?php $pool_size_unit = $get_meta( '_pool_size_unit' ) === 'ft' ? 'ft' : 'm'; ?>
 							<div class="pool-size-unit-toggle" role="group" aria-label="<?php esc_attr_e( 'Unit', 'shopchop' ); ?>">
-								<button type="button" class="pool-size-unit-option is-active" data-unit="m"><?php esc_html_e( 'm', 'shopchop' ); ?></button>
-								<button type="button" class="pool-size-unit-option" data-unit="ft"><?php esc_html_e( 'ft', 'shopchop' ); ?></button>
+								<button type="button" class="pool-size-unit-option<?php echo 'm' === $pool_size_unit ? ' is-active' : ''; ?>" data-unit="m"><?php esc_html_e( 'm', 'shopchop' ); ?></button>
+								<button type="button" class="pool-size-unit-option<?php echo 'ft' === $pool_size_unit ? ' is-active' : ''; ?>" data-unit="ft"><?php esc_html_e( 'ft', 'shopchop' ); ?></button>
 							</div>
+							<input type="hidden" id="pool_size_unit" name="pool_size_unit" value="<?php echo esc_attr( $pool_size_unit ); ?>" />
 						</div>
 						<div class="pool-size-inputs">
 							<div class="pool-size-input">
