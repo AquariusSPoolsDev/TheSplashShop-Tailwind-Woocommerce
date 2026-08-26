@@ -949,6 +949,18 @@ function shopchop_add_next_steps( $order_id ) {
    ============================================================================= */
 
 /**
+ * Scope the native WP search (search.php) to products and posts only.
+ * Pages are excluded — static nav-accessible content, not what visitors
+ * search for by keyword.
+ */
+function shopchop_search_products_only( $query ) {
+	if ( ! is_admin() && $query->is_main_query() && $query->is_search() ) {
+		$query->set( 'post_type', array( 'product', 'post' ) );
+	}
+}
+add_action( 'pre_get_posts', 'shopchop_search_products_only' );
+
+/**
  * Search products by title, description, short description, and meta fields.
  *
  * The handler runs two WP_Query passes:
@@ -1150,7 +1162,7 @@ add_shortcode( 'shopchop_search_bar', 'shopchop_search_bar_shortcode' );
  * Accepts: POST action=shopchop_get_mini_cart, nonce.
  */
 function shopchop_get_mini_cart() {
-	check_ajax_referer( 'wc_ajax_search_nonce', 'nonce', true );
+	check_ajax_referer( 'shopchop_cart_nonce', 'nonce', true );
 
 	ob_start();
 	woocommerce_mini_cart();

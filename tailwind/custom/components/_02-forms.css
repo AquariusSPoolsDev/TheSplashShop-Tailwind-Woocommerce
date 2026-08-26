@@ -22,6 +22,7 @@ input[type="password"],
 input[type="tel"],
 input[type="number"],
 input[type="url"],
+input[type="search"],
 textarea,
 select {
 	@apply w-full max-w-80 h-14 bg-white border-2 border-neutral-300 rounded-lg p-4 focus:border-primary-700 focus:bg-white outline-none transition-all focus:ring-4 focus:ring-primary-100;

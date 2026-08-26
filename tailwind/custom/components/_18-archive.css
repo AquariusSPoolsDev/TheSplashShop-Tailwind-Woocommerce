@@ -2,7 +2,45 @@
  * Blog Archive — post card grid, page header, pagination
  */
 
-.archive-main-template {
+#search-products-dynamic,
+#search-posts-dynamic {
+	@apply relative;
+}
+
+.search-main-template h2.shop-section-title {
+	@apply mt-6;
+}
+
+.search-main-template .search-pagination {
+	@apply flex justify-center mt-10;
+
+	ul.page-numbers {
+		@apply flex flex-nowrap items-stretch border border-neutral-300 rounded-lg overflow-hidden;
+
+		li {
+			@apply border-r border-neutral-300 last:border-r-0;
+
+			.page-numbers {
+				@apply flex items-center justify-center min-w-11 h-11 w-11 font-medium transition-all;
+
+				&:not(.current):hover {
+					@apply bg-primary-100;
+				}
+
+				&.current {
+					@apply font-bold bg-primary text-background;
+				}
+
+				&.prev, &.next {
+					@apply text-base lg:text-xl;
+				}
+			}
+		}
+	}
+}
+
+.archive-main-template,
+.search-main-template {
 
 	.archive-page-header {
 		@apply mb-8;
@@ -17,13 +55,14 @@
 	}
 
 	/* ── Post grid ── */
-	.archive-posts-grid {
+	.archive-posts-grid,
+	.search-results-grid {
 		@apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6;
 	}
 
 	/* ── Post card ── */
 	article.archive-post-card {
-		@apply relative flex flex-col bg-white border border-neutral-300 rounded-xl overflow-hidden transition-all hover:border-primary active:border-primary;
+		@apply relative flex flex-col bg-white border border-neutral-300 rounded-xl overflow-hidden transition-all hover:border-primary hover:scale-[1.01] active:border-primary active:scale-[0.98];
 
 		/* Thumbnail */
 		.archive-card-thumbnail {
@@ -132,6 +171,28 @@
 			.next {
 				@apply text-base lg:text-xl px-3;
 			}
+		}
+	}
+}
+
+.nothing-found {@apply text-center;}
+
+.content-none-body {
+	@apply max-w-2xl mx-auto text-center mt-8;
+
+	.search-form {
+		@apply w-full flex;
+
+		label {
+			@apply flex-1;
+
+			.search-field {
+				@apply w-full max-w-none rounded-r-none;
+			}
+		}
+
+		.search-submit {
+			@apply px-6 rounded-l-none;
 		}
 	}
 }

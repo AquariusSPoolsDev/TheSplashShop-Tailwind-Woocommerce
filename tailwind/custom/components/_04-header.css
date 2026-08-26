@@ -160,6 +160,17 @@
 				.shopchop-cart-dropdown {
 					@apply absolute right-0 mt-2.5 top-full w-72 bg-white rounded-lg shadow-sm border border-neutral-300 z-50 max-h-80 overflow-y-auto;
 
+					/* Narrow container — scale down the shared blockUI spinner/text so it doesn't overlap content */
+					.blockUI.blockOverlay {
+						&::after {
+							@apply -translate-y-7 h-5 w-5;
+						}
+
+						&::before {
+							@apply translate-y-1 text-sm px-2 text-center whitespace-normal;
+						}
+					}
+
 					&::before {
 						@apply absolute top-0 left-0 right-0 content-[''];
 					}

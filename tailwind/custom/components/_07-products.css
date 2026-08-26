@@ -57,7 +57,8 @@
 
 .shopchop-wrapper.shopchop-woocommerce,
 .woocommerce,
-.shopchop-homepage-wrapper {
+.shopchop-homepage-wrapper,
+.search-main-template {
 
 	h2.shop-section-title {
 		@apply mb-8 text-2xl md:text-3xl lg:text-4xl font-bold;

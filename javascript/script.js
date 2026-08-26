@@ -91,7 +91,7 @@
 				type: 'POST',
 				data: {
 					action: 'shopchop_get_mini_cart',
-					nonce: shopchopDynamicSearch.nonce,
+					nonce: shopchopDynamicSearch.cart_nonce,
 				},
 				...callbacks,
 			});
@@ -605,6 +605,43 @@
 						});
 				}
 			);
+		},
+	};
+
+	/* =========================================================================
+        5a2. Search Results – AJAX Pagination (products + posts, independent)
+        Each section (#search-products-dynamic / #search-posts-dynamic) has
+        its own paged query var, so paginating one never affects the other.
+    ========================================================================= */
+	ShopChop.SearchPagination = {
+		init() {
+			const sections = ['#search-products-dynamic', '#search-posts-dynamic'];
+
+			sections.forEach((selector) => {
+				$(document).on(
+					'click',
+					`${selector} .search-pagination a`,
+					function (e) {
+						e.preventDefault();
+
+						const $dynamic = $(selector);
+						const url = $(this).attr('href');
+						const $spinner = Utils.showLoadingOverlay($dynamic);
+
+						$dynamic.load(
+							`${url} ${selector} > *`,
+							(response, status) => {
+								$spinner.remove();
+								if (status === 'error') return;
+								$('html, body').animate(
+									{ scrollTop: $dynamic.offset().top - 100 },
+									300
+								);
+							}
+						);
+					}
+				);
+			});
 		},
 	};
 
@@ -1217,9 +1254,18 @@
     ========================================================================= */
 	ShopChop.Search = {
 		init() {
-			const $input = $('.shopchop-search-input');
-			const $catSelect = $('.shopchop-cat-select');
-			const $results = $('.shopchop-search-results');
+			// Shortcode renders once per context (desktop + mobile) — each
+			// wrapper gets its own independent instance so typing in one
+			// never leaks into the other's results panel / category filter.
+			$('.shopchop-search-wrapper').each(function () {
+				ShopChop.Search.initInstance($(this));
+			});
+		},
+
+		initInstance($wrapper) {
+			const $input = $wrapper.find('.shopchop-search-input');
+			const $catSelect = $wrapper.find('.shopchop-cat-select');
+			const $results = $wrapper.find('.shopchop-search-results');
 			if (!$input.length) return;
 
 			// ── Load categories ───────────────────────────────────────────
@@ -1342,17 +1388,14 @@
 				if (term.length) search(term);
 			});
 
-			$(document).on('click', '.shopchop-search-clear', function () {
-				const $bar = $(this).closest('.shopchop-search-bar');
-				const $thisInput = $bar.find('.shopchop-search-input');
-				$thisInput.val('').trigger('focus');
-				toggleClearButton($thisInput);
+			$wrapper.on('click', '.shopchop-search-clear', function () {
+				$input.val('').trigger('focus');
+				toggleClearButton($input);
 				clearResults();
 			});
 
 			$(document).on('click', (e) => {
-				if (!$(e.target).closest('.shopchop-search-wrapper').length)
-					hideResults();
+				if (!$(e.target).closest($wrapper).length) hideResults();
 			});
 		},
 	};
@@ -1913,6 +1956,7 @@
 		ShopChop.ReviewsPagination.init();
 		ShopChop.ShopPagination.init();
 		ShopChop.ShopSorting.init();
+		ShopChop.SearchPagination.init();
 		ShopChop.CartItemRemove.init();
 		ShopChop.VariableProduct.init();
 		ShopChop.SingleAddToCart.init();
