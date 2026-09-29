@@ -12,12 +12,14 @@
  *
  * @see     https://woocommerce.com/document/template-structure/
  * @package WooCommerce\Templates
- * @version 9.4.0
+ * @version 11.1.0
  */
 
 declare( strict_types = 1);
+
+$wrapper_class = 1 === (int) $columns ? 'columns-1' : '';
 ?>
-<ul class="brand-thumbnails-description">
+<ul class="brand-thumbnails-description <?php echo esc_attr( $wrapper_class ); ?>">
 
 	<?php
 	foreach ( $brands as $index => $brand ) :
@@ -46,7 +48,7 @@ declare( strict_types = 1);
 		?>
 		<li class="<?php echo esc_attr( $class ); ?>" style="width: <?php echo esc_attr( $width ); ?>%;">
 			<a href="<?php echo esc_url( get_term_link( $brand->slug, 'product_brand' ) ); ?>" title="<?php echo esc_attr( $brand->name ); ?>" class="term-thumbnail">
-				<img src="<?php echo esc_url( $thumbnail ); ?>" alt="<?php echo esc_attr( $brand->name ); ?>" loading="lazy" />
+				<img src="<?php echo esc_url( $thumbnail ); ?>" alt="<?php echo esc_attr( $brand->name ); ?>" />
 			</a>
 			<div id="term-<?php echo esc_attr( $brand->term_id ); ?>" class="term-description">
 				<?php echo wp_kses_post( wpautop( wptexturize( $brand->description ) ) ); ?>
