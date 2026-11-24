@@ -1596,7 +1596,7 @@ function shopchop_recently_viewed_section() {
 	?>
 	<section class="shopchop-recently-viewed">
 		<h2 class="recently-viewed-heading">
-			<?php esc_html_e( 'Recently Viewed', 'shopchop' ); ?>
+			<?php esc_html_e( 'Recently viewed', 'shopchop' ); ?>
 		</h2>
 		<?php
 		woocommerce_product_loop_start();
