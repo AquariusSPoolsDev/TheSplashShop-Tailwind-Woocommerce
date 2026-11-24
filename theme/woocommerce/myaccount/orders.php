@@ -94,20 +94,32 @@ do_action('woocommerce_before_account_orders', $has_orders); ?>
 						}
 
 						if ($unique_item_count > $display_limit) {
+							$more = $unique_item_count - $display_limit;
+							/* translators: %s: number of hidden order lines */
+							$show_label = sprintf( _n( 'Show %s more item', 'Show %s more items', $more, 'shopchop' ), number_format_i18n( $more ) );
 							printf(
-									'<button type="button" class="more-items" aria-expanded="false" data-label-expand="+%1$s %2$s (expand)" data-label-collapse="%3$s">+%1$s %2$s (expand)</button>',
-									esc_html( $unique_item_count - $display_limit ),
-									esc_html__( 'more items', 'woocommerce' ),
-									esc_html__( 'Collapse', 'woocommerce' )
-								);
+								'<button type="button" class="more-items" aria-expanded="false" data-label-expand="%1$s" data-label-collapse="%2$s">%1$s</button>',
+								esc_attr( $show_label ),
+								esc_attr__( 'Show less', 'shopchop' )
+							);
 						}
 						?>
 					</td>
 
 					<td class="order-date-actions">
-						<time datetime="<?php echo esc_attr($order->get_date_created()->date('c')); ?>">
-							<?php echo esc_html(wc_format_datetime($order->get_date_created())); ?>
-						</time>
+						<div class="order-summary">
+							<strong class="order-total"><?php echo wp_kses_post( $order->get_formatted_order_total() ); ?></strong>
+							<span>
+								<?php
+								$item_count = $order->get_item_count();
+								/* translators: %s: number of items */
+								echo esc_html( sprintf( _n( '%s item', '%s items', $item_count, 'shopchop' ), number_format_i18n( $item_count ) ) );
+								?>
+								<time datetime="<?php echo esc_attr($order->get_date_created()->date('c')); ?>">
+									<?php echo esc_html(wc_format_datetime($order->get_date_created())); ?>
+								</time>
+							</span>
+						</div>
 						<div class="order-actions-wrapper">
 							<?php
 							$actions = wc_get_account_orders_actions($order);

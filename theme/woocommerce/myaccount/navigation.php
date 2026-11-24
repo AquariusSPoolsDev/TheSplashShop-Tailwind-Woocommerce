@@ -35,18 +35,41 @@ do_action( 'woocommerce_before_account_navigation' );
 		'customer-logout' => '<path d="M120,216a8,8,0,0,1-8,8H48a8,8,0,0,1-8-8V40a8,8,0,0,1,8-8h64a8,8,0,0,1,0,16H56V208h56A8,8,0,0,1,120,216Zm109.66-93.66-40-40a8,8,0,0,0-11.32,11.32L204.69,120H112a8,8,0,0,0,0,16h92.69l-26.35,26.34a8,8,0,0,0,11.32,11.32l40-40A8,8,0,0,0,229.66,122.34Z"></path>',
 	);
 	?>
-	<ul>
-		<?php foreach ( wc_get_account_menu_items() as $endpoint => $label ) : ?>
-			<li class="<?php echo wc_get_account_menu_item_classes( $endpoint ); ?>">
-				<a href="<?php echo esc_url( wc_get_account_endpoint_url( $endpoint ) ); ?>" <?php echo wc_is_current_account_menu_item( $endpoint ) ? 'aria-current="page"' : ''; ?>>
-					<?php if ( isset( $nav_icons[ $endpoint ] ) ) : ?>
-						<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 256 256" aria-hidden="true"><?php echo $nav_icons[ $endpoint ]; ?></svg>
-					<?php endif; ?>
-					<?php echo esc_html( $label ); ?>
-				</a>
-			</li>
-		<?php endforeach; ?>
-	</ul>
+	<?php
+	$shopchop_nav_list = function ( $class ) use ( $nav_icons ) {
+		echo '<ul class="' . esc_attr( $class ) . '">';
+		foreach ( wc_get_account_menu_items() as $endpoint => $label ) {
+			echo '<li class="' . wc_get_account_menu_item_classes( $endpoint ) . '">'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			echo '<a href="' . esc_url( wc_get_account_endpoint_url( $endpoint ) ) . '"' . ( wc_is_current_account_menu_item( $endpoint ) ? ' aria-current="page"' : '' ) . '>';
+			if ( isset( $nav_icons[ $endpoint ] ) ) {
+				echo '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 256 256" aria-hidden="true">' . $nav_icons[ $endpoint ] . '</svg>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			}
+			echo esc_html( $label ) . '</a></li>';
+		}
+		echo '</ul>';
+	};
+
+	// Current section name for the phone disclosure.
+	$shopchop_current = __( 'Dashboard', 'woocommerce' );
+	foreach ( wc_get_account_menu_items() as $endpoint => $label ) {
+		if ( 'dashboard' !== $endpoint && wc_is_current_account_menu_item( $endpoint ) ) {
+			$shopchop_current = $label;
+		}
+	}
+	$shopchop_on_dashboard = ! is_wc_endpoint_url();
+	?>
+
+	<?php /* Phones: one disclosure instead of a scrolling tab strip; open on the dashboard, where it is the menu. */ ?>
+	<details class="account-nav-mobile"<?php echo $shopchop_on_dashboard ? ' open' : ''; ?>>
+		<summary>
+			<span class="label"><?php esc_html_e( 'My account', 'shopchop' ); ?></span>
+			<span class="current"><?php echo esc_html( $shopchop_current ); ?></span>
+		</summary>
+		<?php $shopchop_nav_list( 'account-nav-list' ); ?>
+	</details>
+
+	<?php /* Tablet and up: the sidebar. */ ?>
+	<?php $shopchop_nav_list( 'account-nav-sidebar' ); ?>
 </nav>
 
 <?php do_action( 'woocommerce_after_account_navigation' ); ?>

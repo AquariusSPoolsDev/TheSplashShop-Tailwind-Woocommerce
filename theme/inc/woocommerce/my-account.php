@@ -24,6 +24,35 @@ add_filter( 'woocommerce_account_menu_items', function ( $items ) {
 	return $new_items;
 } );
 
+/**
+ * Account menu order: what customers use most first. Downloads only when the
+ * customer actually has downloads (the store sells physical goods). Items added
+ * by plugins keep their place before Log out.
+ */
+add_filter( 'woocommerce_account_menu_items', 'shopchop_account_menu_order', 99 );
+function shopchop_account_menu_order( $items ) {
+	if ( isset( $items['downloads'] ) && is_user_logged_in() && ! wc_get_customer_available_downloads( get_current_user_id() ) ) {
+		unset( $items['downloads'] );
+	}
+
+	$order  = array( 'dashboard', 'orders', 'pool-profile', 'wishlist', 'edit-address', 'edit-account', 'downloads' );
+	$sorted = array();
+	foreach ( $order as $key ) {
+		if ( isset( $items[ $key ] ) ) {
+			$sorted[ $key ] = $items[ $key ];
+		}
+	}
+	foreach ( $items as $key => $label ) {
+		if ( ! isset( $sorted[ $key ] ) && 'customer-logout' !== $key ) {
+			$sorted[ $key ] = $label;
+		}
+	}
+	if ( isset( $items['customer-logout'] ) ) {
+		$sorted['customer-logout'] = $items['customer-logout'];
+	}
+	return $sorted;
+}
+
 add_filter( 'woocommerce_get_endpoint_url', function ( $url, $endpoint ) {
 	if ( 'wishlist' === $endpoint && function_exists( 'YITH_WCWL' ) ) {
 		$page_id = YITH_WCWL()->get_wishlist_page_id();
@@ -42,9 +71,9 @@ function shopchop_account_content_title() {
 	$endpoint_titles = array(
 		'orders'       => 'Orders',
 		'downloads'    => 'Downloads',
-		'view-order'   => 'Order Details',
+		'view-order'   => 'Order details',
 		'edit-address'  => 'Addresses',
-		'edit-account'  => 'Account Details',
+		'edit-account'  => 'Account details',
 		'pool-profile'  => 'Pool Profile',
 	);
 	

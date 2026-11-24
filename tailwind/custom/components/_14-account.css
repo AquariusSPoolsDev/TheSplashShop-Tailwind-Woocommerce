@@ -7,31 +7,63 @@
 	@apply grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6 lg:gap-12;
 
 	.woocommerce-MyAccount-navigation {
-		ul {
-			@apply p-0 m-0 max-md:p-2 max-md:flex max-md:gap-2 max-md:overflow-x-auto max-md:border-2 max-md:border-neutral-300 max-md:rounded-xl max-md:snap-x max-md:scroll-smooth md:block;
-		}
+		ul { @apply p-0 m-0; }
+		li { @apply list-none p-0 my-1; }
 
-		li {
-			@apply list-none p-0 my-1 max-md:snap-start;
-		}
+		/* Phones: one "My account" disclosure (open on the dashboard). */
+		.account-nav-mobile {
+			@apply md:hidden bg-white border border-neutral-300 rounded-xl;
 
-		a {
-			@apply w-max px-6 py-2.5 md:py-3 md:px-4 md:border-l-4 md:border-l-transparent md:w-full flex items-center gap-x-2.5 whitespace-nowrap font-medium text-neutral-700 transition hover:text-foreground active:text-foreground focus-visible:text-foreground;
+			summary {
+				@apply flex items-center gap-2 min-h-14 px-4 cursor-pointer list-none rounded-xl;
 
-			svg {
-				@apply hidden md:block md:size-6 md:text-neutral-500 md:shrink-0 md:transition-colors;
+				&::-webkit-details-marker { display: none; }
+
+				.label { @apply text-sm text-neutral-700; }
+				.current { @apply font-semibold text-foreground me-auto; }
+
+				&::after {
+					content: "";
+					@apply size-5 shrink-0 bg-current text-neutral-700 transition-transform duration-200;
+					mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 256 256'%3E%3Cpath d='M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z'/%3E%3C/svg%3E") center / contain no-repeat;
+				}
 			}
 
-			&:hover {
-				@apply md:text-primary-900 md:bg-primary-100 md:px-4 md:border-l-4 md:border-l-primary-900 md:rounded-lg md:rounded-l-none;
+			&[open] summary {
+				@apply border-b border-neutral-300 rounded-b-none;
+
+				&::after { @apply rotate-180; }
+			}
+
+			.account-nav-list { @apply p-2; }
+
+			a {
+				@apply flex items-center gap-3 min-h-12 px-3 rounded-lg font-medium text-neutral-800 transition hover:bg-primary-100/50 hover:text-primary-900 focus-visible:bg-primary-100/50;
+
+				svg { @apply size-5 shrink-0 text-neutral-500; }
+			}
+
+			.is-active a {
+				@apply bg-primary-100 text-primary-950;
+
+				svg { @apply text-primary-950; }
 			}
 		}
 
-		.is-active a {
-			@apply max-md:shadow-sm rounded-xl text-foreground bg-white md:text-primary-900 md:bg-primary-100 md:px-4 md:border-l-4 md:border-l-primary-900 md:rounded-lg md:rounded-l-none;
+		/* Tablet and up: sidebar. */
+		.account-nav-sidebar {
+			@apply max-md:hidden;
 
-			svg {
-				@apply md:text-primary-900;
+			a {
+				@apply w-full px-4 py-3 border-l-4 border-l-transparent flex items-center gap-x-2.5 whitespace-nowrap font-medium text-neutral-700 transition hover:text-primary-900 hover:bg-primary-100 hover:border-l-primary-900 hover:rounded-lg hover:rounded-l-none focus-visible:text-foreground;
+
+				svg { @apply size-6 shrink-0 text-neutral-500 transition-colors; }
+			}
+
+			.is-active a {
+				@apply text-primary-900 bg-primary-100 border-l-primary-900 rounded-lg rounded-l-none;
+
+				svg { @apply text-primary-900; }
 			}
 		}
 	}
@@ -40,10 +72,7 @@
 		@apply md:col-span-2 lg:col-span-3;
 
 		/* Shared card style */
-		.user-hero-card,
-		.user-action-order,
-		.user-action-billing,
-		.user-action-account-edit,
+		.dashboard-card,
 		.woocommerce-Address,
 		.woocommerce-orders-table.account-orders-table>tbody>tr,
 		.account-order-details,
@@ -76,7 +105,7 @@
 			@apply block rounded-full font-medium text-sm md:text-base px-2.5 py-1 md:px-4 md:py-2;
 
 			&.status-pending    { @apply bg-warning-100 text-warning-800; }
-			&.status-processing { @apply bg-primary-100 text-primary-900; }
+			&.status-processing { @apply bg-primary-100 text-primary-950; }
 			&.status-completed  { @apply bg-success-100 text-success-800; }
 			&.status-on-hold    { @apply bg-warning-100 text-warning-800; }
 			&.status-cancelled  { @apply bg-neutral-300/50 text-neutral-800; }
@@ -85,73 +114,80 @@
 		}
 
 		/* Dashboard */
-		.dashboard-user {
-			@apply mb-8;
+		.dashboard-welcome {
+			@apply flex items-center gap-4 mb-6;
 
-			.user-hero-card {
-				@apply flex flex-wrap justify-between gap-4 lg:gap-8;
+			.user-icon {
+				@apply shrink-0 size-14 lg:size-16;
 
-				.user-icon {
-					@apply shrink-0 w-16 h-16 me-4 lg:me-8 lg:w-24 lg:h-24;
+				img { @apply rounded-full size-full; }
+			}
 
-					img {
-						@apply rounded-full;
-					}
-				}
+			.greeting { @apply text-xl lg:text-2xl font-semibold text-foreground; }
+			.signed-in-as { @apply text-sm text-neutral-700 break-all; }
 
-				.user-details {
-					@apply w-full;
-
-					h2 {
-						@apply text-xl lg:text-2xl;
-					}
-
-					hr {
-						@apply border-neutral-300 my-6 lg:my-4;
-					}
-
-					p {
-						@apply text-neutral-700 text-base;
-					}
-				}
-
-				.user-links {
-					@apply flex flex-row gap-4 lg:gap-3 lg:flex-col text-center items-center;
-
-					.user-logout {
-						@apply h-auto px-8 lg:px-10 py-2 normal-case transition bg-transparent border-2 text-secondary-900 border-secondary-900 hover:bg-secondary-100 active:bg-secondary-100 focus-visible:bg-secondary-100 text-base;
-					}
-
-					.admin-access {
-						@apply text-primary-900 underline! text-sm transition hover:no-underline! active:no-underline! focus-visible:no-underline!;
-					}
-				}
+			.admin-access {
+				@apply ms-auto text-sm text-primary-900 underline! underline-offset-4 transition hover:no-underline! focus-visible:no-underline!;
 			}
 		}
 
-		.dashboard-user-actions {
-			@apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 mt-8;
+		.dashboard-grid {
+			@apply grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6;
+		}
 
-			h3 {
-				@apply text-xl font-bold mb-1;
+		.dashboard-latest-order { @apply lg:col-span-2; }
+
+		.dashboard-card {
+			@apply flex flex-col gap-3;
+
+			h2 { @apply text-base font-semibold text-neutral-700 mb-0; }
+
+			.card-row { @apply flex flex-wrap items-center justify-between gap-3; }
+
+			.order-number {
+				@apply text-lg font-semibold text-foreground underline-offset-4 transition hover:text-primary-900 hover:underline focus-visible:underline;
 			}
 
-			p {
-				@apply text-neutral-700 text-base;
+			.order-thumbs {
+				@apply flex gap-2;
+
+				img { @apply size-16 rounded-lg object-cover; }
 			}
 
-			.action-icon {
-				@apply w-20 h-20 rounded-full bg-primary-100 shrink-0 flex items-center justify-center;
+			.order-summary {
+				@apply flex flex-col;
 
-				svg {
-					@apply w-10 h-10 text-primary-900;
+				strong { @apply text-xl text-foreground; }
+				> span { @apply text-sm text-neutral-700; }
+			}
+
+			.pool-name { @apply text-lg font-semibold text-foreground; }
+
+			.pool-facts {
+				@apply m-0 p-0 text-neutral-700;
+
+				li { @apply list-none; }
+			}
+
+			.card-note,
+			.card-empty { @apply text-neutral-700; }
+
+			address { @apply m-0 not-italic leading-relaxed text-neutral-800; }
+
+			.card-actions {
+				@apply mt-auto pt-1 flex flex-wrap items-center gap-4;
+
+				.button {
+					@apply h-11 px-5 inline-flex items-center justify-center normal-case text-base;
 				}
-			}
 
-			.user-action-order,
-			.user-action-billing,
-			.user-action-account-edit {
-				@apply flex md:flex-wrap items-center gap-4 transition hover:bg-secondary-100/50 hover:border-secondary hover:shadow-md active:bg-secondary-100/50 active:border-secondary focus-visible:bg-secondary-100/50 focus-visible:border-secondary;
+				.button-outline {
+					@apply bg-transparent border-2 border-secondary-900 text-secondary-900 hover:bg-secondary-100 hover:text-secondary-900 active:bg-secondary-100 active:text-secondary-900 focus-visible:bg-secondary-100 focus-visible:text-secondary-900;
+				}
+
+				.card-link {
+					@apply text-primary-900 font-medium underline! underline-offset-4 transition hover:no-underline! focus-visible:no-underline!;
+				}
 			}
 		}
 
@@ -289,7 +325,15 @@
 					}
 
 					.order-date-actions {
-						@apply justify-between items-center mt-4 lg:mt-6;
+						@apply justify-between items-center gap-3 mt-4 lg:mt-6;
+
+						.order-summary {
+							@apply flex flex-col;
+
+							.order-total { @apply text-base md:text-lg text-foreground; }
+
+							> span { @apply flex flex-col text-xs md:text-sm text-neutral-700; }
+						}
 
 						time {
 							@apply text-xs md:text-sm text-neutral-700;

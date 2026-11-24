@@ -1200,22 +1200,6 @@
 	};
 
 	/* =========================================================================
-        9. My Account – Horizontal Menu Scroll to Active Item
-    ========================================================================= */
-	ShopChop.AccountMenu = {
-		init() {
-			const activeLink = document.querySelector('.is-active');
-			if (activeLink) {
-				activeLink.scrollIntoView({
-					behavior: 'smooth',
-					block: 'nearest',
-					inline: 'center',
-				});
-			}
-		},
-	};
-
-	/* =========================================================================
         10. Cart – Auto-update Totals on Quantity Change
     ========================================================================= */
 	ShopChop.CartAutoUpdate = {
@@ -2025,7 +2009,6 @@
 		ShopChop.WishlistAddToCart.init();
 		ShopChop.PillSwatches.init();
 		ShopChop.QuantityButtons.init();
-		ShopChop.AccountMenu.init();
 		ShopChop.CartAutoUpdate.init();
 		ShopChop.PaymentMethods.init();
 		ShopChop.Search.init();
