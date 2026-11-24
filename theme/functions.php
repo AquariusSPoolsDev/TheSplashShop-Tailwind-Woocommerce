@@ -379,3 +379,21 @@ require get_template_directory() . '/inc/template-tags.php';
  */
 require get_template_directory() . '/inc/template-functions.php';
 require get_template_directory() . '/inc/pool-profile.php';
+
+/**
+ * The theme's templates call WooCommerce functions on every page, so without
+ * WooCommerce the front end would fatal. Show a 503 page instead, and tell admins why.
+ */
+if ( ! class_exists( 'WooCommerce' ) ) {
+	add_action( 'template_redirect', function () {
+		wp_die(
+			esc_html__( 'The shop is being updated. Please check back shortly.', 'shopchop' ),
+			esc_html__( 'Shop unavailable', 'shopchop' ),
+			array( 'response' => 503 )
+		);
+	}, 0 );
+
+	add_action( 'admin_notices', function () {
+		echo '<div class="notice notice-error"><p>' . esc_html__( 'The ShopChop theme needs WooCommerce. Activate WooCommerce to show the store.', 'shopchop' ) . '</p></div>';
+	} );
+}
