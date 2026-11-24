@@ -132,8 +132,13 @@
 					.price {
 						@apply text-base md:text-lg lg:text-xl text-primary-900 w-full;
 
-						.discount-price .regular {
+						.discount-price .regular,
+						del {
 							@apply text-neutral-700 text-sm md:text-base font-normal;
+						}
+
+						ins {
+							@apply no-underline;
 						}
 
 						.discount-price .discount {
@@ -303,6 +308,9 @@
 
 		.price.single-product-price {
 			@apply font-bold text-xl md:text-2xl lg:text-3xl text-primary-900 border-b border-b-neutral-300 mb-5 pb-5 w-full;
+
+			del { @apply text-neutral-700 text-base; }
+			ins { @apply no-underline; }
 		}
 
 		.discount-price {

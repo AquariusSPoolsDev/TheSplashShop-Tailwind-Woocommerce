@@ -293,19 +293,27 @@ function shopchop_before_listing_end() {
 add_filter( 'woocommerce_get_price_html', 'shopchop_price_display', 10, 2 );
 function shopchop_price_display( $price, $product ) {
 
-	if ( ! $product->is_on_sale() ) {
+	if ( $product->is_type( 'variable' ) ) {
+		// Parent has no price of its own; use variations. Price ranges keep WC's range markup.
+		$regular_price = (float) $product->get_variation_regular_price( 'min' );
+		$sale_price    = (float) $product->get_variation_price( 'min' );
+		if ( $regular_price !== (float) $product->get_variation_regular_price( 'max' )
+			|| $sale_price !== (float) $product->get_variation_price( 'max' ) ) {
+			return $price;
+		}
+	} else {
 		$regular_price = (float) $product->get_regular_price();
-		if ( ! $regular_price ) return $price;
+		$sale_price    = (float) $product->get_sale_price();
+	}
 
+	if ( ! $regular_price ) return $price;
+
+	if ( ! $product->is_on_sale() || ! $sale_price || $sale_price >= $regular_price ) {
 		return sprintf(
 			'<span class="price-normal"><span class="regular">%s</span></span>',
 			wc_price( $regular_price )
 		);
 	}
-
-	$regular_price = (float) $product->get_regular_price();
-	$sale_price    = (float) $product->get_sale_price();
-	if ( ! $regular_price || ! $sale_price ) return $price;
 
 	$discount = round( ( ( $regular_price - $sale_price ) / $regular_price ) * 100 );
 
