@@ -1,0 +1,116 @@
+/* wp-login.php styling. Enqueued by shopchop_login_styles() in inc/login.php. */
+
+/* ── Page ── */
+body.login {
+	background: #f8fafc;
+	font-family: 'Manrope', sans-serif;
+}
+
+/* ── Logo area ── */
+#login h1 a {
+	background-image: url("../images/logo.png");
+	background-color: transparent;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: contain;
+	width: 200px;
+	height: 80px;
+}
+
+/* ── Card ── */
+#loginform,
+#lostpasswordform,
+#registerform {
+	background: #ffffff;
+	border: 1px solid #e2e8f0;
+	border-radius: 12px;
+	box-shadow: 0 4px 24px rgba(0,0,0,.06);
+	padding: 32px 36px;
+	margin-top: 16px;
+}
+
+/* ── Labels ── */
+#loginform label,
+#lostpasswordform label {
+	font-family: 'Manrope', sans-serif;
+	font-size: .8125rem;
+	font-weight: 600;
+	color: #475569;
+}
+
+/* ── Inputs ── */
+#loginform input[type="text"],
+#loginform input[type="password"],
+#lostpasswordform input[type="text"] {
+	font-family: 'Manrope', sans-serif;
+	border: 1.5px solid #e2e8f0;
+	border-radius: 8px;
+	padding: 10px 14px;
+	font-size: .9375rem;
+	color: #0f172a;
+	box-shadow: none;
+	transition: border-color .15s ease;
+}
+#loginform input[type="text"]:focus,
+#loginform input[type="password"]:focus,
+#lostpasswordform input[type="text"]:focus {
+	border-color: #3b82f6;
+	box-shadow: 0 0 0 3px rgba(59,130,246,.15);
+	outline: none;
+}
+
+/* ── Submit button ── */
+#loginform .button-primary,
+#lostpasswordform .button-primary {
+	font-family: 'Manrope', sans-serif;
+	font-weight: 700;
+	font-size: .9375rem;
+	background: #0f172a;
+	border-color: #0f172a;
+	border-radius: 8px;
+	padding: 10px 20px;
+	height: auto;
+	line-height: 1.4;
+	box-shadow: none;
+	text-shadow: none;
+	transition: background .15s ease, border-color .15s ease;
+}
+#loginform .button-primary:hover,
+#loginform .button-primary:focus,
+#lostpasswordform .button-primary:hover,
+#lostpasswordform .button-primary:focus {
+	background: #1e293b;
+	border-color: #1e293b;
+	box-shadow: none;
+}
+
+/* ── Remember me ── */
+#loginform .forgetmenot label {
+	font-size: .875rem;
+	font-weight: 500;
+	text-transform: none;
+	letter-spacing: 0;
+	color: #64748b;
+}
+
+/* ── Back / nav links ── */
+#nav a,
+#backtoblog a {
+	font-family: 'Manrope', sans-serif;
+	font-size: .8125rem;
+	color: #64748b;
+}
+#nav a:hover,
+#backtoblog a:hover {
+	color: #0f172a;
+}
+
+/* ── Error / success notices ── */
+#login_error,
+.message {
+	font-family: 'Manrope', sans-serif;
+	border-radius: 8px;
+	border-left-width: 4px;
+	font-size: .875rem;
+}
+

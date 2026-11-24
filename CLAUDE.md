@@ -51,9 +51,12 @@ TheSplashShop-Tailwind-Woocommerce/
 ├── theme/                    # WordPress theme root (loaded by WP)
 │   ├── style.css             # compiled CSS + theme header
 │   ├── functions.php         # theme setup, enqueue, nav menus
-│   ├── inc/
-│   │   ├── template-functions.php   # ALL hooks/filters (16 sections)
-│   │   └── template-tags.php        # reusable template helpers
+│   ├── inc/                  # hooks/filters, one file per feature (load order in functions.php)
+│   │   ├── core.php, login.php, whatsapp.php, pool-profile.php
+│   │   ├── woocommerce/      # layout, product-display, checkout, reviews, orders, my-account,
+│   │   │                     # search, mini-cart, stock-status, recently-viewed
+│   │   └── template-tags.php # reusable template helpers
+│   ├── assets/css/login.css  # wp-login.php styling (plain CSS, not Tailwind)
 │   ├── template-parts/
 │   │   ├── content/          # post/page content partials
 │   │   ├── layout/           # header-content.php, footer-content.php
@@ -93,26 +96,31 @@ TheSplashShop-Tailwind-Woocommerce/
 
 ---
 
-## template-functions.php — Section Map
+## inc/ — Feature Map
 
-| § | Topic                     | Key behavior                                                                                                                                              |
-| -- | ------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 1  | Core WP Hooks             | pingback, comments, archive titles, excerpt                                                                                                               |
-| 2  | WooCommerce Layout        | removes WC default stylesheet, replaces `<div>` wrappers with `<main>`, utility bar wrapper                                                           |
-| 3  | Product Display           | custom price HTML with discount %, category link wrapper, product card structure (image/details/actions wrappers)                                         |
-| 4  | Variation Swatches        | replaces `<select>` with pill buttons; hidden select kept for WC JS compat; AJAX threshold = 100                                                        |
-| 5  | Checkout & Address Fields | removes Select2, Malaysian address fields (no last_name, no address_2), reordered field priorities                                                        |
-| 6  | Reviews & Ratings         | custom SVG star row + numeric score (e.g. "4.0 / 5"), custom author/verified meta, date below body                                                        |
-| 7  | Orders                    | order number format `TSS-YYMMDD-NNNNN`, auto customer notes on cancel/complete                                                                          |
-| 8  | My Account                | contextual `<h1>` titles, auth wrapper div, redirect `/login` + `/register` → WC myaccount                                                         |
-| 9  | Demo Store & Checkout     | moves demo banner to `shopchop_demo_store_wrapper` hook; moves payment block to `shopchop_checkout_payment` hook                                      |
-| 10 | Authentication            | generic error message to prevent username enumeration                                                                                                     |
-| 11 | Thank-You Page            | "What to do Next?" section with WhatsApp + email links                                                                                                    |
-| 12 | AJAX Search               | `wc_search_products` — 2-pass search (title/content/excerpt + meta/SKU), deduped, max 10 results; `wc_get_categories` — top-level cats for dropdown |
-| 13 | Search Bar Shortcode      | `[shopchop_search_bar context="default                                                                                                                    |
-| 14 | Mini Cart AJAX            | `shopchop_get_mini_cart`, `shopchop_remove_cart_item`, cart fragments for `.cart-count-badge` + `.cart-items-count`                               |
-| 15 | Mini Cart Shortcodes      | `[shopchop_mini_cart]`, `[shopchop_mobile_cart_icon_display]`, `[shopchop_mobile_cart_details_display]`                                             |
-| 16 | Custom Stock Statuses     | adds `pre_order` + `coming_soon`; removes `onbackorder`; blocks purchase for coming_soon; admin list badges                                         |
+Hooks and filters live in `theme/inc/`, one file per feature. The § numbers are the original section numbers, kept in the file banners.
+
+| § | File | Topic | Key behavior |
+| -- | ---- | ----- | ------------ |
+| 1 | `core.php` | Core WP Hooks | pingback, comments, archive titles, excerpt |
+| 2 | `woocommerce/layout.php` | WooCommerce Layout | removes WC default stylesheet, replaces `<div>` wrappers with `<main>`, utility bar wrapper |
+| 3 | `woocommerce/product-display.php` | Product Display | custom price HTML with discount %, category link wrapper, product card structure (image/details/actions wrappers) |
+| 4 | `woocommerce/product-display.php` | Variation Swatches | replaces `<select>` with pill buttons; hidden select kept for WC JS compat; AJAX threshold = 100 |
+| 5 | `woocommerce/checkout.php` | Checkout & Address Fields | removes Select2, Malaysian address fields (no last_name, no address_2), reordered field priorities |
+| 6 | `woocommerce/reviews.php` | Reviews & Ratings | custom SVG star row + numeric score (e.g. "4.0 / 5"), custom author/verified meta, date below body |
+| 7 | `woocommerce/orders.php` | Orders | order number format `TSS-YYMMDD-NNNNN`, auto customer notes on cancel/complete |
+| 8 | `woocommerce/my-account.php` | My Account | contextual `<h1>` titles, auth wrapper div, redirect `/login` + `/register` → WC myaccount |
+| 9 | `woocommerce/layout.php` | Demo Store & Checkout | moves demo banner to `shopchop_demo_store_wrapper` hook; moves payment block to `shopchop_checkout_payment` hook |
+| 10 | `login.php` | Authentication | generic error message to prevent username enumeration |
+| 11 | `woocommerce/checkout.php` | Thank-You Page | "Next steps" section with WhatsApp + email links |
+| 12 | `woocommerce/search.php` | AJAX Search | `wc_search_products` — 2-pass search (title/content/excerpt + meta/SKU), deduped, max 10 results; `wc_get_categories` — top-level cats for dropdown |
+| 13 | `woocommerce/search.php` | Search Bar Shortcode | `[shopchop_search_bar context="default |
+| 14 | `woocommerce/mini-cart.php` | Mini Cart AJAX | `shopchop_get_mini_cart`, `shopchop_remove_cart_item`, cart fragments for `.cart-count-badge` + `.cart-items-count` |
+| 15 | `woocommerce/mini-cart.php` | Mini Cart Shortcodes | `[shopchop_mini_cart]`, `[shopchop_mobile_cart_icon_display]`, `[shopchop_mobile_cart_details_display]` |
+| 16 | `woocommerce/stock-status.php` | Custom Stock Statuses | adds `pre_order` + `coming_soon`; removes `onbackorder`; blocks purchase for coming_soon; admin list badges |
+| 17 | `woocommerce/recently-viewed.php` | Recently Viewed | cookie-based list on single product pages |
+| 18 | `whatsapp.php` | WhatsApp Button | floating chat button on single product pages, `shopchop_get_whatsapp_number()` |
+| 19 | `login.php` | Login Page Styling | enqueues `assets/css/login.css` on wp-login.php |
 
 ---
 

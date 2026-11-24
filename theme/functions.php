@@ -369,10 +369,27 @@ add_filter( 'register_block_type_args', 'shopchop_modify_heading_levels', 10, 2 
 require get_template_directory() . '/inc/template-tags.php';
 
 /**
- * Functions which enhance the theme by hooking into WordPress.
+ * Functions which enhance the theme by hooking into WordPress, one file per feature.
+ * Keep this order: it is the order the hooks were registered in.
  */
-require get_template_directory() . '/inc/template-functions.php';
-require get_template_directory() . '/inc/pool-profile.php';
+foreach ( array(
+	'core',
+	'woocommerce/layout',
+	'woocommerce/product-display',
+	'woocommerce/checkout',
+	'woocommerce/reviews',
+	'woocommerce/orders',
+	'woocommerce/my-account',
+	'login',
+	'woocommerce/search',
+	'woocommerce/mini-cart',
+	'woocommerce/stock-status',
+	'woocommerce/recently-viewed',
+	'whatsapp',
+	'pool-profile',
+) as $shopchop_inc ) {
+	require get_template_directory() . '/inc/' . $shopchop_inc . '.php';
+}
 
 /**
  * The theme's templates call WooCommerce functions on every page, so without
