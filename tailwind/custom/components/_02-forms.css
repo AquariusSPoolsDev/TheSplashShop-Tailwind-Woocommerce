@@ -7,7 +7,7 @@
 button.button,
 a.button,
 input[type="submit"] {
-	@apply bg-primary-900 text-background font-semibold cursor-pointer text-base transition-all hover:bg-primary-950 hover:text-background active:bg-primary-950 active:text-background active:scale-[0.97] focus:bg-primary-950 focus:text-background rounded-lg h-14 uppercase tracking-wider;
+	@apply bg-primary-900 text-background font-semibold cursor-pointer text-base transition-all hover:bg-primary-950 hover:text-background active:bg-primary-950 active:text-background active:scale-[0.97] focus:bg-primary-950 focus:text-background rounded-lg h-14;
 
 	&:disabled,
 	&.disabled {

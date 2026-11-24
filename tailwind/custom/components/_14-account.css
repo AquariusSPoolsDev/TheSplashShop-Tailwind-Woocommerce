@@ -550,7 +550,7 @@
 				@apply shrink-0 flex border-2 border-neutral-500 rounded-lg overflow-hidden;
 
 				.pool-size-unit-option {
-					@apply h-8 px-4 border-0 bg-white text-sm font-semibold uppercase text-neutral-700 cursor-pointer transition-all hover:bg-secondary-100 focus-visible:outline-2 focus-visible:outline-primary-700 focus-visible:-outline-offset-2;
+					@apply h-8 px-4 border-0 bg-white text-sm font-semibold text-neutral-700 cursor-pointer transition-all hover:bg-secondary-100 focus-visible:outline-2 focus-visible:outline-primary-700 focus-visible:-outline-offset-2;
 
 					&.is-active {
 						@apply bg-primary-900 text-background hover:bg-primary-900;

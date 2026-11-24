@@ -90,7 +90,7 @@
 				@apply flex flex-wrap gap-1.5;
 
 				a {
-					@apply bg-primary-100 text-primary-950 font-semibold text-xs px-3 py-0.5 rounded-lg uppercase tracking-wide transition-colors hover:bg-primary-200 active:bg-primary-200;
+					@apply bg-primary-100 text-primary-950 font-semibold text-xs px-3 py-0.5 rounded-lg transition-colors hover:bg-primary-200 active:bg-primary-200;
 				}
 			}
 

@@ -675,7 +675,7 @@
 				@apply border-t border-t-neutral-300;
 
 				h5.menu-heading {
-					@apply px-4 pt-4 pb-2 text-sm text-neutral-700 uppercase;
+					@apply px-4 pt-4 pb-2 text-sm text-neutral-700;
 				}
 
 				#main-header-menu-mobile {
@@ -747,7 +747,7 @@
 
 			.shopchop-account-actions-mobile {
 				h5.account-heading {
-					@apply px-4 pt-4 pb-2 text-sm text-neutral-700 uppercase;
+					@apply px-4 pt-4 pb-2 text-sm text-neutral-700;
 				}
 
 				a.control-item {

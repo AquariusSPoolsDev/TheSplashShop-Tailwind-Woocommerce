@@ -1747,8 +1747,6 @@ function shopchop_login_styles() {
 			font-size: .8125rem;
 			font-weight: 600;
 			color: #475569;
-			text-transform: uppercase;
-			letter-spacing: .04em;
 		}
 
 		/* ── Inputs ── */

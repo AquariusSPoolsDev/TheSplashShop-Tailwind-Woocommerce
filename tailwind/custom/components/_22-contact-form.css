@@ -32,7 +32,7 @@
 	}
 
 	.meow-contact-form__group-button {
-		@apply bg-primary-900! text-background! font-semibold! cursor-pointer! text-base! transition-all! hover:bg-primary-950! hover:text-background! active:bg-primary-950! active:text-background! active:scale-[0.97]! focus:bg-primary-950! focus:text-background! rounded-lg! h-14! uppercase! tracking-wider! max-w-none! w-auto! self-start! px-8!;
+		@apply bg-primary-900! text-background! font-semibold! cursor-pointer! text-base! transition-all! hover:bg-primary-950! hover:text-background! active:bg-primary-950! active:text-background! active:scale-[0.97]! focus:bg-primary-950! focus:text-background! rounded-lg! h-14! max-w-none! w-auto! self-start! px-8!;
 	}
 }
 

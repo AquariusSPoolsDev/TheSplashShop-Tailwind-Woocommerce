@@ -365,7 +365,7 @@
 				.button,
 				.added_to_cart,
 				.stock.coming-soon {
-					@apply flex-1 px-3.5 py-1.5 md:py-2.5 h-auto transition-all font-semibold text-center rounded-lg uppercase text-sm lg:text-base;
+					@apply flex-1 px-3.5 py-1.5 md:py-2.5 h-auto transition-all font-semibold text-center rounded-lg text-sm lg:text-base;
 				}
 
 				.button {
@@ -672,7 +672,7 @@
 		}
 
 		.blog-post-category {
-			@apply relative z-1 inline-flex w-max text-sm font-semibold uppercase tracking-wide px-3 py-0.5 rounded-lg bg-primary-100 text-primary-950 transition-colors hover:bg-primary-200 active:bg-primary-200;
+			@apply relative z-1 inline-flex w-max text-sm font-semibold px-3 py-0.5 rounded-lg bg-primary-100 text-primary-950 transition-colors hover:bg-primary-200 active:bg-primary-200;
 		}
 
 		.blog-post-title {

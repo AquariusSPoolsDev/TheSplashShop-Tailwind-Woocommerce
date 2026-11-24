@@ -160,7 +160,7 @@
 			.button,
 			.added_to_cart,
 			.stock.coming-soon {
-				@apply flex-1 px-3.5 py-1.5 md:py-2.5 h-auto transition-all font-semibold text-center rounded-lg uppercase text-sm lg:text-base;
+				@apply flex-1 px-3.5 py-1.5 md:py-2.5 h-auto transition-all font-semibold text-center rounded-lg text-sm lg:text-base;
 			}
 
 			.button {
@@ -231,7 +231,7 @@
 	}
 
 	.onsale {
-		@apply left-2.5 top-2.5 z-2 uppercase font-semibold text-background bg-primary-900 rounded-full px-4 py-1.5 shadow-sm;
+		@apply left-2.5 top-2.5 z-2 font-semibold text-background bg-primary-900 rounded-full px-4 py-1.5 shadow-sm;
 	}
 
 	.out-of-stock-badge {
@@ -482,7 +482,7 @@
 		}
 
 		.tabs.wc-tabs li {
-			@apply relative font-bold capitalize sm:uppercase;
+			@apply relative font-bold;
 
 			a {
 				@apply w-max inline-block py-4 text-neutral-700 transition-all;
