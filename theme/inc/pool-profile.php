@@ -104,6 +104,96 @@ function shopchop_pool_profile_endpoint_content() {
 }
 
 /**
+ * A pool profile's saved details as labelled facts, in reading order.
+ * Empty fields are skipped. Pass $keys to pick (and order) a subset.
+ *
+ * @param int        $profile_id Pool profile post ID.
+ * @param array|null $keys       volume, size, type, sanitiser, filter, pump, service.
+ * @return array[] key => array( label, value ).
+ */
+function shopchop_pool_profile_facts( $profile_id, $keys = null ) {
+	$m     = function ( $key ) use ( $profile_id ) {
+		return get_post_meta( $profile_id, $key, true );
+	};
+	$num   = function ( $v ) {
+		return (string) ( 0 + (float) $v ); // 8.0 -> "8", 1.5 -> "1.5"
+	};
+	$facts = array();
+
+	$volume = (int) $m( '_pool_volume' );
+	if ( $volume ) {
+		/* translators: %s: volume in litres */
+		$facts['volume'] = array( __( 'Volume', 'shopchop' ), sprintf( __( '%s litres', 'shopchop' ), number_format_i18n( $volume ) ) );
+	}
+
+	$l = $m( '_pool_size_l' );
+	$w = $m( '_pool_size_w' );
+	$h = $m( '_pool_size_h' );
+	if ( $l && $w ) {
+		$unit          = 'ft' === $m( '_pool_size_unit' ) ? 'ft' : 'm';
+		$dims          = $h ? array( $num( $l ), $num( $w ), $num( $h ) ) : array( $num( $l ), $num( $w ) );
+		$facts['size'] = array( __( 'Size', 'shopchop' ), implode( ' × ', $dims ) . ' ' . $unit );
+	}
+
+	$type  = SHOPCHOP_POOL_TYPES[ $m( '_pool_type' ) ] ?? '';
+	$shape = SHOPCHOP_POOL_SHAPES[ $m( '_pool_shape' ) ] ?? '';
+	if ( $type || $shape ) {
+		$facts['type'] = array( __( 'Type', 'shopchop' ), $type && $shape ? $type . ', ' . strtolower( $shape ) : $type . $shape );
+	}
+
+	$sanitiser = SHOPCHOP_SANITISER_METHODS[ $m( '_sanitiser_method' ) ] ?? '';
+	if ( $sanitiser ) {
+		$facts['sanitiser'] = array( __( 'Sanitiser', 'shopchop' ), $sanitiser );
+	}
+
+	$filter = SHOPCHOP_FILTER_TYPES[ $m( '_filter_type' ) ] ?? '';
+	if ( $filter ) {
+		$facts['filter'] = array( __( 'Filter', 'shopchop' ), $filter );
+	}
+
+	$pump = $m( '_pump_used' );
+	if ( $pump ) {
+		$facts['pump'] = array( __( 'Pump', 'shopchop' ), $pump );
+	}
+
+	// Free text on the form ("e.g. June 2025"), so shown as typed.
+	$service = trim( (string) $m( '_last_service_date' ) );
+	if ( '' !== $service ) {
+		$facts['service'] = array( __( 'Last service', 'shopchop' ), $service );
+	}
+
+	if ( null === $keys ) {
+		return $facts;
+	}
+	$picked = array();
+	foreach ( $keys as $key ) {
+		if ( isset( $facts[ $key ] ) ) {
+			$picked[ $key ] = $facts[ $key ];
+		}
+	}
+	return $picked;
+}
+
+/**
+ * Pool facts as a definition list (label above value).
+ *
+ * @param int        $profile_id Pool profile post ID.
+ * @param array|null $keys       See shopchop_pool_profile_facts().
+ * @return string Markup, or '' when nothing is saved.
+ */
+function shopchop_pool_profile_facts_html( $profile_id, $keys = null ) {
+	$facts = shopchop_pool_profile_facts( $profile_id, $keys );
+	if ( ! $facts ) {
+		return '';
+	}
+	$html = '<dl class="pool-facts">';
+	foreach ( $facts as $fact ) {
+		$html .= '<div><dt>' . esc_html( $fact[0] ) . '</dt><dd>' . esc_html( $fact[1] ) . '</dd></div>';
+	}
+	return $html . '</dl>';
+}
+
+/**
  * Fetch the current user's saved pool profiles.
  *
  * @return WP_Post[]

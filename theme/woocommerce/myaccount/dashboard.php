@@ -27,6 +27,20 @@ $latest_order = wc_get_orders(
 );
 $latest_order = $latest_order ? $latest_order[0] : null;
 
+// The newest order not yet dispatched; when there is none, the card shows the latest order instead.
+$active_orders = wc_get_orders(
+	array(
+		'customer_id' => get_current_user_id(),
+		'status'      => array( 'pending', 'on-hold', 'processing' ),
+		'limit'       => 1,
+		'orderby'     => 'date',
+		'order'       => 'DESC',
+	)
+);
+$card_orders = $active_orders ? $active_orders : ( $latest_order ? array( $latest_order ) : array() );
+
+$buy_again = function_exists( 'shopchop_buy_again_products' ) ? shopchop_buy_again_products( get_current_user_id(), 4 ) : array();
+
 $pools = function_exists( 'shopchop_get_pool_profiles' ) ? shopchop_get_pool_profiles() : array();
 $pool  = $pools ? $pools[0] : null;
 
@@ -41,12 +55,12 @@ if ( ! $address && 'shipping' === $address_type ) {
 <div class="dashboard-welcome">
 	<div class="user-icon"><?php echo get_avatar( $current_user->ID, 64 ); ?></div>
 	<div class="user-details">
-		<p class="greeting">
+		<h1 class="greeting">
 			<?php
 			/* translators: %s: customer first name */
 			printf( esc_html__( 'Hi, %s', 'shopchop' ), esc_html( $first_name ) );
 			?>
-		</p>
+		</h1>
 		<p class="signed-in-as"><?php echo esc_html( $current_user->user_email ); ?></p>
 	</div>
 	<?php if ( current_user_can( 'manage_options' ) ) : ?>
@@ -56,44 +70,63 @@ if ( ! $address && 'shipping' === $address_type ) {
 
 <div class="dashboard-grid">
 
-	<section class="dashboard-card dashboard-latest-order" aria-labelledby="dashboard-order-title">
-		<h2 id="dashboard-order-title"><?php esc_html_e( 'Latest order', 'shopchop' ); ?></h2>
+	<section class="dashboard-card dashboard-orders" aria-labelledby="dashboard-order-title">
+		<div class="card-head">
+			<h2 id="dashboard-order-title">
+				<?php echo $active_orders ? esc_html__( 'In progress', 'shopchop' ) : esc_html__( 'Latest order', 'shopchop' ); ?>
+			</h2>
+			<?php if ( $card_orders ) : ?>
+				<a class="all-orders" href="<?php echo esc_url( wc_get_endpoint_url( 'orders' ) ); ?>"><?php esc_html_e( 'All orders', 'shopchop' ); ?></a>
+			<?php endif; ?>
+		</div>
 
-		<?php if ( $latest_order ) : ?>
-			<div class="card-row">
-				<a class="order-number" href="<?php echo esc_url( $latest_order->get_view_order_url() ); ?>">
-					<?php
-					/* translators: %s: order number */
-					printf( esc_html__( 'Order #%s', 'shopchop' ), esc_html( $latest_order->get_order_number() ) );
-					?>
-				</a>
-				<span class="status-badge status-<?php echo esc_attr( $latest_order->get_status() ); ?>"><?php echo esc_html( wc_get_order_status_name( $latest_order->get_status() ) ); ?></span>
-			</div>
+		<?php if ( $card_orders ) : ?>
+			<?php foreach ( $card_orders as $card_order ) : ?>
+				<?php $progress = shopchop_order_progress_html( $card_order ); ?>
+				<article class="dashboard-order">
+					<div class="card-row">
+						<a class="order-number" href="<?php echo esc_url( $card_order->get_view_order_url() ); ?>">
+							<?php
+							/* translators: %s: order number */
+							printf( esc_html__( 'Order #%s', 'shopchop' ), esc_html( $card_order->get_order_number() ) );
+							?>
+						</a>
+						<?php if ( ! $progress ) : // the tracker already shows the status ?>
+							<span class="status-badge status-<?php echo esc_attr( $card_order->get_status() ); ?>"><?php echo esc_html( wc_get_order_status_name( $card_order->get_status() ) ); ?></span>
+						<?php endif; ?>
+					</div>
 
-			<div class="order-thumbs">
-				<?php
-				foreach ( array_slice( $latest_order->get_items(), 0, 3 ) as $item ) {
-					$product = $item->get_product();
-					echo $product ? wp_kses_post( $product->get_image( array( 64, 64 ) ) ) : '';
-				}
-				?>
-			</div>
+					<?php echo $progress; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped in the helper ?>
 
-			<p class="order-summary">
-				<strong><?php echo wp_kses_post( $latest_order->get_formatted_order_total() ); ?></strong>
-				<span>
-					<?php
-					$count = $latest_order->get_item_count();
-					/* translators: 1: item count, 2: order date */
-					printf( esc_html( _n( '%1$s item, ordered %2$s', '%1$s items, ordered %2$s', $count, 'shopchop' ) ), esc_html( number_format_i18n( $count ) ), esc_html( wc_format_datetime( $latest_order->get_date_created() ) ) );
-					?>
-				</span>
-			</p>
+					<div class="order-body">
+						<div class="order-thumbs">
+							<?php
+							foreach ( array_slice( $card_order->get_items(), 0, 3 ) as $item ) {
+								$product = $item->get_product();
+								echo $product ? wp_kses_post( $product->get_image( array( 64, 64 ) ) ) : '';
+							}
+							?>
+						</div>
+						<p class="order-summary">
+							<strong><?php echo wp_kses_post( $card_order->get_formatted_order_total() ); ?></strong>
+							<span>
+								<?php
+								$count = $card_order->get_item_count();
+								/* translators: 1: item count, 2: order date */
+								printf( esc_html( _n( '%1$s item, ordered %2$s', '%1$s items, ordered %2$s', $count, 'shopchop' ) ), esc_html( number_format_i18n( $count ) ), esc_html( wc_format_datetime( $card_order->get_date_created() ) ) );
+								?>
+							</span>
+						</p>
+					</div>
 
-			<div class="card-actions">
-				<a class="button" href="<?php echo esc_url( $latest_order->get_view_order_url() ); ?>"><?php esc_html_e( 'View order', 'shopchop' ); ?></a>
-				<a class="card-link" href="<?php echo esc_url( wc_get_endpoint_url( 'orders' ) ); ?>"><?php esc_html_e( 'All orders', 'shopchop' ); ?></a>
-			</div>
+					<div class="card-actions">
+						<a class="button button-outline" href="<?php echo esc_url( $card_order->get_view_order_url() ); ?>">
+							<?php esc_html_e( 'View order', 'shopchop' ); ?><span class="sr-only"> #<?php echo esc_html( $card_order->get_order_number() ); ?></span>
+						</a>
+						<?php echo shopchop_order_help_html( $card_order ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped in the helper ?>
+					</div>
+				</article>
+			<?php endforeach; ?>
 		<?php else : ?>
 			<p class="card-empty"><?php esc_html_e( "You haven't placed an order yet.", 'shopchop' ); ?></p>
 			<div class="card-actions">
@@ -102,29 +135,41 @@ if ( ! $address && 'shipping' === $address_type ) {
 		<?php endif; ?>
 	</section>
 
+	<?php if ( $buy_again ) : ?>
+		<section class="dashboard-card dashboard-buy-again" aria-labelledby="dashboard-buy-again-title">
+			<h2 id="dashboard-buy-again-title"><?php esc_html_e( 'Buy again', 'shopchop' ); ?></h2>
+			<ul class="buy-again-list">
+				<?php foreach ( $buy_again as $product ) : ?>
+					<?php
+					$name = $product->get_name();
+					// A variation saved with an "any" attribute can't go straight to the cart.
+					$needs_choice = $product->is_type( 'variation' ) && in_array( '', $product->get_variation_attributes(), true );
+					$direct       = ! $needs_choice && ( $product->is_type( 'simple' ) || $product->is_type( 'variation' ) );
+					?>
+					<li class="buy-again-item">
+						<a class="buy-again-image" href="<?php echo esc_url( $product->get_permalink() ); ?>" tabindex="-1" aria-hidden="true"><?php echo wp_kses_post( $product->get_image( array( 96, 96 ) ) ); ?></a>
+						<div class="buy-again-details">
+							<a class="buy-again-name" href="<?php echo esc_url( $product->get_permalink() ); ?>"><?php echo esc_html( $name ); ?></a>
+							<span class="buy-again-price"><?php echo wp_kses_post( $product->get_price_html() ); ?></span>
+						</div>
+						<?php if ( $direct ) : ?>
+							<a href="<?php echo esc_url( $product->add_to_cart_url() ); ?>" data-quantity="1" data-product_id="<?php echo esc_attr( $product->get_id() ); ?>" data-product_sku="<?php echo esc_attr( $product->get_sku() ); ?>" class="button add_to_cart_button ajax_add_to_cart" rel="nofollow" aria-label="<?php echo esc_attr( sprintf( /* translators: %s: product name */ __( 'Add to cart: %s', 'shopchop' ), $name ) ); ?>"><?php esc_html_e( 'Add to cart', 'shopchop' ); ?></a>
+						<?php else : ?>
+							<a href="<?php echo esc_url( $product->get_permalink() ); ?>" class="button button-outline" aria-label="<?php echo esc_attr( sprintf( /* translators: %s: product name */ __( 'Choose options: %s', 'shopchop' ), $name ) ); ?>"><?php esc_html_e( 'Choose options', 'shopchop' ); ?></a>
+						<?php endif; ?>
+					</li>
+				<?php endforeach; ?>
+			</ul>
+		</section>
+	<?php endif; ?>
+
 	<?php if ( function_exists( 'shopchop_get_pool_profiles' ) ) : ?>
 		<section class="dashboard-card dashboard-pool" aria-labelledby="dashboard-pool-title">
 			<h2 id="dashboard-pool-title"><?php esc_html_e( 'Your pool', 'shopchop' ); ?></h2>
 
 			<?php if ( $pool ) : ?>
-				<?php
-				$volume = (int) get_post_meta( $pool->ID, '_pool_volume', true );
-				$type   = get_post_meta( $pool->ID, '_pool_type', true );
-				?>
 				<p class="pool-name"><?php echo esc_html( $pool->post_title ); ?></p>
-				<ul class="pool-facts">
-					<?php if ( $volume ) : ?>
-						<li>
-							<?php
-							/* translators: %s: volume in litres */
-							printf( esc_html__( '%s litres', 'shopchop' ), esc_html( number_format_i18n( $volume ) ) );
-							?>
-						</li>
-					<?php endif; ?>
-					<?php if ( $type ) : ?>
-						<li><?php echo esc_html( SHOPCHOP_POOL_TYPES[ $type ] ?? $type ); ?></li>
-					<?php endif; ?>
-				</ul>
+				<?php echo shopchop_pool_profile_facts_html( $pool->ID, array( 'volume', 'type', 'sanitiser', 'service' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped in the helper ?>
 				<?php if ( count( $pools ) > 1 ) : ?>
 					<p class="card-note">
 						<?php

@@ -42,37 +42,26 @@ $get_meta = function( $key ) use ( $editing ) {
 	<?php if ( $profiles ) : ?>
 		<div class="pool-profile-list">
 			<?php foreach ( $profiles as $profile ) :
-				$volume   = get_post_meta( $profile->ID, '_pool_volume', true );
-				$type     = get_post_meta( $profile->ID, '_pool_type', true );
 				$photo_id = get_post_meta( $profile->ID, '_pool_photo_id', true );
 				?>
 				<div class="pool-profile-card">
-					<?php if ( $photo_id ) : ?>
-						<div class="pool-profile-card-photo">
-							<?php echo wp_get_attachment_image( $photo_id, 'thumbnail' ); ?>
-						</div>
-					<?php endif; ?>
-					<div class="pool-profile-card-info">
+					<div class="pool-profile-card-head">
+						<?php if ( $photo_id ) : ?>
+							<div class="pool-profile-card-photo">
+								<?php echo wp_get_attachment_image( $photo_id, 'thumbnail' ); ?>
+							</div>
+						<?php endif; ?>
 						<h3><?php echo esc_html( $profile->post_title ); ?></h3>
-						<p>
-							<?php
-							printf(
-								/* translators: 1: volume in litres, 2: pool type label */
-								esc_html__( '%1$s L · %2$s', 'shopchop' ),
-								esc_html( number_format_i18n( (int) $volume ) ),
-								esc_html( SHOPCHOP_POOL_TYPES[ $type ] ?? $type )
-							);
-							?>
-						</p>
-					</div>
-					<div class="pool-profile-card-actions">
+						<div class="pool-profile-card-actions">
 						<a class="button pool-profile-edit" href="<?php echo esc_url( add_query_arg( 'edit', $profile->ID, $list_url ) ); ?>">
 							<?php esc_html_e( 'Edit', 'shopchop' ); ?>
 						</a>
 						<a class="button pool-profile-delete" href="<?php echo esc_url( wp_nonce_url( add_query_arg( 'shopchop_delete_pool', $profile->ID, $list_url ), 'shopchop_delete_pool_profile_' . $profile->ID ) ); ?>" data-profile-name="<?php echo esc_attr( $profile->post_title ); ?>">
 							<?php esc_html_e( 'Delete', 'shopchop' ); ?>
 						</a>
+						</div>
 					</div>
+					<?php echo shopchop_pool_profile_facts_html( $profile->ID ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped in the helper ?>
 				</div>
 			<?php endforeach; ?>
 		</div>

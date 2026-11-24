@@ -68,6 +68,10 @@ add_filter( 'woocommerce_get_endpoint_url', function ( $url, $endpoint ) {
  */
 add_action( 'woocommerce_account_content', 'shopchop_account_content_title', 1 );
 function shopchop_account_content_title() {
+	// The dashboard template prints its own heading ("Hi, <name>").
+	if ( ! is_wc_endpoint_url() ) {
+		return;
+	}
 	$endpoint_titles = array(
 		'orders'       => 'Orders',
 		'downloads'    => 'Downloads',

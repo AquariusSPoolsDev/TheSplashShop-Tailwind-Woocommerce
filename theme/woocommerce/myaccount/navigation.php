@@ -56,11 +56,10 @@ do_action( 'woocommerce_before_account_navigation' );
 			$shopchop_current = $label;
 		}
 	}
-	$shopchop_on_dashboard = ! is_wc_endpoint_url();
 	?>
 
-	<?php /* Phones: one disclosure instead of a scrolling tab strip; open on the dashboard, where it is the menu. */ ?>
-	<details class="account-nav-mobile"<?php echo $shopchop_on_dashboard ? ' open' : ''; ?>>
+	<?php /* Phones: one disclosure instead of a scrolling tab strip. */ ?>
+	<details class="account-nav-mobile">
 		<summary>
 			<span class="label"><?php esc_html_e( 'My account', 'shopchop' ); ?></span>
 			<span class="current"><?php echo esc_html( $shopchop_current ); ?></span>

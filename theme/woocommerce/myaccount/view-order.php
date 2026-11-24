@@ -34,6 +34,16 @@ $notes = $order->get_customer_order_notes();
 		</div>
 	</div>
 
+	<?php
+	$progress = shopchop_order_progress_html( $order );
+	$help     = shopchop_order_help_html( $order );
+	if ( $progress || $help ) :
+		?>
+		<div class="account-order-progress">
+			<?php echo $progress . ( $help ? '<div class="order-help-row">' . $help . '</div>' : '' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped in the helpers ?>
+		</div>
+	<?php endif; ?>
+
 	<?php if ($notes) : ?>
 		<div class="order-updates-wrapper">
 			<h2><?php esc_html_e('Order updates', 'woocommerce'); ?></h2>
