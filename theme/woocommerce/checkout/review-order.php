@@ -13,7 +13,7 @@
  *
  * @see https://woocommerce.com/document/template-structure/
  * @package WooCommerce\Templates
- * @version 11.0.0
+ * @version 11.2.2
  */
 
 defined('ABSPATH') || exit;
@@ -61,7 +61,7 @@ defined('ABSPATH') || exit;
 							}
 
 							// Quantity Display
-							echo apply_filters('woocommerce_checkout_cart_item_quantity', ' <div class="shopchop-item-qty">' . sprintf('&times; %s', $cart_item['quantity']) . '</div>', $cart_item, $cart_item_key);
+							echo apply_filters('woocommerce_checkout_cart_item_quantity', ' <div class="shopchop-item-qty">' . sprintf('&times; %s', esc_html( $cart_item['quantity'] )) . '</div>', $cart_item, $cart_item_key);
 
 							// Item meta added by other plugins (e.g. product add-ons, personalization fields)
 							echo wc_get_formatted_cart_item_data( $cart_item ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped

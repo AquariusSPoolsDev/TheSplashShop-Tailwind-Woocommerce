@@ -15,7 +15,7 @@
  *
  * @see     https://woocommerce.com/document/template-structure/
  * @package WooCommerce\Templates
- * @version 11.0.0
+ * @version 11.2.2
  */
 
 defined('ABSPATH') || exit;
@@ -34,12 +34,13 @@ do_action('woocommerce_before_mini_cart'); ?>
 				$product_id = apply_filters('woocommerce_cart_item_product_id', $cart_item['product_id'], $cart_item, $cart_item_key);
 
 				if ($_product && $_product->exists() && $cart_item['quantity'] > 0 && apply_filters('woocommerce_widget_cart_item_visible', true, $cart_item, $cart_item_key)) {
+					$cart_item_name = WC()->cart->get_item_product_name( $cart_item, $_product );
 					/**
 					 * This filter is documented in woocommerce/templates/cart/cart.php.
 					 *
 					 * @since 2.1.0
 					 */
-					$product_name      = apply_filters('woocommerce_cart_item_name', $_product->get_name(), $cart_item, $cart_item_key);
+					$product_name      = apply_filters('woocommerce_cart_item_name', $cart_item_name, $cart_item, $cart_item_key);
 					$thumbnail         = apply_filters('woocommerce_cart_item_thumbnail', $_product->get_image(), $cart_item, $cart_item_key);
 					$product_price     = apply_filters('woocommerce_cart_item_price', WC()->cart->get_product_price($_product), $cart_item, $cart_item_key);
 					$product_permalink = apply_filters('woocommerce_cart_item_permalink', $_product->is_visible() ? $_product->get_permalink($cart_item) : '', $cart_item, $cart_item_key);
@@ -70,7 +71,7 @@ do_action('woocommerce_before_mini_cart'); ?>
 								<div class="mini-cart-item-details">
 									<div class="mini-cart-item-meta">
 										<span class="mini-cart-item-name"><?php echo wp_kses_post($product_name); ?></span>
-										<?php echo wp_kses_post( wc_get_formatted_cart_item_data( $cart_item ) ); ?>
+										<?php echo wp_kses_post( wc_get_formatted_cart_item_data( $cart_item, false, $cart_item_name ) ); ?>
 										<?php
 										echo apply_filters( // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 											'woocommerce_widget_cart_item_quantity',

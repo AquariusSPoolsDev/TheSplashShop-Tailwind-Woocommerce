@@ -13,7 +13,7 @@
  *
  * @see         https://woocommerce.com/document/template-structure/
  * @package     WooCommerce\Templates
- * @version     9.7.0
+ * @version     11.2.0
  */
 
 use Automattic\WooCommerce\Enums\ProductType;
@@ -35,7 +35,17 @@ global $product;
 	<?php endif; ?>
 
 	<?php
-	echo wp_kses_post( wc_get_product_category_list(
+	/**
+	 * Filters the ordering mode for product categories in the single product meta.
+	 *
+	 * @param string     $orderby Ordering mode passed to wc_get_product_category_list().
+	 * @param WC_Product $product Product object.
+	 *
+	 * @since 11.2.0
+	 */
+	$product_category_orderby = apply_filters( 'woocommerce_product_meta_category_orderby', 'breadcrumb', $product );
+
+	$product_category_list = wc_get_product_category_list(
 		$product->get_id(),
 		', ',
 		'<span class="posted_in"><strong>' .
@@ -46,8 +56,10 @@ global $product;
 				'woocommerce'
 			) .
 			'</strong> ',
-		'</span>'
-	) );
+		'</span>',
+		is_string( $product_category_orderby ) ? $product_category_orderby : ''
+	);
+	echo is_string( $product_category_list ) ? wp_kses_post( $product_category_list ) : '';
 
 	echo wp_kses_post( wc_get_product_tag_list(
 		$product->get_id(),
