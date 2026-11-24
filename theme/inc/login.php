@@ -40,7 +40,7 @@ function shopchop_remove_login_errors( $user, $username, $password ) {
  */
 add_action( 'login_enqueue_scripts', 'shopchop_login_styles' );
 function shopchop_login_styles() {
-	wp_enqueue_style( 'shopchop-login-fonts', 'https://fonts.bunny.net/css?family=manrope:400,600,700,800', array(), null );
+	wp_enqueue_style( 'shopchop-login-fonts', 'https://fonts.bunny.net/css?family=dm-sans:400,500,600,700,800', array(), null );
 	wp_enqueue_style( 'shopchop-login', get_template_directory_uri() . '/assets/css/login.css', array( 'login', 'shopchop-login-fonts' ), SHOPCHOP_VERSION );
 }
 

@@ -85,12 +85,12 @@
 			"fontFamilies": [
 				{
 					"slug": "headings",
-					"fontFamily": "Manrope, ui-sans-serif, system-ui, sans-serif",
+					"fontFamily": "\"DM Sans\", ui-sans-serif, system-ui, sans-serif",
 					"name": "Headings"
 				},
 				{
 					"slug": "body",
-					"fontFamily": "Manrope, ui-sans-serif, system-ui, sans-serif",
+					"fontFamily": "\"DM Sans\", ui-sans-serif, system-ui, sans-serif",
 					"name": "Body"
 				}
 			],
