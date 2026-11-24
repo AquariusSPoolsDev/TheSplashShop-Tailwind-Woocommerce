@@ -34,6 +34,9 @@ if ( post_password_required() ) {
 
 <div id="product-<?php the_ID(); ?>" <?php wc_product_class( '', $product ); ?>>
 
+	<?php // Gallery + summary row: also the boundary for the sticky gallery, so it stops before the tabs. ?>
+	<div class="shopchop-product-main">
+
 	<?php
 	/**
 	 * Hook: woocommerce_before_single_product_summary.
@@ -61,6 +64,8 @@ if ( post_password_required() ) {
 		do_action( 'woocommerce_single_product_summary' );
 		?>
 	</div>
+
+	</div><!-- .shopchop-product-main -->
 
 	<?php
 	/**

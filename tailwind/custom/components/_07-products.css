@@ -216,9 +216,14 @@
 	}
 
 	/* Single Product Layout */
-	/* Two even columns from tablet up; the gallery stays in view while the buy box scrolls. */
 	.product.type-product {
-		@apply flex flex-wrap gap-6 md:gap-x-8 lg:gap-x-12 lg:gap-y-12 relative;
+		@apply flex flex-wrap gap-6 lg:gap-y-12 relative;
+	}
+
+	/* Two even columns from tablet up. This row is the sticky gallery's boundary,
+	   so the image stops at the end of the row instead of riding over the tabs. */
+	.shopchop-product-main {
+		@apply w-full flex flex-wrap gap-6 md:gap-x-8 lg:gap-x-12 relative;
 	}
 
 	.woocommerce-product-gallery {
