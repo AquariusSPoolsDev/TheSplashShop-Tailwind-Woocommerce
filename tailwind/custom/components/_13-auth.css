@@ -7,7 +7,7 @@
 	@apply max-w-2xl mx-auto;
 
 	.wc-toggle-form {
-		@apply overflow-hidden max-h-0 opacity-0 transition-all duration-300 ease-in-out;
+		@apply overflow-hidden max-h-0 opacity-0 transition-[max-height,opacity] duration-300 ease-in-out;
 
 		&.is-open {
 			@apply max-h-128 opacity-100;

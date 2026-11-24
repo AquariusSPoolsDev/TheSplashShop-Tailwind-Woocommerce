@@ -34,7 +34,7 @@
 
 		.swiper-button-prev,
 		.swiper-button-next {
-			@apply w-12 h-12 bg-primary text-background p-2 hover:bg-primary-950 active:bg-primary-950 active:scale-90 focus:bg-primary-950 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-background transition-all after:text-base;
+			@apply w-12 h-12 bg-primary text-background p-2 hover:bg-primary-950 active:bg-primary-950 active:scale-90 focus:bg-primary-950 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-background transition after:text-base;
 
 			.swiper-navigation-icon {
 				@apply w-6 h-6;
@@ -105,7 +105,7 @@
 		}
 
 		.hero-simple-button {
-			@apply inline-flex items-center justify-center w-full sm:w-auto px-8 py-3.5 font-semibold rounded-lg border-2 border-transparent transition-all active:scale-[0.97];
+			@apply inline-flex items-center justify-center w-full sm:w-auto px-8 py-3.5 font-semibold rounded-lg border-2 border-transparent transition active:scale-[0.97];
 
 			&.hero-simple-button-primary {
 				@apply bg-primary text-background hover:bg-primary-950 hover:ring-4 hover:ring-primary-200 active:bg-primary-950 active:ring-4 active:ring-primary-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-700;
@@ -144,7 +144,7 @@
 			@apply lg:w-55 h-auto bg-white rounded-lg flex justify-center items-center p-4 shadow-[0_1px_2px_rgba(0,0,0,0.06),0_4px_12px_rgba(0,0,0,0.08)];
 
 			.brand-logo-img {
-				@apply max-w-40 h-auto grayscale opacity-60 transition-all duration-300;
+				@apply max-w-40 h-auto grayscale opacity-60 transition duration-300;
 				@apply group-hover:scale-105 group-hover:grayscale-0 group-hover:opacity-100;
 				@apply group-active:scale-105 group-active:grayscale-0 group-active:opacity-100;
 			}
@@ -172,25 +172,25 @@
 		@apply grid gap-4 md:gap-6 lg:gap-10 grid-cols-2 lg:grid-cols-4;
 
 		.category-grid-card {
-			@apply flex flex-col items-center gap-6 overflow-hidden rounded-xl border border-neutral-300 bg-white p-4 transition-all hover:border-primary hover:scale-[1.01] active:border-primary active:scale-[0.98];
+			@apply flex flex-col items-center gap-6 overflow-hidden rounded-xl border border-neutral-300 bg-white p-4 transition hover:border-primary hover:scale-[1.01] active:border-primary active:scale-[0.98];
 
 			.cat-image-wrapper {
 				@apply flex-shrink-0 size-32 md:size-44 lg:size-56 rounded-full bg-primary-100 flex items-center justify-center overflow-hidden p-2;
 			}
 
 			.cat-image {
-				@apply max-w-full max-h-full w-auto h-auto object-contain transition-all duration-300;
+				@apply max-w-full max-h-full w-auto h-auto object-contain transition duration-300;
 			}
 
 			.cat-grid-info {
 				@apply flex justify-center text-center gap-1 flex-col min-w-0;
 
 				.cat-name {
-					@apply text-xl lg:text-2xl font-semibold text-neutral-900 transition-all;
+					@apply text-xl lg:text-2xl font-semibold text-neutral-900 transition;
 				}
 
 				.cat-subtitle {
-					@apply text-sm lg:text-base text-neutral-500 transition-all;
+					@apply text-sm lg:text-base text-neutral-500 transition;
 				}
 			}
 
@@ -206,7 +206,7 @@
 		}
 
 		.category-grid-view-all {
-			@apply col-span-2 lg:hidden inline-flex items-center justify-center gap-1.5 text-base font-bold text-primary underline underline-offset-4 transition-all hover:no-underline hover:text-primary-950 active:no-underline active:text-primary-950 focus-visible:no-underline focus-visible:text-primary-950 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary focus-visible:rounded-sm;
+			@apply col-span-2 lg:hidden inline-flex items-center justify-center gap-1.5 text-base font-bold text-primary underline underline-offset-4 transition hover:no-underline hover:text-primary-950 active:no-underline active:text-primary-950 focus-visible:no-underline focus-visible:text-primary-950 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary focus-visible:rounded-sm;
 
 			svg {
 				@apply w-5 h-5 transition-transform duration-200;
@@ -286,7 +286,7 @@
 	
 
 	.products-carousel-view-all {
-		@apply inline-flex items-center gap-1.5 text-base lg:text-lg font-bold text-primary transition-all hover:text-primary-950 active:text-primary-950 flex-shrink-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary focus-visible:rounded-sm;
+		@apply inline-flex items-center gap-1.5 text-base lg:text-lg font-bold text-primary transition hover:text-primary-950 active:text-primary-950 flex-shrink-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary focus-visible:rounded-sm;
 
 		svg {
 			@apply w-5 h-5 transition-transform duration-200;
@@ -316,7 +316,7 @@
 						@apply overflow-hidden relative;
 
 						img {
-							@apply aspect-square object-cover w-full transition-all overflow-hidden group-hover:scale-115 group-active:scale-115 group-focus:scale-115;
+							@apply aspect-square object-cover w-full transition overflow-hidden group-hover:scale-115 group-active:scale-115 group-focus:scale-115;
 						}
 
 						.onsale {
@@ -365,7 +365,7 @@
 				.button,
 				.added_to_cart,
 				.stock.coming-soon {
-					@apply flex-1 px-3.5 py-1.5 md:py-2.5 h-auto transition-all font-semibold text-center rounded-lg text-sm lg:text-base;
+					@apply flex-1 px-3.5 py-1.5 md:py-2.5 h-auto transition font-semibold text-center rounded-lg text-sm lg:text-base;
 				}
 
 				.button {
@@ -413,7 +413,7 @@
 
 			.swiper-button-prev,
 			.swiper-button-next {
-				@apply static w-11 h-11 mt-0 rounded-full bg-transparent border-2 border-primary text-primary hover:bg-primary hover:text-background active:bg-primary active:text-background active:scale-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-700 transition-all;
+				@apply static w-11 h-11 mt-0 rounded-full bg-transparent border-2 border-primary text-primary hover:bg-primary hover:text-background active:bg-primary active:text-background active:scale-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-700 transition;
 
 				.swiper-navigation-icon {
 					@apply w-6 h-6;
@@ -449,7 +449,7 @@
 			@apply flex-shrink-0;
 
 			.promo-banner-cta {
-				@apply inline-flex items-center gap-2 px-8 py-3.5 bg-background text-secondary-900 font-bold rounded-lg transition-all hover:bg-secondary-50 hover:ring-4 hover:ring-white/30 active:bg-secondary-50 active:ring-4 active:ring-white/30 active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-background;
+				@apply inline-flex items-center gap-2 px-8 py-3.5 bg-background text-secondary-900 font-bold rounded-lg transition hover:bg-secondary-50 hover:ring-4 hover:ring-white/30 active:bg-secondary-50 active:ring-4 active:ring-white/30 active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-background;
 
 				svg {
 					@apply w-5 h-5 transition-transform duration-200;
@@ -511,7 +511,7 @@
 			}
 
 			.spotlight-cta {
-				@apply inline-flex items-center gap-2 w-max px-8 py-3 bg-primary text-background font-semibold rounded-lg transition-all hover:bg-primary-950 hover:ring-4 hover:ring-primary-200 active:bg-primary-950 active:ring-4 active:ring-primary-200 active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-700;
+				@apply inline-flex items-center gap-2 w-max px-8 py-3 bg-primary text-background font-semibold rounded-lg transition hover:bg-primary-950 hover:ring-4 hover:ring-primary-200 active:bg-primary-950 active:ring-4 active:ring-primary-200 active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-700;
 
 				svg {
 					@apply w-5 h-5 transition-transform duration-200;
@@ -528,7 +528,7 @@
 		}
 
 		.spotlight-image {
-			@apply w-full aspect-[4/3] object-cover h-full group-hover:scale-105 transition-all;
+			@apply w-full aspect-[4/3] object-cover h-full group-hover:scale-105 transition;
 		}		
 	}
 
@@ -559,7 +559,7 @@
 
 		.swiper-button-prev,
 		.swiper-button-next {
-			@apply w-11 h-11 rounded-full bg-primary text-background hover:bg-primary-950 active:bg-primary-950 active:scale-90 focus:bg-primary-950 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-background transition-all top-auto bottom-0;
+			@apply w-11 h-11 rounded-full bg-primary text-background hover:bg-primary-950 active:bg-primary-950 active:scale-90 focus:bg-primary-950 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-background transition top-auto bottom-0;
 
 			.swiper-navigation-icon {
 				@apply w-4 h-4;
@@ -649,7 +649,7 @@
 		}
 
 		.blog-post-card {
-			@apply relative flex flex-col bg-white border border-neutral-300 rounded-xl overflow-hidden transition-all hover:border-primary hover:scale-[1.01] active:border-primary active:scale-[0.98];
+			@apply relative flex flex-col bg-white border border-neutral-300 rounded-xl overflow-hidden transition hover:border-primary hover:scale-[1.01] active:border-primary active:scale-[0.98];
 		
 		.blog-post-thumbnail {
 			@apply overflow-hidden shrink-0;
@@ -715,10 +715,10 @@
 		@apply mt-10 flex justify-center;
 
 		.blog-grid-view-all {
-			@apply inline-flex items-center gap-2 px-8 py-3 rounded-lg border-2 border-primary text-primary font-semibold transition-all hover:bg-primary hover:text-background active:bg-primary active:text-background active:scale-[0.97];
+			@apply inline-flex items-center gap-2 px-8 py-3 rounded-lg border-2 border-primary text-primary font-semibold transition hover:bg-primary hover:text-background active:bg-primary active:text-background active:scale-[0.97];
 
 			svg {
-				@apply w-4.5 h-4.5 transition-all;
+				@apply w-4.5 h-4.5 transition;
 			}
 
 			&:hover svg, &:active svg {
@@ -780,7 +780,7 @@
 				@apply text-center;
 
 				.membership-benefit-button {
-					@apply inline-flex items-center justify-center w-full px-8 py-3.5 bg-primary text-background font-semibold rounded-lg transition-all hover:bg-primary-950 hover:ring-4 hover:ring-primary-200 active:bg-primary-950 active:ring-4 active:ring-primary-200 active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-700;
+					@apply inline-flex items-center justify-center w-full px-8 py-3.5 bg-primary text-background font-semibold rounded-lg transition hover:bg-primary-950 hover:ring-4 hover:ring-primary-200 active:bg-primary-950 active:ring-4 active:ring-primary-200 active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-700;
 				}
 
 				.membership-benefit-note {
@@ -823,7 +823,7 @@
 		}
 
 		.contact-section-primary-button {
-			@apply mt-8 text-lg inline-flex items-center justify-center gap-2 w-full px-8 py-3.5 bg-success-600 text-background font-semibold rounded-lg transition-all hover:bg-success-700 hover:ring-4 hover:ring-success-200 active:bg-success-700 active:ring-4 active:ring-success-200 active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-success-700;
+			@apply mt-8 text-lg inline-flex items-center justify-center gap-2 w-full px-8 py-3.5 bg-success-600 text-background font-semibold rounded-lg transition hover:bg-success-700 hover:ring-4 hover:ring-success-200 active:bg-success-700 active:ring-4 active:ring-success-200 active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-success-700;
 
 			svg, i {
 				@apply size-8 text-current fill-current!;
@@ -839,7 +839,7 @@
 		}
 
 		.contact-section-secondary-button {
-			@apply inline-flex items-center justify-center gap-2 px-4 py-3 border-2 border-secondary text-secondary font-semibold rounded-lg transition-all hover:bg-secondary hover:text-background active:bg-secondary active:text-background active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary-700;
+			@apply inline-flex items-center justify-center gap-2 px-4 py-3 border-2 border-secondary text-secondary font-semibold rounded-lg transition hover:bg-secondary hover:text-background active:bg-secondary active:text-background active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary-700;
 
 			svg, i {
 				@apply size-6 text-current fill-current!;

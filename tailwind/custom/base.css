@@ -22,3 +22,22 @@ a {
 :focus-visible {
 	@apply outline-2 outline-offset-2 outline-primary;
 }
+
+/* Reduced motion: state changes stay, the movement goes. 1ms (not 0) so transitionend still fires.
+   Spinners keep animating; they are feedback. Carousel autoplay is handled in Utils.reduceMotion(). */
+@media (prefers-reduced-motion: reduce) {
+	html {
+		scroll-behavior: auto !important;
+	}
+
+	*,
+	*::before,
+	*::after {
+		transition-duration: 1ms !important;
+		transition-delay: 0s !important;
+	}
+
+	img {
+		scale: none !important;
+	}
+}

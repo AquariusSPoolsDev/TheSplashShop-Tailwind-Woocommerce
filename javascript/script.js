@@ -75,6 +75,15 @@
 				.replace(/"/g, '&quot;')
 				.replace(/'/g, '&#39;');
 		},
+
+		// Swiper config for visitors who ask for reduced motion: no autoplay, instant slide changes.
+		reduceMotion(config) {
+			if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+				config.autoplay = false;
+				config.speed = 0;
+			}
+			return config;
+		},
 	};
 
 	/* =========================================================================
@@ -314,7 +323,7 @@
 			if (typeof Swiper === 'undefined') return;
 			document.querySelectorAll('.shopchop-hero-swiper[data-swiper]').forEach((el) => {
 				try {
-					const config = JSON.parse(el.dataset.swiper);
+					const config = Utils.reduceMotion(JSON.parse(el.dataset.swiper));
 					new Swiper(el, config);
 				} catch (e) {
 					console.warn('ShopChop HeroCarousel: invalid config', e);
@@ -331,7 +340,7 @@
 			if (typeof Swiper === 'undefined') return;
 			document.querySelectorAll('.shopchop-products-swiper[data-swiper]').forEach((el) => {
 				try {
-					const config = JSON.parse(el.dataset.swiper);
+					const config = Utils.reduceMotion(JSON.parse(el.dataset.swiper));
 					// Pagination/nav live in .products-carousel-footer, a sibling of
 					// .swiper, not a descendant — Swiper's selector-string resolution
 					// only looks inside the swiper container, so resolve real elements
@@ -366,7 +375,7 @@
 			if (typeof Swiper === 'undefined') return;
 			document.querySelectorAll('.shopchop-testimonials-swiper[data-swiper]').forEach((el) => {
 				try {
-					const config = JSON.parse(el.dataset.swiper);
+					const config = Utils.reduceMotion(JSON.parse(el.dataset.swiper));
 					new Swiper(el, config);
 				} catch (e) {
 					console.warn('ShopChop TestimonialsCarousel: invalid config', e);

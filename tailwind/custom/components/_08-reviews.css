@@ -135,7 +135,7 @@
 			@apply mt-2;
 
 			a {
-				@apply -indent-[9999px] relative inline-block w-6 h-6 text-neutral-300 transition-all;
+				@apply -indent-[9999px] relative inline-block w-6 h-6 text-neutral-300 transition;
 
 				&::before {
 					content: "";

@@ -21,7 +21,7 @@
 	}
 
 	.wp-block-social-link {
-		@apply bg-primary-700 text-background transition-all rounded-sm transform-none! hover:bg-primary-900 active:bg-primary-900 focus:bg-primary-900;
+		@apply bg-primary-700 text-background transition rounded-sm transform-none! hover:bg-primary-900 active:bg-primary-900 focus:bg-primary-900;
 	}
 
 	h5 {
@@ -33,7 +33,7 @@
 	}
 
 	a {
-		@apply underline! underline-offset-4 transition-all hover:no-underline! active:no-underline! focus:no-underline!;
+		@apply underline! underline-offset-4 transition hover:no-underline! active:no-underline! focus:no-underline!;
 	}
 
 	.legal-copyright {

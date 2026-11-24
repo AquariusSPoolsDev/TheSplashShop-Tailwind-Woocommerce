@@ -26,7 +26,7 @@
 		@apply hidden! lg:block! text-center px-6 md:px-10 lg:px-16 py-2 bg-linear-to-br text-background font-semibold text-sm from-primary-700 to-primary-900;
 
 		.woocommerce-store-notice__dismiss-link {
-			@apply font-normal underline! ms-3 transition-all hover:no-underline!;
+			@apply font-normal underline! ms-3 transition hover:no-underline!;
 		}
 	}
 
@@ -35,7 +35,7 @@
 			@apply lg:hidden ml-auto flex gap-2;
 
 			.shopchop-menu-item {
-				@apply p-2 rounded-full cursor-pointer transition-all hover:bg-secondary-100 active:bg-secondary-100 active:scale-90 focus:bg-secondary-100 focus-visible:outline-2 focus-visible:outline-primary-700 focus-visible:outline-offset-2;
+				@apply p-2 rounded-full cursor-pointer transition hover:bg-secondary-100 active:bg-secondary-100 active:scale-90 focus:bg-secondary-100 focus-visible:outline-2 focus-visible:outline-primary-700 focus-visible:outline-offset-2;
 			}
 
 			#mobile-cart-toggle {
@@ -47,7 +47,7 @@
 					}
 
 					.cart-count-badge {
-						@apply transition-all absolute -top-2 -right-2 min-w-5 h-5 flex items-center justify-center bg-secondary text-background text-xs font-bold rounded-full px-1;
+						@apply transition absolute -top-2 -right-2 min-w-5 h-5 flex items-center justify-center bg-secondary text-background text-xs font-bold rounded-full px-1;
 					}
 				}
 			}
@@ -72,7 +72,7 @@
 				}
 
 				.shopchop-search-clear {
-					@apply absolute z-1 right-36 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center rounded-full text-neutral-700 border-none bg-transparent cursor-pointer transition-all hover:bg-neutral-100 hover:text-neutral-900 active:bg-neutral-100 focus-visible:outline-2 focus-visible:outline-primary-700 focus-visible:outline-offset-2 hidden;
+					@apply absolute z-1 right-36 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center rounded-full text-neutral-700 border-none bg-transparent cursor-pointer transition hover:bg-neutral-100 hover:text-neutral-900 active:bg-neutral-100 focus-visible:outline-2 focus-visible:outline-primary-700 focus-visible:outline-offset-2 hidden;
 
 					&.is-visible {
 						@apply flex;
@@ -91,7 +91,7 @@
 					@apply not-last:border-b border-neutral-300;
 
 					a {
-						@apply flex gap-3 items-center p-2 transition-all hover:bg-secondary-100 active:bg-secondary-100 focus:bg-secondary-100;
+						@apply flex gap-3 items-center p-2 transition hover:bg-secondary-100 active:bg-secondary-100 focus:bg-secondary-100;
 
 						.result-image {
 							@apply shrink-0 w-12 h-12;
@@ -126,7 +126,7 @@
 				@apply hidden lg:block;
 
 				.shopchop-wishlist-btn {
-					@apply w-12 h-12 rounded-full border-neutral-300 border-2 flex items-center justify-center transition-all hover:bg-secondary-100 active:bg-secondary-100 active:scale-90 focus:bg-secondary-100;
+					@apply w-12 h-12 rounded-full border-neutral-300 border-2 flex items-center justify-center transition hover:bg-secondary-100 active:bg-secondary-100 active:scale-90 focus:bg-secondary-100;
 				}
 
 				.wishlist-icon {
@@ -138,7 +138,7 @@
 				@apply hidden lg:block lg:relative;
 
 				.shopchop-cart-trigger {
-					@apply flex items-center gap-3 cursor-pointer transition-all underline-offset-4 hover:text-primary-900 hover:underline focus:text-primary-900 focus:underline;
+					@apply flex items-center gap-3 cursor-pointer transition underline-offset-4 hover:text-primary-900 hover:underline focus:text-primary-900 focus:underline;
 
 					.cart-icon-wrapper {
 						@apply relative;
@@ -148,7 +148,7 @@
 						}
 
 						.cart-count-badge {
-							@apply transition-all absolute -top-2 -right-2 min-w-5 h-5 flex items-center justify-center bg-secondary text-background text-xs font-bold rounded-full px-1;
+							@apply transition absolute -top-2 -right-2 min-w-5 h-5 flex items-center justify-center bg-secondary text-background text-xs font-bold rounded-full px-1;
 						}
 					}
 
@@ -269,7 +269,7 @@
 				@apply hidden lg:block lg:relative;
 
 				.shopchop-account-trigger {
-					@apply flex gap-2 items-center cursor-pointer transition-all underline-offset-4 hover:text-primary-900 hover:underline! active:text-primary-900 active:underline! focus:text-primary-900 focus:underline!;
+					@apply flex gap-2 items-center cursor-pointer transition underline-offset-4 hover:text-primary-900 hover:underline! active:text-primary-900 active:underline! focus:text-primary-900 focus:underline!;
 
 					.user-icon {
 						@apply w-6 h-6;
@@ -311,7 +311,7 @@
 							@apply flex flex-col w-full;
 
 							.account-menu-item {
-								@apply flex items-center gap-2.5 p-2.5 w-full text-sm text-neutral-800 transition-all border-l-4 border-l-transparent hover:bg-primary-100/30 hover:text-primary-900 hover:border-primary-900 active:bg-primary-100/30 active:text-primary-900 active:border-primary-900 focus:bg-primary-100/30 focus:text-primary-900 focus:border-primary-900;
+								@apply flex items-center gap-2.5 p-2.5 w-full text-sm text-neutral-800 transition border-l-4 border-l-transparent hover:bg-primary-100/30 hover:text-primary-900 hover:border-primary-900 active:bg-primary-100/30 active:text-primary-900 active:border-primary-900 focus:bg-primary-100/30 focus:text-primary-900 focus:border-primary-900;
 
 								svg {
 									@apply w-4 h-4 shrink-0;
@@ -323,7 +323,7 @@
 							@apply border-t border-neutral-300 px-2.5 py-1.5;
 
 							.logout-link {
-								@apply flex items-center gap-2 w-full p-1.5 text-sm text-error-700 rounded transition-all hover:bg-error-100;
+								@apply flex items-center gap-2 w-full p-1.5 text-sm text-error-700 rounded transition hover:bg-error-100;
 
 								svg {
 									@apply w-4 h-4;
@@ -351,14 +351,14 @@
 							}
 
 							.login-button {
-								@apply block w-full px-6 py-2.5 bg-primary-900 text-background font-medium rounded-lg transition-all hover:bg-primary-950 active:bg-primary-950 focus:bg-primary-950;
+								@apply block w-full px-6 py-2.5 bg-primary-900 text-background font-medium rounded-lg transition hover:bg-primary-950 active:bg-primary-950 focus:bg-primary-950;
 							}
 
 							.register-prompt {
 								@apply mt-4 text-sm text-neutral-700;
 
 								a {
-									@apply text-primary-900 font-medium transition-all underline-offset-2 hover:underline!;
+									@apply text-primary-900 font-medium transition underline-offset-2 hover:underline!;
 								}
 							}
 						}
@@ -380,7 +380,7 @@
 
 				> a {
 					@apply lg:flex lg:items-center lg:gap-2 lg:px-5 lg:py-3.5 lg:font-medium lg:text-secondary-800;
-					@apply lg:transition-all;
+					@apply lg:transition;
 					@apply lg:hover:bg-primary-100/60 lg:hover:text-primary-900;
 				}
 
@@ -424,7 +424,7 @@
 					@apply block border-b border-b-neutral-300/50 last:border-b-0;
 
 					a {
-						@apply block px-4 py-2.5 text-secondary-800 transition-all duration-150;
+						@apply block px-4 py-2.5 text-secondary-800 transition duration-150;
 						@apply hover:bg-primary-100/30 hover:text-primary-900 focus:bg-primary-100/30 focus:text-primary-900;
 					}
 
@@ -448,7 +448,7 @@
 	#cart-close,
 	#search-close,
 	#menu-close {
-		@apply w-10 h-10 flex items-center justify-center rounded-full cursor-pointer transition-all hover:bg-secondary-100 active:bg-secondary-100 active:scale-90 focus:bg-secondary-100 focus-visible:outline-2 focus-visible:outline-primary-700 focus-visible:outline-offset-2;
+		@apply w-10 h-10 flex items-center justify-center rounded-full cursor-pointer transition hover:bg-secondary-100 active:bg-secondary-100 active:scale-90 focus:bg-secondary-100 focus-visible:outline-2 focus-visible:outline-primary-700 focus-visible:outline-offset-2;
 
 		svg { @apply w-6 h-6; }
 	}
@@ -489,7 +489,7 @@
 				}
 
 				.shopchop-search-clear {
-					@apply absolute z-1 right-36 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center rounded-full text-neutral-700 border-none bg-transparent cursor-pointer transition-all hover:bg-neutral-100 hover:text-neutral-900 active:bg-neutral-100 focus-visible:outline-2 focus-visible:outline-primary-700 focus-visible:outline-offset-2 hidden;
+					@apply absolute z-1 right-36 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center rounded-full text-neutral-700 border-none bg-transparent cursor-pointer transition hover:bg-neutral-100 hover:text-neutral-900 active:bg-neutral-100 focus-visible:outline-2 focus-visible:outline-primary-700 focus-visible:outline-offset-2 hidden;
 
 					&.is-visible {
 						@apply flex;
@@ -508,7 +508,7 @@
 					@apply not-last:border-b border-neutral-300;
 
 					a {
-						@apply flex gap-3 items-center p-2 transition-all hover:bg-secondary-100 active:bg-secondary-100 focus:bg-secondary-100;
+						@apply flex gap-3 items-center p-2 transition hover:bg-secondary-100 active:bg-secondary-100 focus:bg-secondary-100;
 
 						.result-image {
 							@apply shrink-0 w-12 h-12;
@@ -685,7 +685,7 @@
 						@apply relative block border-b border-b-neutral-300/50 last:border-b-neutral-300;
 
 						> a {
-							@apply flex items-center w-full p-4 transition-all;
+							@apply flex items-center w-full p-4 transition;
 							@apply hover:bg-primary-100/30 hover:text-primary-900;
 							@apply active:bg-primary-100/30 active:text-primary-900;
 							@apply focus:bg-primary-100/30 focus:text-primary-900;
@@ -705,7 +705,7 @@
 
 							.mobile-submenu-toggle {
 								@apply absolute right-0 top-0 w-12 h-14 flex items-center justify-center text-neutral-700;
-								@apply transition-all hover:text-primary-900;
+								@apply transition hover:text-primary-900;
 
 								svg {
 									@apply transition-transform duration-200 w-5 h-5;
@@ -731,7 +731,7 @@
 							@apply block border-b border-b-neutral-300/50 last:border-b-0;
 
 							a {
-								@apply flex items-center w-full pl-8 pr-4 p-4 transition-all;
+								@apply flex items-center w-full pl-8 pr-4 p-4 transition;
 								@apply hover:bg-primary-100/30 hover:text-primary-900;
 								@apply active:bg-primary-100/30 active:text-primary-900;
 								@apply focus:bg-primary-100/30 focus:text-primary-900;
@@ -751,7 +751,7 @@
 				}
 
 				a.control-item {
-					@apply flex border-b border-b-neutral-300/50 last:border-b-neutral-300 block w-full p-4 transition-all hover:bg-primary-100/30 hover:text-primary-900 active:bg-primary-100/30 active:text-primary-900 focus:bg-primary-100/30 focus:text-primary-900;
+					@apply flex border-b border-b-neutral-300/50 last:border-b-neutral-300 block w-full p-4 transition hover:bg-primary-100/30 hover:text-primary-900 active:bg-primary-100/30 active:text-primary-900 focus:bg-primary-100/30 focus:text-primary-900;
 
 					&.logout {
 						@apply text-error-700 hover:bg-error-100 hover:text-error-700 active:bg-error-100 active:text-error-700 focus:bg-error-100 focus:text-error-700;

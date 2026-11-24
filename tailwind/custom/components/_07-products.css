@@ -75,7 +75,7 @@
 		&.columns-6 { @apply lg:grid-cols-6; }
 
 		li.product {
-			@apply w-full flex flex-col flex-nowrap gap-0 border bg-white border-neutral-300 rounded-lg overflow-hidden transition-all hover:scale-[1.01] active:scale-[0.98];
+			@apply w-full flex flex-col flex-nowrap gap-0 border bg-white border-neutral-300 rounded-lg overflow-hidden transition hover:scale-[1.01] active:scale-[0.98];
 
 			/* Category card */
 			&.product-category a {
@@ -85,7 +85,7 @@
 					@apply overflow-hidden relative shrink-0;
 
 					img {
-						@apply w-16 h-16 lg:w-24 lg:h-24 aspect-square object-cover transition-all overflow-hidden group-hover:scale-115 group-active:scale-115 group-focus:scale-115;
+						@apply w-16 h-16 lg:w-24 lg:h-24 aspect-square object-cover transition overflow-hidden group-hover:scale-115 group-active:scale-115 group-focus:scale-115;
 					}
 				}
 
@@ -106,7 +106,7 @@
 					@apply overflow-hidden relative;
 
 					img {
-						@apply aspect-square object-cover w-full transition-all overflow-hidden group-hover:scale-115 group-active:scale-115 group-focus:scale-115;
+						@apply aspect-square object-cover w-full transition overflow-hidden group-hover:scale-115 group-active:scale-115 group-focus:scale-115;
 					}
 
 					.onsale {
@@ -160,7 +160,7 @@
 			.button,
 			.added_to_cart,
 			.stock.coming-soon {
-				@apply flex-1 px-3.5 py-1.5 md:py-2.5 h-auto transition-all font-semibold text-center rounded-lg text-sm lg:text-base;
+				@apply flex-1 px-3.5 py-1.5 md:py-2.5 h-auto transition font-semibold text-center rounded-lg text-sm lg:text-base;
 			}
 
 			.button {
@@ -197,7 +197,7 @@
 				@apply border-r border-neutral-300 last:border-r-0;
 
 				.page-numbers {
-					@apply flex items-center justify-center min-w-11 h-11 w-11 font-medium transition-all;
+					@apply flex items-center justify-center min-w-11 h-11 w-11 font-medium transition;
 
 					&:not(.current):hover {
 						@apply bg-primary-100;
@@ -239,7 +239,7 @@
 	}
 
 	.woocommerce-product-gallery__trigger {
-		@apply right-2.5 top-2.5 w-10 h-10 flex justify-center items-center bg-background rounded-lg shadow-sm transition-all hover:bg-neutral-100 active:bg-neutral-100 active:scale-90 focus:bg-neutral-100 focus-visible:outline-2 focus-visible:outline-primary-700 focus-visible:outline-offset-2;
+		@apply right-2.5 top-2.5 w-10 h-10 flex justify-center items-center bg-background rounded-lg shadow-sm transition hover:bg-neutral-100 active:bg-neutral-100 active:scale-90 focus:bg-neutral-100 focus-visible:outline-2 focus-visible:outline-primary-700 focus-visible:outline-offset-2;
 	}
 
 	.woocommerce-product-gallery {
@@ -251,7 +251,7 @@
 
 		.swiper-button-prev,
 		.swiper-button-next {
-			@apply w-12 h-12 bg-primary text-background p-2 hover:bg-primary-950 active:bg-primary-950 active:scale-90 focus:bg-primary-950 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-background transition-all;
+			@apply w-12 h-12 bg-primary text-background p-2 hover:bg-primary-950 active:bg-primary-950 active:scale-90 focus:bg-primary-950 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-background transition;
 
 			.swiper-navigation-icon {
 				@apply w-6 h-6;
@@ -281,7 +281,7 @@
 			@apply w-auto cursor-pointer;
 
 			img {
-				@apply w-16 h-16 rounded-lg border-2 border-transparent transition-all opacity-60 grayscale-50 object-cover;
+				@apply w-16 h-16 rounded-lg border-2 border-transparent transition opacity-60 grayscale-50 object-cover;
 			}
 
 			&.swiper-slide-thumb-active img {
@@ -438,7 +438,7 @@
 					@apply flex flex-wrap gap-2.5;
 
 					.pill-swatch {
-						@apply cursor-pointer rounded-full font-medium px-6.5 py-2 border-2 border-neutral-300 text-secondary bg-white transition-all hover:bg-secondary-100 active:bg-secondary-100 focus:bg-secondary-100;
+						@apply cursor-pointer rounded-full font-medium px-6.5 py-2 border-2 border-neutral-300 text-secondary bg-white transition hover:bg-secondary-100 active:bg-secondary-100 focus:bg-secondary-100;
 
 						&.active {
 							@apply bg-secondary-900 border-secondary-900 text-background;
@@ -460,7 +460,7 @@
 			@apply border-t border-t-neutral-300/75 mt-5 pt-5 flex flex-col gap-1 w-full;
 
 			a {
-				@apply underline font-medium transition-all hover:text-primary-900 active:text-primary-900 focus:text-primary-900;
+				@apply underline font-medium transition hover:text-primary-900 active:text-primary-900 focus:text-primary-900;
 			}
 		}
 
@@ -485,7 +485,7 @@
 			@apply relative font-bold;
 
 			a {
-				@apply w-max inline-block py-4 text-neutral-700 transition-all;
+				@apply w-max inline-block py-4 text-neutral-700 transition;
 			}
 
 			&.active a {
