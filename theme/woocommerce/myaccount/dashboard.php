@@ -168,8 +168,14 @@ if ( ! $address && 'shipping' === $address_type ) {
 			<h2 id="dashboard-pool-title"><?php esc_html_e( 'Your pool', 'shopchop' ); ?></h2>
 
 			<?php if ( $pool ) : ?>
-				<p class="pool-name"><?php echo esc_html( $pool->post_title ); ?></p>
-				<?php echo shopchop_pool_profile_facts_html( $pool->ID, array( 'volume', 'type', 'sanitiser', 'service' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped in the helper ?>
+				<?php $pool_photo = (int) get_post_meta( $pool->ID, '_pool_photo_id', true ); ?>
+				<div class="pool-summary<?php echo $pool_photo ? ' has-photo' : ''; ?>">
+					<?php if ( $pool_photo ) : ?>
+						<div class="pool-photo"><?php echo wp_get_attachment_image( $pool_photo, 'thumbnail', false, array( 'alt' => '' ) ); ?></div>
+					<?php endif; ?>
+					<p class="pool-name"><?php echo esc_html( $pool->post_title ); ?></p>
+					<?php echo shopchop_pool_profile_facts_html( $pool->ID, array( 'volume', 'type', 'sanitiser', 'service' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped in the helper ?>
+				</div>
 				<?php if ( count( $pools ) > 1 ) : ?>
 					<p class="card-note">
 						<?php

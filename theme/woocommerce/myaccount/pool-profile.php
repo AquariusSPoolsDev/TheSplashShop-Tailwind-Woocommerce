@@ -44,13 +44,13 @@ $get_meta = function( $key ) use ( $editing ) {
 			<?php foreach ( $profiles as $profile ) :
 				$photo_id = get_post_meta( $profile->ID, '_pool_photo_id', true );
 				?>
-				<div class="pool-profile-card">
+				<div class="pool-profile-card<?php echo $photo_id ? ' has-photo' : ''; ?>">
+					<?php if ( $photo_id ) : ?>
+						<div class="pool-profile-card-photo">
+							<?php echo wp_get_attachment_image( $photo_id, 'medium', false, array( 'alt' => '' ) ); ?>
+						</div>
+					<?php endif; ?>
 					<div class="pool-profile-card-head">
-						<?php if ( $photo_id ) : ?>
-							<div class="pool-profile-card-photo">
-								<?php echo wp_get_attachment_image( $photo_id, 'thumbnail' ); ?>
-							</div>
-						<?php endif; ?>
 						<h3><?php echo esc_html( $profile->post_title ); ?></h3>
 						<div class="pool-profile-card-actions">
 						<a class="button pool-profile-edit" href="<?php echo esc_url( add_query_arg( 'edit', $profile->ID, $list_url ) ); ?>">
