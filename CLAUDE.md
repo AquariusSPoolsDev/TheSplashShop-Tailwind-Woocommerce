@@ -4,7 +4,7 @@
 
 WordPress WooCommerce theme for **The Splash Shop (TSS)** — a Malaysian e-commerce store selling pool supplies. Built on the `_tw` (Underscores + Tailwind) starter theme. Theme slug/prefix: **`shopchop`**.
 
-Running locally via **Local by Flywheel** at `c:\Users\muham\Local Sites\lcl26\app\public`.
+Running locally via **Local by Flywheel** at `c:\Users\usoppii\Local Sites\webshop\app\public`.
 
 ---
 
@@ -162,4 +162,4 @@ Nonce localized via `shopchopDynamicSearch.nonce` (JS object).
 - `.claude/settings.local.json` allows `git add *` and `npm run *` without prompt
 - Two remotes: `origin` (`usoppii/TheSplashShop-Tailwind-Woocommerce`, fork) and `upstream` (`AquariusSPoolsDev/TheSplashShop-Tailwind-Woocommerce`, canonical). Local `main` tracks `upstream`.
 - Commits to `main` auto-push to `upstream` (confirmed via reflog, no manual `git push` needed). `origin` fork does NOT get this — needs manual authenticated push to stay in sync; no cached HTTPS credential or `gh auth` in this dev environment as of 2026-07-24.
-- Current version: **1.0.2** (bumped from 1.0.1 in `9a33c89`). Version lives in `tailwind/custom/file-header.css` (source), synced into `theme/style.css` + `theme/style-editor.css` on build — bump the source file, not the compiled ones.
+- Current version: **1.5.0**. Version lives in `tailwind/custom/file-header.css` (source), synced into `theme/style.css` + `theme/style-editor.css` on build — bump the source file, not the compiled ones.
