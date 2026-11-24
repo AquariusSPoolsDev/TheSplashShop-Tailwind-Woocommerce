@@ -19,4 +19,14 @@
 	body.shopchop-drawer-open & {
 		@apply opacity-0! pointer-events-none!;
 	}
+
+	/* Below lg, JS tucks the pill away while the add-to-cart form is on screen. */
+	&.is-tucked {
+		@apply opacity-0 pointer-events-none translate-y-2;
+	}
+}
+
+/* Focused controls scroll clear of the chat pill + back-to-top stack (WCAG 2.4.11). */
+html:has(#shopchop-whatsapp-btn) {
+	scroll-padding-bottom: 9rem;
 }

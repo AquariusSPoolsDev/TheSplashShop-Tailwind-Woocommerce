@@ -67,6 +67,7 @@ function shopchop_whatsapp_button() {
 
 	$wa_url = 'https://wa.me/' . shopchop_get_whatsapp_number() . '?text=' . rawurlencode( $message );
 	?>
+	<aside aria-label="<?php esc_attr_e( 'Chat with us', 'shopchop' ); ?>">
 	<a
 		id="shopchop-whatsapp-btn"
 		href="<?php echo esc_attr( $wa_url ); ?>"
@@ -83,5 +84,6 @@ function shopchop_whatsapp_button() {
 		</svg>
 		<span><?php esc_html_e( 'Chat', 'shopchop' ); ?></span>
 	</a>
+	</aside>
 	<?php
 }

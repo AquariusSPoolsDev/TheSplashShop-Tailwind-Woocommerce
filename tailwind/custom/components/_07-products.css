@@ -161,6 +161,7 @@
 			.added_to_cart,
 			.stock.coming-soon {
 				@apply flex-1 px-3.5 py-1.5 md:py-2.5 h-auto transition font-semibold text-center rounded-lg text-sm lg:text-base;
+				@apply pointer-coarse:inline-flex pointer-coarse:min-h-11 pointer-coarse:items-center pointer-coarse:justify-center;
 			}
 
 			.button {
@@ -379,10 +380,10 @@
 						@apply self-start;
 
 						.quantity-nav {
-							@apply h-8 lg:h-10;
+							@apply h-8 lg:h-10 pointer-coarse:h-11;
 
 							.qty-btn {
-								@apply w-8 lg:w-10 text-base md:text-lg lg:text-xl;
+								@apply w-8 lg:w-10 pointer-coarse:w-11 text-base md:text-lg lg:text-xl;
 							}
 
 							.quantity input.qty {
@@ -457,7 +458,7 @@
 				}
 
 				.reset_variations {
-					@apply text-lg font-medium text-neutral-600 underline-offset-4 transition-colors hover:text-secondary-900 hover:underline active:text-secondary-900 focus-visible:text-secondary-900 focus-visible:underline;
+					@apply inline-flex items-center min-h-6 pointer-coarse:min-h-11 text-lg font-medium text-neutral-600 underline-offset-4 transition-colors hover:text-secondary-900 hover:underline active:text-secondary-900 focus-visible:text-secondary-900 focus-visible:underline;
 				}
 			}
 		}

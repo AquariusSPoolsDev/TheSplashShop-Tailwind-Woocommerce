@@ -1952,6 +1952,23 @@
 			$( document.body ).on( 'reset_data', () => {
 				btn.href = defaultHref;
 			} );
+
+			// Below lg the pill can cover the size buttons and Add to cart: tuck it while the form is on screen.
+			const buyBox = document.querySelector( '.summary form.cart' );
+			if ( buyBox && 'IntersectionObserver' in window ) {
+				const narrow = window.matchMedia( '(max-width: 1023.98px)' );
+				let buyBoxVisible = false;
+				const update = () => {
+					const tuck = narrow.matches && buyBoxVisible;
+					btn.classList.toggle( 'is-tucked', tuck );
+					btn.inert = tuck;
+				};
+				new IntersectionObserver( ( [ entry ] ) => {
+					buyBoxVisible = entry.isIntersecting;
+					update();
+				} ).observe( buyBox );
+				narrow.addEventListener( 'change', update );
+			}
 		},
 
 		formatPrice( amount ) {

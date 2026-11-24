@@ -111,14 +111,14 @@
 									@apply w-full my-1;
 
 									.quantity-nav {
-										@apply h-8 lg:h-10;
+										@apply h-8 lg:h-10 pointer-coarse:h-11;
 
 										.qty-btn {
-											@apply w-8 lg:w-10 text-base md:text-lg lg:text-xl;
+											@apply w-8 lg:w-10 pointer-coarse:w-11 text-base md:text-lg lg:text-xl;
 										}
 
-										.quantity .input.qty {
-											@apply h-8 text-base;
+										.quantity input.qty {
+											@apply h-8 lg:h-10 pointer-coarse:h-11 text-base;
 										}
 									}
 								}
@@ -176,7 +176,7 @@
 								@apply block self-end;
 
 								.shipping-calculator-button {
-									@apply text-primary underline! transition hover:text-primary-950 hover:no-underline! focus:text-primary-950 focus:no-underline! active:text-primary-950 active:no-underline!;
+									@apply inline-flex items-center min-h-6 text-primary underline! transition hover:text-primary-950 hover:no-underline! focus:text-primary-950 focus:no-underline! active:text-primary-950 active:no-underline!;
 								}
 							}
 
