@@ -40,7 +40,7 @@ get_header();
 										<?php endif; ?>
 									</div>
 									<div class="nav-post-content">
-										<span class="nav-post-label"><?php esc_html_e('Previous Post', 'shopchop'); ?></span>
+										<span class="nav-post-label"><?php esc_html_e('Previous post', 'shopchop'); ?></span>
 										<span class="nav-post-title"><?php echo esc_html(get_the_title($prev_post)); ?></span>
 									</div>
 								</a>
@@ -56,7 +56,7 @@ get_header();
 										<?php endif; ?>
 									</div>
 									<div class="nav-post-content">
-										<span class="nav-post-label"><?php esc_html_e('Next Post', 'shopchop'); ?></span>
+										<span class="nav-post-label"><?php esc_html_e('Next post', 'shopchop'); ?></span>
 										<span class="nav-post-title"><?php echo esc_html(get_the_title($next_post)); ?></span>
 									</div>
 								</a>

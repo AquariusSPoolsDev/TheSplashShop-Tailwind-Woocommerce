@@ -25,7 +25,7 @@
 
 		<?php else : ?>
 
-			<h1 class="page-title nothing-found"><?php esc_html_e( 'Nothing Found', 'shopchop' ); ?></h1>
+			<h1 class="page-title nothing-found"><?php esc_html_e( 'Nothing found', 'shopchop' ); ?></h1>
 
 		<?php endif; ?>
 	</header><!-- .page-header -->

@@ -97,7 +97,7 @@ $is_minimal_page = is_checkout() || is_wc_endpoint_url('order-received') || (is_
 											$user_name = $current_user->display_name;
 											echo esc_html($user_name);
 										} else {
-											esc_html_e( 'Log In / Register', 'shopchop' );
+											esc_html_e( 'Log in / Register', 'shopchop' );
 										}
 										?>
 									</span>
@@ -152,10 +152,9 @@ $is_minimal_page = is_checkout() || is_wc_endpoint_url('order-received') || (is_
 												<div class="login-icon">
 													<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256" class="user-icon"><path d="M230.92,212c-15.23-26.33-38.7-45.21-66.09-54.16a72,72,0,1,0-73.66,0C63.78,166.78,40.31,185.66,25.08,212a8,8,0,1,0,13.85,8c18.84-32.56,52.14-52,89.07-52s70.23,19.44,89.07,52a8,8,0,1,0,13.85-8ZM72,96a56,56,0,1,1,56,56A56.06,56.06,0,0,1,72,96Z"></path></svg>
 												</div>
-												<h3>Sign in to <?php bloginfo('name'); ?></h3>
-												<p>Access your account for order management and more</p>
+												<h3>Log in to <?php bloginfo('name'); ?></h3>
 												<a href="<?php echo esc_url(wc_get_page_permalink('myaccount')); ?>" class="login-button">
-													Sign In
+													Log in
 												</a>
 												<div class="register-prompt">
 													Don't have an account?
@@ -231,14 +230,14 @@ $is_minimal_page = is_checkout() || is_wc_endpoint_url('order-received') || (is_
 						</div>
 						<div class="account-details">
 							<h5 class="user-name"><?php echo esc_html( $current_user->display_name ) ?></h5>
-							<p class="user-actions"><?php esc_html_e( 'View My Account', 'shopchop' ); ?></p>
+							<p class="user-actions"><?php esc_html_e( 'View my account', 'shopchop' ); ?></p>
 						</div>
 					<?php } else { ?>
 						<div class="account-image">
 							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256"><path d="M230.92,212c-15.23-26.33-38.7-45.21-66.09-54.16a72,72,0,1,0-73.66,0C63.78,166.78,40.31,185.66,25.08,212a8,8,0,1,0,13.85,8c18.84-32.56,52.14-52,89.07-52s70.23,19.44,89.07,52a8,8,0,1,0,13.85-8ZM72,96a56,56,0,1,1,56,56A56.06,56.06,0,0,1,72,96Z"></path></svg>
 						</div>
 						<div class="account-details">
-							<h5 class="user-name"><?php esc_html_e( 'Sign In or Register', 'shopchop' ); ?></h5>
+							<h5 class="user-name"><?php esc_html_e( 'Log in or register', 'shopchop' ); ?></h5>
 							<p class="user-actions"><?php esc_html_e( 'Access orders & account details', 'shopchop' ); ?></p>
 						</div>
 					<?php } ?>

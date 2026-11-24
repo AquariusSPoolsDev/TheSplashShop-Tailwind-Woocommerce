@@ -85,7 +85,7 @@ $get_meta = function( $key ) use ( $editing ) {
 					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256" aria-hidden="true"><path d="M128,24A104,104,0,1,0,232,128,104.12,104.12,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm-8-80V80a8,8,0,0,1,16,0v56a8,8,0,0,1-16,0Zm20,36a12,12,0,1,1-12-12A12,12,0,0,1,140,172Z"></path></svg>
 				</span>
 
-				<h3><?php esc_html_e( 'Delete Pool Profile?', 'shopchop' ); ?></h3>
+				<h3><?php esc_html_e( 'Delete this pool profile?', 'shopchop' ); ?></h3>
 				<p>
 					<?php
 					printf(
@@ -98,15 +98,15 @@ $get_meta = function( $key ) use ( $editing ) {
 
 				<div class="pool-profile-delete-modal-actions">
 					<button type="button" class="pool-profile-delete-modal-cancel" id="pool_profile_delete_modal_cancel"><?php esc_html_e( 'Cancel', 'shopchop' ); ?></button>
-					<a href="#" class="pool-profile-delete-modal-confirm" id="pool_profile_delete_modal_confirm"><?php esc_html_e( 'Delete Pool Profile', 'shopchop' ); ?></a>
+					<a href="#" class="pool-profile-delete-modal-confirm" id="pool_profile_delete_modal_confirm"><?php esc_html_e( 'Delete pool profile', 'shopchop' ); ?></a>
 				</div>
 			</div>
 		</div>
 	<?php else : ?>
-		<div class="woocommerce-error pool-profile-empty" role="alert">
-			<span class="wc-error-icon"></span>
-			<span class="wc-error-inner">
-				<?php esc_html_e( 'You haven\'t saved a pool profile yet. Add one to unlock dosage recommendations and faster reordering.', 'shopchop' ); ?>
+		<div class="woocommerce-info pool-profile-empty" role="status">
+			<span class="wc-info-icon"></span>
+			<span class="wc-info-inner">
+				<?php esc_html_e( 'You haven\'t saved a pool profile yet.', 'shopchop' ); ?>
 			</span>
 		</div>
 	<?php endif; ?>
@@ -284,7 +284,7 @@ $get_meta = function( $key ) use ( $editing ) {
 
 			<p class="pool-profile-form-submit">
 				<button type="submit" name="shopchop_pool_profile_save" class="button">
-					<?php echo $editing ? esc_html__( 'Update Pool Profile', 'shopchop' ) : esc_html__( 'Save Pool Profile', 'shopchop' ); ?>
+					<?php echo $editing ? esc_html__( 'Update pool profile', 'shopchop' ) : esc_html__( 'Save pool profile', 'shopchop' ); ?>
 				</button>
 			</p>
 		</form>
