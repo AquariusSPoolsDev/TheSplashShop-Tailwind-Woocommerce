@@ -57,7 +57,7 @@ do_action( 'woocommerce_before_customer_login_form' ); ?>
 				<div class="form-row">
 					<label class="woocommerce-form__label woocommerce-form__label-for-checkbox woocommerce-form-login__rememberme inline-flex items-center cursor-pointer">
 						<input class="sr-only peer woocommerce-form__input woocommerce-form__input-checkbox" name="rememberme" type="checkbox" id="rememberme" value="forever" />
-						<span class="shrink-0 relative w-9 h-5 bg-neutral-300 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary-100 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-neutral-300 after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-background after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary-900"></span>
+						<span class="shrink-0 relative w-9 h-5 bg-neutral-500 peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-primary-900 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-neutral-300 after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-background after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary-900"></span>
 						<span class="select-none ms-2 block">
 							<span class="block"><?php esc_html_e( 'Remember me', 'woocommerce' ); ?></span>
 						</span>

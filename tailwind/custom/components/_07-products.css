@@ -451,7 +451,7 @@
 				}
 
 				.reset_variations {
-					@apply text-lg font-medium text-error-700/50 transition-all hover:text-error-700 active:text-error-700 focus:text-error-700;
+					@apply text-lg font-medium text-neutral-600 underline-offset-4 transition-colors hover:text-secondary-900 hover:underline active:text-secondary-900 focus-visible:text-secondary-900 focus-visible:underline;
 				}
 			}
 		}

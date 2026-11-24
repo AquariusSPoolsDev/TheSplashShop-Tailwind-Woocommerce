@@ -1506,7 +1506,11 @@
 				document.body.style.overflow = '';
 			};
 
+			// Closed drawers sit off-screen; inert keeps them out of the tab order and screen readers.
+			[searchDrawer, cartDrawer, menuDrawer].forEach((el) => el && (el.inert = true));
+
 			const openDrawer = (el, classToRemove) => {
+				el.inert = false;
 				el.classList.add('open');
 				el.classList.remove(classToRemove);
 				backdrop.classList.add('open');
@@ -1515,6 +1519,7 @@
 			};
 
 			const closeDrawer = (el, classToAdd) => {
+				el.inert = true;
 				el.classList.remove('open');
 				el.classList.add(classToAdd);
 				backdrop.classList.remove('open');
