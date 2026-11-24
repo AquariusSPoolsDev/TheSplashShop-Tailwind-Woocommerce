@@ -25,7 +25,7 @@
 			}
 
 			&.btn-secondary {
-				@apply bg-transparent text-secondary border-2 border-secondary hover:bg-secondary-100 active:bg-secondary-100 focus:bg-secondary-100;
+				@apply bg-transparent text-secondary border-2 border-secondary hover:bg-secondary-100 active:bg-secondary-100 focus-visible:bg-secondary-100;
 			}
 		}
 	}
@@ -59,7 +59,7 @@
 	@apply inline-flex flex-wrap items-center p-3 border bg-white border-neutral-300 rounded-lg mb-6 text-sm sm:text-base;
 
 	a {
-		@apply transition hover:text-primary-900 active:text-primary-900 focus:text-primary-900;
+		@apply transition hover:text-primary-900 active:text-primary-900 focus-visible:text-primary-900;
 	}
 }
 

@@ -48,12 +48,12 @@
 	.button.wc-backward,
 	a.restore-item,
 	a {
-		@apply order-last ms-auto h-auto bg-secondary hover:bg-secondary-900 active:bg-secondary-900 focus:bg-secondary-900 text-background! normal-case text-base px-5 py-2 rounded-lg;
+		@apply order-last ms-auto h-auto bg-secondary hover:bg-secondary-900 active:bg-secondary-900 focus-visible:bg-secondary-900 text-background! normal-case text-base px-5 py-2 rounded-lg;
 	}
 }
 
 a.button.wc-backward {
-	@apply inline-block ms-auto h-auto bg-secondary hover:bg-secondary-900 active:bg-secondary-900 focus:bg-secondary-900 text-background! normal-case text-base px-5 py-2 rounded-lg;
+	@apply inline-block ms-auto h-auto bg-secondary hover:bg-secondary-900 active:bg-secondary-900 focus-visible:bg-secondary-900 text-background! normal-case text-base px-5 py-2 rounded-lg;
 }
 
 .wc-error-inner {
@@ -72,7 +72,7 @@ a.button.wc-backward {
 		}
 
 		a {
-			@apply text-error-700! p-0 bg-transparent! hover:bg-transparent active:bg-transparent focus:bg-transparent;
+			@apply text-error-700! p-0 bg-transparent! hover:bg-transparent active:bg-transparent focus-visible:bg-transparent;
 		}
 	}
 }

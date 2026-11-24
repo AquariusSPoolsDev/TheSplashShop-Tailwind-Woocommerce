@@ -62,7 +62,7 @@
 
 	/* ── Post card ── */
 	article.archive-post-card {
-		@apply relative flex flex-col bg-white border border-neutral-300 rounded-xl overflow-hidden transition hover:border-primary hover:scale-[1.01] active:border-primary active:scale-[0.98];
+		@apply relative flex flex-col bg-white border border-neutral-300 rounded-xl overflow-hidden transition hover:border-primary hover:shadow-md active:border-primary;
 
 		/* Thumbnail */
 		.archive-card-thumbnail {
@@ -73,7 +73,7 @@
 			}
 
 			img {
-				@apply w-full aspect-video object-cover transition-transform group-hover:scale-105 group-active:scale-105;
+				@apply w-full aspect-video object-cover transition-transform duration-300 group-hover:scale-105;
 			}
 
 			.archive-card-no-image {

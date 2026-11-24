@@ -38,7 +38,7 @@
 
 			.woocommerce-button { @apply mt-4 px-8 w-max; }
 
-			.lost_password { @apply ms-4 underline-offset-4 hover:underline! focus:underline! active:underline!; }
+			.lost_password { @apply ms-4 underline-offset-4 hover:underline! focus-visible:underline! active:underline!; }
 		}
 	}
 

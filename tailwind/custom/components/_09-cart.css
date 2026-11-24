@@ -176,7 +176,7 @@
 								@apply block self-end;
 
 								.shipping-calculator-button {
-									@apply inline-flex items-center min-h-6 text-primary underline! transition hover:text-primary-950 hover:no-underline! focus:text-primary-950 focus:no-underline! active:text-primary-950 active:no-underline!;
+									@apply inline-flex items-center min-h-6 text-primary underline! transition hover:text-primary-950 hover:no-underline! focus-visible:text-primary-950 focus-visible:no-underline! active:text-primary-950 active:no-underline!;
 								}
 							}
 
@@ -202,7 +202,7 @@
 		}
 
 		.checkout-button.button {
-			@apply text-background hover:text-background active:text-background focus:text-background flex items-center justify-center text-center text-xl rounded-lg;
+			@apply text-background hover:text-background active:text-background focus-visible:text-background flex items-center justify-center text-center text-xl rounded-lg;
 		}
 	}
 }

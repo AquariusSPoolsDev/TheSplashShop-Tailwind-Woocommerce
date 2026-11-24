@@ -5,7 +5,7 @@
 #shopchop-whatsapp-btn {
 	@apply fixed bottom-20 right-6 z-50 flex items-center gap-2 px-4 py-2.5 rounded-full shadow-lg cursor-pointer transition duration-200;
 	@apply bg-whatsapp text-white font-semibold text-sm;
-	@apply hover:bg-whatsapp-hover active:bg-whatsapp-hover active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-whatsapp;
+	@apply hover:bg-whatsapp-hover active:bg-whatsapp-hover active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-whatsapp;
 
 	/* Expand label only on desktop; mobile shows icon-only pill */
 	span {

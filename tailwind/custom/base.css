@@ -47,4 +47,15 @@ input.qty,
 	img {
 		scale: none !important;
 	}
+
+	/* Controls keep their colour/opacity feedback (fewer, gentler animations, not none);
+	   press and hover never scale. */
+	:where(a, button, .button, input, select, textarea, label, summary) {
+		transition-property: color, background-color, border-color, outline-color, text-decoration-color, opacity, box-shadow !important;
+		transition-duration: 150ms !important;
+	}
+
+	:where(*):is(:hover, :active) {
+		scale: none !important;
+	}
 }

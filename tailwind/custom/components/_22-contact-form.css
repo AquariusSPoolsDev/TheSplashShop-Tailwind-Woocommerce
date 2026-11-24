@@ -22,7 +22,7 @@
 	}
 
 	.meow-contact-form__group-consent input[type="checkbox"] {
-		@apply w-5! h-5! mt-0.5! shrink-0! cursor-pointer! accent-primary-900! focus:ring-2! focus:ring-primary-900! focus:ring-offset-1! rounded-sm!;
+		@apply w-5! h-5! mt-0.5! shrink-0! cursor-pointer! accent-primary-900! focus-visible:ring-2! focus-visible:ring-primary-900! focus-visible:ring-offset-1! rounded-sm!;
 	}
 
 	.meow-contact-form__info {
@@ -32,7 +32,7 @@
 	}
 
 	.meow-contact-form__group-button {
-		@apply bg-primary-900! text-background! font-semibold! cursor-pointer! text-base! transition! hover:bg-primary-950! hover:text-background! active:bg-primary-950! active:text-background! active:scale-[0.97]! focus:bg-primary-950! focus:text-background! rounded-lg! h-14! max-w-none! w-auto! self-start! px-8!;
+		@apply bg-primary-900! text-background! font-semibold! cursor-pointer! text-base! transition! hover:bg-primary-950! hover:text-background! active:bg-primary-950! active:text-background! active:scale-[0.97]! focus-visible:bg-primary-950! focus-visible:text-background! rounded-lg! h-14! max-w-none! w-auto! self-start! px-8!;
 	}
 }
 
@@ -67,7 +67,7 @@
 	}
 
 	.quick-menu-card {
-		@apply flex flex-col items-center text-center gap-3 p-4 lg:p-6 bg-white border border-neutral-300 rounded-xl transition hover:border-primary hover:scale-[1.01] active:border-primary active:scale-[0.98];
+		@apply flex flex-col items-center text-center gap-3 p-4 lg:p-6 bg-white border border-neutral-300 rounded-xl transition hover:border-primary hover:shadow-md active:border-primary;
 
 		.quick-menu-icon-wrap {
 			@apply w-14 h-14 flex items-center justify-center rounded-lg bg-primary-100 text-primary transition;
@@ -102,7 +102,7 @@
 	}
 
 	.contact-options-card {
-		@apply relative flex flex-col p-5 lg:p-6 bg-white border border-neutral-300 rounded-xl transition hover:border-primary hover:scale-[1.01] active:border-primary active:scale-[0.98];
+		@apply relative flex flex-col p-5 lg:p-6 bg-white border border-neutral-300 rounded-xl transition hover:border-primary hover:shadow-md active:border-primary;
 
 		.contact-options-card-top {
 			@apply flex items-start justify-between gap-3;

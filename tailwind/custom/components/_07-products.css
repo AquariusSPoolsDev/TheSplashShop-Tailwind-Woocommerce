@@ -80,7 +80,7 @@
 		.shopchop-recently-viewed & { @apply md:max-lg:grid-cols-2; }
 
 		li.product {
-			@apply w-full flex flex-col flex-nowrap gap-0 border bg-white border-neutral-300 rounded-lg overflow-hidden transition hover:scale-[1.01] active:scale-[0.98];
+			@apply w-full flex flex-col flex-nowrap gap-0 border bg-white border-neutral-300 rounded-lg overflow-hidden transition hover:border-primary-300 hover:shadow-md;
 
 			/* Category card */
 			&.product-category a {
@@ -90,7 +90,7 @@
 					@apply overflow-hidden relative shrink-0;
 
 					img {
-						@apply w-16 h-16 lg:w-24 lg:h-24 aspect-square object-cover transition overflow-hidden group-hover:scale-115 group-active:scale-115 group-focus:scale-115;
+						@apply w-16 h-16 lg:w-24 lg:h-24 aspect-square object-cover transition overflow-hidden duration-300 group-hover:scale-105;
 					}
 				}
 
@@ -111,7 +111,7 @@
 					@apply overflow-hidden relative;
 
 					img {
-						@apply aspect-square object-cover w-full transition overflow-hidden group-hover:scale-115 group-active:scale-115 group-focus:scale-115;
+						@apply aspect-square object-cover w-full transition overflow-hidden duration-300 group-hover:scale-105;
 					}
 
 					.onsale {
@@ -170,7 +170,7 @@
 			}
 
 			.button {
-				@apply bg-primary-900 text-background hover:bg-primary-950 hover:text-background hover:ring-4 hover:ring-primary-100 active:bg-primary-950 active:text-background active:ring-4 active:ring-primary-100 focus:bg-primary-950 focus:text-background focus:ring-4 focus:ring-primary-100 disabled:opacity-50 disabled:cursor-not-allowed;
+				@apply bg-primary-900 text-background hover:bg-primary-950 hover:text-background hover:ring-4 hover:ring-primary-100 active:bg-primary-950 active:text-background active:ring-4 active:ring-primary-100 focus-visible:bg-primary-950 focus-visible:text-background focus-visible:ring-4 focus-visible:ring-primary-100 disabled:opacity-50 disabled:cursor-not-allowed;
 
 				&.loading {
 					@apply opacity-70 cursor-wait inline-flex items-center justify-center gap-2;
@@ -183,7 +183,7 @@
 			}
 
 			.added_to_cart {
-				@apply bg-secondary-800 text-background hover:bg-secondary-900 hover:ring-4 hover:ring-secondary-100 active:bg-secondary-900 active:ring-4 active:ring-secondary-100 focus:bg-secondary-900 focus:ring-4 focus:ring-secondary-100 hidden;
+				@apply bg-secondary-800 text-background hover:bg-secondary-900 hover:ring-4 hover:ring-secondary-100 active:bg-secondary-900 active:ring-4 active:ring-secondary-100 focus-visible:bg-secondary-900 focus-visible:ring-4 focus-visible:ring-secondary-100 hidden;
 			}
 
 			.stock.coming-soon {
@@ -251,7 +251,7 @@
 	}
 
 	.woocommerce-product-gallery__trigger {
-		@apply right-2.5 top-2.5 w-10 h-10 flex justify-center items-center bg-background rounded-lg shadow-sm transition hover:bg-neutral-100 active:bg-neutral-100 active:scale-90 focus:bg-neutral-100 focus-visible:outline-2 focus-visible:outline-primary-700 focus-visible:outline-offset-2;
+		@apply right-2.5 top-2.5 w-10 h-10 flex justify-center items-center bg-background rounded-lg shadow-sm transition hover:bg-neutral-100 active:bg-neutral-100 active:scale-[0.97] focus-visible:bg-neutral-100 focus-visible:outline-2 focus-visible:outline-primary-700 focus-visible:outline-offset-2;
 	}
 
 	.woocommerce-product-gallery {
@@ -263,7 +263,7 @@
 
 		.swiper-button-prev,
 		.swiper-button-next {
-			@apply w-12 h-12 bg-primary text-background p-2 hover:bg-primary-950 active:bg-primary-950 active:scale-90 focus:bg-primary-950 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-background transition;
+			@apply w-12 h-12 bg-primary text-background p-2 hover:bg-primary-950 active:bg-primary-950 active:scale-[0.97] focus-visible:bg-primary-950 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-background transition;
 
 			.swiper-navigation-icon {
 				@apply w-6 h-6;
@@ -450,7 +450,7 @@
 					@apply flex flex-wrap gap-2.5;
 
 					.pill-swatch {
-						@apply cursor-pointer rounded-full font-medium px-6.5 py-2 border-2 border-neutral-300 text-secondary bg-white transition hover:bg-secondary-100 active:bg-secondary-100 focus:bg-secondary-100;
+						@apply cursor-pointer rounded-full font-medium px-6.5 py-2 border-2 border-neutral-300 text-secondary bg-white transition hover:bg-secondary-100 active:bg-secondary-100 focus-visible:bg-secondary-100;
 
 						&.active {
 							@apply bg-secondary-900 border-secondary-900 text-background;
@@ -472,7 +472,7 @@
 			@apply border-t border-t-neutral-300/75 mt-5 pt-5 flex flex-col gap-1 w-full;
 
 			a {
-				@apply underline font-medium transition hover:text-primary-900 active:text-primary-900 focus:text-primary-900;
+				@apply underline font-medium transition hover:text-primary-900 active:text-primary-900 focus-visible:text-primary-900;
 			}
 		}
 

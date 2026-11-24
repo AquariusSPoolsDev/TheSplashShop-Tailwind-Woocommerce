@@ -12,7 +12,7 @@
 	@apply my-0;
 
 	.yith-wcwl-add-to-wishlist-button {
-		@apply h-14 px-6 font-semibold border-2 transition border-secondary text-secondary rounded-lg hover:bg-secondary-100 active:bg-secondary-100 active:scale-[0.97] focus:bg-secondary-100;
+		@apply h-14 px-6 font-semibold border-2 transition border-secondary text-secondary rounded-lg hover:bg-secondary-100 active:bg-secondary-100 active:scale-[0.97] focus-visible:bg-secondary-100;
 	}
 }
 
@@ -103,11 +103,11 @@
 							@apply inline-flex! px-3 py-1 border-2 font-normal bg-transparent transition rounded-lg! mb-0!;
 
 							&.add_to_cart {
-								@apply text-primary-900 border-primary-900 hover:bg-primary-100 focus:bg-primary-100 active:bg-primary-100;
+								@apply text-primary-900 border-primary-900 hover:bg-primary-100 focus-visible:bg-primary-100 active:bg-primary-100;
 							}
 
 							&.remove_from_wishlist {
-								@apply text-error-700 border-error-700 hover:bg-error-100 focus:bg-error-100 active:bg-error-100;
+								@apply text-error-700 border-error-700 hover:bg-error-100 focus-visible:bg-error-100 active:bg-error-100;
 							}
 						}
 					}
@@ -197,11 +197,11 @@
 								}
 
 								a.add_to_cart {
-									@apply inline-flex! px-4 py-1 text-primary-900 border-2 border-primary-900 bg-transparent transition rounded-lg! hover:bg-primary-100 focus:bg-primary-100 active:bg-primary-100;
+									@apply inline-flex! px-4 py-1 text-primary-900 border-2 border-primary-900 bg-transparent transition rounded-lg! hover:bg-primary-100 focus-visible:bg-primary-100 active:bg-primary-100;
 								}
 
 								a.remove_from_wishlist {
-									@apply inline-flex! text-error-700 underline! text-sm underline-offset-4 transition hover:no-underline! active:no-underline! focus:no-underline!;
+									@apply inline-flex! text-error-700 underline! text-sm underline-offset-4 transition hover:no-underline! active:no-underline! focus-visible:no-underline!;
 								}
 							}
 						}

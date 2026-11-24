@@ -7,7 +7,7 @@
 button.button,
 a.button,
 input[type="submit"] {
-	@apply bg-primary-900 text-background font-semibold cursor-pointer text-base transition hover:bg-primary-950 hover:text-background active:bg-primary-950 active:text-background active:scale-[0.97] focus:bg-primary-950 focus:text-background rounded-lg h-14;
+	@apply bg-primary-900 text-background font-semibold cursor-pointer text-base transition hover:bg-primary-950 hover:text-background active:bg-primary-950 active:text-background active:scale-[0.97] focus-visible:bg-primary-950 focus-visible:text-background rounded-lg h-14;
 
 	&:disabled,
 	&.disabled {
@@ -56,7 +56,7 @@ label { @apply font-semibold; }
 	}
 
 	.qty-btn {
-		@apply w-12 h-full border-0 cursor-pointer font-semibold text-2xl text-neutral-700 flex items-center justify-center transition bg-white hover:bg-secondary-100 hover:text-secondary active:bg-secondary-100 active:text-secondary focus:bg-secondary-100 focus:text-secondary;
+		@apply w-12 h-full border-0 cursor-pointer font-semibold text-2xl text-neutral-700 flex items-center justify-center transition bg-white hover:bg-secondary-100 hover:text-secondary active:bg-secondary-100 active:text-secondary focus-visible:bg-secondary-100 focus-visible:text-secondary;
 	}
 }
 
@@ -69,7 +69,7 @@ label { @apply font-semibold; }
 	}
 
 	.show-password-input {
-		@apply absolute right-2 top-1/2 -translate-y-1/2 w-10 h-10 border-none bg-none p-0 cursor-pointer flex items-center justify-center rounded-full transition hover:bg-secondary-100 active:bg-secondary-100 focus:bg-secondary-100 focus-visible:outline-2 focus-visible:outline-primary-700 focus-visible:outline-offset-2;
+		@apply absolute right-2 top-1/2 -translate-y-1/2 w-10 h-10 border-none bg-none p-0 cursor-pointer flex items-center justify-center rounded-full transition hover:bg-secondary-100 active:bg-secondary-100 focus-visible:bg-secondary-100 focus-visible:outline-2 focus-visible:outline-primary-700 focus-visible:outline-offset-2;
 
 		&::after {
 			@apply content-[''] w-6 h-6 block bg-neutral-700;

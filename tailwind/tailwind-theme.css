@@ -110,6 +110,12 @@
 	--color-whatsapp: #075E54;
 	--color-whatsapp-hover: #128C7E;
 
+	/* -------- MOTION -------- */
+	/* Strong ease-out for UI feedback (replaces Tailwind's soft default); drawer curve for sheets. */
+	--ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+	--ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+	--default-transition-timing-function: cubic-bezier(0.23, 1, 0.32, 1);
+
 	/* -------- FONTS -------- */
 	--font-headings: "DM Sans", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 	--font-body: "DM Sans", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
