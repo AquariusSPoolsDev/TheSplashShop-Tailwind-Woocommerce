@@ -106,6 +106,9 @@
 	--color-button-primary: var(--color-primary-900);
 	--color-button-primary-hover: var(--color-primary-950);
 	--color-button-secondary-border: var(--color-secondary-300);
+	/* WhatsApp brand greens (white text on whatsapp = 7.5:1). */
+	--color-whatsapp: #075E54;
+	--color-whatsapp-hover: #128C7E;
 
 	/* -------- FONTS -------- */
 	--font-headings: "Manrope", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";

@@ -127,12 +127,17 @@
 			.shopchop-wishlist-wrapper {
 				@apply hidden lg:block;
 
+				/* Same pattern as the cart and account triggers: icon + label. */
 				.shopchop-wishlist-btn {
-					@apply w-12 h-12 rounded-full border-neutral-300 border-2 flex items-center justify-center transition hover:bg-secondary-100 active:bg-secondary-100 active:scale-90 focus:bg-secondary-100;
+					@apply flex items-center gap-3 cursor-pointer transition underline-offset-4 hover:text-primary-900 hover:underline focus:text-primary-900 focus:underline;
 				}
 
 				.wishlist-icon {
-					@apply w-6 h-6 text-primary-900;
+					@apply w-6 h-6;
+				}
+
+				.wishlist-label {
+					@apply text-sm font-medium block;
 				}
 			}
 

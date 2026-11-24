@@ -36,6 +36,11 @@
 		@apply underline! underline-offset-4 transition hover:no-underline! active:no-underline! focus:no-underline!;
 	}
 
+	/* Menu and widget list links: at least 24px tall (WCAG 2.5.8); inline text links stay inline. */
+	li > a {
+		@apply inline-block py-0.5;
+	}
+
 	.legal-copyright {
 		ul.menu {
 			@apply flex-row justify-center lg:justify-start;
