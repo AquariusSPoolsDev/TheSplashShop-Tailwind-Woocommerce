@@ -11,7 +11,7 @@
 	}
 
 	.error-404-heading {
-		@apply text-2xl md:text-3xl lg:text-4xl font-medium text-primary-900 mb-5;
+		@apply text-2xl md:text-3xl lg:text-4xl font-medium text-primary-900 mb-6;
 	}
 
 	.error-404-buttons {
@@ -44,10 +44,10 @@
 }
 
 /**
- * Space out WooCommerce shortcode wrappers (checkout, cart, my-account)
- * when they render directly below the page's entry-header.
+ * The title has no bottom margin, so whatever follows the page header
+ * (content, featured image, WooCommerce wrapper) brings its own gap.
  */
-.entry-header + [class*="woocommerce"] {
+.entry-header + * {
 	@apply mt-6;
 }
 
