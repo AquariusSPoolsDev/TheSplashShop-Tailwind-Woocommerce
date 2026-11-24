@@ -1275,6 +1275,7 @@
 			const $input = $wrapper.find('.shopchop-search-input');
 			const $catSelect = $wrapper.find('.shopchop-cat-select');
 			const $results = $wrapper.find('.shopchop-search-results');
+			const $status = $wrapper.find('.shopchop-search-status');
 			if (!$input.length) return;
 
 			// ── Load categories ───────────────────────────────────────────
@@ -1335,6 +1336,12 @@
 						if (!response.success) return;
 						const { products } = response.data;
 
+						$status.text(
+							products.length
+								? `${products.length} ${products.length === 1 ? 'result' : 'results'}`
+								: 'No results found'
+						);
+
 						if (!products.length) {
 							$results.html(
 								'<div class="no-results">No results found</div>'
@@ -1347,10 +1354,10 @@
 								const title = Utils.escapeHtml(p.title);
 								const url = Utils.escapeHtml(p.url);
 								const img = p.image
-									? `<img src="${Utils.escapeHtml(p.image)}" alt="${title}">`
+									? `<img src="${Utils.escapeHtml(p.image)}" alt="">`
 									: '';
 								return `
-                                <div class="search-result-item" role="option" aria-label="${title}">
+                                <div class="search-result-item">
                                     <a href="${url}">
                                         <div class="result-image">${img}</div>
                                         <div class="result-details">
@@ -1784,26 +1791,20 @@
 				const $target = $(`#${$heading.data('target')}`);
 				const wasOpen = $target.hasClass('is-open');
 
-				// Close all panels first
+				// Close all panels first; closed panels stay out of the tab order.
 				$('.wc-toggle-form, .wc-toggle-heading').removeClass('is-open');
 				$('.wc-toggle-heading').attr('aria-expanded', 'false');
+				$('.wc-toggle-form').prop('inert', true);
 
 				// Re-open the clicked one if it was previously closed
 				if (!wasOpen) {
-					$target.addClass('is-open');
+					$target.addClass('is-open').prop('inert', false);
 					$heading.addClass('is-open').attr('aria-expanded', 'true');
 				}
 			};
 
 			$(document).on('click', '.wc-toggle-heading', function () {
 				toggle($(this));
-			});
-
-			$(document).on('keydown', '.wc-toggle-heading', function (e) {
-				if (e.key === 'Enter' || e.key === ' ') {
-					e.preventDefault();
-					toggle($(this));
-				}
 			});
 		},
 	};

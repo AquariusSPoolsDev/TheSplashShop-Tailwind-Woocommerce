@@ -152,3 +152,12 @@ function shopchop_add_next_steps( $order_id ) {
 	</section>
 	<?php
 }
+
+/**
+ * Checkout coupon notice: the link's visible text is its name (core pairs
+ * "Click here to enter your code" with a different aria-label).
+ */
+function shopchop_checkout_coupon_message() {
+	return esc_html__( 'Have a coupon?', 'woocommerce' ) . ' <a href="#" role="button" aria-controls="woocommerce-checkout-form-coupon" aria-expanded="false" class="showcoupon">' . esc_html__( 'Enter your coupon code', 'woocommerce' ) . '</a>';
+}
+add_filter( 'woocommerce_checkout_coupon_message', 'shopchop_checkout_coupon_message' );

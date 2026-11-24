@@ -15,7 +15,7 @@
 	}
 
 	.wc-toggle-heading {
-		@apply flex items-center justify-between text-2xl font-bold cursor-pointer select-none;
+		@apply flex w-full items-center justify-between text-left text-2xl font-bold cursor-pointer select-none rounded-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-900;
 
 		.wc-toggle-indicator {
 			@apply transition-[transform] duration-300 ease-in-out;

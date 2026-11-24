@@ -54,8 +54,9 @@ $is_minimal_page = is_checkout() || is_wc_endpoint_url('order-received') || (is_
 							</button>
 
 							<!-- Mobile Cart -->
-							<button id="mobile-cart-toggle" class="shopchop-menu-item" aria-expanded="false" aria-controls="mobile-mini-cart" aria-label="<?php esc_attr_e( 'Cart', 'shopchop' ); ?>">
+							<button id="mobile-cart-toggle" class="shopchop-menu-item" aria-expanded="false" aria-controls="mobile-mini-cart">
 								<?php echo do_shortcode('[shopchop_mobile_cart_icon_display]'); ?>
+								<span class="sr-only"><?php esc_html_e( 'Cart', 'shopchop' ); ?>, <?php echo shopchop_cart_items_count_html(); ?></span>
 							</button>
 
 							<!-- Mobile Menu Hamburger -->
@@ -88,8 +89,8 @@ $is_minimal_page = is_checkout() || is_wc_endpoint_url('order-received') || (is_
 
 							<!-- Account Control -->
 							<div class="shopchop-account-wrapper">
-								<a href="<?php echo esc_url(wc_get_account_endpoint_url('dashboard')); ?>" class="shopchop-account-trigger" aria-label="Account Menu" aria-expanded="false">
-									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256" class="user-icon"><path d="M230.92,212c-15.23-26.33-38.7-45.21-66.09-54.16a72,72,0,1,0-73.66,0C63.78,166.78,40.31,185.66,25.08,212a8,8,0,1,0,13.85,8c18.84-32.56,52.14-52,89.07-52s70.23,19.44,89.07,52a8,8,0,1,0,13.85-8ZM72,96a56,56,0,1,1,56,56A56.06,56.06,0,0,1,72,96Z"></path></svg>
+								<a href="<?php echo esc_url(wc_get_account_endpoint_url('dashboard')); ?>" class="shopchop-account-trigger" aria-expanded="false">
+									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256" class="user-icon" aria-hidden="true"><path d="M230.92,212c-15.23-26.33-38.7-45.21-66.09-54.16a72,72,0,1,0-73.66,0C63.78,166.78,40.31,185.66,25.08,212a8,8,0,1,0,13.85,8c18.84-32.56,52.14-52,89.07-52s70.23,19.44,89.07,52a8,8,0,1,0,13.85-8ZM72,96a56,56,0,1,1,56,56A56.06,56.06,0,0,1,72,96Z"></path></svg>
 									<span class="account-label">
 										<?php
 										if ($is_logged_in) {
@@ -172,7 +173,6 @@ $is_minimal_page = is_checkout() || is_wc_endpoint_url('order-received') || (is_
 					<!-- Menu Bar Row -->
 					<div class="menu-bar-row">
 						<nav id="site-navigation" aria-label="<?php esc_attr_e('Main Navigation', 'shopchop'); ?>">
-							<button class="sr-only" aria-controls="main-header-menu-primary" aria-expanded="false"><?php esc_html_e('Primary Menu', 'shopchop'); ?></button>
 
 							<?php
 							wp_nav_menu(

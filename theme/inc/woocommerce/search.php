@@ -194,18 +194,21 @@ function shopchop_search_bar_shortcode( $atts ) {
 	$select_id = 'shopchop-cat-select__'   . esc_attr( $atts['context'] );
 
 	ob_start(); ?>
-	<div class="shopchop-search-wrapper">
+	<div class="shopchop-search-wrapper" role="search">
 		<div class="shopchop-search-bar">
 			<svg class="shopchop-search-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 256 256" aria-hidden="true"><path d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"></path></svg>
-			<input type="text" class="shopchop-search-input" id="<?php echo $input_id; ?>" placeholder="Search products" autocomplete="off">
+			<label class="sr-only" for="<?php echo $input_id; ?>"><?php esc_html_e( 'Search products', 'shopchop' ); ?></label>
+			<input type="search" class="shopchop-search-input" id="<?php echo $input_id; ?>" placeholder="Search products" autocomplete="off">
 			<button type="button" class="shopchop-search-clear" aria-label="<?php esc_attr_e( 'Clear search', 'shopchop' ); ?>">
 				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 256 256" aria-hidden="true"><path d="M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z"></path></svg>
 			</button>
+			<label class="sr-only" for="<?php echo $select_id; ?>"><?php esc_html_e( 'Category', 'shopchop' ); ?></label>
 			<select class="shopchop-cat-select" id="<?php echo $select_id; ?>">
 				<option value="all">All Products</option>
 			</select>
 		</div>
-		<div class="shopchop-search-results" role="listbox" aria-label="<?php esc_attr_e( 'Search results', 'shopchop' ); ?>" style="display:none;"></div>
+		<div class="shopchop-search-results" style="display:none;"></div>
+		<p class="shopchop-search-status sr-only" role="status"></p>
 	</div>
 	<?php return ob_get_clean();
 }

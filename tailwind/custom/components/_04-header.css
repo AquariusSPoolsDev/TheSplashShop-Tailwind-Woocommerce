@@ -381,7 +381,7 @@
 				> a {
 					@apply lg:flex lg:items-center lg:gap-2 lg:px-5 lg:py-3.5 lg:font-medium lg:text-secondary-800;
 					@apply lg:transition;
-					@apply lg:hover:bg-primary-100/60 lg:hover:text-primary-900;
+					@apply lg:hover:bg-primary-50 lg:hover:text-primary-900;
 				}
 
 				/* Active / current page indicator */
@@ -389,7 +389,7 @@
 				&.current_page_item > a,
 				&.current-menu-ancestor > a,
 				&.current-menu-parent > a {
-					@apply lg:bg-primary-100/60 lg:text-primary-900 lg:font-semibold lg:border-b-2 lg:border-primary-900;
+					@apply lg:bg-primary-50 lg:text-primary-900 lg:font-semibold lg:border-b-2 lg:border-primary-900;
 				}
 
 				/* Sub-menu parent — chevron */
@@ -760,4 +760,9 @@
 			}
 		}
 	}
+}
+
+/* The search bar has its own clear button; hide the native one on type="search". */
+.shopchop-search-input::-webkit-search-cancel-button {
+	appearance: none;
 }

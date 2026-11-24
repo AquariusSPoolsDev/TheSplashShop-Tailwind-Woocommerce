@@ -21,6 +21,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 do_action( 'woocommerce_before_customer_login_form' ); ?>
 
+<h1 class="sr-only"><?php esc_html_e( 'My account', 'woocommerce' ); ?></h1>
+
 <?php if ( 'yes' === get_option( 'woocommerce_enable_myaccount_registration' ) ) : ?>
 
 <div class="wc-cols-set" id="customer_login">
@@ -29,19 +31,21 @@ do_action( 'woocommerce_before_customer_login_form' ); ?>
 
 	<div class="wc-col-login">
 
-		<h2 class="wc-toggle-heading is-open" data-target="wc-login-form" style="cursor:pointer;" role="button" tabindex="0" aria-expanded="true" aria-controls="wc-login-form">
+		<h2 class="wc-toggle-title"><button type="button" class="wc-toggle-heading is-open" data-target="wc-login-form" aria-expanded="true" aria-controls="wc-login-form">
 			<?php esc_html_e( 'Log in to', 'woocommerce' ); echo ' ' . esc_html( get_bloginfo( 'name' ) ); ?>
-			<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256" class="wc-toggle-indicator"><path d="M181.66,133.66l-80,80a8,8,0,0,1-11.32-11.32L164.69,128,90.34,53.66a8,8,0,0,1,11.32-11.32l80,80A8,8,0,0,1,181.66,133.66Z"></path></svg>
-		</h2>
+			<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256" class="wc-toggle-indicator" aria-hidden="true"><path d="M181.66,133.66l-80,80a8,8,0,0,1-11.32-11.32L164.69,128,90.34,53.66a8,8,0,0,1,11.32-11.32l80,80A8,8,0,0,1,181.66,133.66Z"></path></svg>
+		</button></h2>
 
 		<div id="wc-login-form" class="wc-toggle-form is-open">
 			<form class="woocommerce-form woocommerce-form-login login wc-myaccount-form-login" method="post" novalidate>
 
 				<?php do_action( 'woocommerce_login_form_start' ); ?>
 
-				<?php echo do_shortcode( '[nextend_social_login provider="google" align="center" style="fullwidth"]' ); ?>
+				<?php if ( shortcode_exists( 'nextend_social_login' ) ) : ?>
+					<?php echo do_shortcode( '[nextend_social_login provider="google" align="center" style="fullwidth"]' ); ?>
 
-				<div class="wc-form-divider" role="separator"><span><?php esc_html_e( 'or', 'shopchop' ); ?></span></div>
+					<div class="wc-form-divider" role="separator"><span><?php esc_html_e( 'or', 'shopchop' ); ?></span></div>
+				<?php endif; ?>
 
 				<p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
 					<label for="username"><?php esc_html_e( 'Email address', 'woocommerce' ); ?>&nbsp;<span class="required" aria-hidden="true">*</span><span class="screen-reader-text"><?php esc_html_e( 'Required', 'woocommerce' ); ?></span></label>
@@ -82,19 +86,21 @@ do_action( 'woocommerce_before_customer_login_form' ); ?>
 
 	<div class="wc-col-register">
 
-		<h2 class="wc-toggle-heading" data-target="wc-register-form" style="cursor:pointer;" role="button" tabindex="0" aria-expanded="false" aria-controls="wc-register-form">
+		<h2 class="wc-toggle-title"><button type="button" class="wc-toggle-heading" data-target="wc-register-form" aria-expanded="false" aria-controls="wc-register-form">
 			<?php esc_html_e( 'Create an account', 'woocommerce' ); ?>
-			<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256" class="wc-toggle-indicator"><path d="M181.66,133.66l-80,80a8,8,0,0,1-11.32-11.32L164.69,128,90.34,53.66a8,8,0,0,1,11.32-11.32l80,80A8,8,0,0,1,181.66,133.66Z"></path></svg>
-		</h2>
+			<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256" class="wc-toggle-indicator" aria-hidden="true"><path d="M181.66,133.66l-80,80a8,8,0,0,1-11.32-11.32L164.69,128,90.34,53.66a8,8,0,0,1,11.32-11.32l80,80A8,8,0,0,1,181.66,133.66Z"></path></svg>
+		</button></h2>
 
-		<div id="wc-register-form" class="wc-toggle-form">
+		<div id="wc-register-form" class="wc-toggle-form" inert>
 			<form method="post" class="woocommerce-form woocommerce-form-register register" <?php do_action( 'woocommerce_register_form_tag' ); ?> >
 
 				<?php do_action( 'woocommerce_register_form_start' ); ?>
 
-				<?php echo do_shortcode( '[nextend_social_login provider="google" align="center" style="fullwidth"]' ); ?>
+				<?php if ( shortcode_exists( 'nextend_social_login' ) ) : ?>
+					<?php echo do_shortcode( '[nextend_social_login provider="google" align="center" style="fullwidth"]' ); ?>
 
-				<div class="wc-form-divider" role="separator"><span><?php esc_html_e( 'or', 'shopchop' ); ?></span></div>
+					<div class="wc-form-divider" role="separator"><span><?php esc_html_e( 'or', 'shopchop' ); ?></span></div>
+				<?php endif; ?>
 
 				<?php if ( 'no' === get_option( 'woocommerce_registration_generate_username' ) ) : ?>
 
