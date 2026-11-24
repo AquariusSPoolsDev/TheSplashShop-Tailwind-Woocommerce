@@ -18,6 +18,13 @@ a {
 	@apply no-underline!;
 }
 
+/* Equal-width digits so prices, totals and counts align and don't shift when they update. */
+.woocommerce-Price-amount,
+input.qty,
+.cart-count-badge {
+	@apply tabular-nums;
+}
+
 /* Global keyboard focus indicator — WCAG 2.1 AA */
 :focus-visible {
 	@apply outline-2 outline-offset-2 outline-primary;

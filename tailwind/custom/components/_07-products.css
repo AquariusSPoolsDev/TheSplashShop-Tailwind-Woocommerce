@@ -6,7 +6,7 @@
 
 /* Pre-order badge — shown on order item names (frontend order pages, emails) */
 .preorder-badge {
-	@apply inline-block bg-info-100 text-info-700 text-[0.7rem] font-bold px-1.5 py-px rounded align-middle ml-1.5;
+	@apply inline-block bg-info-100 text-info-700 text-xs font-bold px-1.5 py-px rounded align-middle ml-1.5;
 }
 
 /* Archive sorting/result count bar */
