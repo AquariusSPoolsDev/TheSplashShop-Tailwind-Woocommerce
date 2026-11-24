@@ -216,12 +216,13 @@
 	}
 
 	/* Single Product Layout */
+	/* Two even columns from tablet up; the gallery stays in view while the buy box scrolls. */
 	.product.type-product {
-		@apply flex flex-wrap gap-6 lg:gap-8 relative;
+		@apply flex flex-wrap gap-6 md:gap-x-8 lg:gap-x-12 lg:gap-y-12 relative;
 	}
 
 	.woocommerce-product-gallery {
-		@apply relative w-full lg:w-[calc(35%-2rem)];
+		@apply relative w-full md:w-[calc(50%-1rem)] lg:w-[calc(50%-1.5rem)] md:sticky md:top-8 md:self-start;
 	}
 
 	.onsale,
@@ -243,7 +244,7 @@
 	}
 
 	.woocommerce-product-gallery {
-		@apply flex flex-col gap-4 relative;
+		@apply flex flex-col gap-4;
 	}
 
 	.splashshop-gallery-main {
@@ -292,10 +293,10 @@
 
 	/* Single Product Summary */
 	.summary.entry-summary {
-		@apply grow w-full lg:w-[calc(65%-2rem)] lg:pl-16 flex flex-wrap content-start;
+		@apply grow w-full md:w-[calc(50%-1rem)] lg:w-[calc(50%-1.5rem)] flex flex-wrap content-start;
 
 		.product_title {
-			@apply text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold tracking-tight mb-4 grow;
+			@apply text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight leading-tight text-balance mb-4 grow;
 		}
 
 		.woocommerce-product-rating {
