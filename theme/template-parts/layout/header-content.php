@@ -89,7 +89,7 @@ $is_minimal_page = is_checkout() || is_wc_endpoint_url('order-received') || (is_
 
 							<!-- Account Control -->
 							<div class="shopchop-account-wrapper">
-								<a href="<?php echo esc_url(wc_get_account_endpoint_url('dashboard')); ?>" class="shopchop-account-trigger" aria-expanded="false">
+								<a href="<?php echo esc_url(wc_get_account_endpoint_url('dashboard')); ?>" class="shopchop-account-trigger">
 									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256" class="user-icon" aria-hidden="true"><path d="M230.92,212c-15.23-26.33-38.7-45.21-66.09-54.16a72,72,0,1,0-73.66,0C63.78,166.78,40.31,185.66,25.08,212a8,8,0,1,0,13.85,8c18.84-32.56,52.14-52,89.07-52s70.23,19.44,89.07,52a8,8,0,1,0,13.85-8ZM72,96a56,56,0,1,1,56,56A56.06,56.06,0,0,1,72,96Z"></path></svg>
 									<span class="account-label">
 										<?php
@@ -191,9 +191,9 @@ $is_minimal_page = is_checkout() || is_wc_endpoint_url('order-received') || (is_
 			</div><!-- container end -->
 
 <!-- Mobile Search Bar -->
-<div id="mobile-search">
+<div id="mobile-search" role="dialog" aria-modal="true" aria-labelledby="mobile-search-title">
 	<div class="mobile-search-header">
-		<h3 class=""><?php esc_html_e( 'Search Items', 'shopchop' ); ?></h3>
+		<h3 id="mobile-search-title"><?php esc_html_e( 'Search Items', 'shopchop' ); ?></h3>
 		<button id="search-close" aria-label="<?php esc_attr_e('Close search', 'shopchop'); ?>">
 			<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256" aria-hidden="true"><path d="M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z"></path></svg>
 		</button>
@@ -204,14 +204,14 @@ $is_minimal_page = is_checkout() || is_wc_endpoint_url('order-received') || (is_
 </div>
 
 <!-- Mobile Cart Display -->
-<div id="mobile-mini-cart">
+<div id="mobile-mini-cart" role="dialog" aria-modal="true" aria-labelledby="mobile-cart-title">
 	<?php echo do_shortcode('[shopchop_mobile_cart_details_display]'); ?>
 </div>
 
 <!-- Account Controls & Main Menus -->
-<div id="mobile-panel">
+<div id="mobile-panel" role="dialog" aria-modal="true" aria-labelledby="mobile-panel-title">
 	<div class="mobile-panel-header">
-		<h3 class=""><?php esc_html_e( 'Menu', 'shopchop' ); ?></h3>
+		<h3 id="mobile-panel-title"><?php esc_html_e( 'Menu', 'shopchop' ); ?></h3>
 		<button id="menu-close" aria-label="<?php esc_attr_e('Close menu', 'shopchop'); ?>">
 			<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256" aria-hidden="true"><path d="M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z"></path></svg>
 		</button>

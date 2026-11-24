@@ -143,16 +143,15 @@
 		let hoverTimer;
 		let isHovering = false;
 
+		// Hover preview only: the trigger is a plain link to the full page, so no aria-expanded.
 		function show() {
 			if (onShow) onShow();
 			dropdown.fadeIn(200);
-			trigger.attr('aria-expanded', 'true');
 			wrapper.addClass('dropdown-active');
 		}
 
 		function hide() {
 			dropdown.fadeOut(200);
-			trigger.attr('aria-expanded', 'false');
 			wrapper.removeClass('dropdown-active');
 		}
 
@@ -1525,8 +1524,27 @@
 			// Closed drawers sit off-screen; inert keeps them out of the tab order and screen readers.
 			[searchDrawer, cartDrawer, menuDrawer].forEach((el) => el && (el.inert = true));
 
+			// While a drawer is open, everything outside it is inert (siblings up to <body>), so
+			// screen-reader swipes can't leave it. The backdrop stays live for tap-to-close and live
+			// regions stay live for cart announcements.
+			let outside = [];
+			const isolate = (el) => {
+				for (let node = el; node.parentElement && node !== document.body; node = node.parentElement) {
+					for (const sib of node.parentElement.children) {
+						if (sib === node || sib === backdrop || sib.inert || sib.tagName === 'SCRIPT' || sib.matches('[aria-live], .widget_shopping_cart_live_region')) continue;
+						sib.inert = true;
+						outside.push(sib);
+					}
+				}
+			};
+			const release = () => {
+				outside.forEach((n) => (n.inert = false));
+				outside = [];
+			};
+
 			const openDrawer = (el, classToRemove) => {
 				el.inert = false;
+				isolate(el);
 				el.classList.add('open');
 				el.classList.remove(classToRemove);
 				backdrop.classList.add('open');
@@ -1535,6 +1553,7 @@
 			};
 
 			const closeDrawer = (el, classToAdd) => {
+				release();
 				el.inert = true;
 				el.classList.remove('open');
 				el.classList.add(classToAdd);
