@@ -23,6 +23,13 @@ do_action( 'woocommerce_before_customer_login_form' ); ?>
 
 <h1 class="sr-only"><?php esc_html_e( 'My account', 'woocommerce' ); ?></h1>
 
+<?php
+// Social login only when Nextend is active AND renders a button (provider configured).
+$shopchop_social_login = shortcode_exists( 'nextend_social_login' )
+	? trim( do_shortcode( '[nextend_social_login provider="google" align="center" style="fullwidth"]' ) )
+	: '';
+?>
+
 <?php if ( 'yes' === get_option( 'woocommerce_enable_myaccount_registration' ) ) : ?>
 
 <div class="wc-cols-set" id="customer_login">
@@ -41,8 +48,8 @@ do_action( 'woocommerce_before_customer_login_form' ); ?>
 
 				<?php do_action( 'woocommerce_login_form_start' ); ?>
 
-				<?php if ( shortcode_exists( 'nextend_social_login' ) ) : ?>
-					<?php echo do_shortcode( '[nextend_social_login provider="google" align="center" style="fullwidth"]' ); ?>
+				<?php if ( $shopchop_social_login ) : ?>
+					<?php echo $shopchop_social_login; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 
 					<div class="wc-form-divider" role="separator"><span><?php esc_html_e( 'or', 'shopchop' ); ?></span></div>
 				<?php endif; ?>
@@ -96,8 +103,8 @@ do_action( 'woocommerce_before_customer_login_form' ); ?>
 
 				<?php do_action( 'woocommerce_register_form_start' ); ?>
 
-				<?php if ( shortcode_exists( 'nextend_social_login' ) ) : ?>
-					<?php echo do_shortcode( '[nextend_social_login provider="google" align="center" style="fullwidth"]' ); ?>
+				<?php if ( $shopchop_social_login ) : ?>
+					<?php echo $shopchop_social_login; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 
 					<div class="wc-form-divider" role="separator"><span><?php esc_html_e( 'or', 'shopchop' ); ?></span></div>
 				<?php endif; ?>
