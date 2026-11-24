@@ -54,13 +54,12 @@ function shopchop_override_address_fields( $fields ) {
 	// Autocomplete hint
 	$fields['first_name']['autocomplete'] = 'name';
 
-	// Placeholders (Malaysia-specific examples)
-	$fields['first_name']['placeholder'] = __( 'Name',                                   'woocommerce' );
-	$fields['address_1']['placeholder']  = __( '3, Jalan Pembangunan, Taman Perumahan',  'woocommerce' );
-	$fields['city']['placeholder']       = __( 'Johor Bahru',                            'woocommerce' );
-	$fields['postcode']['placeholder']        = __( '80000', 'woocommerce' );
-	$fields['phone']['placeholder']           = __( '+60123456789', 'woocommerce' );
-	$fields['email']['placeholder']           = __( 'mail@example.com', 'woocommerce' );
+	// Placeholders: "e.g." hints so they never read as pre-filled values. Name needs none (the label says it).
+	unset( $fields['first_name']['placeholder'] );
+	$fields['address_1']['placeholder']  = __( 'e.g. 3, Jalan Pembangunan', 'shopchop' );
+	$fields['city']['placeholder']       = __( 'e.g. Johor Bahru', 'shopchop' );
+	$fields['postcode']['placeholder']   = __( 'e.g. 80000', 'shopchop' );
+	$fields['phone']['placeholder']      = __( 'e.g. +60123456789', 'shopchop' );
 	$fields['postcode']['custom_attributes']  = [ 'maxlength' => '5', 'inputmode' => 'numeric', 'pattern' => '[0-9]{5}' ];
 	$fields['phone']['custom_attributes']     = [ 'inputmode' => 'tel' ];
 
@@ -75,6 +74,17 @@ function shopchop_override_address_fields( $fields ) {
  * @param array $fields Required account fields.
  * @return array Modified fields.
  */
+/**
+ * Email is a billing field, not a default address field, so its hint is set here.
+ */
+add_filter( 'woocommerce_billing_fields', 'shopchop_billing_email_placeholder' );
+function shopchop_billing_email_placeholder( $fields ) {
+	if ( isset( $fields['billing_email'] ) ) {
+		$fields['billing_email']['placeholder'] = __( 'e.g. you@example.com', 'shopchop' );
+	}
+	return $fields;
+}
+
 add_filter( 'woocommerce_save_account_details_required_fields', 'shopchop_remove_last_name_field' );
 function shopchop_remove_last_name_field( $fields ) {
 	unset( $fields['account_last_name'] );
