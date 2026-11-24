@@ -229,24 +229,24 @@ $is_minimal_page = is_checkout() || is_wc_endpoint_url('order-received') || (is_
 							<?php echo get_avatar( $current_user->ID, 40 ); ?>
 						</div>
 						<div class="account-details">
-							<h5 class="user-name"><?php echo esc_html( $current_user->display_name ) ?></h5>
+							<span class="user-name"><?php echo esc_html( $current_user->display_name ) ?></span>
 							<p class="user-actions"><?php esc_html_e( 'View my account', 'shopchop' ); ?></p>
 						</div>
 					<?php } else { ?>
 						<div class="account-image">
-							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256"><path d="M230.92,212c-15.23-26.33-38.7-45.21-66.09-54.16a72,72,0,1,0-73.66,0C63.78,166.78,40.31,185.66,25.08,212a8,8,0,1,0,13.85,8c18.84-32.56,52.14-52,89.07-52s70.23,19.44,89.07,52a8,8,0,1,0,13.85-8ZM72,96a56,56,0,1,1,56,56A56.06,56.06,0,0,1,72,96Z"></path></svg>
+							<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256"><path d="M230.92,212c-15.23-26.33-38.7-45.21-66.09-54.16a72,72,0,1,0-73.66,0C63.78,166.78,40.31,185.66,25.08,212a8,8,0,1,0,13.85,8c18.84-32.56,52.14-52,89.07-52s70.23,19.44,89.07,52a8,8,0,1,0,13.85-8ZM72,96a56,56,0,1,1,56,56A56.06,56.06,0,0,1,72,96Z"></path></svg>
 						</div>
 						<div class="account-details">
-							<h5 class="user-name"><?php esc_html_e( 'Log in or register', 'shopchop' ); ?></h5>
+							<span class="user-name"><?php esc_html_e( 'Log in or register', 'shopchop' ); ?></span>
 							<p class="user-actions"><?php esc_html_e( 'Access orders & account details', 'shopchop' ); ?></p>
 						</div>
 					<?php } ?>
 				</div>
-				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256"><path d="M181.66,133.66l-80,80a8,8,0,0,1-11.32-11.32L164.69,128,90.34,53.66a8,8,0,0,1,11.32-11.32l80,80A8,8,0,0,1,181.66,133.66Z"></path></svg>
+				<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256"><path d="M181.66,133.66l-80,80a8,8,0,0,1-11.32-11.32L164.69,128,90.34,53.66a8,8,0,0,1,11.32-11.32l80,80A8,8,0,0,1,181.66,133.66Z"></path></svg>
 			</a>
 		</div>
 		<div class="shopchop-menu-mobile">
-			<h5 class="menu-heading"><?php esc_html_e( 'Shop', 'shopchop' ); ?></h5>
+			<h4 class="menu-heading"><?php esc_html_e( 'Shop', 'shopchop' ); ?></h4>
 			<nav id="site-navigation-mobile" aria-label="<?php esc_attr_e('Mobile Navigation', 'shopchop'); ?>">
 
 				<?php
@@ -262,17 +262,17 @@ $is_minimal_page = is_checkout() || is_wc_endpoint_url('order-received') || (is_
 		</div>
 		<?php if ( is_user_logged_in() ) { ?>
 		<div class="shopchop-account-actions-mobile">
-			<h5 class="account-heading"><?php esc_html_e( 'Account', 'shopchop' ); ?></h5>
+			<h4 class="account-heading"><?php esc_html_e( 'Account', 'shopchop' ); ?></h4>
 			<a href="<?php echo esc_url(wc_get_account_endpoint_url('orders')); ?>" class="control-item">
-				<svg class="me-4 text-neutral-700" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256"><path d="M223.68,66.15,135.68,18a15.88,15.88,0,0,0-15.36,0l-88,48.17a16,16,0,0,0-8.32,14v95.64a16,16,0,0,0,8.32,14l88,48.17a15.88,15.88,0,0,0,15.36,0l88-48.17a16,16,0,0,0,8.32-14V80.18A16,16,0,0,0,223.68,66.15ZM128,32l80.34,44-29.77,16.3-80.35-44ZM128,120,47.66,76l33.9-18.56,80.34,44ZM40,90l80,43.78v85.79L40,175.82Zm176,85.78h0l-80,43.79V133.82l32-17.51V152a8,8,0,0,0,16,0V107.55L216,90v85.77Z"></path></svg>
+				<svg aria-hidden="true" class="me-4 text-neutral-700" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256"><path d="M223.68,66.15,135.68,18a15.88,15.88,0,0,0-15.36,0l-88,48.17a16,16,0,0,0-8.32,14v95.64a16,16,0,0,0,8.32,14l88,48.17a15.88,15.88,0,0,0,15.36,0l88-48.17a16,16,0,0,0,8.32-14V80.18A16,16,0,0,0,223.68,66.15ZM128,32l80.34,44-29.77,16.3-80.35-44ZM128,120,47.66,76l33.9-18.56,80.34,44ZM40,90l80,43.78v85.79L40,175.82Zm176,85.78h0l-80,43.79V133.82l32-17.51V152a8,8,0,0,0,16,0V107.55L216,90v85.77Z"></path></svg>
 				<?php esc_html_e( 'My Orders', 'shopchop' ); ?>
 			</a>
 			<a href="<?php echo esc_url(home_url('/wishlist')); ?>" class="control-item">
-				<svg class="me-4 text-neutral-700" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256"><path d="M178,40c-20.65,0-38.73,8.88-50,23.89C116.73,48.88,98.65,40,78,40a62.07,62.07,0,0,0-62,62c0,70,103.79,126.66,108.21,129a8,8,0,0,0,7.58,0C136.21,228.66,240,172,240,102A62.07,62.07,0,0,0,178,40ZM128,214.8C109.74,204.16,32,155.69,32,102A46.06,46.06,0,0,1,78,56c19.45,0,35.78,10.36,42.6,27a8,8,0,0,0,14.8,0c6.82-16.67,23.15-27,42.6-27a46.06,46.06,0,0,1,46,46C224,155.61,146.24,204.15,128,214.8Z"></path></svg>
+				<svg aria-hidden="true" class="me-4 text-neutral-700" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256"><path d="M178,40c-20.65,0-38.73,8.88-50,23.89C116.73,48.88,98.65,40,78,40a62.07,62.07,0,0,0-62,62c0,70,103.79,126.66,108.21,129a8,8,0,0,0,7.58,0C136.21,228.66,240,172,240,102A62.07,62.07,0,0,0,178,40ZM128,214.8C109.74,204.16,32,155.69,32,102A46.06,46.06,0,0,1,78,56c19.45,0,35.78,10.36,42.6,27a8,8,0,0,0,14.8,0c6.82-16.67,23.15-27,42.6-27a46.06,46.06,0,0,1,46,46C224,155.61,146.24,204.15,128,214.8Z"></path></svg>
 				<?php esc_html_e( 'Wishlist', 'shopchop' ); ?>
 			</a>
 			<a href="<?php echo esc_url(wp_logout_url(home_url())); ?>" class="control-item logout">
-				<svg class="me-4 text-error-700" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256"><path d="M120,216a8,8,0,0,1-8,8H48a8,8,0,0,1-8-8V40a8,8,0,0,1,8-8h64a8,8,0,0,1,0,16H56V208h56A8,8,0,0,1,120,216Zm109.66-93.66-40-40a8,8,0,0,0-11.32,11.32L204.69,120H112a8,8,0,0,0,0,16h92.69l-26.35,26.34a8,8,0,0,0,11.32,11.32l40-40A8,8,0,0,0,229.66,122.34Z"></path></svg>
+				<svg aria-hidden="true" class="me-4 text-error-700" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256"><path d="M120,216a8,8,0,0,1-8,8H48a8,8,0,0,1-8-8V40a8,8,0,0,1,8-8h64a8,8,0,0,1,0,16H56V208h56A8,8,0,0,1,120,216Zm109.66-93.66-40-40a8,8,0,0,0-11.32,11.32L204.69,120H112a8,8,0,0,0,0,16h92.69l-26.35,26.34a8,8,0,0,0,11.32,11.32l40-40A8,8,0,0,0,229.66,122.34Z"></path></svg>
 				<?php esc_html_e( 'Log Out', 'shopchop' ); ?>
 			</a>
 		</div>

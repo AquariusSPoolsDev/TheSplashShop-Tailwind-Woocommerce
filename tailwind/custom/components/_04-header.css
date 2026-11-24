@@ -82,7 +82,7 @@
 				}
 
 				.shopchop-cat-select {
-					@apply absolute p-0 pe-4 text-end w-max h-max right-4 top-1/2 -translate-y-1/2 border-0 ring-0;
+					@apply absolute p-0 pe-4 text-end w-max h-max min-h-8 right-4 top-1/2 -translate-y-1/2 border-0 ring-0;
 				}
 			}
 
@@ -166,6 +166,9 @@
 
 				.shopchop-cart-dropdown {
 					@apply absolute right-0 mt-2.5 top-full w-80 bg-white rounded-lg shadow-sm border border-neutral-300 z-50 max-h-80 overflow-y-auto;
+					@apply origin-top-right opacity-0 -translate-y-1 transition duration-150 ease-out;
+
+					&.is-open { @apply opacity-100 translate-y-0 duration-200; }
 
 					/* Narrow container — scale down the shared blockUI spinner/text so it doesn't overlap content */
 					.blockUI.blockOverlay {
@@ -289,6 +292,9 @@
 
 				.shopchop-account-dropdown {
 					@apply absolute right-0 mt-2.5 w-72 bg-white rounded-lg shadow-sm border border-neutral-300 z-50;
+					@apply origin-top-right opacity-0 -translate-y-1 transition duration-150 ease-out;
+
+					&.is-open { @apply opacity-100 translate-y-0 duration-200; }
 
 					.account-dropdown-content {
 						@apply p-0;
@@ -445,10 +451,10 @@
 
 	#backdrop {
 		@apply fixed inset-0 bg-black/40 opacity-0 pointer-events-none z-100;
-		transition: opacity 0.3s ease;
+		@apply transition-opacity duration-200 ease-out;
 
 		&.open {
-			@apply opacity-100 pointer-events-auto;
+			@apply opacity-100 pointer-events-auto duration-300;
 		}
 	}
 
@@ -461,9 +467,10 @@
 	}
 
 	#mobile-search {
-		@apply lg:hidden fixed inset-0 bg-white flex flex-col overflow-hidden z-200 -translate-y-full transition-transform duration-350 ease-in-out;
+		@apply lg:hidden fixed inset-0 bg-white flex flex-col overflow-hidden z-200 -translate-y-full transition-transform duration-200 ease-out;
 
-		&.open { @apply translate-y-0; }
+		/* Open on the drawer curve; close faster than it opens. */
+		&.open { @apply translate-y-0 duration-300 ease-drawer; }
 
 		.mobile-search-header {
 			@apply p-4 border-b border-b-neutral-300 flex justify-between;
@@ -504,7 +511,7 @@
 				}
 
 				.shopchop-cat-select {
-					@apply absolute p-0 pe-4 text-end w-max h-max right-4 top-1/2 -translate-y-1/2 border-0 ring-0;
+					@apply absolute p-0 pe-4 text-end w-max h-max min-h-8 right-4 top-1/2 -translate-y-1/2 border-0 ring-0;
 				}
 			}
 
@@ -545,9 +552,9 @@
 	}
 
 	#mobile-mini-cart {
-		@apply lg:hidden fixed bottom-0 left-0 right-0 max-h-[75vh] bg-white rounded-t-xl flex flex-col overflow-hidden z-200 translate-y-full transition-transform duration-350 ease-in-out;
+		@apply lg:hidden fixed bottom-0 left-0 right-0 max-h-[75vh] bg-white rounded-t-xl flex flex-col overflow-hidden z-200 translate-y-full transition-transform duration-200 ease-out;
 
-		&.open { @apply translate-y-0; }
+		&.open { @apply translate-y-0 duration-300 ease-drawer; }
 
 		.mobile-cart-header {
 			@apply p-4 border-b border-b-neutral-300 flex items-center justify-between;
@@ -636,9 +643,9 @@
 	}
 
 	#mobile-panel {
-		@apply lg:hidden fixed top-0 right-0 bottom-0 w-[min(20rem,100%)] rounded-l-xl bg-white flex flex-col overflow-hidden z-200 translate-x-full transition-transform duration-350 ease-in-out;
+		@apply lg:hidden fixed top-0 right-0 bottom-0 w-[min(20rem,100%)] rounded-l-xl bg-white flex flex-col overflow-hidden z-200 translate-x-full transition-transform duration-200 ease-out;
 
-		&.open { @apply translate-x-0; }
+		&.open { @apply translate-x-0 duration-300 ease-drawer; }
 
 		.mobile-panel-header {
 			@apply p-4 border-b border-b-neutral-300 flex justify-between;
@@ -672,7 +679,7 @@
 					}
 
 					.account-details {
-						h5 { @apply text-base line-clamp-1 font-medium; }
+						.user-name { @apply block text-base line-clamp-1 font-medium; }
 						p  { @apply text-xs text-neutral-800; }
 					}
 				}
@@ -681,7 +688,7 @@
 			.shopchop-menu-mobile {
 				@apply border-t border-t-neutral-300;
 
-				h5.menu-heading {
+				.menu-heading {
 					@apply px-4 pt-4 pb-2 text-sm text-neutral-700;
 				}
 
@@ -728,10 +735,16 @@
 
 					/* Mobile sub-menu */
 					.sub-menu {
-						@apply hidden border-t border-t-neutral-300/50;
+						@apply hidden border-t border-t-neutral-300/50 opacity-0 -translate-y-1;
+						transition: opacity 200ms var(--ease-out), translate 200ms var(--ease-out), display 200ms allow-discrete;
 
 						&.is-open {
-							@apply block;
+							@apply block opacity-100 translate-y-0;
+
+							@starting-style {
+								opacity: 0;
+								translate: 0 -0.25rem;
+							}
 						}
 
 						.menu-item {
@@ -753,7 +766,7 @@
 			}
 
 			.shopchop-account-actions-mobile {
-				h5.account-heading {
+				.account-heading {
 					@apply px-4 pt-4 pb-2 text-sm text-neutral-700;
 				}
 

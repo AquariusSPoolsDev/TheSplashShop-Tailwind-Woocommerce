@@ -144,19 +144,28 @@
 		let isHovering = false;
 
 		// Hover preview only: the trigger is a plain link to the full page, so no aria-expanded.
+		// CSS animates .is-open (fade + 4px drop); display is switched around it.
+		let hideTimer;
 		function show() {
 			if (onShow) onShow();
-			dropdown.fadeIn(200);
+			clearTimeout(hideTimer);
+			dropdown.css('display', 'block');
+			void dropdown[0].offsetWidth; // commit display:block so the transition runs
+			dropdown.addClass('is-open');
 			wrapper.addClass('dropdown-active');
 		}
 
 		function hide() {
-			dropdown.fadeOut(200);
+			dropdown.removeClass('is-open');
 			wrapper.removeClass('dropdown-active');
+			clearTimeout(hideTimer);
+			hideTimer = setTimeout(() => {
+				if (!dropdown.hasClass('is-open')) dropdown.css('display', 'none');
+			}, 160);
 		}
 
 		function toggle() {
-			dropdown.is(':visible') ? hide() : show();
+			dropdown.hasClass('is-open') ? hide() : show();
 		}
 
 		// ── Hover (desktop) ───────────────────────────────────────────────
@@ -1470,7 +1479,7 @@
 			$(document.body).on('added_to_cart', () => {
 				miniCart.markStale();
 
-				if (!dropdownEl.is(':visible')) {
+				if (!dropdownEl.hasClass('is-open')) {
 					dropdown.show();
 					setTimeout(() => {
 						if (!isHoveringCart) dropdown.hide();
@@ -1776,8 +1785,10 @@
 				const btn = document.createElement('button');
 				btn.className = 'mobile-submenu-toggle';
 				btn.setAttribute('aria-expanded', 'false');
+				subMenu.id = subMenu.id || `mobile-submenu-${item.id || Math.random().toString(36).slice(2, 8)}`;
+				btn.setAttribute('aria-controls', subMenu.id);
 				btn.setAttribute('aria-label', `Toggle ${link.textContent.trim()} sub-menu`);
-				btn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 256 256"><path d="M181.66,133.66l-80,80a8,8,0,0,1-11.32-11.32L164.69,128,90.34,53.66a8,8,0,0,1,11.32-11.32l80,80A8,8,0,0,1,181.66,133.66Z"></path></svg>`;
+				btn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 256 256" aria-hidden="true"><path d="M181.66,133.66l-80,80a8,8,0,0,1-11.32-11.32L164.69,128,90.34,53.66a8,8,0,0,1,11.32-11.32l80,80A8,8,0,0,1,181.66,133.66Z"></path></svg>`;
 				item.appendChild(btn);
 
 				btn.addEventListener('click', (e) => {
