@@ -385,14 +385,15 @@
 		@apply hidden lg:block lg:border-t lg:border-t-neutral-300;
 
 		#main-header-menu-primary.menu {
-			@apply lg:flex lg:items-stretch lg:justify-center lg:gap-x-1;
+			@apply lg:flex lg:items-stretch lg:justify-center xl:gap-x-1;
 
 			/* Top-level items */
 			> .menu-item {
 				@apply lg:relative lg:flex;
 
+				/* Labels stay on one line; tighter padding until there is room (xl) */
 				> a {
-					@apply lg:flex lg:items-center lg:gap-2 lg:px-5 lg:py-3.5 lg:font-medium lg:text-secondary-800;
+					@apply lg:flex lg:items-center lg:gap-1.5 xl:gap-2 lg:px-2.5 xl:px-5 lg:py-3.5 lg:font-medium lg:text-secondary-800 lg:whitespace-nowrap;
 					@apply lg:transition;
 					@apply lg:hover:bg-primary-50 lg:hover:text-primary-900;
 				}
@@ -419,6 +420,12 @@
 				&.menu-item-has-children:focus-within > a::after {
 					transform: rotate(180deg);
 					@apply fill-current;
+				}
+
+				/* The last two items open their dropdown leftwards so it never runs past the right edge
+				   (a hidden dropdown still widens the page and causes sideways scroll) */
+				&:nth-last-child(-n+2) > .sub-menu {
+					@apply lg:left-auto lg:right-0;
 				}
 
 				/* Show sub-menu on hover */

@@ -132,6 +132,21 @@ add_action( 'woocommerce_after_shop_loop_item', function () {
 	echo '</div>'; // .product-actions
 }, 11 );
 
+/**
+ * Product names are H3 in loops that sit under their own section H2 (homepage
+ * carousels, related, up-sells, cross-sells, recently viewed). Shop and category
+ * pages keep WC's H2, which sits directly under the page H1.
+ */
+remove_action( 'woocommerce_shop_loop_item_title', 'woocommerce_template_loop_product_title', 10 );
+add_action( 'woocommerce_shop_loop_item_title', 'shopchop_loop_product_title', 10 );
+
+function shopchop_loop_product_title() {
+	$nested = array( 'shopchop-products-carousel', 'related', 'up-sells', 'cross-sells', 'shopchop-recently-viewed' );
+	$tag    = in_array( wc_get_loop_prop( 'name' ), $nested, true ) ? 'h3' : 'h2';
+	$class  = apply_filters( 'woocommerce_product_loop_title_classes', 'woocommerce-loop-product__title' );
+
+	echo '<' . $tag . ' class="' . esc_attr( $class ) . '">' . get_the_title() . '</' . $tag . '>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- same as WC core's title output
+}
 
 
 /**

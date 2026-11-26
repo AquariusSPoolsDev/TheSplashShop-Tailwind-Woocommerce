@@ -83,6 +83,7 @@ function shopchop_recently_viewed_section() {
 			<?php esc_html_e( 'Recently viewed', 'shopchop' ); ?>
 		</h2>
 		<?php
+		wc_set_loop_prop( 'name', 'shopchop-recently-viewed' );
 		woocommerce_product_loop_start();
 
 		while ( $query->have_posts() ) {

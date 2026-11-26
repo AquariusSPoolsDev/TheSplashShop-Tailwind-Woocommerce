@@ -28,19 +28,13 @@ $is_minimal_page = is_checkout() ||
 				<div class="col-span-full lg:col-span-2">
 					<div class="footer-brand">
 
-						<?php 
-						if (has_custom_logo()) {
-							$custom_logo_id = get_theme_mod('custom_logo');
-							$logo = wp_get_attachment_image_src($custom_logo_id, 'full');
-							$logo_src = $logo[0];
-						} else {
-							$logo_src = get_stylesheet_directory_uri() . '/assets/images/logo.png';
-						}
-						?>
+						<?php list($logo_src, $logo_w, $logo_h) = shopchop_logo_image(); ?>
 
 						<a href="<?php echo esc_url(home_url('/')); ?>" class="block">
 							<img
 								src="<?php echo esc_url($logo_src); ?>"
+								width="<?php echo (int) $logo_w; ?>"
+								height="<?php echo (int) $logo_h; ?>"
 								alt="<?php bloginfo('name'); ?>"
 								title="<?php bloginfo('name'); ?>"
 								class="h-20 w-auto drop-shadow-background drop-shadow-sm mb-4">

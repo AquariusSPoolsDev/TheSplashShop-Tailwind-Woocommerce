@@ -140,7 +140,7 @@
 		@apply flex flex-col items-center gap-6 lg:flex-row lg:items-center lg:justify-center lg:gap-8;
 
 		.brand-distributor-heading {
-			@apply text-2xl lg:text-4xl text-center lg:text-start font-bold text-primary-50 lg:flex-shrink-0;
+			@apply text-2xl lg:text-3xl xl:text-4xl text-center lg:text-start font-bold text-primary-50 lg:flex-shrink-0;
 		}
 
 		.brand-logo-divider {
@@ -148,16 +148,16 @@
 		}
 
 		.brand-logo-grid {
-			@apply grid grid-cols-2 gap-4 lg:flex lg:flex-wrap lg:gap-6;
+			/* Logos sit beside the heading on one row from lg; they wrap only when there are more than fit */
+			@apply grid grid-cols-2 gap-4 lg:flex lg:flex-wrap lg:gap-4 xl:gap-6 lg:min-w-0;
 		}
 
 		.brand-logo-item {
-			@apply lg:w-55 h-auto bg-white rounded-lg flex justify-center items-center p-4 shadow-[0_1px_2px_rgba(0,0,0,0.06),0_4px_12px_rgba(0,0,0,0.08)];
+			@apply lg:w-44 xl:w-55 h-auto bg-white rounded-lg flex justify-center items-center p-4 shadow-[0_1px_2px_rgba(0,0,0,0.06),0_4px_12px_rgba(0,0,0,0.08)];
 
+			/* Full colour: touch screens can't hover, and partners' logos shouldn't look faded */
 			.brand-logo-img {
-				@apply max-w-40 h-auto grayscale opacity-60 transition duration-300;
-				@apply group-hover:scale-105 group-hover:grayscale-0 group-hover:opacity-100;
-				@apply group-active:grayscale-0 group-active:opacity-100;
+				@apply max-w-full xl:max-w-40 h-auto transition duration-300 group-hover:scale-105;
 			}
 		}
 	}

@@ -7,6 +7,22 @@
  * @package ShopChop
  */
 
+if ( ! function_exists( 'shopchop_logo_image' ) ) :
+	/**
+	 * Logo for the header and footer: [ url, width, height ].
+	 * Custom logo if set, otherwise the web-sized theme logo (logo.png stays full size for emails).
+	 */
+	function shopchop_logo_image() {
+		if ( has_custom_logo() ) {
+			$image = wp_get_attachment_image_src( get_theme_mod( 'custom_logo' ), 'full' );
+			if ( $image ) {
+				return array( $image[0], $image[1], $image[2] );
+			}
+		}
+		return array( get_stylesheet_directory_uri() . '/assets/images/logo-web.png', 416, 240 );
+	}
+endif;
+
 if ( ! function_exists( 'shopchop_render_logo' ) ) :
 	/**
 	 * Outputs the site logo — custom logo if set, otherwise fallback image.
@@ -14,15 +30,13 @@ if ( ! function_exists( 'shopchop_render_logo' ) ) :
 	 * @param string $img_class Tailwind classes applied to the <img> element.
 	 */
 	function shopchop_render_logo( $img_class = 'h-16 w-auto shrink-0' ) {
-		if ( has_custom_logo() ) {
-			$logo_src = wp_get_attachment_image_src( get_theme_mod( 'custom_logo' ), 'full' )[0];
-		} else {
-			$logo_src = get_stylesheet_directory_uri() . '/assets/images/logo.png';
-		}
+		list( $logo_src, $logo_w, $logo_h ) = shopchop_logo_image();
 		?>
 		<a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="block">
 			<img
 				src="<?php echo esc_url( $logo_src ); ?>"
+				width="<?php echo (int) $logo_w; ?>"
+				height="<?php echo (int) $logo_h; ?>"
 				alt="<?php bloginfo( 'name' ); ?>"
 				title="<?php bloginfo( 'name' ); ?>"
 				class="<?php echo esc_attr( $img_class ); ?>">
