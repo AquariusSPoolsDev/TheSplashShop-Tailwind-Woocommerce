@@ -20,8 +20,21 @@
 		}
 	}
 
+	/* Self-contained: core's social-links CSS doesn't always load (e.g. logged-out + LiteSpeed). */
+	.wp-block-social-links {
+		@apply flex flex-wrap gap-2 list-none p-0 m-0;
+	}
+
 	.wp-block-social-link {
 		@apply bg-primary-700 text-background transition rounded-sm transform-none! hover:bg-primary-900 active:bg-primary-900 focus-visible:bg-primary-900;
+
+		.wp-block-social-link-anchor {
+			@apply flex items-center justify-center size-11 p-0 text-background no-underline!;
+
+			svg {
+				@apply size-6 fill-current;
+			}
+		}
 	}
 
 	h5 {
