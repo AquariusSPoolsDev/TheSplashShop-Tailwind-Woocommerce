@@ -290,12 +290,20 @@ function shopchop_handle_pool_profile_actions() {
 			update_post_meta( $post_id, '_last_service_date', $service );
 			update_post_meta( $post_id, '_pool_notes', $notes );
 
-			// Optional photo upload — images only, max 10MB.
+			// Optional photo upload — images only, max 10MB (or the server's lower limit).
+			$photo_error = '';
 			if ( ! empty( $_FILES['pool_photo']['name'] ) ) {
-				$max_size = 10 * MB_IN_BYTES;
+				$max_size     = min( 10 * MB_IN_BYTES, wp_max_upload_size() );
+				$upload_error = isset( $_FILES['pool_photo']['error'] ) ? (int) $_FILES['pool_photo']['error'] : UPLOAD_ERR_OK;
+				/* translators: %s: maximum file size, e.g. 10 MB */
+				$too_large = sprintf( __( 'Pool photo is too large. Maximum file size is %s.', 'shopchop' ), size_format( $max_size ) );
 
-				if ( isset( $_FILES['pool_photo']['size'] ) && (int) $_FILES['pool_photo']['size'] > $max_size ) {
-					wc_add_notice( __( 'Pool photo is too large. Maximum file size is 10MB.', 'shopchop' ), 'error' );
+				if ( in_array( $upload_error, array( UPLOAD_ERR_INI_SIZE, UPLOAD_ERR_FORM_SIZE ), true ) ) {
+					$photo_error = $too_large;
+				} elseif ( UPLOAD_ERR_OK !== $upload_error ) {
+					$photo_error = __( 'Pool photo could not be uploaded. Please try again.', 'shopchop' );
+				} elseif ( isset( $_FILES['pool_photo']['size'] ) && (int) $_FILES['pool_photo']['size'] > $max_size ) {
+					$photo_error = $too_large;
 				} else {
 					require_once ABSPATH . 'wp-admin/includes/image.php';
 					require_once ABSPATH . 'wp-admin/includes/file.php';
@@ -311,7 +319,7 @@ function shopchop_handle_pool_profile_actions() {
 					) );
 
 					if ( is_wp_error( $attachment_id ) ) {
-						wc_add_notice( __( 'Pool photo must be a JPG, PNG, or HEIC image.', 'shopchop' ), 'error' );
+						$photo_error = __( 'Pool photo must be a JPG, PNG, or HEIC image.', 'shopchop' );
 					} else {
 						$previous = (int) get_post_meta( $post_id, '_pool_photo_id', true );
 						update_post_meta( $post_id, '_pool_photo_id', $attachment_id );
@@ -322,7 +330,12 @@ function shopchop_handle_pool_profile_actions() {
 				}
 			}
 
-			wc_add_notice( $profile_id ? __( 'Pool profile updated.', 'shopchop' ) : __( 'Pool profile added.', 'shopchop' ) );
+			// One message: a rejected photo says the rest was still saved, instead of an error next to "updated".
+			if ( $photo_error ) {
+				wc_add_notice( $photo_error . ' ' . __( 'Your other details were saved.', 'shopchop' ), 'error' );
+			} else {
+				wc_add_notice( $profile_id ? __( 'Pool profile updated.', 'shopchop' ) : __( 'Pool profile added.', 'shopchop' ) );
+			}
 		}
 
 		wp_safe_redirect( $account_url );
