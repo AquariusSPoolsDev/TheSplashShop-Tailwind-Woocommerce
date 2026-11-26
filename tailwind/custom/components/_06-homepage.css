@@ -1,13 +1,24 @@
 /**
  * ShopChop Homepage
  *
- * border-y rule: sections that self-frame via a gradient/full-bleed background
- * (Hero, Brand Logos, Promo Banner) or whose content already reads as a distinct
- * block via per-card borders (Category Grid, Products Carousel) skip a section
- * divider. Flat-tinted (bg-neutral-50) or dense icon-bar sections (USP Bar,
- * Testimonials, Blog Grid) get border-y to separate them from plain white
- * neighbors. Keep this rule in mind before adding/removing border-y on a section.
+ * Section borders and background come from the plugin's "Section Style" controls
+ * (.shopchop-section modifiers below). Defaults keep the original rule: sections
+ * that self-frame (Hero, Brand Logos, Promo Banner) or read as blocks via card
+ * borders (Category Grid, Products Carousel) have no borders; USP Bar,
+ * Testimonials, Blog Grid and Membership default to top + bottom borders.
  */
+
+/* Section Style controls: each widget keeps its own border colour and default background */
+:where(.shopchop-section) {
+	@apply border-neutral-300;
+}
+
+.shopchop-section {
+	&.section-border-top { @apply border-t; }
+	&.section-border-bottom { @apply border-b; }
+	&.section-bg-white { @apply bg-white; }
+	&.section-bg-grey { @apply bg-neutral-50; }
+}
 
 /* Override the container constraints from .shopchop-main-content-wrapper */
 .shopchop-homepage-wrapper {
@@ -71,7 +82,7 @@
 
 /* ── Hero Carousel Simple ── */
 .shopchop-hero-simple {
-	@apply relative overflow-hidden bg-secondary-700 py-24 lg:py-32;
+	@apply relative overflow-hidden bg-secondary-700 py-16 lg:py-24;
 
 	.hero-simple-bg {
 		@apply absolute inset-0 overflow-hidden;
@@ -89,11 +100,11 @@
 		@apply relative z-1 flex flex-col items-center text-center max-w-2xl mx-auto;
 
 		.hero-simple-eyebrow {
-			@apply text-sm font-bold uppercase tracking-widest text-primary-300 text-shadow-md/30 text-shadow-foreground;
+			@apply text-sm font-semibold text-primary-300 text-shadow-md/30 text-shadow-foreground;
 		}
 
 		.hero-simple-heading {
-			@apply mt-2 text-2xl sm:text-3xl lg:text-5xl font-extrabold text-background leading-tight tracking-tight text-shadow-md/30 text-shadow-foreground;
+			@apply mt-2 text-2xl sm:text-3xl lg:text-5xl font-bold text-background leading-tight tracking-tight text-shadow-md/30 text-shadow-foreground;
 		}
 
 		.hero-simple-subheading {
@@ -120,7 +131,7 @@
 
 /* ── Brand Logos ── */
 .shopchop-brand-logos {
-	@apply py-16 bg-linear-to-br from-primary-900 to-primary-950;
+	@apply py-10 lg:py-14 bg-linear-to-br from-primary-900 to-primary-950;
 	background-image:
 		url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='2' cy='2' r='1.5' fill='%23ffffff' fill-opacity='0.08'/%3E%3C/svg%3E"),
 		linear-gradient(to bottom right, var(--color-primary-900), var(--color-primary-950));
@@ -129,7 +140,7 @@
 		@apply flex flex-col items-center gap-6 lg:flex-row lg:items-center lg:justify-center lg:gap-8;
 
 		.brand-distributor-heading {
-			@apply text-2xl lg:text-4xl text-center lg:text-start font-extrabold bg-linear-to-br from-primary-50 to-primary-100 bg-clip-text text-transparent lg:flex-shrink-0;
+			@apply text-2xl lg:text-4xl text-center lg:text-start font-bold text-primary-50 lg:flex-shrink-0;
 		}
 
 		.brand-logo-divider {
@@ -154,13 +165,13 @@
 
 /* ── Category Grid ── */
 .shopchop-category-grid {
-	@apply py-16;
+	@apply py-10 lg:py-14;
 
 	.category-grid-heading-wrap {
 		@apply text-center lg:text-start mb-6;
 
 		.category-heading {
-			@apply text-2xl lg:text-4xl font-extrabold bg-linear-to-br from-secondary-800 to-secondary-950 bg-clip-text text-transparent;
+			@apply text-2xl lg:text-4xl font-bold text-secondary-900;
 		}
 
 		.category-subheading {
@@ -221,7 +232,7 @@
 
 /* ── USP Bar ── */
 .shopchop-usp-bar {
-	@apply py-16 border-y border-neutral-300/50 relative overflow-hidden bg-white;
+	@apply py-10 lg:py-14 border-neutral-300/50 relative overflow-hidden bg-white;
 
 	/* Ensure content sits above aurora */
 	> * {
@@ -230,7 +241,7 @@
 	}
 
 	.usp-heading {
-		@apply text-2xl lg:text-4xl text-center font-extrabold bg-linear-to-br from-secondary-800 to-secondary-950 bg-clip-text text-transparent mb-8;
+		@apply text-2xl lg:text-4xl text-center font-bold text-secondary-900 mb-8;
 	}
 
 	.usp-grid {
@@ -264,7 +275,7 @@
 
 /* ── Products Carousel ── */
 .shopchop-products-carousel {
-	@apply py-16;
+	@apply py-10 lg:py-14;
 
 	.products-carousel-header {
 		@apply flex flex-col lg:flex-row lg:items-start lg:justify-between gap-3 mb-8;
@@ -274,7 +285,7 @@
 		@apply flex flex-col gap-1;
 
 		.products-carousel-heading {
-			@apply text-2xl lg:text-4xl font-extrabold bg-linear-to-br from-secondary-800 to-secondary-950 bg-clip-text text-transparent;
+			@apply text-2xl lg:text-4xl font-bold text-secondary-900;
 		}
 
 		.products-carousel-description {
@@ -425,7 +436,7 @@
 
 /* ── Promo Banner ── */
 .shopchop-promo-banner {
-	@apply py-16;
+	@apply py-10 lg:py-14;
 	background-image:
 		url("data:image/svg+xml,%3Csvg width='100' height='20' viewBox='0 0 100 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M21.184 20c.357-.13.72-.264 1.088-.402l1.768-.661C33.64 15.347 39.647 14 50 14c10.271 0 15.362 1.222 24.629 4.928.955.383 1.869.74 2.75 1.072h6.225c-2.51-.73-5.139-1.691-8.233-2.928C65.888 13.278 60.562 12 50 12c-10.626 0-16.855 1.397-26.66 5.063l-1.767.662c-2.475.923-4.66 1.674-6.724 2.275h6.335zm0-20C13.258 2.892 8.077 4 0 4V2c5.744 0 9.951-.574 14.85-2h6.334zM77.38 0C85.239 2.966 90.502 4 100 4V2c-6.842 0-11.386-.542-16.396-2h-6.225zM0 14c8.44 0 13.718-1.21 22.272-4.402l1.768-.661C33.64 5.347 39.647 4 50 4c10.271 0 15.362 1.222 24.629 4.928C84.112 12.722 89.438 14 100 14v-2c-10.271 0-15.362-1.222-24.629-4.928C65.888 3.278 60.562 2 50 2 39.374 2 33.145 3.397 23.34 7.063l-1.767.662C13.223 10.84 8.163 12 0 12v2z' fill='%23ffffff' fill-opacity='0.06' fill-rule='evenodd'/%3E%3C/svg%3E"),
 		linear-gradient(to bottom right, var(--color-secondary-800), var(--color-secondary-950));
@@ -437,7 +448,7 @@
 			@apply flex flex-col gap-2;
 
 			.promo-banner-heading {
-				@apply text-2xl lg:text-4xl font-extrabold text-background leading-tight tracking-tight;
+				@apply text-2xl lg:text-4xl font-bold text-background leading-tight tracking-tight;
 			}
 
 			.promo-banner-description {
@@ -465,7 +476,7 @@
 
 /* ── Product Spotlight ── */
 .shopchop-product-spotlight {
-	@apply py-16 lg:py-24;
+	@apply py-12 lg:py-20;
 
 	&.spotlight-bg-primary {
 		background-image:
@@ -499,11 +510,11 @@
 			@apply flex flex-col gap-5 lg:col-span-2;
 
 			.spotlight-badge {
-				@apply inline-flex w-max px-4 py-1.5 rounded-full bg-linear-to-br from-primary-800 to-primary-950 text-background font-semibold uppercase tracking-wide;
+				@apply inline-flex w-max text-sm font-semibold text-primary-800;
 			}
 
 			.spotlight-heading {
-				@apply text-3xl lg:text-5xl font-extrabold bg-linear-to-br from-secondary-800 to-secondary-950 bg-clip-text text-transparent leading-tight tracking-tight;
+				@apply text-3xl lg:text-5xl font-bold text-secondary-900 leading-tight tracking-tight;
 			}
 
 			.spotlight-description {
@@ -536,13 +547,13 @@
 
 /* ── Testimonials Carousel ── */
 .shopchop-testimonials-carousel {
-	@apply py-16 bg-neutral-50 border-y border-neutral-300;
+	@apply py-10 lg:py-14 bg-neutral-50 border-neutral-300;
 
 	.testimonials-header {
 		@apply mb-10 flex flex-col gap-2 text-center;
 
 		.testimonials-heading {
-			@apply text-2xl lg:text-4xl font-extrabold bg-linear-to-br from-secondary-800 to-secondary-950 bg-clip-text text-transparent;
+			@apply text-2xl lg:text-4xl font-bold text-secondary-900;
 		}
 
 		.testimonials-description {
@@ -623,13 +634,17 @@
 
 /* ── Blog Posts Grid ── */
 .shopchop-blog-posts-grid {
-	@apply py-16 bg-neutral-50 border-y border-neutral-300;
+	@apply py-10 lg:py-14 bg-neutral-50 border-neutral-300;
 
 	.blog-grid-header {
-		@apply mb-10 flex flex-col gap-2;
+		@apply mb-10 flex flex-col lg:flex-row lg:items-start lg:justify-between gap-3;
+	}
+
+	.blog-grid-header-text {
+		@apply flex flex-col gap-2;
 
 		.blog-grid-heading {
-			@apply text-2xl lg:text-4xl font-extrabold bg-linear-to-br from-secondary-800 to-secondary-950 bg-clip-text text-transparent;
+			@apply text-2xl lg:text-4xl font-bold text-secondary-900;
 		}
 
 		.blog-grid-description {
@@ -711,26 +726,22 @@
 		}
 	}
 
-	.blog-grid-footer {
-		@apply mt-10 flex justify-center;
+	.blog-grid-view-all {
+		@apply inline-flex items-center gap-1.5 text-base lg:text-lg font-bold text-primary transition hover:text-primary-950 active:text-primary-950 flex-shrink-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary focus-visible:rounded-sm;
 
-		.blog-grid-view-all {
-			@apply inline-flex items-center gap-2 px-8 py-3 rounded-lg border-2 border-primary text-primary font-semibold transition hover:bg-primary hover:text-background active:bg-primary active:text-background active:scale-[0.97];
+		svg {
+			@apply w-5 h-5 transition-transform duration-200;
+		}
 
-			svg {
-				@apply w-4.5 h-4.5 transition;
-			}
-
-			&:hover svg, &:active svg {
-				@apply translate-x-0.5;
-			}
+		&:hover svg, &:active svg {
+			@apply translate-x-1;
 		}
 	}
 }
 
 /* ── New Membership Benefit ── */
 .shopchop-membership-benefit {
-	@apply py-16 lg:py-0 bg-white border-y border-neutral-200;
+	@apply py-10 lg:py-0 bg-white border-neutral-200;
 
 	.membership-benefit-inner {
 		@apply grid grid-cols-1 items-center gap-8 lg:grid-cols-5 lg:gap-16;
@@ -742,11 +753,11 @@
 				@apply flex flex-col items-center lg:items-start text-center lg:text-left;
 
 				.membership-benefit-pill {
-					@apply mb-4 inline-flex w-max px-4 py-1.5 rounded-full bg-linear-to-br from-primary-800 to-primary-950 text-background font-semibold uppercase tracking-wide;
+					@apply mb-2 inline-flex w-max text-sm font-semibold text-primary-800;
 				}
 
 				.membership-benefit-heading {
-					@apply mb-2 text-3xl lg:text-5xl font-extrabold bg-linear-to-br from-secondary-800 to-secondary-950 bg-clip-text text-transparent leading-tight tracking-tight;
+					@apply mb-2 text-3xl lg:text-5xl font-bold text-secondary-900 leading-tight tracking-tight;
 				}
 
 				.membership-benefit-subheading {
@@ -793,7 +804,7 @@
 			@apply w-full order-2 lg:order-1 lg:col-span-2;
 
 			.membership-benefit-image {
-				@apply w-full h-auto aspect-square lg:aspect-[4/5] object-cover object-top rounded-xl lg:object-contain lg:rounded-none;
+				@apply w-full h-auto aspect-square lg:aspect-[4/5] object-cover object-top rounded-xl lg:object-contain lg:object-bottom lg:rounded-none;
 			}
 		}
 	}
@@ -815,7 +826,7 @@
 		@apply relative z-1 flex flex-col items-center text-center max-w-lg mx-auto;
 
 		.contact-section-heading {
-			@apply text-3xl lg:text-4xl font-extrabold bg-linear-to-br from-secondary-800 to-secondary-950 bg-clip-text text-transparent leading-tight tracking-tight;
+			@apply text-3xl lg:text-4xl font-bold text-secondary-900 leading-tight tracking-tight;
 		}
 
 		.contact-section-subheading {

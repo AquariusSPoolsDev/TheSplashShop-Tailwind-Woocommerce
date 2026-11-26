@@ -4,50 +4,52 @@
  *         payment selection (styles shared via _00-shared.css)
  */
 
-.classic-checkout {
-	.checkout_coupon,
-	.woocommerce-form-login {
-		@apply bg-white border border-neutral-300 rounded-xl p-4 lg:p-6 flex flex-wrap gap-4 overflow-hidden mb-8;
+.classic-checkout .checkout_coupon,
+.classic-checkout .woocommerce-form-login,
+/* Login prompt WC shows on the order-received page to logged-out visitors */
+.woocommerce > .wc-global-form-login {
+	@apply bg-white border border-neutral-300 rounded-xl p-4 lg:p-6 flex flex-wrap gap-4 overflow-hidden mb-8;
 
-		.form-row {
-			@apply my-0 first:grow;
+	.form-row {
+		@apply my-0 first:grow;
 
-			input {
-				@apply max-w-full;
-			}
-
-			.coupon-error-notice {
-				@apply text-sm italic text-error-700;
-			}
+		input {
+			@apply max-w-full;
 		}
 
-		.button {
-			@apply px-5 normal-case text-base;
-		}
-
-		.form-fields {
-			@apply flex flex-col gap-4 lg:flex-row grow;
-
-			.form-row {
-				@apply lg:grow;
-			}
-		}
-
-		.form-verify {
-			@apply shrink-0 w-full lg:w-64;
-
-			.form-row { @apply flex flex-col gap-3; }
-
-			.button { @apply h-10 px-8; }
-
-			.lost_password {
-				@apply text-center mt-2;
-
-				a { @apply underline! text-primary-900; }
-			}
+		.coupon-error-notice {
+			@apply text-sm italic text-error-700;
 		}
 	}
 
+	.button {
+		@apply px-5 normal-case text-base;
+	}
+
+	.form-fields {
+		@apply flex flex-col gap-4 lg:flex-row grow;
+
+		.form-row {
+			@apply lg:grow;
+		}
+	}
+
+	.form-verify {
+		@apply shrink-0 w-full lg:w-64;
+
+		.form-row { @apply flex flex-col gap-3; }
+
+		.button { @apply h-10 px-8; }
+
+		.lost_password {
+			@apply text-center mt-2;
+
+			a { @apply underline! text-primary-900; }
+		}
+	}
+}
+
+.classic-checkout {
 	form.woocommerce-checkout {
 		@apply mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 md:gap-8 lg:gap-x-12;
 

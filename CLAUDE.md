@@ -16,12 +16,10 @@ Running locally via **Local by Flywheel** at `c:\Users\usoppii\Local Sites\websh
 | JS bundler  | esbuild                                                        |
 | PHP linting | PHPCS                                                          |
 | JS linting  | ESLint + Prettier                                              |
-| Fonts       | Bunny Fonts — DM Sans 300–800 + 400 italic (headings + body)|
+| Fonts       | Bunny Fonts — DM Sans 300–800 + 400/500 italic (headings + body)|
 | Carousel    | Swiper v12 (CDN)                                               |
-| Lightbox    | GLightbox (CDN)                                                |
-| Zoom        | medium-zoom (CDN, product page only)                           |
-| Animation   | @lottiefiles/dotlottie-web                                     |
-| WC gallery  | GLightbox replaces WC default lightbox; Swiper replaces slider |
+| WC gallery  | WC core zoom + lightbox (`wc-product-gallery-*` supports); Swiper replaces the slider |
+| Animation   | `@lottiefiles/dotlottie-web` is in package.json but not imported anywhere |
 
 ---
 
@@ -130,8 +128,10 @@ Hooks and filters live in `theme/inc/`, one file per feature. The § numbers are
 | ------------------------- | ------------------------------------------------------------------ |
 | WooCommerce               | Core shop engine                                                   |
 | YITH WooCommerce Wishlist | Wishlist — theme has override templates in `theme/woocommerce/` |
+| Elementor (free)          | Page builder for the homepage and content pages                    |
+| The Splash Shop Settings  | Companion plugin, own repo: `wp-content/plugins/SplashShop-WC-Theme-Settings` (keep this folder name). Settings page, admin columns, pool profile admin tab, and 18 ShopChop Elementor widgets |
 
-**Upcoming:** Custom Elementor widgets plugin (separate repo, separate Git). Will integrate with this theme via hooks/CSS. Plan to use multi-root VSCode workspace when plugin is ready.
+**Elementor widgets:** markup lives in the plugin (`widgets/*.php`), styling lives here (`tailwind/custom/components/_06-homepage.css`, `_00-shared.css`). Full-width homepage widgets share a "Section Style" control (background + top/bottom borders) via the plugin's `includes/trait-section-style.php`, styled by `.shopchop-section` modifiers. Static widgets are served from Elementor's element cache: after changing widget markup, clear it (Elementor → Tools → Clear Files & Data).
 
 ---
 
@@ -166,8 +166,7 @@ Nonce localized via `shopchopDynamicSearch.nonce` (JS object).
 
 - Repo tracked at theme root
 - Two contributors: `muhdyusuffrosli` (previous username owner), `usoppii` (current username owner)
-- ~16 commits, active development as of July 2026
 - `.claude/settings.local.json` allows `git add *` and `npm run *` without prompt
 - Two remotes: `origin` (`usoppii/TheSplashShop-Tailwind-Woocommerce`, fork) and `upstream` (`AquariusSPoolsDev/TheSplashShop-Tailwind-Woocommerce`, canonical). Local `main` tracks `upstream`.
-- Commits to `main` auto-push to `upstream` (confirmed via reflog, no manual `git push` needed). `origin` fork does NOT get this — needs manual authenticated push to stay in sync; no cached HTTPS credential or `gh auth` in this dev environment as of 2026-07-24.
-- Current version: **1.5.0**. Version lives in `tailwind/custom/file-header.css` (source), synced into `theme/style.css` + `theme/style-editor.css` on build — bump the source file, not the compiled ones.
+- Commits do **not** reliably auto-push. This shell has no GitHub credentials, so push from VS Code's Source Control panel; check with `git fetch --all` and `git log upstream/main..main`. `upstream` is the source of truth; the `origin` fork may lag.
+- Current version: **1.6.1**. Version lives in `tailwind/custom/file-header.css` (source), synced into `theme/style.css` + `theme/style-editor.css` on build — bump the source file, not the compiled ones.

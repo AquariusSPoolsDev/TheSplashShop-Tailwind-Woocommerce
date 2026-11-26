@@ -570,7 +570,7 @@
 	@apply pt-10 border-t border-neutral-200;
 
 	.recently-viewed-heading {
-		@apply mb-6 text-2xl lg:text-3xl font-extrabold bg-linear-to-br from-secondary-800 to-secondary-950 bg-clip-text text-transparent;
+		@apply mb-6 text-2xl lg:text-3xl font-bold text-secondary-900;
 	}
 
 	ul.products {

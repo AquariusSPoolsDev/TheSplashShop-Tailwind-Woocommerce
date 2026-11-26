@@ -22,12 +22,14 @@ defined('ABSPATH') || exit;
 ?>
 <div class="thank-you-title-wrapper">
 	<div class="">
-		<h2 class="woocommerce-order-received-title"><?php esc_html_e('Thank you!', 'woocommerce'); ?></h2>
+		<h1 class="woocommerce-order-received-title"><?php esc_html_e('Thank you!', 'woocommerce'); ?></h1>
 
 		<p class="woocommerce-notice woocommerce-notice--success woocommerce-thankyou-order-received">
 			<?php
 			// Define the base message
-			$base_text = __('Your order is being processed. A confirmation email has been sent to:', 'woocommerce');
+			$base_text = $order
+				? __('Your order is being processed. A confirmation email has been sent to:', 'woocommerce')
+				: __('Your order is being processed. Check your email for the confirmation.', 'shopchop');
 
 			// Apply the standard WooCommerce filter
 			$message = apply_filters('woocommerce_thankyou_order_received_text', $base_text, $order);

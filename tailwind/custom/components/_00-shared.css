@@ -67,10 +67,10 @@
  * not Elementor's own typography/color panels.
  */
 .shopchop-heading {
-	@apply mt-0 text-xl lg:text-3xl font-extrabold leading-tight;
+	@apply mt-0 text-xl lg:text-3xl font-bold leading-tight;
 
 	&.shopchop-heading-section {
-		@apply bg-linear-to-br from-secondary-800 to-secondary-950 bg-clip-text text-transparent;
+		@apply text-secondary-900;
 	}
 
 	&.shopchop-heading-simple {

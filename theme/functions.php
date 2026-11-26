@@ -405,6 +405,6 @@ if ( ! class_exists( 'WooCommerce' ) ) {
 	}, 0 );
 
 	add_action( 'admin_notices', function () {
-		echo '<div class="notice notice-error"><p>' . esc_html__( 'The ShopChop theme needs WooCommerce. Activate WooCommerce to show the store.', 'shopchop' ) . '</p></div>';
+		echo '<div class="notice notice-error"><p>' . esc_html__( 'The Splash Shop theme needs WooCommerce. Activate WooCommerce to show the store.', 'shopchop' ) . '</p></div>';
 	} );
 }

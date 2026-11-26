@@ -32,7 +32,7 @@ defined('ABSPATH') || exit;
 			<?php if ($order->has_status('failed')) : ?>
 				<div class="thank-you-title-wrapper">
 					<div class="">
-						<h2 class="woocommerce-order-received-title"><?php esc_html_e('Payment failed', 'woocommerce'); ?></h2>
+						<h1 class="woocommerce-order-received-title"><?php esc_html_e('Payment failed', 'woocommerce'); ?></h1>
 
 						<?php
 						$default_order_failed_text = esc_html__( 'Unfortunately your order cannot be processed as the originating bank/merchant has declined your transaction. Please attempt your purchase again.', 'woocommerce' );
