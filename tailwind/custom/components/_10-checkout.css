@@ -148,6 +148,23 @@
 		}
 
 		.woocommerce-terms-and-conditions-wrapper {
+			/* T&C page content WC slides open from the link. WC's own CSS for it is off (layout.php). */
+			.woocommerce-terms-and-conditions {
+				@apply mb-4 p-4 bg-white border border-neutral-300 rounded-lg text-sm text-neutral-700;
+
+				h2, h3, h4 {
+					@apply mt-4 mb-1 text-base font-semibold text-foreground;
+				}
+
+				p {
+					@apply mb-2 last:mb-0;
+				}
+
+				a {
+					@apply underline!;
+				}
+			}
+
 			.checkout-inline-error-message {
 				@apply text-sm mt-0.5 text-error-700;
 			}
